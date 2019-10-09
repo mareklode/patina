@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width">
   
-  <base href="http://mareklode.de/">
-  <title>mareklode | patina</title>
+      <title>mareklode | patina</title>
 
   <meta property="og:title" content="mareklode | patina" />
   <meta property="og:image" content="http://mareklode.de/bilder/page/v3/v3_rost4.png" />
@@ -18,8 +17,26 @@
 </head>
 <body class="content">
 
-  <header class="header">
-        <svg class="header__marek-logo" 
+  <header class="header js-require" 
+      data-require-name="backgroundImage" 
+      data-require-data='{
+          "width": 1024,
+          "height": 256,
+          "background": {
+              "category": "noise"
+          },
+          "filters": [
+              {
+                  "name": "distort",
+                  "radius": 128
+              },{
+                  "name": "opacity",
+                  "opacity": 0.33
+              }
+          ]
+      }'
+      style="background-size: contain; background-position: center center;">
+    <svg class="header__marek-logo" 
       xmlns="http://www.w3.org/2000/svg" 
       viewBox="0 0 370 120"                  
       aria-labelledby="title">
@@ -31,6 +48,26 @@
     </svg>
   </header>
   <main class="content__block">
+      <div style="background: grey; width: 256px; height: 256px;"
+          class="js-require" data-require-name="backgroundImage" 
+          data-require-data='{
+              "width": 256,
+              "height": 256,
+              "background": {
+                  "category": "noise"
+              },
+              "filters": [
+                  {
+                      "name": "distort",
+                      "radius": 128
+                  },{
+                      "name": "opacity",
+                      "opacity": 0.5
+                  }
+              ]
+          }'>
+          hier kommt die Patina 
+      </div>
   </main><!-- .content__block -->
 
   
@@ -38,7 +75,7 @@
       &copy; 2019 Marek Lode &nbsp
   </footer>
 
-  <script data-main="scripts/blog/main" src="scripts/blog/require.js"></script>
+  <script data-main="scripts/main" src="scripts/vendor/require.js"></script>
 
 </body>
 </html>
