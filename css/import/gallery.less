@@ -1,0 +1,38 @@
+
+/*
+#    ####    ##   #      #      ###### #####  #   #
+#   #    #  #  #  #      #      #      #    #  # #
+#   #      #    # #      #      #####  #    #   #
+#   #  ### ###### #      #      #      #####    #
+#   #    # #    # #      #      #      #   #    #
+#    ####  #    # ###### ###### ###### #    #   #
+http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=gallery
+*/
+.gallery-thumbnails {
+    .textElement;
+    @media @mobile {
+        width: 90vw;
+    }
+    @media @desktop {
+        margin: @unitY -1vw 4 * @unitY -1vw;
+        width: 19 * @unitX;
+    }
+    a {
+        margin: 1vw;
+        display: inline-block;
+        line-height: 0;
+        @media @desktop {
+            max-width: 36vw;
+        }
+        @media @mobile {
+            width: 43vw;
+            margin: 1vw;
+        }
+        @media @submobile {
+            width: 88vw;
+        }
+        img {
+            width: 100%;
+        }
+    }
+}

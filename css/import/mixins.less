@@ -1,0 +1,98 @@
+/*
+#   #     #
+#   ##   ## # #    # # #    #  ####
+#   # # # # #  #  #  # ##   # #
+#   #  #  # #   ##   # # #  #  ####
+#   #     # #   ##   # #  # #      #
+#   #     # #  #  #  # #   ## #    #
+#   #     # # #    # # #    #  ####
+http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Mixins
+*/
+
+.centerX {
+  display: -ms-flexbox;
+  -ms-flex-pack: center;
+  display: flex;
+  justify-content: center;
+}
+.centerXY {
+  .centerX;
+  align-items: center;
+}
+
+.marginLeftRightAuto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.beforeAfter {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.fontTextMobile {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+.fontTextDesktop {
+  font-size: 1.15rem;
+  line-height: 1.5rem;
+}
+.fontTextWidescreen {
+  font-size: 1.3rem;
+  line-height: 2rem;
+}
+.fontHeadingMobile {
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+  font-weight: normal;
+}
+.fontHeadingDesktop {
+  font-size: 1.4rem;
+  line-height: 1.8rem;
+  font-weight: normal;
+}
+
+.fontText {
+  font-weight: normal;
+  .fontTextMobile;
+  @media @desktop {
+      .fontTextDesktop;
+  }
+  @media @widescreen {
+      .fontTextWidescreen;
+  }
+}
+.fontHeading {
+  font-weight: bold;
+  .fontHeadingMobile;
+  @media @desktop {
+      .fontHeadingDesktop;
+  }
+}
+
+.textElement {
+    text-align: left;
+    @media @mobile {
+      margin: @unitY auto @unitY auto;
+      width: 22 * @unitX;
+    }
+}
+
+.buttonColors {
+    background-color: @buttonBackgroundColor;
+    &:hover,
+    &:active,
+    &:focus {
+        background-color: @buttonHoverBackgroundColor;
+        color: black;
+    }
+    &:active {
+        background-color: @buttonActiveBackgroundColor;
+        box-shadow: inset 0 0 5px rgba(0,0,0,0.25);
+    }
+}

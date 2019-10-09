@@ -1,0 +1,78 @@
+
+/*
+#   ###
+#    #   ####   ####  #    #  ####
+#    #  #    # #    # ##   # #
+#    #  #      #    # # #  #  ####
+#    #  #      #    # #  # #      #
+#    #  #    # #    # #   ## #    #
+#   ###  ####   ####  #    #  ####
+http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Icons
+*/
+.icon {
+  &__arrow-prev,
+  &__arrow-next {
+      &:before ,
+      &:after {
+        .beforeAfter;
+        background-color: white;
+        border-radius: 0.25vw;
+        width: 2vw;
+        @media @desktop {
+            width: 1vw;
+        }
+      }
+      &:before {
+        top: 25%;
+        bottom: 50%;
+      }
+      &:after {
+        top: 50%;
+        bottom: 25%;
+      }
+  }
+  &__arrow-prev {
+      &:before {
+          right: auto;
+          left: 4vw;
+          transform: rotate(45deg);
+          transform-origin: bottom left;
+      }
+      &:after {
+          right: auto;
+          left: 4vw;
+          transform: rotate(-45deg);
+          transform-origin: top left;
+      }
+  }
+  &__arrow-next {
+      &:before {
+          left: auto;
+          right: 4vw;
+          transform: rotate(-45deg);
+          transform-origin: bottom right;
+      }
+      &:after {
+          left: auto;
+          right: 4vw;
+          transform: rotate(45deg);
+          transform-origin: top right;
+      }
+  }
+  &__home:before {
+    content: '';
+    display: inline-block;
+    background: transparent url('../../bilder/blog/images/page/icons/head__navigation__home__icon.svg') center center no-repeat;
+    background-size: contain;
+    height: 8vw;
+    width: 6vw;
+    margin: -1vw 0;
+
+    @media @desktop {
+      height: 4.5vw;
+      width: 3vw;
+      margin-top: -3vw;
+      margin-bottom: -0.25vw;
+    }
+  }
+} // .icon

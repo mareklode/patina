@@ -1,0 +1,135 @@
+
+/*
+#  #######
+#     #    ######   ##    ####  ###### #####
+#     #    #       #  #  #      #      #    #
+#     #    #####  #    #  ####  #####  #    #
+#     #    #      ######      # #      #####
+#     #    #      #    # #    # #      #   #
+#     #    ###### #    #  ####  ###### #    #
+http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=Teaser
+*/
+
+.teaser {
+  //padding-top: 3 * @unitY;
+  padding-bottom: 2 * @unitY;
+  @media @desktop {
+    width: 19 * @unitX;
+    padding-bottom: 1 * @unitY;
+  }
+
+  &__heading,
+  &__text {
+    //.fontText;
+    .textElement;
+    width: 22 * @unitX;
+    @media @desktop {
+      width: 19 * @unitX;
+    }
+  }
+
+  &__heading {
+      margin-top: 2 * @unitY;
+      margin-bottom: 4 * @unitY;
+  }
+}
+
+
+
+/*
+#   #####
+#  #     #  ####  #    # ##### ###### #    # #####
+#  #       #    # ##   #   #   #      ##   #   #
+#  #       #    # # #  #   #   #####  # #  #   #
+#  #       #    # #  # #   #   #      #  # #   #
+#  #     # #    # #   ##   #   #      #   ##   #
+#   #####   ####  #    #   #   ###### #    #   #
+http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=Content
+*/
+
+.content {
+  text-align: center;
+  display: block;
+  @media @desktop {
+    margin-top: 0;
+  }
+  &__block {
+    padding-top: 2 * @unitY;
+    padding-bottom: 2 * @unitY;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    @media @desktop {
+      .centerX;
+      flex-direction: row;
+    }
+    &--dark {
+      background-color: #cde;
+    }
+  }
+}
+
+
+
+
+
+/*
+#  ######
+#  #     # #       ####   ####  #####   ####   ####  #####
+#  #     # #      #    # #    # #    # #    # #        #
+#  ######  #      #    # #      #    # #    #  ####    #
+#  #     # #      #    # #  ### #####  #    #      #   #
+#  #     # #      #    # #    # #      #    # #    #   #
+#  ######  ######  ####   ####  #       ####   ####    #
+http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=Blogpost
+*/
+
+.blogpost {
+    &__date {
+        //.textElement;
+        .fontText;
+        margin: 14px 0 0 @unitX;
+        @media @desktop {
+            float: right;
+            //margin-top: -2.5rem;
+        }
+    }
+    &__heading,
+    &__text {
+      //.fontText;
+      .textElement;
+      width: 22 * @unitX;
+      @media @desktop {
+        width: 19 * @unitX;
+      }
+    }
+    &__heading {
+        margin-top: 2 * @unitY;
+        margin-bottom: 4 * @unitY;
+        &--small {
+            margin-top: 4 * @unitY;
+            margin-bottom: 2 * @unitY;
+
+        }
+    }
+}
+
+
+
+/*
+#  ######  ####   ####  ##### ###### #####
+#  #      #    # #    #   #   #      #    #
+#  #####  #    # #    #   #   #####  #    #
+#  #      #    # #    #   #   #      #####
+#  #      #    # #    #   #   #      #   #
+#  #       ####   ####    #   ###### #    #
+http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=footer
+*/
+
+.footer {
+  padding: 5 * @unitY;
+  background-color: @backgroundColor;
+  color: white;
+  .fontText;
+  text-align: center;
+}
