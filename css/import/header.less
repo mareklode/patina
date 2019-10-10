@@ -13,31 +13,10 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
   height: 330px; // fallback für altes Motorola
   height: 33vw;
   background-color: @backgroundColor;
-  .author-Marek & {
-    background-image: url('../../bilder/blog/images/page/background/170305_Selbstbildnis_desktop.jpg');
-  }
-  .author-Monika & {
-    background-color: #436aad;
-    background-image: url('../../bilder/blog/images/page/background/170613_Sonnenbrille_desktop.jpg');
-  }
-  .author-Jakob & {
-    background-color: #6a6551;
-    background-image: url('../../bilder/jakobs-tagebuch/images/page/background/171116_dunklerHimmel_desktop.jpg');
-  }
-  // overflow: hidden; // warum, weiß ich nicht mehr
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   position: relative;
   @media @mobile {
-    .author-Marek & {
-      background-image: url('../../bilder/blog/images/page/background/170305_Selbstbildnis_mobile.jpg');
-    }
-    .author-Monika & {
-      background-image: url('../../bilder/blog/images/page/background/170613_Sonnenbrille_mobile.jpg');
-    }
-    .author-Jakob & {
-      background-image: url('../../bilder/jakobs-tagebuch/images/page/background/171116_dunklerHimmel_mobile.jpg');
-    }
     height: 67vw;
     max-height: 100vh;
   }
@@ -53,6 +32,10 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
     top: 50%;
     left: 39%;
     transform: translate(-50%, -50%);
+    font-size: 15vw;
+    line-height: 15vw;
+    color: white;
+    text-shadow: 0 0 1px black;
     path {
         fill: #fff;
     }

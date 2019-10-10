@@ -233,35 +233,15 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
 .header {
   height: 330px;
   height: 33vw;
-  background-color: #7f3122;
-  background-size: cover;
+  background-color: orangered;
+  background-size: contain;
   background-position: center;
   position: relative;
-}
-.author-Marek .header {
-  background-image: url('../../bilder/blog/images/page/background/170305_Selbstbildnis_desktop.jpg');
-}
-.author-Monika .header {
-  background-color: #436aad;
-  background-image: url('../../bilder/blog/images/page/background/170613_Sonnenbrille_desktop.jpg');
-}
-.author-Jakob .header {
-  background-color: #6a6551;
-  background-image: url('../../bilder/jakobs-tagebuch/images/page/background/171116_dunklerHimmel_desktop.jpg');
 }
 @media screen and (max-width: 599px) {
   .header {
     height: 67vw;
     max-height: 100vh;
-  }
-  .author-Marek .header {
-    background-image: url('../../bilder/blog/images/page/background/170305_Selbstbildnis_mobile.jpg');
-  }
-  .author-Monika .header {
-    background-image: url('../../bilder/blog/images/page/background/170613_Sonnenbrille_mobile.jpg');
-  }
-  .author-Jakob .header {
-    background-image: url('../../bilder/jakobs-tagebuch/images/page/background/171116_dunklerHimmel_mobile.jpg');
   }
 }
 .header__marek-logo {
@@ -276,6 +256,10 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
   top: 50%;
   left: 39%;
   transform: translate(-50%, -50%);
+  font-size: 15vw;
+  line-height: 15vw;
+  color: white;
+  text-shadow: 0 0 1px black;
 }
 .header__marek-logo path {
   fill: #fff;
@@ -354,89 +338,6 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
 @media screen and (min-width: 600px) {
   .header__navigation--prev {
     padding-left: 8vw;
-  }
-}
-/*
-#   ###
-#    #   ####   ####  #    #  ####
-#    #  #    # #    # ##   # #
-#    #  #      #    # # #  #  ####
-#    #  #      #    # #  # #      #
-#    #  #    # #    # #   ## #    #
-#   ###  ####   ####  #    #  ####
-http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Icons
-*/
-.icon__arrow-prev:before,
-.icon__arrow-next:before,
-.icon__arrow-prev:after,
-.icon__arrow-next:after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: white;
-  border-radius: 0.25vw;
-  width: 2vw;
-}
-@media screen and (min-width: 600px) {
-  .icon__arrow-prev:before,
-  .icon__arrow-next:before,
-  .icon__arrow-prev:after,
-  .icon__arrow-next:after {
-    width: 1vw;
-  }
-}
-.icon__arrow-prev:before,
-.icon__arrow-next:before {
-  top: 25%;
-  bottom: 50%;
-}
-.icon__arrow-prev:after,
-.icon__arrow-next:after {
-  top: 50%;
-  bottom: 25%;
-}
-.icon__arrow-prev:before {
-  right: auto;
-  left: 4vw;
-  transform: rotate(45deg);
-  transform-origin: bottom left;
-}
-.icon__arrow-prev:after {
-  right: auto;
-  left: 4vw;
-  transform: rotate(-45deg);
-  transform-origin: top left;
-}
-.icon__arrow-next:before {
-  left: auto;
-  right: 4vw;
-  transform: rotate(-45deg);
-  transform-origin: bottom right;
-}
-.icon__arrow-next:after {
-  left: auto;
-  right: 4vw;
-  transform: rotate(45deg);
-  transform-origin: top right;
-}
-.icon__home:before {
-  content: '';
-  display: inline-block;
-  background: transparent url('../../bilder/blog/images/page/icons/head__navigation__home__icon.svg') center center no-repeat;
-  background-size: contain;
-  height: 8vw;
-  width: 6vw;
-  margin: -1vw 0;
-}
-@media screen and (min-width: 600px) {
-  .icon__home:before {
-    height: 4.5vw;
-    width: 3vw;
-    margin-top: -3vw;
-    margin-bottom: -0.25vw;
   }
 }
 /*
@@ -588,7 +489,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=footer
 */
 .footer {
   padding: 5rem;
-  background-color: #7f3122;
+  background-color: orangered;
   color: white;
   font-weight: normal;
   font-size: 1rem;
@@ -720,111 +621,6 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
     margin-bottom: 2rem;
   }
 }
-.homepage-thumbnails {
-  text-align: left;
-}
-@media screen and (max-width: 599px) {
-  .homepage-thumbnails {
-    margin: 1rem auto 1rem auto;
-    width: 88vw;
-  }
-}
-@media screen and (max-width: 599px) {
-  .homepage-thumbnails {
-    width: 90vw;
-  }
-}
-@media screen and (min-width: 600px) {
-  .homepage-thumbnails {
-    margin: 1rem -1vw 4rem -1vw;
-    width: 76vw;
-  }
-}
-.homepage-thumbnails__heading {
-  color: white;
-  text-shadow: 0 0 1vw black;
-  line-height: 1em;
-  background-color: rgba(127, 49, 34, 0.75);
-  display: block;
-  padding: 1vw;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-.homepage-thumbnails li {
-  background-color: #d6c5d9;
-  margin: 1em;
-  margin: 1vw;
-  display: inline-block;
-  vertical-align: bottom;
-}
-.homepage-thumbnails li:hover,
-.homepage-thumbnails li:focus {
-  background-color: #e0d8e8;
-}
-.homepage-thumbnails li a {
-  display: block;
-  position: relative;
-}
-.homepage-thumbnails li a img {
-  width: 250px;
-  max-width: 100%;
-  min-height: 6em;
-  max-height: 167px;
-  line-height: 1em;
-  opacity: 0.75;
-  display: block;
-  margin: 0 auto;
-  background-color: #d6c5d9;
-}
-.homepage-thumbnails li a:hover img,
-.homepage-thumbnails li a:focus img {
-  opacity: 1;
-}
-.homepage-thumbnails li a:hover span.homepage-thumbnails__heading,
-.homepage-thumbnails li a:focus span.homepage-thumbnails__heading {
-  background-color: transparent;
-}
-@media screen and (min-width: 600px) {
-  .homepage-thumbnails li {
-    max-width: 36vw;
-  }
-}
-@media screen and (max-width: 599px) {
-  .homepage-thumbnails li {
-    width: 43vw;
-    margin: 1vw;
-  }
-}
-@media screen and (max-width: 299px) {
-  .homepage-thumbnails li {
-    width: 88vw;
-  }
-  .homepage-thumbnails li a img {
-    min-height: 55vw;
-  }
-}
-#disqus_thread {
-  text-align: left;
-  text-align: center;
-}
-@media screen and (max-width: 599px) {
-  #disqus_thread {
-    margin: 1rem auto 1rem auto;
-    width: 88vw;
-  }
-}
-@media screen and (min-width: 600px) {
-  #disqus_thread {
-    margin: 1rem auto 1rem auto;
-    width: 76vw;
-  }
-}
-.disqus_thread__activation-button {
-  padding: 1rem;
-  margin: 1rem auto;
-}
 /*
 #    ####    ##   #      #      ###### #####  #   #
 #   #    #  #  #  #      #      #      #    #  # #
@@ -877,24 +673,4 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=gallery
 }
 .gallery-thumbnails a img {
   width: 100%;
-}
-.chat--right,
-.chat--left {
-  padding: 0;
-  margin: 0.5rem auto;
-}
-.chat--left {
-  padding-right: 12vw;
-}
-.chat--right {
-  padding-left: 12vw;
-}
-.chat__metadata {
-  display: block;
-  opacity: 0.5;
-  margin-bottom: 1rem;
-  padding: 1rem 0 0 0;
-}
-.chat__metadata--right {
-  padding-left: 12vw;
 }
