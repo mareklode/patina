@@ -1,6 +1,6 @@
 define([], function() {
 
-    var backgroundImage_filters = {
+    var canvas = {
         newCanvas: function (width, height) {
             var newCanvas = document.createElement('canvas');
             newCanvas.width = width;
@@ -42,7 +42,7 @@ define([], function() {
                     ) / 4;
             } // getImgDataFuzzyGrey()
 
-            newCanvas.imgData = function (x, y, r, g, b, a) {
+            newCanvas.setImgData = function (x, y, r, g, b, a) {
                 var position = (y * newCanvas.width + x) * 4;
                 newCanvas.img.data[position + 0] = r;
                 newCanvas.img.data[position + 1] = g;
@@ -50,11 +50,11 @@ define([], function() {
                 if (a || a === 0) newCanvas.img.data[position + 3] = a;
             }
 
-            newCanvas.imgDataGray = function (x, y, c) {
-                newCanvas.imgData(x, y, c, c, c, 255);
+            newCanvas.setImgDataGray = function (x, y, c) {
+                newCanvas.setImgData(x, y, c, c, c, 255);
             }
 
-            newCanvas.imgDataAlpha = function (x, y, a) {
+            newCanvas.setImgDataAlpha = function (x, y, a) {
                 var position = (y * newCanvas.width + x) * 4;
                 newCanvas.img.data[position + 3] = newCanvas.img.data[position + 3] * a;
             }
@@ -62,7 +62,7 @@ define([], function() {
             return newCanvas;
         }, // newCanvas()
 
-    } // backgroundImage_filters
+    } // canvas
 
-    return backgroundImage_filters;
+    return canvas;
 });

@@ -33,7 +33,6 @@ define([], function() {
         // ToDo: make this private
         diamondSquareNoise: function (width) {
 
-            console.log('width: ', width);
             var max=0,
                 min=0,
                 aktX,aktY,
@@ -49,7 +48,8 @@ define([], function() {
                 displacementDistance,
                 averageColor, range = b,
                 chunkSize = b/2,// * b,
-                noiseMap = [];
+                noiseMap = [],
+                gräbengraben = false;
 
             console.log('noiseMapWidth: ', noiseMapWidth);
 
@@ -161,19 +161,36 @@ define([], function() {
                 bh = b/2;
             } // while
 
+            if (gräbengraben) {
+                console.log(max, min);
+                max = Math.abs(max > -min ? max : min) / 4;
+                console.log(max);
+            }
+
             // stretching to color space
-            var position,
-                stretchFromZeroTo = 255, // or 255
+            var stretchFromZeroTo = 255, // or 255
                 by = stretchFromZeroTo / (max - min); // how much to stretch
 
             for ( i = 0; i < noiseMapWidth; i++ ) {
                 for ( j = 0; j < noiseMapWidth; j++ ) {
-                    position = ( j * noiseMapWidth + i ) * 4;
+                    var ausgabe = false;
+                    if (Math.random() > 0.995) {
+                        ausgabe = true;
+                    }
+                    if (gräbengraben && noiseMap[i][j] < 0) {
+                        noiseMap[i][j] *= -1;
+                    }
                     noiseMap[i][j] = ( noiseMap[i][j]-min )*by;
                 }
             }
 
-            return noiseMap;
+            var noiseString = new Array();
+            for (var y = 0; y < width; y++) {
+                noiseMap[y].pop(); // every line was one pixel too long. I don't know why.
+                noiseString = noiseString.concat(noiseMap[y]);
+            }
+            // debugger
+            return noiseString;
 
         }, // diamondSquareNoise()
 

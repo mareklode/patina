@@ -178,6 +178,9 @@ h2 {
     width: 88vw;
   }
 }
+pre {
+  text-align: left;
+}
 .button {
   background-color: #d6c5d9;
   font-weight: normal;
@@ -403,6 +406,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=Content
 .content__block {
   padding-top: 2rem;
   padding-bottom: 2rem;
+  text-align: left;
   list-style-type: none;
   display: flex;
   flex-direction: column;

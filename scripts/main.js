@@ -2,10 +2,10 @@ require.config({
     //By default load any module IDs from js
     baseUrl: 'scripts',
     paths: {
-        backgroundImage:         'mel/mel_BackgroundImage',
-        backgroundImage_filters: 'mel/mel_BackgroundImage_filters',
-        backgroundImage_noise:   'mel/mel_BackgroundImage_noise',
-        backgroundImage_canvas:  'mel/mel_BackgroundImage_canvas',
+        patina:         'mel/mel_patina',
+        createPattern:  'mel/mel_createPattern',
+        canvas:         'mel/mel_canvas',
+        noise:          'mel/mel_noise',
     }
 });
 
@@ -53,36 +53,6 @@ var setupPage = function () {
 
 };
 
-setupPage();
-
-// https://gist.github.com/paulirish/1579671
-(function() {
-    var lastTime = 0;
-    var vendors = ['ms', 'moz', 'webkit', 'o'];
-    for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
-        window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
-        window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame']
-                                   || window[vendors[x]+'CancelRequestAnimationFrame'];
-    }
-    if (!window.requestAnimationFrame) {
-        window.requestAnimationFrame = function(callback, element) {
-            var currTime = new Date().getTime();
-            var timeToCall = Math.max(0, 16 - (currTime - lastTime));
-            var id = window.setTimeout(
-                function() { callback(currTime + timeToCall); },
-                timeToCall
-            );
-            lastTime = currTime + timeToCall;
-            return id;
-        };
-    }
-    if (!window.cancelAnimationFrame) {
-        window.cancelAnimationFrame = function(id) {
-            clearTimeout(id);
-        };
-    }
-}());
-
 // IE polyfill
 // https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent
 (function () {
@@ -100,3 +70,5 @@ setupPage();
 
   window.CustomEvent = CustomEvent;
 })();
+
+setupPage();

@@ -17,57 +17,113 @@
 </head>
 <body class="content">
 
-  <header class="header js-require" 
-      data-require-name="backgroundImage" 
-      data-require-data='{
-          "width": 512,
-          "height": 256,
-          "background": {
-              "category": "noise"
-          },
-          "filters": [
-              {
-                  "name": "distort",
-                  "radius": 128
-              },{
-                  "name": "opacity",
-                  "opacity": 0.33
-              }
-          ]
-      }'>
-    <div class="header__marek-logo">
-        Patina
-    </div>
-  </header>
-  <main class="content__block">
-      <div style="background: green; width: 90vw; height: 256px;"
-          class="js-require" data-require-name="backgroundImage" 
-          data-require-data='{
-              "width": 256,
-              "height": 256,
-              "background": {
-                  "category": "noise"
-              },
-              "filters": [
-                  {
-                      "name": "distort",
-                      "radius": 128
-                  },{
-                      "name": "opacity",
-                      "opacity": 0.5
-                  }
-              ]
-          }'>
-          hier kommt die Patina 
-      </div>
-  </main><!-- .content__block -->
+    <header class="header js-require" 
+        data-require-name="patina" 
+        data-require-data='{
+            "width": 256,
+            "height": 128,
+            "patina": {
+                "type"  :   "combination",
+                "topLayer"    : {
+                    "type"          : "createPattern",
+                    "name"          : "diamondSquareNoise"
+                },
+                "bottomLayer" : { 
+                    "type"          : "createPattern",
+                    "name"          : "sine",
+                    "parameters"    : {
+                        "direction"     : "rectangles",
+                        "period"        : 16,
+                        "color": {
+                            "r": 0, "g": 100, "b": 200
+                        }
+                    },
+                    "filters"       : [
+                        { "name": "blur", "radius": 10 }
+                    ]
+
+                }
+            }
+        }'
+        style="background-size: cover"
+    >
+        <div class="header__marek-logo">
+            Patina
+        </div>
+    </header>
+    <main class="content__block">
+        <pre style="background: green; width: 512px; height: 256px;"
+            class="js-require" 
+            data-require-name="patina" 
+            data-require-data='{
+                "width": 256,
+                "height": 256,
+                "patina": {
+                    "type"          : "createPattern",
+                    "name"          : "sine",
+                    "parameters"    : {
+                        "direction"     : "circular",
+                        "period"        : 8
+                    }
+                }
+            }'
+        >"patina": {
+    "type"          : "createPattern",
+    "name"          : "sine",
+    "direction"     : "circular",
+    "period"        : 8
+}
+        </pre>
+        <pre style="background: green; width: 512px; height: 256px;text-align: left"
+            class="js-require" 
+            data-require-name="patina" 
+            data-require-data='{
+                "width": 256,
+                "height": 256,
+                "patina": {
+                    "type"          : "createPattern",
+                    "name"          : "diamondSquareNoise"
+                }
+            }'
+        >"patina": {
+    "type"          : "createPattern",
+    "name"          : "diamondSquareNoise"
+}
+        </pre>
+        <pre style="background: green; width: 512px; height: 256px;text-align: left"
+            class="js-require" 
+            data-require-name="patina" 
+            data-require-data='{
+                "width": 256,
+                "height": 256,
+                "patina": {
+                    "type"          : "createPattern",
+                    "name"          : "whiteNoise"
+                }
+            }'
+        >"patina": {
+    "type"          : "createPattern",
+    "name"          : "whiteNoise"
+}
+        </pre>
+    </main><!-- .content__block -->
 
   
-  <footer class="footer">
-      &copy; 2019 Marek Lode &nbsp
-  </footer>
+    <footer class="footer js-require" 
+        data-require-name="patina" 
+        data-require-data='{
+            "width": 128,
+            "height": 128,
+            "patina": {
+                "type"          : "createPattern",
+                "name"          : "diamondSquareNoise"
+            }
+        }'
+    >
+        &copy; 2019 Marek Lode &nbsp
+    </footer>
 
-  <script data-main="scripts/main" src="scripts/vendor/require.js"></script>
+    <script data-main="scripts/main" src="scripts/vendor/require.js"></script>
 
 </body>
 </html>
