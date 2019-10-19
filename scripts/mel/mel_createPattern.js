@@ -16,7 +16,7 @@ define(['canvas', 'noise'], function( canvas, noise ) {
                     whiteNoise[x][y] = Math.floor(Math.random() * 256);
                 }
             }*/
-            return Array.from({length: width * height}, () => Math.floor(Math.random() * 256));
+            return Array.from( {length: width * height}, () => Math.random() );
         }
         if (layer.name === "sine") {
             var imageData = new Array( width * height ),
@@ -25,25 +25,25 @@ define(['canvas', 'noise'], function( canvas, noise ) {
                 for (var j = 0; j < height; j++ ) {
                     switch (layer.parameters.direction) {
                         case 'vertical':
-                            color = Math.sin(i/layer.parameters.period) * 127 + 128;
+                            color = Math.sin(i/layer.parameters.period);// * 127 + 128;
                             break;
                         case 'horizontal':
-                            color = Math.sin(j/layer.parameters.period) * 127 + 128;
+                            color = Math.sin(j/layer.parameters.period);// * 127 + 128;
                             break;
                         case 'rectangles':
-                            color = Math.sin((j*i)/layer.parameters.period) * 127 + 128;
+                            color = Math.sin((j*i)/layer.parameters.period);// * 127 + 128;
                             break;
                         case 'slopeUpwards':
-                            color = Math.sin((j+i)/layer.parameters.period) * 127 + 128;
+                            color = Math.sin((j+i)/layer.parameters.period);// * 127 + 128;
                             break;
                         case 'slopeDownwards':
-                            color = Math.sin((j-i)/layer.parameters.period) * 127 + 128;
+                            color = Math.sin((j-i)/layer.parameters.period);// * 127 + 128;
                             break;
                         case 'circular':
-                            color = Math.sin( Math.sqrt((i*i) + (j*j))/layer.parameters.period ) * 127 + 128;
+                            color = Math.sin( Math.sqrt((i*i) + (j*j))/layer.parameters.period );// * 127 + 128;
                             break;
                     }
-                    imageData[j*width + i] = color;
+                    imageData[j*width + i] = (color/2) + 0.5;
                 }
             }
             return imageData;

@@ -1,4 +1,4 @@
-define(['canvas', 'createPattern'], function( canvas, createPattern ) {
+define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, filter ) {
 
     // http://youmightnotneedjquery.com/
     // http://codeblog.cz/vanilla/inside.html#set-element-html
@@ -17,10 +17,10 @@ define(['canvas', 'createPattern'], function( canvas, createPattern ) {
                 self._parameters.width, 
                 self._parameters.height
             );
-        
+
         // copy img byte-per-byte into our ImageData
         for (var i = 0, len = self._parameters.width * self._parameters.height; i < len; i++) {
-            var grey = Math.floor(createPatina[i])
+            var grey = Math.floor(createPatina[i] * 256)
             self.myCanvas.img.data[i*4] = grey;
             self.myCanvas.img.data[i*4+1] = grey;
             self.myCanvas.img.data[i*4+2] = grey;
@@ -63,18 +63,29 @@ define(['canvas', 'createPattern'], function( canvas, createPattern ) {
         }, // _combine()
 
         _evaluateLayerNode: function ( layer, width, height ) {
+            var resultingImage = false;
 
             if (layer.type === "combination") {
-                return this._combine( 
+                resultingImage = this._combine( 
                     this._evaluateLayerNode(layer.bottomLayer, width, height),
                     this._evaluateLayerNode(layer.topLayer, width, height)
                 );
             }
             if (layer.type === "createPattern") {
-                return createPattern( layer, width, height );
+                resultingImage = createPattern( layer, width, height );
             }
-            console.log('layer type not recognized ',layer);
-            return null;
+            if (resultingImage) {
+                if (layer.filters) {
+                    layer.filters.forEach(element => {
+                        // todo: rauskriegen ob das hier sequenziell abgearbeitet wird oder race conditions stören
+                        resultingImage = filter(resultingImage, element);
+                    });
+                }
+                return resultingImage;
+            } else {
+                console.log('layer type not recognized ',layer);
+                return null; // transparentes Array rückgeben oder woanders gracefully failen
+            }
         }, // _evaluateLayerNode()
 
         _paintCanvas: function( myCanvas, element ) {

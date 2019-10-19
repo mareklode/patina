@@ -39,10 +39,14 @@
                         }
                     },
                     "filters"       : [
-                        { "name": "blur", "radius": 10 }
+                        { "name": "blur", "radius": 10 },
+                        { "name": "sharpen", "radius": 10 }
                     ]
 
-                }
+                },
+                "filters": [
+                    { "name": "colorCorrection" }
+                ]
             }
         }'
         style="background-size: cover"
@@ -115,8 +119,15 @@
             "width": 128,
             "height": 128,
             "patina": {
-                "type"          : "createPattern",
-                "name"          : "diamondSquareNoise"
+                "type"  :   "combination",
+                "topLayer"    : {
+                    "type"          : "createPattern",
+                    "name"          : "diamondSquareNoise"
+                },
+                "bottomLayer" : { 
+                    "type"          : "createPattern",
+                    "name"          : "diamondSquareNoise"
+                }
             }
         }'
     >

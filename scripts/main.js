@@ -3,9 +3,10 @@ require.config({
     baseUrl: 'scripts',
     paths: {
         patina:         'mel/mel_patina',
-        createPattern:  'mel/mel_createPattern',
         canvas:         'mel/mel_canvas',
+        createPattern:  'mel/mel_createPattern',
         noise:          'mel/mel_noise',
+        filter:        'mel/mel_filter',
     }
 });
 

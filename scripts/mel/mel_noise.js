@@ -30,7 +30,7 @@ define([], function() {
 
 
 
-        // ToDo: make this private
+        // https://sdm.scad.edu/faculty/mkesson/vsfx419/wip/best/winter12/jonathan_mann/noise.html
         diamondSquareNoise: function (width) {
 
             var max=0,
@@ -75,7 +75,7 @@ define([], function() {
                     for ( aktY = 0; aktY < noiseMapWidth; aktY=aktY+b ){
                         // set range for displacement distance
                         if ( b < chunkSize) {
-                            range = b * 1.414 + (1/b) +1;
+                            range = b * 1.414 + (1/b) +3.1415;
                         } else {
                             range = 0;
                         }
@@ -106,7 +106,7 @@ define([], function() {
                 for ( aktX=0; aktX < ( (noiseMapWidth-1) ); aktX=aktX+b ){
                     for ( aktY=0; aktY< ( (noiseMapWidth-1) ); aktY=aktY+b ){
                         if ( b < chunkSize ) {
-                            range = b + (1/b) +1;
+                            range = b + (1/b) +3.1415;
                         } else {
                             range = 0;
                         }
@@ -168,7 +168,7 @@ define([], function() {
             }
 
             // stretching to color space
-            var stretchFromZeroTo = 255, // or 255
+            var stretchFromZeroTo = 1, // or 255
                 by = stretchFromZeroTo / (max - min); // how much to stretch
 
             for ( i = 0; i < noiseMapWidth; i++ ) {
