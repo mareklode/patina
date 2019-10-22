@@ -6,7 +6,7 @@ define(['canvas', 'noise'], function( canvas, noise ) {
 
     function createPattern (layer, width, height) {
         var self = this;
-        console.log(layer);
+        console.log('createPattern: ', layer.name);
 
         if (layer.name === "whiteNoise") {
             /*
@@ -16,7 +16,9 @@ define(['canvas', 'noise'], function( canvas, noise ) {
                     whiteNoise[x][y] = Math.floor(Math.random() * 256);
                 }
             }*/
-            return Array.from( {length: width * height}, () => Math.random() );
+            return {
+                "grey"  :   Array.from( {length: width * height}, () => Math.random() )
+            };
         }
         if (layer.name === "sine") {
             var imageData = new Array( width * height ),
@@ -46,10 +48,12 @@ define(['canvas', 'noise'], function( canvas, noise ) {
                     imageData[j*width + i] = (color/2) + 0.5;
                 }
             }
-            return imageData;
+            return {
+                "grey"  :   imageData
+            }
         }
         if (layer.name === "diamondSquareNoise") {
-            return noise.diamondSquareNoise(width);
+            return { "grey" : noise.diamondSquareNoise(width) }
         }
     } // createPattern()
 

@@ -38,13 +38,13 @@
                             "r": 0, "g": 100, "b": 200
                         }
                     },
-                    "filters"       : [
+                    "filter"       : [
                         { "name": "blur", "radius": 10 },
                         { "name": "sharpen", "radius": 10 }
                     ]
 
                 },
-                "filters": [
+                "filter": [
                     { "name": "colorCorrection" }
                 ]
             }
@@ -121,13 +121,27 @@
             "patina": {
                 "type"  :   "combination",
                 "topLayer"    : {
-                    "type"          : "createPattern",
-                    "name"          : "diamondSquareNoise"
+                    "type"  :   "combination",
+                    "topLayer"    : {
+                        "type"          : "createPattern",
+                        "name"          : "sine",
+                        "parameters"    : {
+                            "direction"     : "horizontal",
+                            "period"        : 1.02
+                        }
+                    },
+                    "bottomLayer" : { 
+                        "type"          : "createPattern",
+                        "name"          : "diamondSquareNoise"
+                    }
                 },
                 "bottomLayer" : { 
                     "type"          : "createPattern",
-                    "name"          : "diamondSquareNoise"
-                }
+                    "name"          : "whiteNoise"
+                },
+                "filter"            : [
+                    {   "name": "colorToAlpha", "color": "white" }
+                ]
             }
         }'
     >

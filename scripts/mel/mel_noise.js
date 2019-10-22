@@ -1,6 +1,6 @@
 define([], function() {
 
-    backgroundImage_noise = {
+    noise = {
 
         createNoisemap: function (width, height) {
             var noiseMap = {};
@@ -51,7 +51,7 @@ define([], function() {
                 noiseMap = [],
                 gräbengraben = false;
 
-            console.log('noiseMapWidth: ', noiseMapWidth);
+            // console.log('noiseMapWidth: ', noiseMapWidth);
 
             // creating the array
             for ( var step = 0; step <= b; step++) {
@@ -201,6 +201,6 @@ define([], function() {
 
     }
 
-    return backgroundImage_noise;
+    return noise;
 
 });
