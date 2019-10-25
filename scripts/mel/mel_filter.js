@@ -1,34 +1,47 @@
 define([], function() {
 
     function filter (image, filterDefinition, width, height) {
-        var self = this,
-            filteredImage;
-        self.image = image.grey;
-        self.width = width;
-        self.height = height;
-    
-        console.log(this);
-        // apply filter to image
-        console.log(image, filterDefinition);
-        filteredImage = image;
-
-        console.log(this);
-        this._setPixel(10, 10, 3.1415)
-        console.log("pixel: ",this._getPixel(10, 10));
+        var filteredImage = {};
+     
+        if (this[filterDefinition.name]) {
+            console.log("filter: ", filterDefinition.name);
+            filteredImage.grey = this[filterDefinition.name](image.grey,filterDefinition, width, height);
+        } else {
+            console.error("filter: ", filterDefinition.name, " does not exist.");
+            filteredImage = image;
+        }
 
         return filteredImage;
-
     }; // filter()
 
     filter.prototype = {
 
-        _blur: function( elemet ) { 
-            if (element) {
-                var s = element.style;
-                s.backgroundImage = 'url(' + myCanvas.toDataURL('image/png') + ')';
-                s.backgroundRepeat = 'repeat';
-            }
-        }, // _blur()
+        blur: function (image, filterDefinition, width) {
+            return image.map(function(value, index){
+                return (value + 
+                        image[index + 1] + 
+                        image[index - 1] +
+                        image[index - width] +
+                        image[index - width - 1] +
+                        image[index - width + 1] +
+                        image[index + width] +
+                        image[index + width - 1] +
+                        image[index + width + 1]
+                       ) / 9;
+            }); 
+        }, // blur()
+
+        invert: function (image) {
+            return image.map(function(value){
+                return -value + 1;
+            });
+        }, // invert() 
+
+        threshold: function (image, filterDefinition) {
+            return image.map(function(value){
+                return value > filterDefinition.threshold ? 1 : 0;
+            })
+        },
 
         _getPixel: function(x, y) {
             console.log(this.image, );

@@ -19,7 +19,6 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
                 self._parameters.height
             );
 
-        console.log(createPatina);
         // copy img byte-per-byte into our ImageData
         for (var i = 0, len = self._parameters.width * self._parameters.height; i < len; i++) {
             var grey = Math.floor(createPatina.grey[i] * 256)
@@ -58,21 +57,22 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
         }, // _jsonParse()
 
         // muss noch in eine eigene Datei
-        _combine: function(bottomLayer, topLayer, filters) {
+        _combine: function(bottomLayer, topLayer) {
             var resultingImage = {},
-                filters = filters? filters : false;
+                filters = filters ? filters : false;
 
-            resultingImage.grey = bottomLayer.grey.map(function (value, index) {
-                return (value + topLayer.grey[index]) / 2;
-            });
-
+            if (bottomLayer.grey && topLayer.grey) {
+                resultingImage.grey = bottomLayer.grey.map(function (value, index) {
+                    return (value + topLayer.grey[index]) / 2;
+                });
+            }
+                
             if (bottomLayer.alpha && topLayer.alpha) {
                 resultingImage.alpha = bottomLayer.alpha.map(function (value, index) {
                     return (value + topLayer.alpha[index]) / 2;
                 });
             }
     
-            console.log('## resultingImage <- combine ## ' , resultingImage);
             return resultingImage;
         }, // _combine()
 
@@ -87,7 +87,6 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
             }
             if (layer.type === "createPattern") {
                 resultingImage = new createPattern( layer, width, height );
-                console.log(resultingImage);
             }
             if (resultingImage) {
                 if (layer.filter) {
