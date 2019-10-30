@@ -2,10 +2,11 @@ define([], function() {
 
     function filter (image, filterDefinition, width, height) {
         var filteredImage = {};
-     
+
         if (this[filterDefinition.name]) {
             console.log("filter: ", filterDefinition.name);
-            filteredImage.grey = this[filterDefinition.name](image.grey,filterDefinition, width, height);
+            console.log(image);
+            filteredImage.grey = this[filterDefinition.name]( image.grey, filterDefinition, width, height );
         } else {
             console.error("filter: ", filterDefinition.name, " does not exist.");
             filteredImage = image;
@@ -38,6 +39,7 @@ define([], function() {
         }, // invert() 
 
         threshold: function (image, filterDefinition) {
+            
             return image.map(function(value){
                 return value > filterDefinition.threshold ? 1 : 0;
             })

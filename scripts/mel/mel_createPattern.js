@@ -5,10 +5,32 @@ define(['canvas', 'noise'], function( canvas, noise ) {
     // https://github.com/daneden/animate.css
 
     function createPattern (layer, width, height) {
-        var self = this;
-        console.log('createPattern: ', layer.name);
+        var pattern = {};
 
-        if (layer.name === "whiteNoise") {
+        if (this[layer.name]) {
+            console.log("createPattern: ", layer.name);
+            pattern.grey = this[layer.name]( layer, width, height );
+        } else {
+            console.error("createPattern: ", layer.name, " does not exist.");
+        }
+
+        return pattern;
+    } // createPattern()
+
+    createPattern.prototype = {
+
+        slope: function ( layer, width, height ) {
+            var pattern = new Array(width * height);
+            for (var x = 0; x < width; x++) {
+                for (var y = 0; y < height; y++) {
+                    pattern[y * this.width + x] = x / width;
+                }
+            }
+            console.log(pattern);
+            return pattern;
+        },
+
+        whiteNoise: function ( layer, width, height ) {
             /*
             var whiteNoise = new Array[width][height];
             for (var x = 0; x < width; x++) {
@@ -16,11 +38,10 @@ define(['canvas', 'noise'], function( canvas, noise ) {
                     whiteNoise[x][y] = Math.floor(Math.random() * 256);
                 }
             }*/
-            return {
-                "grey"  :   Array.from( {length: width * height}, () => Math.random() )
-            };
-        }
-        if (layer.name === "sine") {
+            return Array.from( {length: width * height}, () => Math.random() );
+        },
+
+        sine: function ( layer, width, height ) {
             var imageData = new Array( width * height ),
                 color = 0;
             for (var i = 0; i < width; i++ ) {
@@ -48,17 +69,14 @@ define(['canvas', 'noise'], function( canvas, noise ) {
                     imageData[j*width + i] = (color/2) + 0.5;
                 }
             }
-            return {
-                "grey"  :   imageData
-            }
-        }
-        if (layer.name === "diamondSquareNoise") {
-            return { "grey" : noise.diamondSquareNoise(width) }
-        }
-    } // createPattern()
+            return imageData
+            
+        },
 
-    createPattern.prototype = {
-
+        diamondSquareNoise: function ( layer, width, height ) {
+            return noise.diamondSquareNoise(width);
+        },
+ 
         _createBackground: function ( myCanvas, parameters, noiseMap, domElement ) {
             var background = parameters.background,
                 backgroundReady = function () {

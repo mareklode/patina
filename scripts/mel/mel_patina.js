@@ -58,10 +58,10 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
 
         // muss noch in eine eigene Datei
         _combine: function(bottomLayer, topLayer) {
-            var resultingImage = {},
-                filters = filters ? filters : false;
+            var resultingImage = {};
 
             if (bottomLayer.grey && topLayer.grey) {
+                console.log(bottomLayer)
                 resultingImage.grey = bottomLayer.grey.map(function (value, index) {
                     return (value + topLayer.grey[index]) / 2;
                 });
@@ -79,19 +79,23 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
         _evaluateLayerNode: function ( layer, width, height ) {
             var resultingImage = false;
 
-            if (layer.type === "combination") {
+            if (layer.type === "combine") {
                 resultingImage = this._combine( 
                     this._evaluateLayerNode(layer.bottomLayer, width, height),
                     this._evaluateLayerNode(layer.topLayer, width, height)
                 );
+                console.log("evaluateLayerNode combine", resultingImage);
             }
             if (layer.type === "createPattern") {
+                resultingImage = {};
                 resultingImage = new createPattern( layer, width, height );
+                console.log("evaluateLayerNode createPattern", resultingImage);
             }
             if (resultingImage) {
                 if (layer.filter) {
                     layer.filter.forEach(element => {
                         // todo: rauskriegen ob das hier sequenziell abgearbeitet wird oder race conditions stören
+                        console.log("resultingImage: ", resultingImage);
                         resultingImage = new filter(resultingImage, element, width, height);
                     });
                 }

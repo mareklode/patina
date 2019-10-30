@@ -23,15 +23,8 @@
             "width": 512,
             "height": 256,
             "patina": {
-                "type"          : "combination",
+                "type"          : "combine",
                 "topLayer"      : {
-                    "type"          : "createPattern",
-                    "name"          : "diamondSquareNoise",
-                    "filter":        [
-                        { "name": "threshold", "threshold": "0.5" }
-                    ]
-                },
-                "bottomLayer"   : { 
                     "type"          : "createPattern",
                     "name"          : "sine",
                     "parameters"    : {
@@ -41,6 +34,10 @@
                             "r": 0, "g": 100, "b": 200
                         }
                     }
+                },
+                "bottomLayer"   : { 
+                    "type"          : "createPattern",
+                    "name"          : "diamondSquareNoise"
                 }
             }
         }'
@@ -82,8 +79,15 @@
                 "width": 256,
                 "height": 256,
                 "patina": {
-                    "type"          : "createPattern",
-                    "name"          : "diamondSquareNoise"
+                    "type"          : "combine",
+                    "topLayer"      : {
+                        "type"          : "createPattern",
+                        "name"          : "diamondSquareNoise"
+                    },
+                    "bottomLayer"   : { 
+                        "type"          : "createPattern",
+                        "name"          : "diamondSquareNoise"
+                    }
                 }
             }'
         >"patina": {
@@ -119,9 +123,9 @@
             "width": 128,
             "height": 128,
             "patina": {
-                "type"  :   "combination",
+                "type"  :   "combine",
                 "topLayer"    : {
-                    "type"  :   "combination",
+                    "type"  :   "combine",
                     "topLayer"    : {
                         "type"          : "createPattern",
                         "name"          : "sine",
@@ -132,13 +136,20 @@
                     },
                     "bottomLayer" : { 
                         "type"          : "createPattern",
-                        "name"          : "diamondSquareNoise"
+                        "name"          : "diamondSquareNoise",
+                        "filter"        : [
+                            { "name": "threshold", "threshold": "0.5" }
+                        ]
                     }
                 },
                 "bottomLayer" : { 
                     "type"          : "createPattern",
                     "name"          : "whiteNoise"
-                }
+                },
+                "filter"        : [
+                    { "name": "blur" },
+                    { "name": "threshold", "threshold": "0.5" }
+                ]
             }
         }'
     >
