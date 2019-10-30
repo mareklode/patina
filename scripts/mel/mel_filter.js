@@ -4,8 +4,6 @@ define([], function() {
         var filteredImage = {};
 
         if (this[filterDefinition.name]) {
-            console.log("filter: ", filterDefinition.name);
-            console.log(image);
             filteredImage.grey = this[filterDefinition.name]( image.grey, filterDefinition, width, height );
         } else {
             console.error("filter: ", filterDefinition.name, " does not exist.");

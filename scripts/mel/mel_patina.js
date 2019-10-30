@@ -19,14 +19,24 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
                 self._parameters.height
             );
 
-        // copy img byte-per-byte into our ImageData
-        for (var i = 0, len = self._parameters.width * self._parameters.height; i < len; i++) {
-            var grey = Math.floor(createPatina.grey[i] * 256)
-            self.myCanvas.img.data[i*4] = grey;
-            self.myCanvas.img.data[i*4+1] = grey;
-            self.myCanvas.img.data[i*4+2] = grey;
-            self.myCanvas.img.data[i*4+3] = 255;
+        if (createPatina.grey) {
+            // copy img byte-per-byte into our ImageData
+            for (var i = 0, len = self._parameters.width * self._parameters.height; i < len; i++) {
+                var grey = Math.floor(createPatina.grey[i] * 256)
+                self.myCanvas.img.data[i*4] = grey;
+                self.myCanvas.img.data[i*4+1] = grey;
+                self.myCanvas.img.data[i*4+2] = grey;
+                self.myCanvas.img.data[i*4+3] = 255;
+            }
+        } else {
+            for (var i = 0, len = self._parameters.width * self._parameters.height; i < len; i++) {
+                self.myCanvas.img.data[i*4] =   Math.floor(createPatina.red[i] * 256);
+                self.myCanvas.img.data[i*4+1] = Math.floor(createPatina.green[i] * 256);
+                self.myCanvas.img.data[i*4+2] = Math.floor(createPatina.blue[i] * 256);
+                self.myCanvas.img.data[i*4+3] = Math.floor(createPatina.alpha[i] * 256);
+            }
         }
+
 
         self.myCanvas.context.putImageData( self.myCanvas.img, 0, 0 );
         self._paintCanvas( self.myCanvas, self.domElement );
@@ -78,6 +88,22 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
 
         _evaluateLayerNode: function ( layer, width, height ) {
             var resultingImage = false;
+
+            ///console.log("typeof layer: ",typeof layer, layer);
+
+            if (typeof layer === "number") {
+                return Array.from( {length: width * height}, () => layer/256 );
+            }
+
+            if (layer.type === "colorChannels") {
+                resultingImage = {};
+                resultingImage.red = this._evaluateLayerNode(layer.red, width, height);
+                resultingImage.green = this._evaluateLayerNode(layer.green, width, height);
+                resultingImage.blue = this._evaluateLayerNode(layer.blue, width, height);
+                resultingImage.alpha = this._evaluateLayerNode(layer.alpha, width, height).grey;
+            }
+
+            ///debugger
 
             if (layer.type === "combine") {
                 resultingImage = this._combine( 

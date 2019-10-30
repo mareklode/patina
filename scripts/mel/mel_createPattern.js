@@ -4,14 +4,14 @@ define(['canvas', 'noise'], function( canvas, noise ) {
     // http://codeblog.cz/vanilla/inside.html#set-element-html
     // https://github.com/daneden/animate.css
 
-    function createPattern (layer, width, height) {
+    function createPattern (layerDefinition, width, height) {
         var pattern = {};
 
-        if (this[layer.name]) {
-            console.log("createPattern: ", layer.name);
-            pattern.grey = this[layer.name]( layer, width, height );
+        if (this[layerDefinition.name]) {
+            console.log("createPattern: ", layerDefinition.name);
+            pattern.grey = this[layerDefinition.name]( layerDefinition, width, height );
         } else {
-            console.error("createPattern: ", layer.name, " does not exist.");
+            console.error("createPattern: ", layerDefinition.name, " does not exist.");
         }
 
         return pattern;
@@ -19,51 +19,44 @@ define(['canvas', 'noise'], function( canvas, noise ) {
 
     createPattern.prototype = {
 
-        slope: function ( layer, width, height ) {
+        slope: function ( layerDefinition, width, height ) {
             var pattern = new Array(width * height);
             for (var x = 0; x < width; x++) {
                 for (var y = 0; y < height; y++) {
-                    pattern[y * this.width + x] = x / width;
+                    var position = y * width + x;
+                    pattern[position] = y / height;
                 }
             }
-            console.log(pattern);
             return pattern;
         },
 
-        whiteNoise: function ( layer, width, height ) {
-            /*
-            var whiteNoise = new Array[width][height];
-            for (var x = 0; x < width; x++) {
-                for (var y = 0; y < height; y++) {
-                    whiteNoise[x][y] = Math.floor(Math.random() * 256);
-                }
-            }*/
+        whiteNoise: function ( layerDefinition, width, height ) {
             return Array.from( {length: width * height}, () => Math.random() );
         },
 
-        sine: function ( layer, width, height ) {
+        sine: function ( layerDefinition, width, height ) {
             var imageData = new Array( width * height ),
                 color = 0;
             for (var i = 0; i < width; i++ ) {
                 for (var j = 0; j < height; j++ ) {
-                    switch (layer.parameters.direction) {
+                    switch (layerDefinition.parameters.direction) {
                         case 'vertical':
-                            color = Math.sin(i/layer.parameters.period);// * 127 + 128;
+                            color = Math.sin(i/layerDefinition.parameters.period);// * 127 + 128;
                             break;
                         case 'horizontal':
-                            color = Math.sin(j/layer.parameters.period);// * 127 + 128;
+                            color = Math.sin(j/layerDefinition.parameters.period);// * 127 + 128;
                             break;
                         case 'rectangles':
-                            color = Math.sin((j*i)/layer.parameters.period);// * 127 + 128;
+                            color = Math.sin((j*i)/layerDefinition.parameters.period);// * 127 + 128;
                             break;
                         case 'slopeUpwards':
-                            color = Math.sin((j+i)/layer.parameters.period);// * 127 + 128;
+                            color = Math.sin((j+i)/layerDefinition.parameters.period);// * 127 + 128;
                             break;
                         case 'slopeDownwards':
-                            color = Math.sin((j-i)/layer.parameters.period);// * 127 + 128;
+                            color = Math.sin((j-i)/layerDefinition.parameters.period);// * 127 + 128;
                             break;
                         case 'circular':
-                            color = Math.sin( Math.sqrt((i*i) + (j*j))/layer.parameters.period );// * 127 + 128;
+                            color = Math.sin( Math.sqrt((i*i) + (j*j))/layerDefinition.parameters.period );// * 127 + 128;
                             break;
                     }
                     imageData[j*width + i] = (color/2) + 0.5;
@@ -73,7 +66,7 @@ define(['canvas', 'noise'], function( canvas, noise ) {
             
         },
 
-        diamondSquareNoise: function ( layer, width, height ) {
+        diamondSquareNoise: function ( layerDefinition, width, height ) {
             return noise.diamondSquareNoise(width);
         },
  
@@ -86,7 +79,6 @@ define(['canvas', 'noise'], function( canvas, noise ) {
                 width = myCanvas.width,
                 height = myCanvas.height;
 
-            console.log("background.category: ", background.category);
             if (background.category === 'stripes') {
                 for (var i = 0; i < width; i++ ) {
                     for (var j = 0; j < height; j++ ) {
