@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  
+      <title>mareklode | patina</title>
+
+  <meta property="og:title" content="mareklode | patina" />
+  <meta property="og:image" content="http://mareklode.de/bilder/page/v3/v3_rost4.png" />
+  <meta property="og:description" content="Patina: procedually generated background images in JavaScript" />
+  <meta name="description" content="Patina: procedually generated background images in JavaScript">
+
+  <link rel="stylesheet" type="text/css" href="css/normalize.min.css">
+  <link rel="stylesheet" href="css/main.css">
+
+</head>
+<body class="content">
+
+    <a href="."> Home </a>
+
+    <pre style="background: green; width: 512px; height: 256px;"
+        class="js-require" 
+        data-require-name="patina" 
+        data-require-data='{
+            "width": 256,
+            "height": 256,
+            "patina": {
+                "type"          : "createPattern",
+                "name"          : "sine",
+                "parameters"    : {
+                    "direction"     : "circular",
+                    "period"        : 12
+                },
+                "filter"        : [{ "name": "invert" }]
+            }
+        }'
+    >"patina": {
+"type"          : "createPattern",
+"name"          : "sine",
+"direction"     : "circular",
+"period"        : 8
+}
+    </pre>
+
+    <script data-main="scripts/main" src="scripts/vendor/require.js"></script>
+
+</body>
+</html>

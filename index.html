@@ -20,34 +20,40 @@
     <header class="header js-require" 
         data-require-name="patina" 
         data-require-data='{
-            "width": 256,
-            "height": 256,
+            "width" : 283,
+            "height": 375,
             "patina": {
-                "type"          : "combine",
-                "topLayer"      : {
+                "type"  : "colorChannels",
+                "red"   : 150,
+                "green" : 50,
+                "blue"  : 0,
+                "alpha" : {
                     "type"          : "createPattern",
                     "name"          : "sine",
                     "parameters"    : {
                         "direction"     : "rectangles",
-                        "period"        : 3,
+                        "period"        : 15,
                         "color"         : {
                             "r": 0, "g": 100, "b": 200
                         }
-                    }
-                },
-                "bottomLayer"   : { 
-                    "type"          : "createPattern",
-                    "name"          : "diamondSquareNoise"
+                    },
+                    "filter"        : [
+                        { "name": "threshold", "threshold": 0.5},
+                        { "name": "blur" },
+                        { "name": "threshold", "threshold": 0.66}
+                    ]
                 }
             }
         }'
-        style="background-size: cover"
+        style="background-size: unset; background-repeat: repeat;"
     >
-        <div class="header__marek-logo">
+        <div class="header__marek-logo" style="font-weight: bold; text-shadow: 0 0 2px black, 0 0 1px black">
             Patina
         </div>
     </header>
+
     <main class="content__block">
+        <a href="testbed.html" >testbed</a>
         <pre style="background: green; width: 512px; height: 256px;"
             class="js-require" 
             data-require-name="patina" 
@@ -140,8 +146,8 @@
             "width": 256,
             "patina": {
                 "type"  : "colorChannels",
-                "red"   : 190,
-                "green" : 60,
+                "red"   : 150,
+                "green" : 50,
                 "blue"  : 0,
                 "alpha" : {
                     "type"  :   "combine",
