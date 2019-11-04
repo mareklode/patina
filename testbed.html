@@ -19,29 +19,41 @@
 
     <a href="."> Home </a>
 
-    <pre style="background: green; width: 512px; height: 256px;"
+    <pre style="background: orangered; width: 512px; height: 256px;"
         class="js-require" 
         data-require-name="patina" 
         data-require-data='{
             "width": 256,
-            "height": 256,
+            "reusableImages" : [
+                { 
+                    "id"    : "greyNoise", 
+                    "type"  : "createPattern",
+                    "name"  : "whiteNoise"
+                }
+            ],
             "patina": {
-                "type"          : "createPattern",
-                "name"          : "sine",
-                "parameters"    : {
-                    "direction"     : "circular",
-                    "period"        : 12
+                "type"  : "colorChannels",
+                "red"   : {
+                    "type"  :   "reuseImage",
+                    "name"  :   "greyNoise"
                 },
-                "filter"        : [{ "name": "invert" }]
+                "green" : {
+                    "type"  :   "reuseImage",
+                    "name"  :   "greyNoise"
+                },
+                "blue"  : 100,
+                "alpha" : {
+                    "type"  :   "createPattern",
+                    "name"  :   "slope",
+                    "filter-disabled"        : [
+                        { "name": "invert" },
+                        { "name": "blur" },
+                        { "name": "threshold", "threshold": "0.55" }
+                    ]
+                }
             }
         }'
-    >"patina": {
-"type"          : "createPattern",
-"name"          : "sine",
-"direction"     : "circular",
-"period"        : 8
-}
-    </pre>
+    ></pre>
 
     <script data-main="scripts/main" src="scripts/vendor/require.js"></script>
 
