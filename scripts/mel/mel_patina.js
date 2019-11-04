@@ -59,6 +59,8 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
         _completeParameters: function ( parameters, element ) {
             parameters = this._jsonParse( parameters );
 
+            parameters.reusableImages = parameters.reusableImages || [];
+
             parameters.width = parameters.width || element.clientWidth;
             parameters.height = parameters.height || element.clientHeight;
 
@@ -122,8 +124,8 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
                 resultingImage = new createPattern( layer, width, height );
             }
             if (layer.type === "reuseImage") {
-                console.log("reuse Image: ", layer.name, this.reusableImages[layer.name]);
-                resultingImage = this.reusableImages[layer.name];
+                console.log("reuse Image: ", layer.id, this.reusableImages[layer.id]);
+                resultingImage = this.reusableImages[layer.id];
             }
             if (resultingImage) {
                 if (layer.filter) {

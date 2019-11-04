@@ -7,11 +7,11 @@ define(['canvas', 'noise'], function( canvas, noise ) {
     function createPattern (layerDefinition, width, height) {
         var pattern = {};
 
-        if (this[layerDefinition.name]) {
-            console.log("createPattern: ", layerDefinition.name);
-            pattern.grey = this[layerDefinition.name]( layerDefinition, width, height );
+        if (this[layerDefinition.patternName]) {
+            console.log("createPattern: ", layerDefinition.patternName);
+            pattern.grey = this[layerDefinition.patternName]( layerDefinition, width, height );
         } else {
-            console.error("createPattern: ", layerDefinition.name, " does not exist.");
+            console.error("createPattern: ", layerDefinition.patternName, " does not exist.");
         }
 
         return pattern;

@@ -26,25 +26,25 @@
             "width": 256,
             "reusableImages" : [
                 { 
-                    "id"    : "greyNoise", 
-                    "type"  : "createPattern",
-                    "name"  : "whiteNoise"
+                    "id"            : "greyNoise", 
+                    "type"          : "createPattern",
+                    "patternName"   : "whiteNoise"
                 }
             ],
             "patina": {
                 "type"  : "colorChannels",
                 "red"   : {
-                    "type"  :   "reuseImage",
-                    "name"  :   "greyNoise"
+                    "type"          :   "createPattern",
+                    "patternName"   :   "whiteNoise"
                 },
                 "green" : {
                     "type"  :   "reuseImage",
-                    "name"  :   "greyNoise"
+                    "id"    :   "greyNoise"
                 },
                 "blue"  : 100,
                 "alpha" : {
-                    "type"  :   "createPattern",
-                    "name"  :   "slope",
+                    "type"          :   "createPattern",
+                    "patternName"   :   "slope",
                     "filter-disabled"        : [
                         { "name": "invert" },
                         { "name": "blur" },

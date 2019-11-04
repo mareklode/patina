@@ -29,7 +29,7 @@
                 "blue"  : 0,
                 "alpha" : {
                     "type"          : "createPattern",
-                    "name"          : "sine",
+                    "patternName"   : "sine",
                     "parameters"    : {
                         "direction"     : "rectangles",
                         "period"        : 15,
@@ -62,7 +62,7 @@
                 "height": 256,
                 "patina": {
                     "type"          : "createPattern",
-                    "name"          : "sine",
+                    "patternName"   : "sine",
                     "parameters"    : {
                         "direction"     : "circular",
                         "period"        : 12
@@ -72,7 +72,7 @@
             }'
         >"patina": {
     "type"          : "createPattern",
-    "name"          : "sine",
+    "patternName"   : "sine",
     "direction"     : "circular",
     "period"        : 8
 }
@@ -88,17 +88,17 @@
                     "type"          : "combine",
                     "topLayer"      : {
                         "type"          : "createPattern",
-                        "name"          : "diamondSquareNoise"
+                        "patternName"   : "diamondSquareNoise"
                     },
                     "bottomLayer"   : { 
                         "type"          : "createPattern",
-                        "name"          : "diamondSquareNoise"
+                        "patternName"   : "diamondSquareNoise"
                     }
                 }
             }'
         >"patina": {
     "type"          : "createPattern",
-    "name"          : "diamondSquareNoise"
+    "patternName"   : "diamondSquareNoise"
 }
         </pre>
         <pre style="background: green; width: 512px; height: 256px;text-align: left"
@@ -109,14 +109,14 @@
                 "height"    : 256,
                 "patina"    : {
                     "type"          : "createPattern",
-                    "name"          : "whiteNoise",
-                    "filter"    : [{ "name": "blur" }]    
+                    "patternName"   : "whiteNoise",
+                    "filter"        : [{ "name": "blur" }]    
                 }
             }'
         >"patina"    : {
     "type"          : "createPattern",
-    "name"          : "whiteNoise",
-    "filter"    : [{ "name": "blur" }]    
+    "patternName"   : "whiteNoise",
+    "filter"        : [{ "name": "blur" }]    
 }
 
         </pre>
@@ -128,12 +128,12 @@
                 "height"    : 256,
                 "patina"    : {
                     "type"          : "createPattern",
-                    "name"          : "slope"
+                    "patternName"   : "slope"
                 }
             }'
         >"patina"    : {
             "type"          : "createPattern",
-            "name"          : "slope"
+            "patternName"   : "slope"
 }
 
         </pre>
@@ -157,11 +157,11 @@
                             "type"  :   "combine",
                             "topLayer"      : {
                                 "type"          : "createPattern",
-                                "name"          : "diamondSquareNoise"
+                                "patternName"   : "diamondSquareNoise"
                             },
                             "bottomLayer"   : {
                                 "type"          : "createPattern",
-                                "name"          : "sine",
+                                "patternName"   : "sine",
                                 "parameters"    : {
                                     "direction"     : "horizontal",
                                     "period"        : "0.6"
@@ -170,18 +170,18 @@
                         },
                         "bottomLayer" : { 
                             "type"          : "createPattern",
-                            "name"          : "slope"
+                            "patternName"   : "slope"
                         }
                     },
                     "bottomLayer" : { 
                         "type"  :   "combine",
                         "topLayer"    : {
                             "type"          : "createPattern",
-                            "name"          : "whiteNoise"
+                            "patternName"   : "whiteNoise"
                         },
                         "bottomLayer"   : {
                             "type"          : "createPattern",
-                            "name"          : "sine",
+                            "patternName"   : "sine",
                             "parameters"    : {
                                 "direction"     : "vertical",
                                 "period"        : 0.67
