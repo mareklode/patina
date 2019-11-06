@@ -7,12 +7,9 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
         var self = this,
             createPatina;
         
-        self.domElement = domElement;
-        self._parameters = self._completeParameters( parameters, self.domElement );
-        
+        self._parameters = self._completeParameters( parameters, domElement );
+        console.log('###### - Patina - ######', self._parameters);
 
-        console.log('###### - Patina - ######');
-        // console.log(self);
         self.myCanvas = canvas.newCanvas( self._parameters.width, self._parameters.height );
 
         self.reusableImages = {};
@@ -34,10 +31,10 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
             // copy img byte-per-byte into our ImageData
             for (var i = 0, len = self._parameters.width * self._parameters.height; i < len; i++) {
                 var grey = Math.floor(createPatina.grey[i] * 256)
-                self.myCanvas.img.data[i*4] = grey;
-                self.myCanvas.img.data[i*4+1] = grey;
-                self.myCanvas.img.data[i*4+2] = grey;
-                self.myCanvas.img.data[i*4+3] = 255;
+                self.myCanvas.img.data[i*4] = 255;
+                self.myCanvas.img.data[i*4+1] = 255;
+                self.myCanvas.img.data[i*4+2] = 255;
+                self.myCanvas.img.data[i*4+3] = grey;
             }
         } else {
             for (var i = 0, len = self._parameters.width * self._parameters.height; i < len; i++) {
@@ -48,10 +45,9 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
             }
         }
 
-        console.log(this);
 
         self.myCanvas.context.putImageData( self.myCanvas.img, 0, 0 );
-        self._paintCanvas( self.myCanvas, self.domElement );
+        self._paintCanvas( self.myCanvas, domElement );
     } // patina()
 
     patina.prototype = {
@@ -134,7 +130,6 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
                         resultingImage = new filter(resultingImage, element, width, height);
                     });
                 }
-                // if (layer.reuseName)
                 return resultingImage;
             } else {
                 console.log('layer type not recognized ',layer);

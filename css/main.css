@@ -622,56 +622,9 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
     margin-bottom: 2rem;
   }
 }
-/*
-#    ####    ##   #      #      ###### #####  #   #
-#   #    #  #  #  #      #      #      #    #  # #
-#   #      #    # #      #      #####  #    #   #
-#   #  ### ###### #      #      #      #####    #
-#   #    # #    # #      #      #      #   #    #
-#    ####  #    # ###### ###### ###### #    #   #
-http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=gallery
-*/
-.gallery-thumbnails {
-  text-align: left;
-}
-@media screen and (max-width: 599px) {
-  .gallery-thumbnails {
-    margin: 1rem auto 1rem auto;
-    width: 88vw;
-  }
-}
-@media screen and (max-width: 599px) {
-  .gallery-thumbnails {
-    width: 90vw;
-  }
-}
-@media screen and (min-width: 600px) {
-  .gallery-thumbnails {
-    margin: 1rem -1vw 4rem -1vw;
-    width: 76vw;
-  }
-}
-.gallery-thumbnails a {
-  margin: 1vw;
-  display: inline-block;
-  line-height: 0;
-}
-@media screen and (min-width: 600px) {
-  .gallery-thumbnails a {
-    max-width: 36vw;
-  }
-}
-@media screen and (max-width: 599px) {
-  .gallery-thumbnails a {
-    width: 43vw;
-    margin: 1vw;
-  }
-}
-@media screen and (max-width: 299px) {
-  .gallery-thumbnails a {
-    width: 88vw;
-  }
-}
-.gallery-thumbnails a img {
-  width: 100%;
+.pattern-sample {
+  background-color: #003200;
+  width: 512px;
+  max-width: 100%;
+  height: 256px;
 }
