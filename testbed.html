@@ -33,27 +33,35 @@
             ],
             "patina": {
                 "type"  : "colorChannels",
-                "red"   : {
-                    "type"          :   "createPattern",
-                    "patternName"   :   "whiteNoise"
+                "red"   :  {
+                    "type"  :   "reuseImage",
+                    "id"    :   "greyNoise"
                 },
                 "green" : {
                     "type"  :   "reuseImage",
                     "id"    :   "greyNoise"
                 },
-                "blue"  : 100,
+                "blue"  :  {
+                    "type"  :   "reuseImage",
+                    "id"    :   "greyNoise"
+                },
                 "alpha" : {
-                    "type"          :   "createPattern",
-                    "patternName"   :   "slope",
-                    "filter-disabled"        : [
-                        { "name": "invert" },
-                        { "name": "blur" },
-                        { "name": "threshold", "threshold": "0.55" }
-                    ]
+                    "type"          :   "combine",
+                    "topLayer"      :   {
+                        "type"  :   "reuseImage",
+                        "id"    :   "greyNoise",
+                        "filter-disabled"        : [{ "name" : "invert" }]
+                    },
+                    "bottomLayer"   : {
+                        "type"          :   "createPattern",
+                        "patternName"   :   "slope"
+                    }
                 }
             }
         }'
     ></pre>
+
+    <a href="https://de.wikipedia.org/wiki/Filmjahr_2019#Weltweit" >Filme 2019</a>
 
     <script data-main="scripts/main" src="scripts/vendor/require.js"></script>
 

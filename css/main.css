@@ -233,8 +233,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
 .header {
   height: 330px;
   height: 33vw;
-  background-color: orangered;
-  background-size: contain;
+  background-color: #e84000;
   background-position: center;
   position: relative;
 }
@@ -244,14 +243,11 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
     max-height: 100vh;
   }
 }
-.header__marek-logo {
+.header__logo {
   height: 120px;
   width: 370px;
   height: 16vw;
   width: 48vw;
-  transition: transform 0.5s ease;
-  cursor: pointer;
-  /* z-index: 1; removed for mediumZoom */
   position: absolute;
   top: 50%;
   left: 39%;
@@ -259,16 +255,14 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
   font-size: 15vw;
   line-height: 15vw;
   color: white;
-  text-shadow: 0 0 1px black;
+  font-weight: bold;
+  text-shadow: 0 0 2px black, 0 0 1px black;
 }
-.header__marek-logo path {
+.header__logo path {
   fill: #fff;
 }
-.header__marek-logo.keram_rotated {
-  transform: translate(-50%, -50%) rotate(180deg);
-}
 @media screen and (min-width: 600px) {
-  .header__marek-logo {
+  .header__logo {
     width: 40vw;
   }
 }
@@ -403,19 +397,8 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=Content
 .content__block {
   padding-top: 2rem;
   padding-bottom: 2rem;
-  text-align: left;
+  text-align: center;
   list-style-type: none;
-  display: flex;
-  flex-direction: column;
-}
-@media screen and (min-width: 600px) {
-  .content__block {
-    display: -ms-flexbox;
-    -ms-flex-pack: center;
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-  }
 }
 .content__block--dark {
   background-color: #cde;
@@ -489,8 +472,9 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=Blogpost
 http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=footer
 */
 .footer {
-  padding: 5rem;
-  background-color: orangered;
+  padding: 5rem 0;
+  background-color: #e84000;
+  background-repeat: repeat-x;
   color: white;
   font-weight: normal;
   font-size: 1rem;
@@ -623,8 +607,62 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   }
 }
 .pattern-sample {
-  background-color: #003200;
-  width: 512px;
-  max-width: 100%;
+  background-color: #023;
   height: 256px;
+}
+/*
+#    ####    ##   #      #      ###### #####  #   #
+#   #    #  #  #  #      #      #      #    #  # #
+#   #      #    # #      #      #####  #    #   #
+#   #  ### ###### #      #      #      #####    #
+#   #    # #    # #      #      #      #   #    #
+#    ####  #    # ###### ###### ###### #    #   #
+http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=gallery
+*/
+.pattern {
+  text-align: left;
+}
+@media screen and (max-width: 599px) {
+  .pattern {
+    margin: 1rem auto 1rem auto;
+    width: 88vw;
+  }
+}
+@media screen and (max-width: 599px) {
+  .pattern {
+    width: 90vw;
+  }
+}
+@media screen and (min-width: 600px) {
+  .pattern {
+    margin: 1rem auto 4rem auto;
+    width: 80vw;
+  }
+}
+.pattern__thumbnails {
+  background-color: #e84000;
+  margin: 1vw;
+  display: inline-block;
+  line-height: 0;
+  width: 250px;
+  height: 250px;
+}
+@media screen and (min-width: 600px) {
+  .pattern__thumbnails {
+    max-width: 36vw;
+    height-width: 36vw;
+  }
+}
+@media screen and (max-width: 599px) {
+  .pattern__thumbnails {
+    width: 42vw;
+    height: 42vw;
+    margin: 1vw;
+  }
+}
+@media screen and (max-width: 299px) {
+  .pattern__thumbnails {
+    width: 88vw;
+    height: 88vw;
+  }
 }

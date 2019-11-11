@@ -9,7 +9,7 @@ define(['canvas', 'noise'], function( canvas, noise ) {
 
         if (this[layerDefinition.patternName]) {
             console.log("createPattern: ", layerDefinition.patternName);
-            pattern.grey = this[layerDefinition.patternName]( layerDefinition, width, height );
+            pattern = this[layerDefinition.patternName]( layerDefinition, width, height );
         } else {
             console.error("createPattern: ", layerDefinition.patternName, " does not exist.");
         }
@@ -68,97 +68,7 @@ define(['canvas', 'noise'], function( canvas, noise ) {
 
         diamondSquareNoise: function ( layerDefinition, width, height ) {
             return noise.diamondSquareNoise(width);
-        },
- 
-        _createBackground: function ( myCanvas, parameters, noiseMap, domElement ) {
-            var background = parameters.background,
-                backgroundReady = function () {
-                    var event = new CustomEvent('backgroundReady');
-                    domElement.dispatchEvent(event);
-                },
-                width = myCanvas.width,
-                height = myCanvas.height;
-
-            if (background.category === 'stripes') {
-                for (var i = 0; i < width; i++ ) {
-                    for (var j = 0; j < height; j++ ) {
-
-                        var col = (background.width/2) > (i % background.width) ? true:false,
-                            row = (background.height/2) > (j % background.height) ? true:false,
-                            halftone;
-
-                        if (!(col || row)) {
-                            halftone = 0;
-                        } else {
-                            if (background.width && background.height) {
-                                halftone = (col && row) ? 255:127;
-                            } else {
-                                halftone = 255;
-                            }
-                        }
-
-                        myCanvas.imgData(
-                            i, j,
-                            background.color.r,
-                            background.color.g,
-                            background.color.b,
-                            halftone
-                        );
-
-                    } // for
-                } // for
-                backgroundReady();
-            } // if
-            if (background.category === 'noise') {
-                for (var i = 0; i < width; i++ ) {
-                    for (var j = 0; j < height; j++ ) {
-                        myCanvas.imgDataGray(i, j, noiseMap.imgData[i][j]);
-                    }
-                }
-                backgroundReady();
-            }
-            if (background.category === 'image') {
-                this.imageObj = new Image();
-
-                this.imageObj.addEventListener("load", function() {
-                    var imgData;
-
-                    myCanvas.context.drawImage(this, 0, 0);
-                    imgData = myCanvas.context.getImageData(
-                            0, 0,
-                            myCanvas.width,
-                            myCanvas.height
-                        );
-
-                    myCanvas.img.data.set(imgData.data);
-                    backgroundReady();
-                });
-
-                if (background.url) { //  onload triggern
-                    this.imageObj.src = background.url;
-                }
-
-            }
-
-        }, // _createBackground()
-
-        applyFilters: function ( myCanvas, parameters, noiseMap ) {
-            var tmpCanvas = canvas.newCanvas( parameters.width, parameters.height );
-            parameters.filters.forEach( function (filter) {
-                var filterName = filter['name'];
-                if ( filters.hasOwnProperty(filterName) ) {
-                    filters[filterName]( myCanvas, filter, noiseMap, tmpCanvas );
-                }
-            });
-        }, // applyFilters()
-
-        _paintCanvas: function( myCanvas, element ) { // newcanvas.paintit
-            if (element) {
-                var s = element.style;
-                s.backgroundImage = 'url(' + myCanvas.toDataURL('image/png') + ')';
-                s.backgroundRepeat = 'repeat';
-            }
-        } // _paintCanvas()
+        }
 
     } // createPattern.prototype
 

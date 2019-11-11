@@ -13,21 +13,17 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
   height: 330px; // fallback für altes Motorola
   height: 33vw;
   background-color: @backgroundColor;
-  background-size: contain;
   background-position: center;
   position: relative;
   @media @mobile {
     height: 67vw;
     max-height: 100vh;
   }
-  &__marek-logo {
+  &__logo {
     height: 120px; // fallback für altes Motorola
     width: 370px; // fallback für altes Motorola
     height: 4 * @unitX;
     width: 12 * @unitX;
-    transition: transform .5s ease;
-    cursor: pointer;
-    /* z-index: 1; removed for mediumZoom */
     position: absolute;
     top: 50%;
     left: 39%;
@@ -35,12 +31,10 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
     font-size: 15vw;
     line-height: 15vw;
     color: white;
-    text-shadow: 0 0 1px black;
+    font-weight: bold; 
+    text-shadow: 0 0 2px black, 0 0 1px black;
     path {
         fill: #fff;
-    }
-    &.keram_rotated {
-        transform: translate(-50%, -50%) rotate(180deg);
     }
     @media @desktop {
       width: 10 * @unitX;

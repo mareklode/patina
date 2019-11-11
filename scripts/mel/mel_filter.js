@@ -4,7 +4,7 @@ define([], function() {
         var filteredImage = {};
 
         if (this[filterDefinition.name]) {
-            filteredImage.grey = this[filterDefinition.name]( image.grey, filterDefinition, width, height );
+            filteredImage = this[filterDefinition.name]( image, filterDefinition, width, height );
         } else {
             console.error("filter: ", filterDefinition.name, " does not exist.");
             filteredImage = image;

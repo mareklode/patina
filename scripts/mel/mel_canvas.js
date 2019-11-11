@@ -32,16 +32,6 @@ define([], function() {
                 return [r, g, b, a];
             }
 
-            newCanvas.getImgDataFuzzyGrey = function (x, y) {
-                // return newCanvas.getImgData(x,y);
-                return (
-                        newCanvas.getImgData(Math.floor(x), Math.floor(y))[0] +
-                        newCanvas.getImgData(Math.floor(x), Math.ceil( y))[0] +
-                        newCanvas.getImgData(Math.ceil( x), Math.floor(y))[0] +
-                        newCanvas.getImgData(Math.ceil( x), Math.ceil( y))[0]
-                    ) / 4;
-            } // getImgDataFuzzyGrey()
-
             newCanvas.setImgData = function (x, y, r, g, b, a) {
                 var position = (y * newCanvas.width + x) * 4;
                 newCanvas.img.data[position + 0] = r;

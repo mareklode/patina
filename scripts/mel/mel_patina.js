@@ -1,6 +1,5 @@
 define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, filter ) {
 
-    // http://youmightnotneedjquery.com/
     // http://codeblog.cz/vanilla/inside.html#set-element-html
 
     function patina (domElement, parameters) {
@@ -10,31 +9,31 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
         self._parameters = self._completeParameters( parameters, domElement );
         console.log('###### - Patina - ######', self._parameters);
 
-        self.myCanvas = canvas.newCanvas( self._parameters.width, self._parameters.height );
-
         self.reusableImages = {};
         this._parameters.reusableImages.forEach( function (value) {
-            self.reusableImages[value.id] = self._evaluateLayerNode(
+            self.reusableImages[value.id] = self._processPatinaNode(
                 value,
                 self._parameters.width,
                 self._parameters.height
             );
+            console.log("reusableImage: ", value.id);
         });
-       
-        createPatina = self._evaluateLayerNode( 
+        // ToDo: check for race condition between reusableImages and createPatina
+        createPatina = self._processPatinaNode( 
             self._parameters.patina, 
             self._parameters.width, 
             self._parameters.height
         );
-
-        if (createPatina.grey) {
-            // copy img byte-per-byte into our ImageData
+                
+        self.myCanvas = canvas.newCanvas( self._parameters.width, self._parameters.height );
+        if ( Array.isArray(createPatina) ) {
+            // ToDo: the JSON should specify how the Array is transformed to an 4-channel-image
             for (var i = 0, len = self._parameters.width * self._parameters.height; i < len; i++) {
-                var grey = Math.floor(createPatina.grey[i] * 256)
-                self.myCanvas.img.data[i*4] = 255;
-                self.myCanvas.img.data[i*4+1] = 255;
-                self.myCanvas.img.data[i*4+2] = 255;
-                self.myCanvas.img.data[i*4+3] = grey;
+                var alpha = Math.floor(createPatina[i] * 256)
+                self.myCanvas.img.data[i*4] = 255;      // r
+                self.myCanvas.img.data[i*4+1] = 255;    // g
+                self.myCanvas.img.data[i*4+2] = 255;    // b
+                self.myCanvas.img.data[i*4+3] = alpha;  // a
             }
         } else {
             for (var i = 0, len = self._parameters.width * self._parameters.height; i < len; i++) {
@@ -44,8 +43,6 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
                 self.myCanvas.img.data[i*4+3] = Math.floor(createPatina.alpha[i] * 256);
             }
         }
-
-
         self.myCanvas.context.putImageData( self.myCanvas.img, 0, 0 );
         self._paintCanvas( self.myCanvas, domElement );
     } // patina()
@@ -76,51 +73,71 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
             }
         }, // _jsonParse()
 
-        // muss noch in eine eigene Datei
         _combine: function(bottomLayer, topLayer) {
-            var resultingImage = {};
+            // could be way more sophisticated. And than deserves an extra file
 
-            if (bottomLayer.grey && topLayer.grey) {
-                resultingImage.grey = bottomLayer.grey.map(function (value, index) {
-                    return (value + topLayer.grey[index]) / 2;
+            var resultingImage;
+
+            
+            if ( Array.isArray(bottomLayer) && Array.isArray(topLayer) ) {
+                resultingImage = bottomLayer.map(function (value, index) {
+                    return (value + topLayer[index]) / 2;
                 });
-            }
+            } else {
+                resultingImage = {};
+                if (bottomLayer.red && topLayer.red) {
+                    resultingImage.red = bottomLayer.red.map(function (value, index) {
+                        return (value + topLayer.red[index]) / 2;
+                    });
+                }
+                if (bottomLayer.green && topLayer.green) {
+                    resultingImage.green = bottomLayer.green.map(function (value, index) {
+                        return (value + topLayer.green[index]) / 2;
+                    });
+                }
+                if (bottomLayer.blue && topLayer.blue) {
+                    resultingImage.blue = bottomLayer.blue.map(function (value, index) {
+                        return (value + topLayer.blue[index]) / 2;
+                    });
+                }
+                if (bottomLayer.alpha && topLayer.alpha) {
+                    resultingImage.alpha = bottomLayer.alpha.map(function (value, index) {
+                        return (value + topLayer.alpha[index]) / 2;
+                    });
+                }
+            } // if isArray
                 
-            if (bottomLayer.alpha && topLayer.alpha) {
-                resultingImage.alpha = bottomLayer.alpha.map(function (value, index) {
-                    return (value + topLayer.alpha[index]) / 2;
-                });
-            }
-    
             return resultingImage;
         }, // _combine()
 
-        _evaluateLayerNode: function ( layer, width, height ) {
+        _processPatinaNode: function ( layer, width, height ) {
             var resultingImage = false;
 
             if (typeof layer === "number") {
                 var color = layer / 256;
                 return Array.from( {length: width * height}, () => color );
             }
+
+            if ( Array.isArray(layer) ) {
+                return layer;
+            }
             if (layer.type === "colorChannels") {
                 resultingImage = {};
-                resultingImage.red = this._evaluateLayerNode(layer.red, width, height);
-                resultingImage.green = this._evaluateLayerNode(layer.green, width, height);
-                resultingImage.blue = this._evaluateLayerNode(layer.blue, width, height);
-                resultingImage.alpha = this._evaluateLayerNode(layer.alpha, width, height).grey;
+                resultingImage.red = this._processPatinaNode(layer.red, width, height);
+                resultingImage.green = this._processPatinaNode(layer.green, width, height);
+                resultingImage.blue = this._processPatinaNode(layer.blue, width, height);
+                resultingImage.alpha = this._processPatinaNode(layer.alpha, width, height);
             }
             if (layer.type === "combine") {
                 resultingImage = this._combine( 
-                    this._evaluateLayerNode(layer.bottomLayer, width, height),
-                    this._evaluateLayerNode(layer.topLayer, width, height)
+                    this._processPatinaNode(layer.bottomLayer, width, height),
+                    this._processPatinaNode(layer.topLayer, width, height)
                 );
             }
             if (layer.type === "createPattern") {
-                resultingImage = {};
                 resultingImage = new createPattern( layer, width, height );
             }
             if (layer.type === "reuseImage") {
-                console.log("reuse Image: ", layer.id, this.reusableImages[layer.id]);
                 resultingImage = this.reusableImages[layer.id];
             }
             if (resultingImage) {
@@ -135,13 +152,12 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
                 console.log('layer type not recognized ',layer);
                 return null; // Todo: transparentes Array rückgeben oder woanders gracefully failen
             }
-        }, // _evaluateLayerNode()
+        }, // _processPatinaNode()
 
         _paintCanvas: function( myCanvas, element ) {
             if (element) {
                 var s = element.style;
                 s.backgroundImage = 'url(' + myCanvas.toDataURL('image/png') + ')';
-                s.backgroundRepeat = 'repeat';
             }
         } // _paintCanvas()
 

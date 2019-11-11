@@ -25,7 +25,7 @@
             "patina": {
                 "type"  : "colorChannels",
                 "red"   : 150,
-                "green" : 50,
+                "green" : 40,
                 "blue"  : 0,
                 "alpha" : {
                     "type"          : "createPattern",
@@ -45,94 +45,77 @@
                 }
             }
         }'
-        style="background-size: unset; background-repeat: repeat;"
     >
-        <div class="header__marek-logo" style="font-weight: bold; text-shadow: 0 0 2px black, 0 0 1px black">
+        <div class="header__logo">
             Patina
         </div>
     </header>
 
     <main class="content__block">
         <a href="testbed.html" >testbed</a>
-        <pre class="js-require pattern-sample" 
-            data-require-name="patina" 
-            data-require-data='{
-                "width": 256,
-                "height": 256,
-                "patina": {
-                    "type"          : "createPattern",
-                    "patternName"   : "sine",
-                    "parameters"    : {
-                        "direction"     : "circular",
-                        "period"        : 12
-                    },
-                    "filter"        : [{ "name": "invert" }]
-                }
-            }'
-        >"patina": {
-    "type"          : "createPattern",
-    "patternName"   : "sine",
-    "direction"     : "circular",
-    "period"        : 8
-}
-        </pre>
-        Reduce image to two colors using a threshold
-        <pre class="js-require pattern-sample" 
-            data-require-name="patina" 
-            data-require-data='{
-                "width": 256,
-                "height": 256,
-                "patina": {
-                    "type"          : "combine",
-                    "topLayer"      : {
+
+        <hr />
+        
+
+        <div class="pattern">
+            <pre class="js-require pattern__thumbnails" 
+                data-require-name="patina" 
+                data-require-data='{
+                    "width": 256,
+                    "height": 256,
+                    "patina": {
                         "type"          : "createPattern",
-                        "patternName"   : "diamondSquareNoise"
-                    },
-                    "bottomLayer"   : { 
-                        "type"          : "createPattern",
-                        "patternName"   : "diamondSquareNoise"
+                        "patternName"   : "sine",
+                        "parameters"    : {
+                            "direction"     : "circular",
+                            "period"        : 12
+                        },
+                        "filter"        : [{ "name": "invert" }]
                     }
-                }
-            }'
-        >"patina": {
-    "type"          : "createPattern",
-    "patternName"   : "diamondSquareNoise"
-}
-        </pre>
-        <pre class="js-require pattern-sample" 
-            data-require-name="patina" 
-            data-require-data='{
-                "width"     : 256,
-                "height"    : 256,
-                "patina"    : {
-                    "type"          : "createPattern",
-                    "patternName"   : "whiteNoise",
-                    "filter"        : [{ "name": "blur" }]    
-                }
-            }'
-        >"patina"    : {
-    "type"          : "createPattern",
-    "patternName"   : "whiteNoise",
-    "filter"        : [{ "name": "blur" }]    
-}
-
-        </pre>
-        <pre class="js-require pattern-sample" 
-            data-require-name="patina" 
-            data-require-data='{
-                "width"     : 256,
-                "height"    : 256,
-                "patina"    : {
-                    "type"          : "createPattern",
-                    "patternName"   : "slope"
-                }
-            }'
-        >"patina"    : {
-            "type"          : "createPattern",
-            "patternName"   : "slope"
-}
-
-        </pre>
+                }'
+            ></pre>
+            <pre class="js-require pattern__thumbnails" 
+                data-require-name="patina" 
+                data-require-data='{
+                    "width": 256,
+                    "height": 256,
+                    "patina": {
+                        "type"          : "combine",
+                        "topLayer"      : {
+                            "type"          : "createPattern",
+                            "patternName"   : "diamondSquareNoise"
+                        },
+                        "bottomLayer"   : { 
+                            "type"          : "createPattern",
+                            "patternName"   : "diamondSquareNoise"
+                        }
+                    }
+                }'
+            ></pre>
+            <pre class="js-require pattern__thumbnails" 
+                data-require-name="patina" 
+                data-require-data='{
+                    "width"     : 256,
+                    "height"    : 256,
+                    "patina"    : {
+                        "type"          : "createPattern",
+                        "patternName"   : "whiteNoise",
+                        "filter"        : [{ "name": "blur" }]    
+                    }
+                }'
+            ></pre>
+            <pre class="js-require pattern__thumbnails" 
+                data-require-name="patina" 
+                data-require-data='{
+                    "width"     : 256,
+                    "height"    : 256,
+                    "patina"    : {
+                        "type"          : "createPattern",
+                        "patternName"   : "slope"
+                    }
+                }'
+            ></pre>
+        </div>
     </main><!-- .content__block -->
 
   
@@ -143,7 +126,7 @@
             "patina": {
                 "type"  : "colorChannels",
                 "red"   : 150,
-                "green" : 50,
+                "green" : 40,
                 "blue"  : 0,
                 "alpha" : {
                     "type"  :   "combine",

@@ -56,14 +56,8 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=Content
   &__block {
     padding-top: 2 * @unitY;
     padding-bottom: 2 * @unitY;
-    text-align: left;
+    text-align: center;
     list-style-type: none;
-    display: flex;
-    flex-direction: column;
-    @media @desktop {
-      .centerX;
-      flex-direction: row;
-    }
     &--dark {
       background-color: #cde;
     }
@@ -128,8 +122,9 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=footer
 */
 
 .footer {
-  padding: 5 * @unitY;
+  padding: 5 * @unitY 0;
   background-color: @backgroundColor;
+  background-repeat: repeat-x;
   color: white;
   .fontText;
   text-align: center;
