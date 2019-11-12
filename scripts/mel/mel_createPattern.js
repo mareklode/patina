@@ -19,6 +19,65 @@ define(['canvas', 'noise'], function( canvas, noise ) {
 
     createPattern.prototype = {
 
+        border: function ( layerDefinition, width, height ) {
+            var imageData = Array.from( {length: width * height}, () => 0 );
+            // https://www.wolframalpha.com/ <-- plot (2*x)^2 - 4x + 1
+            for (var i = 0; i < width; i++ ) {
+                for (var j = 0; j < height; j++ ) {
+                    var x1 = i / width,
+                        y1 = Math.pow(2 * x1, 2) - (4 * x1) + 1,
+                        x2 = j / height,
+                        y2 = Math.pow(2 * x2, 2) - (4 * x2) + 1;
+                    imageData[j * width + i] =  Math.pow(y1, 8) + Math.pow(y2, 8);
+                }
+            }
+            return imageData;
+
+        },
+
+        diamondSquareNoise: function ( layerDefinition, width, height ) {
+            return noise.diamondSquareNoise(width);
+        },
+        
+        sine: function ( layerDefinition, width, height ) {
+            var imageData = new Array( width * height ),
+                color = 0;
+            for (var i = 0; i < width; i++ ) {
+                for (var j = 0; j < height; j++ ) {
+
+                    if (layerDefinition.parameters) {
+                        switch (layerDefinition.parameters.direction) {
+                            case 'vertical':
+                                color = Math.sin(i/layerDefinition.parameters.period);
+                                break;
+                            case 'horizontal':
+                                color = Math.sin(j/layerDefinition.parameters.period);
+                                break;
+                            case 'rectangles':
+                                color = Math.sin((j*i)/layerDefinition.parameters.period);
+                                break;
+                            case 'diagonalUp':
+                                color = Math.sin((j+i)/layerDefinition.parameters.period);
+                                break;
+                            case 'diagonalDown':
+                                color = Math.sin((j-i)/layerDefinition.parameters.period);
+                                break;
+                            case 'circular':
+                                color = Math.sin( Math.sqrt((i*i) + (j*j))/layerDefinition.parameters.period );
+                                break;
+                            default: 
+                                color = Math.sin( Math.sqrt((i*i) + (j*j))/layerDefinition.parameters.period );
+                        }
+                    } else { // without layerDefinition.parameters
+                        color = Math.sin( Math.sqrt((i*i) + (j*j)) / 8 );
+                    }
+                    imageData[j * width + i] = (color / 2) + 0.5;
+                }
+            }
+            return imageData
+            
+        },
+
         slope: function ( layerDefinition, width, height ) {
             var pattern = new Array(width * height);
             for (var x = 0; x < width; x++) {
@@ -33,42 +92,6 @@ define(['canvas', 'noise'], function( canvas, noise ) {
         whiteNoise: function ( layerDefinition, width, height ) {
             return Array.from( {length: width * height}, () => Math.random() );
         },
-
-        sine: function ( layerDefinition, width, height ) {
-            var imageData = new Array( width * height ),
-                color = 0;
-            for (var i = 0; i < width; i++ ) {
-                for (var j = 0; j < height; j++ ) {
-                    switch (layerDefinition.parameters.direction) {
-                        case 'vertical':
-                            color = Math.sin(i/layerDefinition.parameters.period);// * 127 + 128;
-                            break;
-                        case 'horizontal':
-                            color = Math.sin(j/layerDefinition.parameters.period);// * 127 + 128;
-                            break;
-                        case 'rectangles':
-                            color = Math.sin((j*i)/layerDefinition.parameters.period);// * 127 + 128;
-                            break;
-                        case 'slopeUpwards':
-                            color = Math.sin((j+i)/layerDefinition.parameters.period);// * 127 + 128;
-                            break;
-                        case 'slopeDownwards':
-                            color = Math.sin((j-i)/layerDefinition.parameters.period);// * 127 + 128;
-                            break;
-                        case 'circular':
-                            color = Math.sin( Math.sqrt((i*i) + (j*j))/layerDefinition.parameters.period );// * 127 + 128;
-                            break;
-                    }
-                    imageData[j*width + i] = (color/2) + 0.5;
-                }
-            }
-            return imageData
-            
-        },
-
-        diamondSquareNoise: function ( layerDefinition, width, height ) {
-            return noise.diamondSquareNoise(width);
-        }
 
     } // createPattern.prototype
 

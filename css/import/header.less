@@ -10,48 +10,55 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
 */
 
 .header {
-  height: 330px; // fallback für altes Motorola
-  height: 33vw;
+  height: 128px;
   background-color: @backgroundColor;
   background-position: center;
   position: relative;
-  @media @mobile {
-    height: 67vw;
-    max-height: 100vh;
+  .pagemode_homepage & {
+    height: 330px; // fallback für altes Motorola
+    height: 33vw;
+    @media @mobile {
+      height: 67vw;
+      max-height: 100vh;
+    }
   }
+  
   &__logo {
-    height: 120px; // fallback für altes Motorola
-    width: 370px; // fallback für altes Motorola
-    height: 4 * @unitX;
-    width: 12 * @unitX;
+    height: 128px;
+    line-height: 128px;
     position: absolute;
     top: 50%;
     left: 39%;
     transform: translate(-50%, -50%);
-    font-size: 15vw;
-    line-height: 15vw;
     color: white;
+    font-size: 400%;
     font-weight: bold; 
     text-shadow: 0 0 2px black, 0 0 1px black;
     path {
         fill: #fff;
     }
-    @media @desktop {
-      width: 10 * @unitX;
+    @media @mobile {
+      font-size: 15vw;
+    }
+    .pagemode_homepage & {
+      height: 120px; // fallback für altes Motorola
+      width: 370px; // fallback für altes Motorola
+      height: 4 * @unitX;
+      width: 12 * @unitX;
+      font-size: 15vw;
+      line-height: 15vw;
+      @media @desktop {
+        width: 10 * @unitX;
+      }
     }
   }
-  &__navigation {
-    .pagemode_homepage & {
-      opacity: 0;
-      pointer-events: none;
-    }
-    position: absolute;
+}
+.navigation {
+  background-color: rgb(150, 40, 0);
+  &__link {
+    display: inline-block;
+    padding: 1vw 2vw;
     color: white;
-    padding: 20px; // fallback für altes Motorola
-    padding: 1.5*@unitX;
-    font-size: 24px; // fallback für altes Motorola
-    font-size: 6vw;
-    line-height: 8vw;
     font-weight: bold;
     text-decoration: none;
     &:hover,
@@ -60,47 +67,10 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
         background-color: rgba(0, 0, 0, 0.33);
         opacity: 1;
     }
-    &:focus {
-        opacity: 1;
-    }
     @media @desktop {
       opacity: 0.66;
-      font-size: 4vw;
-      line-height: 1vw;
-      padding: @unitX;
-    }
-    &--home {
-      top: 0;
-      left: 0;
-    }
-    &--posts {
-      left: 0;
-      bottom: 0;
-      opacity: 1;
-      padding: 0;
-      /* z-index: 1; removed for mediumZoom */
-      &:hover,
-      &:active,
-      &:focus {
-          background: none;
-      }
-    }
-
-    &--next {
-      position: initial;
-      float: right;
-      padding-right: 3*@unitX;
-      @media @desktop {
-        padding-right:2*@unitX;
-      }
-    }
-    &--prev {
-      position: relative;
-      float: left;
-      padding-left: 3*@unitX;
-      @media @desktop {
-        padding-left: 2*@unitX;
-      }
+      font-size: 150%;
+      padding: 15px 2vw;
     }
   }
 }

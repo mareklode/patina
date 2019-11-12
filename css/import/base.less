@@ -38,6 +38,13 @@ h1 {
   .textElement;
   font-size: 2.5rem;
   line-height: 2.5rem;
+  @media @mobile {
+      width: 90vw;
+  }
+  @media @desktop {
+      margin: @unitY auto 4 * @unitY auto;
+      width: 20 * @unitX;
+  }
 }
 h2 {
   .textElement;

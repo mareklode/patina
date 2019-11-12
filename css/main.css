@@ -167,6 +167,17 @@ h1 {
     width: 88vw;
   }
 }
+@media screen and (max-width: 599px) {
+  h1 {
+    width: 90vw;
+  }
+}
+@media screen and (min-width: 600px) {
+  h1 {
+    margin: 1rem auto 4rem auto;
+    width: 80vw;
+  }
+}
 h2 {
   text-align: left;
   font-size: 2rem;
@@ -231,107 +242,75 @@ h2 {
 http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
 */
 .header {
-  height: 330px;
-  height: 33vw;
+  height: 128px;
   background-color: #e84000;
   background-position: center;
   position: relative;
 }
+.pagemode_homepage .header {
+  height: 330px;
+  height: 33vw;
+}
 @media screen and (max-width: 599px) {
-  .header {
+  .pagemode_homepage .header {
     height: 67vw;
     max-height: 100vh;
   }
 }
 .header__logo {
-  height: 120px;
-  width: 370px;
-  height: 16vw;
-  width: 48vw;
+  height: 128px;
+  line-height: 128px;
   position: absolute;
   top: 50%;
   left: 39%;
   transform: translate(-50%, -50%);
-  font-size: 15vw;
-  line-height: 15vw;
   color: white;
+  font-size: 400%;
   font-weight: bold;
   text-shadow: 0 0 2px black, 0 0 1px black;
 }
 .header__logo path {
   fill: #fff;
 }
-@media screen and (min-width: 600px) {
+@media screen and (max-width: 599px) {
   .header__logo {
+    font-size: 15vw;
+  }
+}
+.pagemode_homepage .header__logo {
+  height: 120px;
+  width: 370px;
+  height: 16vw;
+  width: 48vw;
+  font-size: 15vw;
+  line-height: 15vw;
+}
+@media screen and (min-width: 600px) {
+  .pagemode_homepage .header__logo {
     width: 40vw;
   }
 }
-.header__navigation {
-  position: absolute;
+.navigation {
+  background-color: #962800;
+}
+.navigation__link {
+  display: inline-block;
+  padding: 1vw 2vw;
   color: white;
-  padding: 20px;
-  padding: 6vw;
-  font-size: 24px;
-  font-size: 6vw;
-  line-height: 8vw;
   font-weight: bold;
   text-decoration: none;
 }
-.pagemode_homepage .header__navigation {
-  opacity: 0;
-  pointer-events: none;
-}
-.header__navigation:hover,
-.header__navigation:active,
-.header__navigation:focus {
+.navigation__link:hover,
+.navigation__link:active,
+.navigation__link:focus {
   background-color: rgba(0, 0, 0, 0.33);
   opacity: 1;
 }
-.header__navigation:focus {
-  opacity: 1;
-}
 @media screen and (min-width: 600px) {
-  .header__navigation {
+  .navigation__link {
     opacity: 0.66;
-    font-size: 4vw;
-    line-height: 1vw;
-    padding: 4vw;
-  }
-}
-.header__navigation--home {
-  top: 0;
-  left: 0;
-}
-.header__navigation--posts {
-  left: 0;
-  bottom: 0;
-  opacity: 1;
-  padding: 0;
-  /* z-index: 1; removed for mediumZoom */
-}
-.header__navigation--posts:hover,
-.header__navigation--posts:active,
-.header__navigation--posts:focus {
-  background: none;
-}
-.header__navigation--next {
-  position: initial;
-  float: right;
-  padding-right: 12vw;
-}
-@media screen and (min-width: 600px) {
-  .header__navigation--next {
-    padding-right: 8vw;
-  }
-}
-.header__navigation--prev {
-  position: relative;
-  float: left;
-  padding-left: 12vw;
-}
-@media screen and (min-width: 600px) {
-  .header__navigation--prev {
-    padding-left: 8vw;
+    font-size: 150%;
+    padding: 15px 2vw;
   }
 }
 /*
