@@ -20,8 +20,8 @@
     <header class="header js-require" 
         data-require-name="patina" 
         data-require-data='{
-            "width" : 283,
-            "height": 182,
+            "width" : 375,
+            "height": 283,
             "patina": {
                 "type"  : "colorChannels",
                 "red"   : 150,
@@ -43,16 +43,45 @@
             }
         }'
     >
-        <a href="."><div class="header__logo">
+        <div class="header__logo">
             Patina
-        </div></a>
+        </div>
     </header>
 
-    <nav class="navigation">
+
+    <nav class="navigation js-require" 
+        data-require-name="patina" 
+        data-require-data='{
+            "patina": {
+                "type"          : "combine",
+                "topLayer"      : {
+                    "type"          : "createPattern",
+                    "patternName"   : "border"
+                },
+                "bottomLayer"      : {
+                    "type"          : "combine",
+                    "topLayer"      : {
+                        "type"          : "createPattern",
+                        "patternName"   : "border"
+                        },
+                    "bottomLayer"      : {
+                        "type"          : "createPattern",
+                        "patternName"   : "whiteNoise"
+                    }
+                },
+                "filter"        : [
+                    { "name": "contrast" },
+                    { "name": "brightness", "brightness": -0.1 }
+                ]
+            }
+        }'
+    >
         <a class="navigation__link" href=".">Home</a>
         <a class="navigation__link" href="createPattern.html">createPattern</a>
         <a class="navigation__link" href="filter.html">filter</a>
-        <a class="navigation__link" href="test.html">Testbed</a>
+        <a class="navigation__link" href="reusableImages.html">reusableImages</a>
+        <a class="navigation__link" href="test.html">test</a>
+        <a class="navigation__link" href="examples.html">examples</a>
     </nav>
 
     <main class="content__block">
@@ -68,8 +97,7 @@
                 data-require-data='{
                     "patina": {
                         "type"          : "createPattern",
-                        "patternName"   : "border",
-                        "filter"        : [{ "name": "invert" }]
+                        "patternName"   : "border"
                     }
                 }'
             ></pre>
@@ -83,6 +111,19 @@
                     "patina": {
                         "type"          : "createPattern",
                         "patternName"   : "diamondSquareNoise"
+                    }
+                }'
+            ></pre>
+
+            <h2>image</h2>
+            <pre class="js-require pattern__thumbnails" 
+                data-require-name="patina" 
+                data-require-data='{
+                    "width": 256,
+                    "height": 256,
+                    "patina": {
+                        "type"          : "createPattern",
+                        "patternName"   : "image"
                     }
                 }'
             ></pre>
@@ -119,7 +160,8 @@
                     "height"    : 256,
                     "patina"    : {
                         "type"          : "createPattern",
-                        "patternName"   : "slope"
+                        "patternName"   : "slope",
+                        "filter"        : [{ "name": "contrast" }]
                     }
                 }'
             ></pre>

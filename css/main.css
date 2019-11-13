@@ -623,13 +623,13 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=gallery
   margin: 1vw;
   display: inline-block;
   line-height: 0;
-  width: 250px;
-  height: 250px;
+  width: 300px;
+  height: 300px;
 }
 @media screen and (min-width: 600px) {
   .pattern__thumbnails {
     max-width: 36vw;
-    height-width: 36vw;
+    max-height: 36vw;
   }
 }
 @media screen and (max-width: 599px) {

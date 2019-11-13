@@ -20,15 +20,23 @@ define(['canvas', 'noise'], function( canvas, noise ) {
     createPattern.prototype = {
 
         border: function ( layerDefinition, width, height ) {
-            var imageData = Array.from( {length: width * height}, () => 0 );
-            // https://www.wolframalpha.com/ <-- plot (2*x)^2 - 4x + 1
+            var imageData = new Array( width * height );
             for (var i = 0; i < width; i++ ) {
                 for (var j = 0; j < height; j++ ) {
                     var x1 = i / width,
-                        y1 = Math.pow(2 * x1, 2) - (4 * x1) + 1,
-                        x2 = j / height,
-                        y2 = Math.pow(2 * x2, 2) - (4 * x2) + 1;
-                    imageData[j * width + i] =  Math.pow(y1, 8) + Math.pow(y2, 8);
+                    x2 = j / height,
+                    y1 = Math.pow(2 * x1, 2) - (4 * x1) + 1,
+                    y2 = Math.pow(2 * x2, 2) - (4 * x2) + 1;
+                    // https://www.wolframalpha.com/ <-- plot (2*x)^2 - 4x + 1
+                    
+                    imageData[j * width + i] =  (
+                        Math.pow(y1, 32) + 
+                        Math.pow(y2, 32) + 
+                        Math.pow(y1, 8) + 
+                        Math.pow(y2, 8) + 
+                        Math.pow(y1, 2) + 
+                        Math.pow(y2, 2)
+                    ) / 6;
                 }
             }
             return imageData;
@@ -37,6 +45,11 @@ define(['canvas', 'noise'], function( canvas, noise ) {
 
         diamondSquareNoise: function ( layerDefinition, width, height ) {
             return noise.diamondSquareNoise(width);
+        },
+
+        image: function ( layerDefinition, width, height ) {
+            // fetch image from URL and convert it to an Array
+            return this.whiteNoise( layerDefinition, width, height );
         },
         
         sine: function ( layerDefinition, width, height ) {

@@ -30,9 +30,9 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
             // ToDo: the JSON should specify how the Array is transformed to an 4-channel-image
             for (var i = 0, len = self._parameters.width * self._parameters.height; i < len; i++) {
                 var alpha = Math.floor(createPatina[i] * 256)
-                self.myCanvas.img.data[i*4] = 255;      // r
-                self.myCanvas.img.data[i*4+1] = 255;    // g
-                self.myCanvas.img.data[i*4+2] = 255;    // b
+                self.myCanvas.img.data[i*4] = 0;      // r
+                self.myCanvas.img.data[i*4+1] = 0;    // g
+                self.myCanvas.img.data[i*4+2] = 0;    // b
                 self.myCanvas.img.data[i*4+3] = alpha;  // a
             }
         } else {
@@ -85,6 +85,7 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
                 });
             } else {
                 resultingImage = {};
+                // ToDo: what if one color channel is missing?
                 if (bottomLayer.red && topLayer.red) {
                     resultingImage.red = bottomLayer.red.map(function (value, index) {
                         return (value + topLayer.red[index]) / 2;

@@ -30,6 +30,19 @@ define([], function() {
             }); 
         }, // blur()
 
+        brightness: function (image, filterDefinition) {
+            return image.map(function(value){
+                return value - filterDefinition.brightness;
+            });
+        },
+
+        contrast: function (image, filterDefinition) {
+            // wolframalpha <-- plot (sin((x-0.5)*pi) + 1)/2
+            return image.map(function(value){
+                return Math.pow(value, 2);
+            });
+        },
+
         invert: function (image) {
             return image.map(function(value){
                 return -value + 1;
