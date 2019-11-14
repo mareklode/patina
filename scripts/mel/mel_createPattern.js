@@ -4,14 +4,14 @@ define(['canvas', 'noise'], function( canvas, noise ) {
     // http://codeblog.cz/vanilla/inside.html#set-element-html
     // https://github.com/daneden/animate.css
 
-    function createPattern (layerDefinition, width, height) {
+    function createPattern (layerDefinition, width, height, reusableImages) {
         var pattern = {};
 
         if (this[layerDefinition.patternName]) {
             console.log("createPattern: ", layerDefinition.patternName);
-            pattern = this[layerDefinition.patternName]( layerDefinition, width, height );
+            pattern = this[layerDefinition.patternName]( layerDefinition, width, height, reusableImages );
         } else {
-            console.error("createPattern: ", layerDefinition.patternName, " does not exist.");
+            console.error("createPattern: \"", layerDefinition.patternName, "\" does not exist.");
         }
 
         return pattern;
@@ -47,11 +47,6 @@ define(['canvas', 'noise'], function( canvas, noise ) {
             return noise.diamondSquareNoise(width);
         },
 
-        image: function ( layerDefinition, width, height ) {
-            // fetch image from URL and convert it to an Array
-            return this.whiteNoise( layerDefinition, width, height );
-        },
-        
         sine: function ( layerDefinition, width, height ) {
             var imageData = new Array( width * height ),
                 color = 0;
@@ -100,6 +95,26 @@ define(['canvas', 'noise'], function( canvas, noise ) {
                 }
             }
             return pattern;
+        },
+
+        twoDimensionalNoise: function ( layerDefinition, width, height ) {
+            var noise, 
+                pattern = new Array(),
+                flattenedArray;
+
+            if (layerDefinition.direction === "vertical") {
+                var noise = Array.from( {length: height}, () => Math.random() );
+                for (var i = 0; i < width; i++) {
+                    pattern.push(noise);
+                }
+            } else {
+                var noise = Array.from( {length: width}, () => Math.random() );
+                for (var i = 0; i < height; i++) {
+                    pattern.push(noise);
+                }
+            }
+            flattenedArray = [].concat.apply([], pattern);
+            return flattenedArray;
         },
 
         whiteNoise: function ( layerDefinition, width, height ) {

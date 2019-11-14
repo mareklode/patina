@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width">
   
-      <title>createPattern</title>
+      <title>test | Patina | mareklode</title>
 
-  <meta property="og:title" content="mareklode | patina" />
+  <meta property="og:title" content="test | Patina | mareklode" />
   <meta property="og:image" content="http://mareklode.de/bilder/page/v3/v3_rost4.png" />
-  <meta property="og:description" content="Patina: procedually generated background images in JavaScript. createPattern" />
-  <meta name="description" content="Patina: procedually generated background images in JavaScript. createPattern">
+  <meta property="og:description" content="Patina: procedually generated background images in JavaScript. test" />
+  <meta name="description" content="Patina: procedually generated background images in JavaScript. test">
 
   <link rel="stylesheet" type="text/css" href="css/normalize.min.css">
   <link rel="stylesheet" href="css/main.css">
@@ -38,23 +38,8 @@
         data-require-name="patina" 
         data-require-data='{
             "patina": {
-                "type"          : "combine",
-                "topLayer"      : {
-                    "type"          : "createPattern",
-                    "patternName"   : "border"
-                },
-                "bottomLayer"      : {
-                    "type"          : "combine",
-                    "topLayer"      : {
-                        "type"          : "createPattern",
-                        "patternName"   : "diamondSquareNoise"
-                        },
-                    "bottomLayer"      : {
-                        "type"          : "createPattern",
-                        "patternName"   : "whiteNoise"
-                    }
-                },
-                "filter"        : [{ "name": "contrast" }]
+                "type"          : "createPattern",
+                "patternName"   : "twoDimensionalNoise"
             }
         }'
     ></pre>

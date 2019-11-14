@@ -6,7 +6,7 @@ define([], function() {
         if (this[filterDefinition.name]) {
             filteredImage = this[filterDefinition.name]( image, filterDefinition, width, height );
         } else {
-            console.error("filter: ", filterDefinition.name, " does not exist.");
+            console.error("filter: \"", filterDefinition.name, "\" does not exist.");
             filteredImage = image;
         }
 
@@ -16,6 +16,7 @@ define([], function() {
     filter.prototype = {
 
         blur: function (image, filterDefinition, width) {
+            // ToDo: this function is obviously garbage. Find a better blur algorithm
             return image.map(function(value, index){
                 return (value + 
                         image[index + 1] + 

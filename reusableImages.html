@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width">
   
-      <title>createPattern</title>
+      <title>reusableImages | Patina | mareklode</title>
 
-  <meta property="og:title" content="mareklode | patina" />
+  <meta property="og:title" content="reusableImages | Patina | mareklode" />
   <meta property="og:image" content="http://mareklode.de/bilder/page/v3/v3_rost4.png" />
-  <meta property="og:description" content="Patina: procedually generated background images in JavaScript. createPattern" />
-  <meta name="description" content="Patina: procedually generated background images in JavaScript. createPattern">
+  <meta property="og:description" content="Patina: procedually generated background images in JavaScript. reusableImages" />
+  <meta name="description" content="Patina: procedually generated background images in JavaScript. reusableImages">
 
   <link rel="stylesheet" type="text/css" href="css/normalize.min.css">
   <link rel="stylesheet" href="css/main.css">
@@ -91,6 +91,7 @@
         <p class="textElement">The only way to use a pixel array at two different points inside the data structure (two different color channels for example) is to use "reusableImages". Better Explanation follows.</p>
 
         <div class="pattern">
+
             <h2>diamondSquareNoise</h2>
             <pre style="width: 512px;"
                 class="js-require pattern__thumbnails" 
@@ -108,8 +109,12 @@
                             "bottomLayer"   : {
                                 "type"          : "createPattern",
                                 "patternName"   : "slope"
-                            },
-                            "filter"        : [{ "name": "threshold", "threshold": 0.5 }]
+                            }
+                        },
+                        {
+                            "id"            : "bild",
+                            "type"          : "preloadImage",
+                            "url"           : "images/reetroof.jpg"
                         }
                     ],
                     "patina": {
@@ -121,15 +126,46 @@
                         },
                         "blue"  :  {
                             "type"  :   "reuseImage",
-                            "id"    :   "greyNoise"
+                            "id"    :   "greyNoise",
+                            "filter": [{ "name": "invert" }]
                         },
                         "alpha" :  {
                             "type"  :   "reuseImage",
-                            "id"    :   "greyNoise"
+                            "id"    :   "greyNoise",
+                            "filter": [{ "name": "invert" }]
                         }
                     }
                 }'
-            ></pre>        
+            ></pre>      
+            
+            <h2>image</h2>
+            <pre class="js-require pattern__thumbnails" 
+                data-require-name="patina" 
+                data-require-data='{
+                    "reusableImages"    : [
+                        { 
+                            "id"            : "reetroof", 
+                            "type"          : "preloadImage",
+                            "url"           : "images/reetroof_300.jpg"
+                        },
+                        { 
+                            "id"            : "zweiBaeume", 
+                            "type"          : "preloadImage",
+                            "url"           : "images/zweiBaeume_300.jpg"
+                        },
+                        { 
+                            "id"            : "sonnenstrahl", 
+                            "type"          : "preloadImage",
+                            "url"           : "images/sonnenstrahl_300.jpg"
+                        }
+                    ],
+                    "patina": {
+                        "type"          : "reuseImage",
+                        "id"            : "reetroof"
+                    }
+                }'
+            ></pre>
+
         </div>
     </main><!-- .content__block -->
 

@@ -2,33 +2,9 @@ define([], function() {
 
     noise = {
 
-        createNoisemap: function (width, height) {
-            var noiseMap = {};
-
-            console.log('noise Map _noise.js');
-
-            noiseMap.width = width;
-            noiseMap.height = height;
-            noiseMap.imgData = [];
-
-            for ( var i=0; i < width; i++ ) {
-               noiseMap.imgData[i] = new Array;
-            }
-
-            return noiseMap;
-        }, // _createNoisemap()
-
-        _zufall: function (noiseMap) {
-            var tmpNoiseMap = this.diamondSquareNoise(noiseMap.width);
-
-            for (var i = 0; i < noiseMap.width; i++ ) {
-                for (var j = 0; j < noiseMap.height; j++ ) {
-                    noiseMap.imgData[i][j] = tmpNoiseMap[i][j];
-                }
-            }
-        }, // zufall()
-
-
+        twoDimensionalNoise: function () {
+            return {};
+        },
 
         // https://sdm.scad.edu/faculty/mkesson/vsfx419/wip/best/winter12/jonathan_mann/noise.html
         diamondSquareNoise: function (width) {
@@ -48,8 +24,7 @@ define([], function() {
                 displacementDistance,
                 averageColor, range = b,
                 chunkSize = b/2,// * b,
-                noiseMap = [],
-                gräbengraben = false;
+                noiseMap = [];
 
             // console.log('noiseMapWidth: ', noiseMapWidth);
 
@@ -102,7 +77,8 @@ define([], function() {
 
                 // squareStep:
                 // take a diamond
-                // alle rauten nehmen, mitte auslenken (quadrate erzeugen)
+                // add random number (displacement distance) to average of corners
+                // and assign new value to center of the diamond
                 for ( aktX=0; aktX < ( (noiseMapWidth-1) ); aktX=aktX+b ){
                     for ( aktY=0; aktY< ( (noiseMapWidth-1) ); aktY=aktY+b ){
                         if ( b < chunkSize ) {
@@ -152,7 +128,7 @@ define([], function() {
                     }
                 }
 
-                // borders
+                // copy border colors to opposite border
                 for ( i=0; i<=noiseMapWidth; i++){
                     noiseMap[noiseMapWidth][i]=noiseMap[0][i];
                     noiseMap[i][noiseMapWidth]=noiseMap[i][0];
@@ -161,32 +137,19 @@ define([], function() {
                 bh = b/2;
             } // while
 
-            if (gräbengraben) {
-                console.log(max, min);
-                max = Math.abs(max > -min ? max : min) / 4;
-                console.log(max);
-            }
-
             // stretching to color space
             var stretchFromZeroTo = 1, // or 255
                 by = stretchFromZeroTo / (max - min); // how much to stretch
 
             for ( i = 0; i < noiseMapWidth; i++ ) {
                 for ( j = 0; j < noiseMapWidth; j++ ) {
-                    var ausgabe = false;
-                    if (Math.random() > 0.995) {
-                        ausgabe = true;
-                    }
-                    if (gräbengraben && noiseMap[i][j] < 0) {
-                        noiseMap[i][j] *= -1;
-                    }
-                    noiseMap[i][j] = ( noiseMap[i][j]-min )*by;
+                    noiseMap[i][j] = ( noiseMap[i][j] - min ) * by;
                 }
             }
 
             var noiseString = new Array();
             for (var y = 0; y < width; y++) {
-                noiseMap[y].pop(); // every line was one pixel too long. I don't know why.
+                noiseMap[y].pop(); // every line was one pixel too long. Border-copying?
                 noiseString = noiseString.concat(noiseMap[y]);
             }
             // debugger
@@ -194,7 +157,6 @@ define([], function() {
 
         }, // diamondSquareNoise()
 
-        // helperfunction, i do need this for perlin noise
         randomFromTo: function( from, to ) {
             return ( Math.random() * ( to - from ) ) + from;
         } // randomFromTo()
