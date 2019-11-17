@@ -93,7 +93,7 @@
         <div class="pattern">
 
             <h2>diamondSquareNoise</h2>
-            <pre style="width: 512px;"
+            <pre style="width: 512px;max-width: 90%;"
                 class="js-require pattern__thumbnails" 
                 data-require-name="patina" 
                 data-require-data='{
@@ -110,35 +110,31 @@
                                 "type"          : "createPattern",
                                 "patternName"   : "slope"
                             }
-                        },
-                        {
-                            "id"            : "bild",
-                            "type"          : "preloadImage",
-                            "url"           : "images/reetroof.jpg"
                         }
                     ],
                     "patina": {
                         "type"  : "colorChannels",
-                        "red"   :  100,
+                        "red"   : {
+                            "type"      :   "reuseImage",
+                            "reuseId"   :   "greyNoise"
+                        },
                         "green" : {
-                            "type"  :   "reuseImage",
-                            "id"    :   "greyNoise"
+                            "type"      :   "reuseImage",
+                            "reuseId"   :   "greyNoise"
                         },
                         "blue"  :  {
-                            "type"  :   "reuseImage",
-                            "id"    :   "greyNoise",
-                            "filter": [{ "name": "invert" }]
+                            "type"      :   "reuseImage",
+                            "reuseId"   :   "greyNoise"
                         },
                         "alpha" :  {
-                            "type"  :   "reuseImage",
-                            "id"    :   "greyNoise",
-                            "filter": [{ "name": "invert" }]
+                            "type"      :   "reuseImage",
+                            "reuseId"   :   "greyNoise"
                         }
                     }
                 }'
             ></pre>      
             
-            <h2>image</h2>
+            <h2>combining two images</h2>
             <pre class="js-require pattern__thumbnails" 
                 data-require-name="patina" 
                 data-require-data='{
@@ -149,19 +145,21 @@
                             "url"           : "images/reetroof_300.jpg"
                         },
                         { 
-                            "id"            : "zweiBaeume", 
+                            "id"            : "zweiBaeume_300", 
                             "type"          : "preloadImage",
                             "url"           : "images/zweiBaeume_300.jpg"
-                        },
-                        { 
-                            "id"            : "sonnenstrahl", 
-                            "type"          : "preloadImage",
-                            "url"           : "images/sonnenstrahl_300.jpg"
                         }
                     ],
                     "patina": {
-                        "type"          : "reuseImage",
-                        "id"            : "reetroof"
+                        "type"      : "combine",
+                        "topLayer"  : {
+                            "type"          : "reuseImage",
+                            "reuseId"       : "reetroof"
+                        },
+                        "bottomLayer"  : {
+                            "type"          : "reuseImage",
+                            "reuseId"       : "zweiBaeume_300"
+                        }
                     }
                 }'
             ></pre>

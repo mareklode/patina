@@ -58,12 +58,15 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
             this.imageObj.addEventListener("load", function() {
                 var imgData;
 
+                // ToDo: check why i do this from here...
                 myCanvas.context.drawImage(this, 0, 0);
                 imgData = myCanvas.context.getImageData(
                     0, 0,
                     myCanvas.width,
                     myCanvas.height
                 );
+                // Todo: ... to here and if it is necessary
+
                 var data = imgData.data;
 
                 reusableImages[reusableImage.id] = {
@@ -71,13 +74,13 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
                     green: [],
                     blue: [],
                     alpha: []
-                };  // myCanvas.img.data.set(imgData.data);
+                };  
 
                 for (var i = 0, len = width * height; i < len; i += 1) {
                     reusableImages[reusableImage.id].red[i]   = data[i*4]   / 256;
                     reusableImages[reusableImage.id].green[i] = data[i*4+1] / 256;
                     reusableImages[reusableImage.id].blue[i]  = data[i*4+2] / 256;
-                    reusableImages[reusableImage.id].alpha[i] = 255;//data[i*4+3] / 256;
+                    reusableImages[reusableImage.id].alpha[i] = data[i*4+3] / 256;
                 }
 
                 reusableImages.countdown();
@@ -85,7 +88,7 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
 
             this.imageObj.src = reusableImage.url;
 
-        },
+        }, // preloadImage()
         
         createPatina: function (parameters, domElement) {
             var myCanvas = canvas.newCanvas( parameters.width, parameters.height );
@@ -107,16 +110,16 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
                 }
             } else {
                 for (var i = 0, len = parameters.width * parameters.height; i < len; i++) {
-                    myCanvas.img.data[i*4]   = Math.floor(patinaArray.red[i] * 256);
-                    myCanvas.img.data[i*4+1] = Math.floor(patinaArray.green[i] * 256);
-                    myCanvas.img.data[i*4+2] = Math.floor(patinaArray.blue[i] * 256);
-                    myCanvas.img.data[i*4+3] = Math.floor(patinaArray.alpha[i] * 256);
+                    myCanvas.img.data[i * 4]     = Math.floor(patinaArray.red[i]   * 256);
+                    myCanvas.img.data[i * 4 + 1] = Math.floor(patinaArray.green[i] * 256);
+                    myCanvas.img.data[i * 4 + 2] = Math.floor(patinaArray.blue[i]  * 256);
+                    myCanvas.img.data[i * 4 + 3] = Math.floor(patinaArray.alpha[i] * 256);
                 }
             }
             myCanvas.context.putImageData( myCanvas.img, 0, 0 );
             this._paintCanvas( myCanvas, domElement );
 
-        },
+        }, // createPatina()
 
         _completeParameters: function ( parameters, element ) {
             parameters = this._jsonParse( parameters );
@@ -155,6 +158,7 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
             } else {
                 resultingImage = {};
                 // ToDo: what if one color channel is missing?
+                // Todo: determine the mixing ration from the alpha channel
                 if (bottomLayer.red && topLayer.red) {
                     resultingImage.red = bottomLayer.red.map(function (value, index) {
                         return (value + topLayer.red[index]) / 2;
@@ -208,26 +212,25 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
                 resultingImage = new createPattern( layer, width, height );
             }
             if (layer.type === "reuseImage") {
-                resultingImage = this.reusableImages[layer.id];
+                resultingImage = this.reusableImages[layer.reuseId];
             }
             if (resultingImage) {
                 if (layer.filter) {
                     layer.filter.forEach(element => {
-                        // todo: rauskriegen ob das hier sequenziell abgearbeitet wird oder race conditions stören
+                        // todo: check wether this is done sequentially or are there chances for race conditions
                         resultingImage = new filter(resultingImage, element, width, height);
                     });
                 }
                 return resultingImage;
             } else {
                 console.log('layer type not recognized ',layer);
-                return null; // Todo: transparentes Array rückgeben oder woanders gracefully failen
+                return null; // Todo: return transparent Array fail gracefully somewhere else
             }
         }, // _processPatinaNode()
 
         _paintCanvas: function( myCanvas, element ) {
             if (element) {
-                var s = element.style;
-                s.backgroundImage = 'url(' + myCanvas.toDataURL('image/png') + ')';
+                element.style.backgroundImage = 'url(' + myCanvas.toDataURL('image/png') + ')';
             }
         } // _paintCanvas()
 

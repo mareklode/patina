@@ -33,13 +33,47 @@
         <a class="navigation__link" href="examples.html">examples</a>
     </nav>
 
-    <pre style="background: orangered; width: 512px; height: 256px; margin: 2vw;"
+    <pre style="background: orangered; width: 512px; height: 512px; margin: 2vw;"
         class="js-require" 
         data-require-name="patina" 
         data-require-data='{
+            "width": 512,
+            "reusableImages" : [
+                { 
+                    "id"            : "greyNoise", 
+                    "type"          : "combine",
+                    "topLayer"      : {
+                        "type"          : "createPattern",
+                        "patternName"   : "diamondSquareNoise"
+                    },
+                    "bottomLayer"   : {
+                        "type"          : "createPattern",
+                        "patternName"   : "whiteNoise"
+                    }, 
+                    "filter"        : [{ "name": "blur"}]
+                },
+                { 
+                    "id"            : "bottomLayer", 
+                    "type"          : "reuseImage",
+                    "reuseId"       : "greyNoise",
+                    "filter"        : [{ "name": "threshold", "threshold": 0.5 }]
+                }
+            ],
             "patina": {
-                "type"          : "createPattern",
-                "patternName"   : "twoDimensionalNoise"
+                "type"  : "colorChannels",
+                "red"   : {
+                    "type"      : "reuseImage",
+                    "reuseId"   : "bottomLayer"
+                },
+                "green" : {
+                    "type"      : "reuseImage",
+                    "reuseId"   : "bottomLayer"
+                },
+                "blue"  : {
+                    "type"      : "reuseImage",
+                    "reuseId"   : "greyNoise"
+                },
+                "alpha"     : 255
             }
         }'
     ></pre>
