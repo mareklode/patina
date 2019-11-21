@@ -110,7 +110,7 @@ define(['canvas', 'noise'], function( canvas, noise ) {
             } else {
                 var noise = Array.from( {length: width}, () => Math.random() );
                 for (var i = 0; i < height; i++) {
-                    pattern.push(noise);
+                    pattern.push(Array.from( {length: height}, () => noise[i] ));
                 }
             }
             flattenedArray = [].concat.apply([], pattern);

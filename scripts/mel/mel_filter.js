@@ -16,7 +16,7 @@ define([], function() {
     filter.prototype = {
 
         blur: function (image, filterDefinition, width) {
-            // ToDo: this function is obviously garbage. Find a better blur algorithm
+            // ToDo: better blur algorithm: http://blog.ivank.net/fastest-gaussian-blur.html (three times box blur)
             return image.map(function(value, index){
                 return (value + 
                         image[index + 1] + 

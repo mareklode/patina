@@ -164,6 +164,25 @@
                     }
                 }'
             ></pre>
+            <h2>2 times twoDimensionalNoise</h2>
+            <pre class="js-require pattern__thumbnails" 
+                data-require-name="patina" 
+                data-require-data='{
+                    "patina": {
+                        "type"      : "combine",
+                        "topLayer"  : {
+                            "type"          : "createPattern",
+                            "patternName"   : "twoDimensionalNoise",
+                            "direction"     : "horizontal"
+                        },
+                        "bottomLayer"  : {
+                            "type"          : "createPattern",
+                            "patternName"   : "twoDimensionalNoise",
+                            "direction"     : "vertical"
+                        }
+                    }
+                }'
+            ></pre>
 
             <h2>flat (just one value that will be applied to the whole color channel (not really a pattern))</h2>
             <pre class="js-require pattern__thumbnails" 
