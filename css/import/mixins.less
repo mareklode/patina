@@ -75,12 +75,17 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Mixins
   }
 }
 
-.textElement {
-    text-align: left;
-    @media @mobile {
-      margin: @unitY auto @unitY auto;
-      width: 22 * @unitX;
-    }
+.contentContainer {
+  text-align: left;
+  @media @mobile {
+    margin: @unitY auto @unitY auto;
+    width: 90vw;
+  }
+  @media @desktop {
+      margin: @unitY auto 4 * @unitY auto;
+      width: 20 * @unitX;
+  }
+
 }
 
 .buttonColors {

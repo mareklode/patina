@@ -30,10 +30,8 @@
                 "alpha" : {
                     "type"          : "createPattern",
                     "patternName"   : "sine",
-                    "parameters"    : {
-                        "direction"     : "rectangles",
-                        "period"        : 15
-                    },
+                    "direction"     : "rectangles",
+                    "period"        : 15,
                     "filter"        : [
                         { "name": "threshold", "threshold": 0.5},
                         { "name": "blur" },
@@ -88,7 +86,7 @@
 
         <h1>reusableImages</h1>
 
-        <p class="textElement">The only way to use a pixel array at two different points inside the data structure (two different color channels for example) is to use "reusableImages". Better Explanation follows.</p>
+        <p class="contentContainer">The only way to use a pixel array at two different points inside the data structure (two different color channels for example) is to use "reusableImages". Better Explanation follows.</p>
 
         <div class="pattern">
 
@@ -190,10 +188,8 @@
                             "bottomLayer"   : {
                                 "type"          : "createPattern",
                                 "patternName"   : "sine",
-                                "parameters"    : {
-                                    "direction"     : "horizontal",
-                                    "period"        : "0.6"
-                                }
+                                "direction"     : "horizontal",
+                                "period"        : "0.6"
                             }
                         },
                         "bottomLayer" : { 
@@ -210,10 +206,8 @@
                         "bottomLayer"   : {
                             "type"          : "createPattern",
                             "patternName"   : "sine",
-                            "parameters"    : {
-                                "direction"     : "vertical",
-                                "period"        : 0.67
-                            }
+                            "direction"     : "vertical",
+                            "period"        : 0.67
                         }
                     },
                     "filter"        : [

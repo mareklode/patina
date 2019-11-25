@@ -23,11 +23,11 @@ define(['canvas', 'noise'], function( canvas, noise ) {
             var imageData = new Array( width * height );
             for (var i = 0; i < width; i++ ) {
                 for (var j = 0; j < height; j++ ) {
-                    var x1 = i / width,
-                    x2 = j / height,
-                    y1 = Math.pow(2 * x1, 2) - (4 * x1) + 1,
-                    y2 = Math.pow(2 * x2, 2) - (4 * x2) + 1;
-                    // https://www.wolframalpha.com/ <-- plot (2*x)^2 - 4x + 1
+                    var x1 = i / ( width  - 1 ),
+                        x2 = j / ( height - 1 ),
+                        y1 = Math.pow(2 * x1, 2) - (4 * x1) + 1,
+                        y2 = Math.pow(2 * x2, 2) - (4 * x2) + 1;
+                        // https://www.wolframalpha.com/ <-- plot (2*x)^2 - 4x + 1
                     
                     imageData[j * width + i] =  (
                         Math.pow(y1, 32) + 
@@ -49,35 +49,32 @@ define(['canvas', 'noise'], function( canvas, noise ) {
 
         sine: function ( layerDefinition, width, height ) {
             var imageData = new Array( width * height ),
-                color = 0;
+                color = 0,
+                period = layerDefinition.period || 1;
             for (var i = 0; i < width; i++ ) {
                 for (var j = 0; j < height; j++ ) {
 
-                    if (layerDefinition.parameters) {
-                        switch (layerDefinition.parameters.direction) {
-                            case 'vertical':
-                                color = Math.sin(i/layerDefinition.parameters.period);
-                                break;
-                            case 'horizontal':
-                                color = Math.sin(j/layerDefinition.parameters.period);
-                                break;
-                            case 'rectangles':
-                                color = Math.sin((j*i)/layerDefinition.parameters.period);
-                                break;
-                            case 'diagonalUp':
-                                color = Math.sin((j+i)/layerDefinition.parameters.period);
-                                break;
-                            case 'diagonalDown':
-                                color = Math.sin((j-i)/layerDefinition.parameters.period);
-                                break;
-                            case 'circular':
-                                color = Math.sin( Math.sqrt((i*i) + (j*j))/layerDefinition.parameters.period );
-                                break;
-                            default: 
-                                color = Math.sin( Math.sqrt((i*i) + (j*j))/layerDefinition.parameters.period );
-                        }
-                    } else { // without layerDefinition.parameters
-                        color = Math.sin( Math.sqrt((i*i) + (j*j)) / 8 );
+                    switch ( layerDefinition.direction ) {
+                        case 'vertical':
+                            color = Math.sin(i/period);
+                            break;
+                        case 'horizontal':
+                            color = Math.sin(j/period);
+                            break;
+                        case 'rectangles':
+                            color = Math.sin((j*i)/period);
+                            break;
+                        case 'diagonalUp':
+                            color = Math.sin((j+i)/period);
+                            break;
+                        case 'diagonalDown':
+                            color = Math.sin((j-i)/period);
+                            break;
+                        case 'circular':
+                            color = Math.sin( Math.sqrt((i*i) + (j*j))/period );
+                            break;
+                        default: 
+                            color = Math.sin( Math.sqrt((i*i) + (j*j))/period );
                     }
                     imageData[j * width + i] = (color / 2) + 0.5;
                 }

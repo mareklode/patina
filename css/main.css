@@ -95,13 +95,19 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Mixins
     font-weight: normal;
   }
 }
-.textElement {
+.contentContainer {
   text-align: left;
 }
 @media screen and (max-width: 599px) {
-  .textElement {
+  .contentContainer {
     margin: 1rem auto 1rem auto;
-    width: 88vw;
+    width: 90vw;
+  }
+}
+@media screen and (min-width: 600px) {
+  .contentContainer {
+    margin: 1rem auto 4rem auto;
+    width: 80vw;
   }
 }
 .buttonColors {
@@ -164,11 +170,6 @@ h1 {
 @media screen and (max-width: 599px) {
   h1 {
     margin: 1rem auto 1rem auto;
-    width: 88vw;
-  }
-}
-@media screen and (max-width: 599px) {
-  h1 {
     width: 90vw;
   }
 }
@@ -186,7 +187,13 @@ h2 {
 @media screen and (max-width: 599px) {
   h2 {
     margin: 1rem auto 1rem auto;
-    width: 88vw;
+    width: 90vw;
+  }
+}
+@media screen and (min-width: 600px) {
+  h2 {
+    margin: 1rem auto 4rem auto;
+    width: 80vw;
   }
 }
 .button {
@@ -341,7 +348,14 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=Teaser
   .teaser__heading,
   .teaser__text {
     margin: 1rem auto 1rem auto;
-    width: 88vw;
+    width: 90vw;
+  }
+}
+@media screen and (min-width: 600px) {
+  .teaser__heading,
+  .teaser__text {
+    margin: 1rem auto 4rem auto;
+    width: 80vw;
   }
 }
 @media screen and (min-width: 600px) {
@@ -424,7 +438,14 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=Blogpost
   .blogpost__heading,
   .blogpost__text {
     margin: 1rem auto 1rem auto;
-    width: 88vw;
+    width: 90vw;
+  }
+}
+@media screen and (min-width: 600px) {
+  .blogpost__heading,
+  .blogpost__text {
+    margin: 1rem auto 4rem auto;
+    width: 80vw;
   }
 }
 @media screen and (min-width: 600px) {
@@ -502,7 +523,13 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
 @media screen and (max-width: 599px) {
   .copy {
     margin: 1rem auto 1rem auto;
-    width: 88vw;
+    width: 90vw;
+  }
+}
+@media screen and (min-width: 600px) {
+  .copy {
+    margin: 1rem auto 4rem auto;
+    width: 80vw;
   }
 }
 @media screen and (min-width: 600px) {
@@ -575,7 +602,13 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
 @media screen and (max-width: 599px) {
   .todo {
     margin: 1rem auto 1rem auto;
-    width: 88vw;
+    width: 90vw;
+  }
+}
+@media screen and (min-width: 600px) {
+  .todo {
+    margin: 1rem auto 4rem auto;
+    width: 80vw;
   }
 }
 @media screen and (min-width: 600px) {
@@ -604,11 +637,6 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=gallery
 @media screen and (max-width: 599px) {
   .pattern {
     margin: 1rem auto 1rem auto;
-    width: 88vw;
-  }
-}
-@media screen and (max-width: 599px) {
-  .pattern {
     width: 90vw;
   }
 }
@@ -624,7 +652,6 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=gallery
   display: inline-block;
   line-height: 0;
   width: 300px;
-  max-width: 88vw;
   height: 300px;
 }
 @media screen and (min-width: 600px) {

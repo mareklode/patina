@@ -30,10 +30,8 @@
                 "alpha" : {
                     "type"          : "createPattern",
                     "patternName"   : "sine",
-                    "parameters"    : {
-                        "direction"     : "rectangles",
-                        "period"        : 15
-                    },
+                    "direction"     : "rectangles",
+                    "period"        : 15,
                     "filter"        : [
                         { "name": "threshold", "threshold": 0.5},
                         { "name": "blur" },
@@ -46,6 +44,8 @@
         <div class="header__logo">
             Patina
         </div>
+        <p class="header__claim"
+            style="transform: translate(-50%, -50%);position: absolute; left: 39%; bottom: 1vw;">Procedurally generated images, inside your browser.</p>
     </header>
 
 
@@ -86,65 +86,260 @@
 
     <main class="content__block">
 
+        <h1>Patina</h1>
+
+        <p class="contentContainer">
+            Combine simple noise patterns to create complex textures with JavaScript.
+        </p>
+
         <div class="pattern">
-            <pre class="js-require pattern__thumbnails" 
+            <div class="js-require pattern__thumbnails" 
+                style="width: 128px; height: 128px;"
                 data-require-name="patina" 
                 data-require-data='{
-                    "width": 256,
-                    "height": 256,
+                    "patina": {
+                        "type"          : "createPattern",
+                        "patternName"   : "border"
+                    }
+                }'
+            ></div>
+            <span  style="line-height: 128px;">+</span>
+            <div class="js-require pattern__thumbnails" 
+                style="width: 128px; height: 128px;"
+                data-require-name="patina" 
+                data-require-data='{
                     "patina": {
                         "type"          : "createPattern",
                         "patternName"   : "sine",
-                        "parameters"    : {
-                            "direction"     : "circular",
-                            "period"        : 12
-                        },
-                        "filter"        : [{ "name": "invert" }]
+                        "direction"     : "rectangles",
+                        "period"        : 3
                     }
                 }'
-            ></pre>
-            <pre class="js-require pattern__thumbnails" 
+            ></div>
+            +
+            <div class="js-require pattern__thumbnails" 
+                style="width: 128px; height: 128px;"
+                data-require-name="patina" 
+                data-require-data='{
+                    "patina": {
+                        "type"          : "createPattern",
+                        "patternName"   : "twoDimensionalNoise"
+                    }
+                }'
+            ></div>
+            +
+            <div class="js-require pattern__thumbnails" 
+                style="width: 128px; height: 128px;"
+                data-require-name="patina" 
+                data-require-data='{
+                    "patina": {
+                        "type"          : "createPattern",
+                        "patternName"   : "twoDimensionalNoise",
+                        "direction"     : "vertical"
+                    }
+                }'
+            ></div>
+            =
+            <div class="js-require pattern__thumbnails" 
+                style="width: 256px; height: 256px;"
                 data-require-name="patina" 
                 data-require-data='{
                     "width": 256,
                     "height": 256,
+                    "reusableImages": [
+                        {
+                            "id"            : "NoiseBorder",
+                            "type"          : "combine",
+                            "topLayer"      : {
+                                "type"          : "createPattern",
+                                "patternName"   : "border"
+                            },
+                            "bottomLayer"   : { 
+                                "type"          : "combine",
+                                "topLayer"      : {
+                                    "type"          : "combine",
+                                    "topLayer"      : {
+                                        "type"          : "createPattern",
+                                        "patternName"   : "twoDimensionalNoise"
+                                    },
+                                    "bottomLayer"   : { 
+                                        "type"          : "createPattern",
+                                        "patternName"   : "twoDimensionalNoise",
+                                        "direction"     : "vertical"
+                                    }
+                                },
+                                "bottomLayer"   : { 
+                                    "type"          : "combine",
+                                    "topLayer"      : {
+                                        "type"          : "createPattern",
+                                        "patternName"   : "border"
+                                    },
+                                    "bottomLayer"   : { 
+                                        "type"          : "createPattern",
+                                        "patternName"   : "sine",
+                                        "direction"     : "rectangles",
+                                        "period"        : 3
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "id"            : "NoiseBorder2",
+                            "type"          : "combine",
+                            "topLayer"      : {
+                                "type"          : "createPattern",
+                                "patternName"   : "border"
+                            },
+                            "bottomLayer"   : { 
+                                "type"          : "combine",
+                                "topLayer"      : {
+                                    "type"          : "createPattern",
+                                    "patternName"   : "sine",
+                                    "direction"     : "rectangles"
+                                },
+                                "bottomLayer"   : { 
+                                    "type"          : "createPattern",
+                                    "patternName"   : "diamondSquareNoise"
+                                }
+                            }
+                        }
+                    ],
                     "patina": {
                         "type"          : "combine",
                         "topLayer"      : {
-                            "type"          : "createPattern",
-                            "patternName"   : "diamondSquareNoise"
+                            "type"          : "combine",
+                            "topLayer"      : {
+                                "type"      : "reuseImage",
+                                "reuseId"   : "NoiseBorder",
+                                "filter"        : [
+                                    { "name": "threshold", "threshold": 0.35 }
+                                ]
+                            },
+                            "bottomLayer"   : { 
+                                "type"      : "reuseImage",
+                                "reuseId"   : "NoiseBorder",
+                                "filter"        : [
+                                    { "name": "threshold", "threshold": 0.45 }
+                                ]
+                            }
                         },
                         "bottomLayer"   : { 
-                            "type"          : "createPattern",
-                            "patternName"   : "diamondSquareNoise"
+                            "type"          : "combine",
+                            "topLayer"      : {
+                                "type"      : "reuseImage",
+                                "reuseId"   : "NoiseBorder",
+                                "filter"        : [
+                                    { "name": "blur" },
+                                    { "name": "threshold", "threshold": 0.55 }
+                                ]
+                            },
+                            "bottomLayer"   : { 
+                                "type"      : "reuseImage",
+                                "reuseId"   : "NoiseBorder"
+                            }
                         }
                     }
                 }'
-            ></pre>
-            <pre class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "width"     : 256,
-                    "height"    : 256,
-                    "patina"    : {
-                        "type"          : "createPattern",
-                        "patternName"   : "whiteNoise",
-                        "filter"        : [{ "name": "blur" }]    
-                    }
-                }'
-            ></pre>
-            <pre class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "width"     : 256,
-                    "height"    : 256,
-                    "patina"    : {
-                        "type"          : "createPattern",
-                        "patternName"   : "slope"
-                    }
-                }'
-            ></pre>
+            ></div>
         </div>
+
+        <p class="contentContainer"> 
+            You can even (soon) animate them.
+            It's neither efficient nor practical, but possible.
+        </p>
+
+        <p class="contentContainer">
+            Specified by a data structure written in JSON, the browser will render a new background image every time you reload the page.
+        </p>
+
+        <div class="pattern">
+            <div class="js-require pattern__thumbnails" 
+                style="width: 128px; height: 128px;"
+                data-require-name="patina" 
+                data-require-data='{
+                    "patina": {
+                        "type"          : "createPattern",
+                        "patternName"   : "diamondSquareNoise"
+                    }
+                }'
+            ></div>
+            <div class="js-require pattern__thumbnails" 
+                style="width: 128px; height: 128px;"
+                data-require-name="patina" 
+                data-require-data='{
+                    "patina": {
+                        "type"          : "createPattern",
+                        "patternName"   : "diamondSquareNoise"
+                    }
+                }'
+            ></div>
+            <div class="js-require pattern__thumbnails" 
+                style="width: 128px; height: 128px;"
+                data-require-name="patina" 
+                data-require-data='{
+                    "patina": {
+                        "type"          : "createPattern",
+                        "patternName"   : "diamondSquareNoise"
+                    }
+                }'
+            ></div>
+            <div class="js-require pattern__thumbnails" 
+                style="width: 128px; height: 128px;"
+                data-require-name="patina" 
+                data-require-data='{
+                    "patina": {
+                        "type"          : "createPattern",
+                        "patternName"   : "diamondSquareNoise"
+                    }
+                }'
+            ></div>
+            <div class="js-require pattern__thumbnails" 
+                style="width: 128px; height: 128px;"
+                data-require-name="patina" 
+                data-require-data='{
+                    "patina": {
+                        "type"          : "createPattern",
+                        "patternName"   : "diamondSquareNoise"
+                    }
+                }'
+            ></div>
+        </div>
+
+        <p class="contentContainer">
+            Load images, distort or combine them, apply filters.
+        </p>
+
+        <div class="pattern">
+            <div class="js-require pattern__thumbnails" 
+                data-require-name="patina" 
+                data-require-data='{
+                    "reusableImages"    : [
+                        { 
+                            "id"            : "reetroof", 
+                            "type"          : "preloadImage",
+                            "url"           : "images/reetroof_300.jpg"
+                        },
+                        { 
+                            "id"            : "zweiBaeume_300", 
+                            "type"          : "preloadImage",
+                            "url"           : "images/zweiBaeume_300.jpg"
+                        }
+                    ],
+                    "patina": {
+                        "type"      : "combine",
+                        "topLayer"  : {
+                            "type"          : "reuseImage",
+                            "reuseId"       : "reetroof"
+                        },
+                        "bottomLayer"  : {
+                            "type"          : "reuseImage",
+                            "reuseId"       : "zweiBaeume_300"
+                        }
+                    }
+                }'
+            ></div>
+        </div>
+
     </main><!-- .content__block -->
 
   
@@ -170,10 +365,8 @@
                             "bottomLayer"   : {
                                 "type"          : "createPattern",
                                 "patternName"   : "sine",
-                                "parameters"    : {
-                                    "direction"     : "horizontal",
-                                    "period"        : "0.6"
-                                }
+                                "direction"     : "horizontal",
+                                "period"        : "0.6"
                             }
                         },
                         "bottomLayer" : { 
@@ -190,10 +383,8 @@
                         "bottomLayer"   : {
                             "type"          : "createPattern",
                             "patternName"   : "sine",
-                            "parameters"    : {
-                                "direction"     : "vertical",
-                                "period"        : 0.67
-                            }
+                            "direction"     : "vertical",
+                            "period"        : 0.67
                         }
                     },
                     "filter"        : [
