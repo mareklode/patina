@@ -32,15 +32,26 @@ define([], function() {
         }, // blur()
 
         brightness: function (image, filterDefinition) {
+            var brightness = filterDefinition.brightness;
+
+            if ( brightness < 0 ) {
+                // for brightness =-2 : https://www.wolframalpha.com/ <-- Plot[x^0.25, {x, 0, 1}] 
+                brightness = (-1 / (brightness - 1) );
+            } else {
+                // for brightness = 0 : https://www.wolframalpha.com/ <-- Plot[x^1, {x, 0, 1}] 
+                // for brightness = 2 : https://www.wolframalpha.com/ <-- Plot[x^3, {x, 0, 1}] 
+                brightness += 1;
+            }
             return image.map(function(value){
-                return value - filterDefinition.brightness;
+                return Math.pow(value, brightness );
             });
+            
         },
 
         contrast: function (image, filterDefinition) {
-            // wolframalpha <-- plot (sin((x-0.5)*pi) + 1)/2
+            // https://www.wolframalpha.com/ <-- plot (sin((x-0.5)*pi) + 1)/2
             return image.map(function(value){
-                return Math.pow(value, 2);
+                return (Math.sin((value - 0.5) * Math.PI) + 1 ) / 2; // Math.pow(value, 2);
             });
         },
 
@@ -51,14 +62,13 @@ define([], function() {
         }, // invert() 
 
         threshold: function (image, filterDefinition) {
-            
+            // maybe set a range for the threshold, so the border is smoother?
             return image.map(function(value){
                 return value > filterDefinition.threshold ? 1 : 0;
             })
         },
 
         _getPixel: function(x, y) {
-            console.log(this.image, );
             return this.image[y * this.width + x];
         }, // _getPixel()
 

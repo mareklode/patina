@@ -88,7 +88,7 @@
 
         <div class="pattern">
 
-            <pre style="width: 512px;"
+            <div style="width: 512px;"
                 class="js-require  pattern__thumbnails" 
                 data-require-name="patina" 
                 data-require-data='{
@@ -114,9 +114,54 @@
                         "filter"        : [{ "name": "contrast" }]
                     }
                 }'
-            ></pre>
+            ></div><!-- patina -->
     
-        </div>
+            <div style="background: orangered; width: 512px; height: 512px; margin: 2vw;"
+                class="js-require" 
+                data-require-name="patina" 
+                data-require-data='{
+                    "width": 512,
+                    "reusableImages" : [
+                        { 
+                            "id"            : "greyNoise", 
+                            "type"          : "combine",
+                            "topLayer"      : {
+                                "type"          : "createPattern",
+                                "patternName"   : "diamondSquareNoise"
+                            },
+                            "bottomLayer"   : {
+                                "type"          : "createPattern",
+                                "patternName"   : "whiteNoise"
+                            }, 
+                            "filter"        : [{ "name": "blur"}]
+                        },
+                        { 
+                            "id"            : "bottomLayer", 
+                            "type"          : "reuseImage",
+                            "reuseId"       : "greyNoise",
+                            "filter"        : [{ "name": "threshold", "threshold": 0.5 }]
+                        }
+                    ],
+                    "patina": {
+                        "type"  : "colorChannels",
+                        "red"   : {
+                            "type"      : "reuseImage",
+                            "reuseId"   : "bottomLayer"
+                        },
+                        "green" : {
+                            "type"      : "reuseImage",
+                            "reuseId"   : "bottomLayer"
+                        },
+                        "blue"  : {
+                            "type"      : "reuseImage",
+                            "reuseId"   : "greyNoise"
+                        },
+                        "alpha"     : 255
+                    }
+                }'
+            ></div><!-- patina -->
+
+        </div><!-- pattern -->
     </main><!-- .content__block -->
 
   

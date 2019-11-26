@@ -152,7 +152,8 @@
                             "type"          : "combine",
                             "topLayer"      : {
                                 "type"          : "createPattern",
-                                "patternName"   : "border"
+                                "patternName"   : "border",
+                                "filter"        : [{ "name": "brightness", "brightness": -1}]
                             },
                             "bottomLayer"   : { 
                                 "type"          : "combine",
@@ -178,40 +179,22 @@
                                         "type"          : "createPattern",
                                         "patternName"   : "sine",
                                         "direction"     : "rectangles",
-                                        "period"        : 3
+                                        "period"        : 3,
+                                        "filter"        : [{ "name": "brightness", "brightness": 1 }]
                                     }
-                                }
-                            }
-                        },
-                        {
-                            "id"            : "NoiseBorder2",
-                            "type"          : "combine",
-                            "topLayer"      : {
-                                "type"          : "createPattern",
-                                "patternName"   : "border"
-                            },
-                            "bottomLayer"   : { 
-                                "type"          : "combine",
-                                "topLayer"      : {
-                                    "type"          : "createPattern",
-                                    "patternName"   : "sine",
-                                    "direction"     : "rectangles"
-                                },
-                                "bottomLayer"   : { 
-                                    "type"          : "createPattern",
-                                    "patternName"   : "diamondSquareNoise"
                                 }
                             }
                         }
                     ],
                     "patina": {
-                        "type"          : "combine",
+                        "type"      : "combine",
                         "topLayer"      : {
                             "type"          : "combine",
                             "topLayer"      : {
                                 "type"      : "reuseImage",
                                 "reuseId"   : "NoiseBorder",
                                 "filter"        : [
+                                    { "name": "brightness", "brightness": 0.35 },
                                     { "name": "threshold", "threshold": 0.35 }
                                 ]
                             },
@@ -235,7 +218,10 @@
                             },
                             "bottomLayer"   : { 
                                 "type"      : "reuseImage",
-                                "reuseId"   : "NoiseBorder"
+                                "reuseId"   : "NoiseBorder",
+                                "filter"        : [
+                                    { "name": "brightness", "brightness": 0.35 }
+                                ]
                             }
                         }
                     }
@@ -306,7 +292,7 @@
         </div>
 
         <p class="contentContainer">
-            Load images, distort or combine them, apply filters.
+            Load images, distort or combine them, apply <a href="filter/brightness.html">filters</a>.
         </p>
 
         <div class="pattern">

@@ -647,7 +647,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=gallery
   }
 }
 .pattern__thumbnails {
-  background-color: #e84000;
+  background-color: yellow;
   margin: 1vw;
   display: inline-block;
   line-height: 0;

@@ -87,8 +87,8 @@ define(['canvas', 'noise'], function( canvas, noise ) {
             var pattern = new Array(width * height);
             for (var x = 0; x < width; x++) {
                 for (var y = 0; y < height; y++) {
-                    var position = y * width + x;
-                    pattern[position] = y / height;
+                    var position = y * width + x ;
+                    pattern[position] = y / (height - 1);
                 }
             }
             return pattern;

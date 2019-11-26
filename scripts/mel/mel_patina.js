@@ -102,7 +102,7 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
             if ( Array.isArray(patinaArray) ) {
                 // ToDo: the JSON should specify how the Array is transformed to an 4-channel-image
                 for (var i = 0, len = parameters.width * parameters.height; i < len; i++) {
-                    var alpha = Math.floor(patinaArray[i] * 256)
+                    var alpha = Math.floor(patinaArray[i] * 256);
                     myCanvas.img.data[i*4] = 0;      // r
                     myCanvas.img.data[i*4+1] = 0;    // g
                     myCanvas.img.data[i*4+2] = 0;    // b

@@ -10,3 +10,6 @@ Load images, distort or combine them, apply filters.
 http://mareklode.de/patina/
 
 ![plastisches Rauschen](http://mareklode.de/bilder/page/v3/backgroundimage/plastischesRauschen256.jpg)
+
+# License
+This project is licensed under the GNU General Public License v3.0
