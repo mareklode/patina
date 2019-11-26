@@ -16,7 +16,7 @@
 
   <style>
     .pattern { display: block; clear: both;}
-    .pattern__thumbnails { float: left; margin: 0; line-height: 64px; color: purple; text-align: center; }
+    .pattern__thumbnails { float: left; margin: 0; line-height: 64px; color: purple; background-color: yellow; text-align: center; }
   </style>
 
 </head>
@@ -66,15 +66,14 @@
                     "topLayer"      : {
                         "type"          : "createPattern",
                         "patternName"   : "border"
-                        },
+                    },
                     "bottomLayer"      : {
                         "type"          : "createPattern",
                         "patternName"   : "whiteNoise"
                     }
                 },
                 "filter"        : [
-                    { "name": "contrast" },
-                    { "name": "brightness", "brightness": -0.1 }
+                    { "name": "contrast" }
                 ]
             }
         }'
@@ -94,6 +93,8 @@
         <p class="contentContainer">
             The brightness filter can be positive to brighten the color channel or negative to darken it. Values outside of -10 and 10 do not make much sense.
         </p>
+
+        <h2>Example</h2>
 
         <pre class="contentContainer">                    
 "patina": {
@@ -495,7 +496,7 @@
     
         </div><!--.pattern-->
 
-        <p class="contentContainer">
+        <p class="contentContainer" style="clear: both;">
             The second line is backwards and inverted. It shows very clear, that brighten and darken are not reversible/equal.
         </p>
 

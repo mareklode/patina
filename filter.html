@@ -61,15 +61,14 @@
                     "topLayer"      : {
                         "type"          : "createPattern",
                         "patternName"   : "border"
-                        },
+                    },
                     "bottomLayer"      : {
                         "type"          : "createPattern",
                         "patternName"   : "whiteNoise"
                     }
                 },
                 "filter"        : [
-                    { "name": "invert" },
-                    { "name": "brightness", "brightness": 0.1 }
+                    { "name": "contrast" }
                 ]
             }
         }'
@@ -112,8 +111,7 @@
             ></pre>
 
             <h2>brightness</h2>
-            <p class="contentContainer">For now, only values above 0 make sense. A brightness of zero </p>
-            <pre class="js-require pattern__thumbnails" 
+            <a href="filter_brightness.html" class="js-require pattern__thumbnails" 
                 data-require-name="patina" 
                 data-require-data='{
                     "width": 256,
@@ -128,106 +126,10 @@
                             "type"          : "createPattern",
                             "patternName"   : "diamondSquareNoise"
                         },
-                        "filter"        : [{ "name": "brightness", "brightness": -0.5 }]
+                        "filter"        : [{ "name": "brightness", "brightness": 3 }]
                     }
                 }'
-            ></pre>
-            <pre class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "width": 256,
-                    "height": 256,
-                    "patina": {
-                        "type"          : "combine",
-                        "topLayer"      : {
-                            "type"          : "createPattern",
-                            "patternName"   : "whiteNoise"
-                        },
-                        "bottomLayer"      : {
-                            "type"          : "createPattern",
-                            "patternName"   : "diamondSquareNoise"
-                        },
-                        "filter"        : [{ "name": "brightness", "brightness": -0.1 }]
-                    }
-                }'
-            ></pre>
-            <pre class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "width": 256,
-                    "height": 256,
-                    "patina": {
-                        "type"          : "combine",
-                        "topLayer"      : {
-                            "type"          : "createPattern",
-                            "patternName"   : "whiteNoise"
-                        },
-                        "bottomLayer"      : {
-                            "type"          : "createPattern",
-                            "patternName"   : "diamondSquareNoise"
-                        },
-                        "filter"        : [{ "name": "brightness", "brightness": 0 }]
-                    }
-                }'
-            ></pre>
-            <pre class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "width": 256,
-                    "height": 256,
-                    "patina": {
-                        "type"          : "combine",
-                        "topLayer"      : {
-                            "type"          : "createPattern",
-                            "patternName"   : "whiteNoise"
-                        },
-                        "bottomLayer"      : {
-                            "type"          : "createPattern",
-                            "patternName"   : "diamondSquareNoise"
-                        },
-                        "filter"        : [{ "name": "brightness", "brightness": 0.1 }]
-                    }
-                }'
-            ></pre>
-            <pre class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "width": 256,
-                    "height": 256,
-                    "patina": {
-                        "type"          : "combine",
-                        "topLayer"      : {
-                            "type"          : "createPattern",
-                            "patternName"   : "whiteNoise"
-                        },
-                        "bottomLayer"      : {
-                            "type"          : "createPattern",
-                            "patternName"   : "diamondSquareNoise"
-                        },
-                        "filter"        : [{ "name": "brightness", "brightness": 0.5 }]
-                    }
-                }'
-            ></pre>
-
-            <pre class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "width": 256,
-                    "height": 256,
-                    "patina": {
-                        "type"          : "combine",
-                        "topLayer"      : {
-                            "type"          : "createPattern",
-                            "patternName"   : "whiteNoise"
-                        },
-                        "bottomLayer"      : {
-                            "type"          : "createPattern",
-                            "patternName"   : "diamondSquareNoise"
-                        },
-                        "filter"        : [{ "name": "brightness", "brightness": 2 }]
-                    }
-                }'
-            ></pre>
+            ></a>
 
             <h2>contrast</h2>
             <pre class="js-require pattern__thumbnails" 

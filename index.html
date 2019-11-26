@@ -63,15 +63,14 @@
                     "topLayer"      : {
                         "type"          : "createPattern",
                         "patternName"   : "border"
-                        },
+                    },
                     "bottomLayer"      : {
                         "type"          : "createPattern",
                         "patternName"   : "whiteNoise"
                     }
                 },
                 "filter"        : [
-                    { "name": "contrast" },
-                    { "name": "brightness", "brightness": -0.1 }
+                    { "name": "contrast" }
                 ]
             }
         }'
@@ -93,8 +92,8 @@
         </p>
 
         <div class="pattern">
-            <div class="js-require pattern__thumbnails" 
-                style="width: 128px; height: 128px;"
+
+            <div class="js-require pattern__thumbnails pattern__thumbnails--128" 
                 data-require-name="patina" 
                 data-require-data='{
                     "patina": {
@@ -103,9 +102,10 @@
                     }
                 }'
             ></div>
-            <span  style="line-height: 128px;">+</span>
-            <div class="js-require pattern__thumbnails" 
-                style="width: 128px; height: 128px;"
+
+            <span class="pattern__textInbetween">+</span>
+
+            <div class="js-require pattern__thumbnails pattern__thumbnails--128" 
                 data-require-name="patina" 
                 data-require-data='{
                     "patina": {
@@ -116,9 +116,10 @@
                     }
                 }'
             ></div>
-            +
-            <div class="js-require pattern__thumbnails" 
-                style="width: 128px; height: 128px;"
+
+            <span class="pattern__textInbetween">+</span>
+
+            <div class="js-require pattern__thumbnails pattern__thumbnails--128" 
                 data-require-name="patina" 
                 data-require-data='{
                     "patina": {
@@ -127,9 +128,10 @@
                     }
                 }'
             ></div>
-            +
-            <div class="js-require pattern__thumbnails" 
-                style="width: 128px; height: 128px;"
+
+            <span class="pattern__textInbetween">+</span>
+
+            <div class="js-require pattern__thumbnails pattern__thumbnails--128" 
                 data-require-name="patina" 
                 data-require-data='{
                     "patina": {
@@ -139,9 +141,10 @@
                     }
                 }'
             ></div>
-            =
-            <div class="js-require pattern__thumbnails" 
-                style="width: 256px; height: 256px;"
+
+            <span class="pattern__textInbetween">=</span>
+
+            <div class="js-require pattern__thumbnails pattern__thumbnails--256" 
                 data-require-name="patina" 
                 data-require-data='{
                     "width": 256,
@@ -292,7 +295,7 @@
         </div>
 
         <p class="contentContainer">
-            Load images, distort or combine them, apply <a href="filter/brightness.html">filters</a>.
+            Load images, distort or combine them, apply <a href="filter_brightness.html">filters</a>.
         </p>
 
         <div class="pattern">
