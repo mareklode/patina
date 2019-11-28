@@ -12,7 +12,6 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
             count : this._parameters.reusableImages.length,
             countdown : function () {
                 this.count--;
-                console.log(this.count);
                 if ( this.count === 0) {
                     self.createPatina(self._parameters, domElement);
                 };
@@ -39,7 +38,6 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
                 }
                 console.log("reusableImage: ", value.id);
             });
-    
         } else {
             // evaluate now because we don't have to wait for any images to load
             self.createPatina(self._parameters, domElement);
@@ -145,48 +143,54 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
             }
         }, // _jsonParse()
 
-        _combine: function(bottomLayer, topLayer) {
+        _combineArrays: function (bottomLayer, topLayer) {
+            return bottomLayer.map(function (value, index) {
+                return (value + topLayer[index]) / 2;
+            });
+        },
+
+        _combineLayers: function(bottomLayer, topLayer) {
             // could be way more sophisticated. And than deserves an extra file
+            var resultingImage,
+                isArrayBottomLayer = Array.isArray(bottomLayer),
+                isArrayTopLayer =  Array.isArray(topLayer);
 
-            var resultingImage;
-
-            
-            if ( Array.isArray(bottomLayer) && Array.isArray(topLayer) ) {
-                resultingImage = bottomLayer.map(function (value, index) {
-                    return (value + topLayer[index]) / 2;
-                });
+            if ( isArrayBottomLayer && isArrayTopLayer ) {
+                resultingImage = this._combineArrays(bottomLayer, topLayer);
             } else {
-                resultingImage = {};
-                // ToDo: what if one color channel is missing?
-                // Todo: determine the mixing ration from the alpha channel
-                if (bottomLayer.red && topLayer.red) {
-                    resultingImage.red = bottomLayer.red.map(function (value, index) {
-                        return (value + topLayer.red[index]) / 2;
-                    });
+                // at least one of the images has color channels. maybe both.
+                var bl = {}, tl = {}, resultingImage = {};
+
+                if (isArrayBottomLayer) {
+                    bl.red = bottomLayer;
+                    bl.green = bottomLayer;
+                    bl.blue = bottomLayer;
+                    bl.alpha = bottomLayer;
+                } else {
+                    bl = bottomLayer;
                 }
-                if (bottomLayer.green && topLayer.green) {
-                    resultingImage.green = bottomLayer.green.map(function (value, index) {
-                        return (value + topLayer.green[index]) / 2;
-                    });
+            
+                if (isArrayTopLayer) {
+                    tl.red = topLayer;
+                    tl.green = topLayer;
+                    tl.blue = topLayer;
+                    tl.alpha = topLayer;
+                } else {
+                    tl = topLayer;
                 }
-                if (bottomLayer.blue && topLayer.blue) {
-                    resultingImage.blue = bottomLayer.blue.map(function (value, index) {
-                        return (value + topLayer.blue[index]) / 2;
-                    });
-                }
-                if (bottomLayer.alpha && topLayer.alpha) {
-                    resultingImage.alpha = bottomLayer.alpha.map(function (value, index) {
-                        return (value + topLayer.alpha[index]) / 2;
-                    });
-                }
+            
+                resultingImage.red   = this._combineArrays(bl.red,   tl.red);
+                resultingImage.green = this._combineArrays(bl.green, tl.green);
+                resultingImage.blue  = this._combineArrays(bl.blue,  tl.blue);
+                resultingImage.alpha = this._combineArrays(bl.alpha, tl.alpha);
             } // if isArray
                 
             return resultingImage;
-        }, // _combine()
+        }, // _combineLayers()
 
         _processPatinaNode: function ( layer, width, height ) {
             var resultingImage = false;
-
+            
             if (typeof layer === "number") {
                 var color = layer / 256;
                 return Array.from( {length: width * height}, () => color );
@@ -203,7 +207,7 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
                 resultingImage.alpha = this._processPatinaNode(layer.alpha, width, height);
             }
             if (layer.type === "combine") {
-                resultingImage = this._combine( 
+                resultingImage = this._combineLayers( 
                     this._processPatinaNode(layer.bottomLayer, width, height),
                     this._processPatinaNode(layer.topLayer, width, height)
                 );
@@ -212,13 +216,24 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
                 resultingImage = new createPattern( layer, width, height );
             }
             if (layer.type === "reuseImage") {
-                resultingImage = this.reusableImages[layer.reuseId];
+                if (this.reusableImages[layer.reuseId]) {
+                    resultingImage = this.reusableImages[layer.reuseId];
+                } else {
+                    console.error("ReusableImage", layer.reuseId, "was not found.");
+                }
             }
             if (resultingImage) {
                 if (layer.filter) {
                     layer.filter.forEach(element => {
                         // todo: check wether this is done sequentially or are there chances for race conditions
-                        resultingImage = new filter(resultingImage, element, width, height);
+                        if (Array.isArray(resultingImage)) {
+                            resultingImage = new filter(resultingImage, element, width, height);
+                        } else {
+                            resultingImage.red   = new filter(resultingImage.red,   element, width, height);
+                            resultingImage.green = new filter(resultingImage.green, element, width, height);
+                            resultingImage.blue  = new filter(resultingImage.blue,  element, width, height);
+                            //resultingImage.alpha = new filter(resultingImage.alpha, element, width, height);
+                        }
                     });
                 }
                 return resultingImage;
