@@ -49,9 +49,20 @@ define([], function() {
         },
 
         contrast: function (image, filterDefinition) {
-            // https://www.wolframalpha.com/ <-- plot (sin((x-0.5)*pi) + 1)/2
-            return image.map(function(value){
-                return (Math.sin((value - 0.5) * Math.PI) + 1 ) / 2; // Math.pow(value, 2);
+            // https://www.wolframalpha.com/ <-- plot (sin((x-0.5)*pi) + 1)/2 
+            // y = mx + n
+            var y = 0.5, // always
+                x = filterDefinition.x || 0.5,
+                m = filterDefinition.m || 2, // steigung
+                n = y - m * x,
+                x0 = -n / m,
+                x1 = (1-n) / m;
+
+            return image.map( function( value ) {
+                var y = m * value + n;
+                if ( y < 0 ) { return 0; }
+                if ( y > 1 ) { return 1; }
+                return y;
             });
         },
 

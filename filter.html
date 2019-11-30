@@ -85,8 +85,6 @@
 
         <h1>filter</h1>
 
-        <p>Filter cannot be applied to images with multiple color channels. For now only the createdPatterns.</p>
-
         <div class="pattern">
 
             <h2>blur</h2>
@@ -95,16 +93,16 @@
                 data-require-data='{
                     "width": 256,
                     "height": 256,
+                    "reusableImages"    : [
+                        { 
+                            "id"            : "reetroof_300", 
+                            "type"          : "preloadImage",
+                            "url"           : "images/reetroof_300.jpg"
+                        }
+                    ],
                     "patina": {
-                        "type"          : "combine",
-                        "topLayer"      : {
-                            "type"          : "createPattern",
-                            "patternName"   : "whiteNoise"
-                        },
-                        "bottomLayer"      : {
-                            "type"          : "createPattern",
-                            "patternName"   : "diamondSquareNoise"
-                        },
+                        "type"          : "reuseImage",
+                        "reuseId"       : "reetroof_300",
                         "filter"        : [{ "name": "blur" }]
                     }
                 }'
@@ -116,16 +114,16 @@
                 data-require-data='{
                     "width": 256,
                     "height": 256,
+                    "reusableImages"    : [
+                        { 
+                            "id"            : "reetroof_300", 
+                            "type"          : "preloadImage",
+                            "url"           : "images/reetroof_300.jpg"
+                        }
+                    ],
                     "patina": {
-                        "type"          : "combine",
-                        "topLayer"      : {
-                            "type"          : "createPattern",
-                            "patternName"   : "whiteNoise"
-                        },
-                        "bottomLayer"      : {
-                            "type"          : "createPattern",
-                            "patternName"   : "diamondSquareNoise"
-                        },
+                        "type"          : "reuseImage",
+                        "reuseId"       : "reetroof_300",
                         "filter"        : [{ "name": "brightness", "brightness": 3 }]
                     }
                 }'
@@ -137,17 +135,17 @@
                 data-require-data='{
                     "width": 256,
                     "height": 256,
+                    "reusableImages"    : [
+                        { 
+                            "id"            : "reetroof_300", 
+                            "type"          : "preloadImage",
+                            "url"           : "images/reetroof_300.jpg"
+                        }
+                    ],
                     "patina": {
-                        "type"          : "combine",
-                        "topLayer"      : {
-                            "type"          : "createPattern",
-                            "patternName"   : "whiteNoise"
-                        },
-                        "bottomLayer"      : {
-                            "type"          : "createPattern",
-                            "patternName"   : "diamondSquareNoise"
-                        },
-                        "filter"        : [{ "name": "contrast" }]
+                        "type"          : "reuseImage",
+                        "reuseId"       : "reetroof_300",
+                        "filter"        : [{ "name": "contrast", "m": 4, "x": 0.33 }]
                     }
                 }'
             ></pre>
@@ -156,18 +154,16 @@
             <pre class="js-require pattern__thumbnails" 
                 data-require-name="patina" 
                 data-require-data='{
-                    "width": 256,
-                    "height": 256,
+                    "reusableImages"    : [
+                        { 
+                            "id"            : "reetroof_300", 
+                            "type"          : "preloadImage",
+                            "url"           : "images/reetroof_300.jpg"
+                        }
+                    ],
                     "patina": {
-                        "type"          : "combine",
-                        "topLayer"      : {
-                            "type"          : "createPattern",
-                            "patternName"   : "whiteNoise"
-                        },
-                        "bottomLayer"      : {
-                            "type"          : "createPattern",
-                            "patternName"   : "diamondSquareNoise"
-                        },
+                        "type"          : "reuseImage",
+                        "reuseId"       : "reetroof_300",
                         "filter"        : [{ "name": "invert" }]
                     }
                 }'
@@ -179,16 +175,16 @@
                 data-require-data='{
                     "width": 256,
                     "height": 256,
+                    "reusableImages"    : [
+                        { 
+                            "id"            : "reetroof_300", 
+                            "type"          : "preloadImage",
+                            "url"           : "images/reetroof_300.jpg"
+                        }
+                    ],
                     "patina": {
-                        "type"          : "combine",
-                        "topLayer"      : {
-                            "type"          : "createPattern",
-                            "patternName"   : "whiteNoise"
-                        },
-                        "bottomLayer"      : {
-                            "type"          : "createPattern",
-                            "patternName"   : "diamondSquareNoise"
-                        },
+                        "type"          : "reuseImage",
+                        "reuseId"       : "reetroof_300",
                         "filter"        : [{ "name": "threshold", "threshold": 0.5 }]
                     }
                 }'
