@@ -56,20 +56,11 @@
                     "type"          : "createPattern",
                     "patternName"   : "border"
                 },
-                "bottomLayer"      : {
-                    "type"          : "combine",
-                    "topLayer"      : {
-                        "type"          : "createPattern",
-                        "patternName"   : "border"
-                    },
-                    "bottomLayer"      : {
-                        "type"          : "createPattern",
-                        "patternName"   : "whiteNoise"
-                    }
-                },
-                "filter"        : [
-                    { "name": "contrast" }
-                ]
+                "bottomLayer"   : {
+                    "type"          : "createPattern",
+                    "patternName"   : "whiteNoise",
+                    "filter"        : [{ "name": "contrast", "x": 2, "m": 0.25 }]
+                }
             }
         }'
     >

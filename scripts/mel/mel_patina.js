@@ -239,7 +239,7 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
                 return resultingImage;
             } else {
                 console.log('layer type not recognized ',layer);
-                return null; // Todo: return transparent Array fail gracefully somewhere else
+                return Array.from( {length: width * height}, () => 0 );
             }
         }, // _processPatinaNode()
 

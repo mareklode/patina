@@ -12,6 +12,7 @@ define(['canvas', 'noise'], function( canvas, noise ) {
             pattern = this[layerDefinition.patternName]( layerDefinition, width, height, reusableImages );
         } else {
             console.error("createPattern: \"", layerDefinition.patternName, "\" does not exist.");
+            pattern = this["flat"]({color: 0}, width, height);
         }
 
         return pattern;
@@ -29,7 +30,7 @@ define(['canvas', 'noise'], function( canvas, noise ) {
                         y2 = Math.pow(2 * x2, 2) - (4 * x2) + 1;
                         // https://www.wolframalpha.com/ <-- plot (2*x)^2 - 4x + 1
                     
-                    imageData[j * width + i] =  (
+                    imageData[j * width + i] = (
                         Math.pow(y1, 32) + 
                         Math.pow(y2, 32) + 
                         Math.pow(y1, 8) + 
@@ -37,14 +38,18 @@ define(['canvas', 'noise'], function( canvas, noise ) {
                         Math.pow(y1, 2) + 
                         Math.pow(y2, 2)
                     ) / 6;
+
                 }
             }
             return imageData;
-
         },
 
         diamondSquareNoise: function ( layerDefinition, width, height ) {
             return noise.diamondSquareNoise(width);
+        },
+
+        flat: function ( layerDefinition, width, height ) {
+            return Array.from( {length: width * height}, () => layerDefinition.color / 256 );
         },
 
         sine: function ( layerDefinition, width, height ) {
