@@ -67,18 +67,29 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
 
                 var data = imgData.data;
 
-                reusableImages[reusableImage.id] = {
-                    red: [],
-                    green: [],
-                    blue: [],
-                    alpha: []
-                };  
+                if ( reusableImage.colorChannels === 1 ) {
+                    reusableImages[reusableImage.id] = [];
+                    for (var i = 0, len = width * height; i < len; i += 1) {
+                        reusableImages[reusableImage.id][i]   = ( data[i*4] + 
+                                                                  data[i*4+1] +
+                                                                  data[i*4+2] +
+                                                                  data[i*4+3] ) / ( 256 * 4 );
+                    }
+    
+                } else {
+                    reusableImages[reusableImage.id] = {
+                        red: [],
+                        green: [],
+                        blue: [],
+                        alpha: []
+                    };  
 
-                for (var i = 0, len = width * height; i < len; i += 1) {
-                    reusableImages[reusableImage.id].red[i]   = data[i*4]   / 256;
-                    reusableImages[reusableImage.id].green[i] = data[i*4+1] / 256;
-                    reusableImages[reusableImage.id].blue[i]  = data[i*4+2] / 256;
-                    reusableImages[reusableImage.id].alpha[i] = data[i*4+3] / 256;
+                    for (var i = 0, len = width * height; i < len; i += 1) {
+                        reusableImages[reusableImage.id].red[i]   = data[i*4]   / 256;
+                        reusableImages[reusableImage.id].green[i] = data[i*4+1] / 256;
+                        reusableImages[reusableImage.id].blue[i]  = data[i*4+2] / 256;
+                        reusableImages[reusableImage.id].alpha[i] = data[i*4+3] / 256;
+                    }
                 }
 
                 reusableImages.countdown();

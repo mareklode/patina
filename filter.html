@@ -24,8 +24,8 @@
             "height": 283,
             "patina": {
                 "type"  : "colorChannels",
-                "red"   : 150,
-                "green" : 40,
+                "red"   : 187,
+                "green" : 50,
                 "blue"  : 0,
                 "alpha" : {
                     "type"          : "createPattern",
@@ -34,7 +34,7 @@
                     "period"        : 15,
                     "filter"        : [
                         { "name": "threshold", "threshold": 0.5},
-                        { "name": "blur" },
+                        { "name": "blur", "radius": 1 },
                         { "name": "threshold", "threshold": 0.66}
                     ]
                 }
@@ -231,7 +231,7 @@
                     },
                     "filter"        : [
                         { "name": "invert" },
-                        { "name": "blur" },
+                        { "name": "blur", "radius": 1 },
                         { "name": "threshold", "threshold": "0.55" }
                     ]
                 }

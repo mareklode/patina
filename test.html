@@ -48,7 +48,8 @@
                     { 
                         "id"            : "marekkeram_256", 
                         "type"          : "preloadImage",
-                        "url"           : "images/marekkeram_256.jpg"
+                        "url"           : "images/marekkeram_256.png",
+                        "colorChannels" : 1
                     }
                 ],
                 "patina": {
@@ -59,16 +60,19 @@
                     },
                     "bottomLayer"   : { 
                         "type"          : "reuseImage",
-                        "reuseId"       : "marekkeram_256"
+                        "reuseId"       : "marekkeram_256",
+                        "filter"        : [
+                            { "name": "blur", "radius": 4 },
+                            { "name": "contrast", "x": 0.45, "m": 3 }
+                        ]
                     },
                     "filter"        : [
-                        { "name": "invert" },
-                        { "name": "blur", "radius": 4 },
-                        { "name": "contrast", "x": 0.75, "m": 2 }
+                        { "name": "blur", "radius": 1 },
+                        { "name": "contrast", "x": 0.6, "m": 3 }
                     ]
                 }
             }'
-        ></div>
+        ><img src="images/marekkeram_256.png" /><div>
     </div><!-- .pattern -->
 
 
