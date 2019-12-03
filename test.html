@@ -41,30 +41,31 @@
 
     <div class="pattern">
         <div class="js-require pattern__thumbnails" 
+            style="width: 256px; height: 256px;"
             data-require-name="patina" 
             data-require-data='{
                 "reusableImages"    : [
                     { 
-                        "id"            : "zweiBaeume_300", 
+                        "id"            : "marekkeram_256", 
                         "type"          : "preloadImage",
-                        "url"           : "images/zweiBaeume_300.jpg"
+                        "url"           : "images/marekkeram_256.jpg"
                     }
                 ],
                 "patina": {
-                    "type"      : "combine",
-                    "topLayer"  : {
-                        "type"          : "reuseImage",
-                        "reuseId"       : "zweiBaeume_300",
-                        "filter"        : [
-                            { "name": "invert" }
-
-                        ]
-                    },
-                    "bottomLayer"  : {
+                    "type"          : "combine",
+                    "topLayer"      : {
                         "type"          : "createPattern",
-                        "patternName"   : "slope",
-                        "filter"        : [{ "name": "contrast" , "m": 10 }]
-                    }
+                        "patternName"   : "diamondSquareNoise"
+                    },
+                    "bottomLayer"   : { 
+                        "type"          : "reuseImage",
+                        "reuseId"       : "marekkeram_256"
+                    },
+                    "filter"        : [
+                        { "name": "invert" },
+                        { "name": "blur", "radius": 4 },
+                        { "name": "contrast", "x": 0.75, "m": 2 }
+                    ]
                 }
             }'
         ></div>

@@ -38,7 +38,6 @@ define(['canvas', 'noise'], function( canvas, noise ) {
                         Math.pow(y1, 2) + 
                         Math.pow(y2, 2)
                     ) / 6;
-
                 }
             }
             return imageData;
@@ -92,6 +91,7 @@ define(['canvas', 'noise'], function( canvas, noise ) {
             var pattern = new Array(width * height);
             for (var x = 0; x < width; x++) {
                 for (var y = 0; y < height; y++) {
+                    // ToDo: changing directions must be possible
                     var position = y * width + x ;
                     pattern[position] = y / (height - 1);
                 }
