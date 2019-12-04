@@ -18,11 +18,13 @@ body {
 a {
   text-decoration: none;
   color: @linkColor;
+  padding: 5px;
   &:active,
   &:focus,
   &:hover {
     text-decoration: underline;
-    opacity: 0.75;
+    background-color: darkslategray;
+    color: white;
   }
 }
 a.link-disabled.link-disabled {

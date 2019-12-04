@@ -16,7 +16,7 @@ define([], function() {
     filter.prototype = {
 
         blur: function (sourceImage, filterDefinition, width, height) {
-            // copied from http://blog.ivank.net/fastest-gaussian-blur.html (three times box blur)
+            // copied from http://blog.ivank.net/fastest-gaussian-blur.html 
 
             var sigma = filterDefinition.radius || 3, // standard deviation
                 n = 3, // number of boxes
@@ -84,25 +84,21 @@ define([], function() {
                 return Math.pow(value, brightness );
             });
             
-        },
+        }, // brightness()
 
         contrast: function (image, filterDefinition) {
-            // https://www.wolframalpha.com/ <-- plot (sin((x-0.5)*pi) + 1)/2 
-            // y = mx + n
             var y = 0.5, // always
-                x = filterDefinition.x || 0.5,
                 m = filterDefinition.m || 2, // steigung
-                n = y - m * x,
-                x0 = -n / m,
-                x1 = (1-n) / m;
+                x = filterDefinition.x || 0.5,
+                n = y - m * x;
 
             return image.map( function( value ) {
-                var y = m * value + n;
+                var y = m * value + n; // linear equation
                 if ( y < 0 ) { return 0; }
                 if ( y > 1 ) { return 1; }
                 return y;
             });
-        },
+        }, // contrast()
 
         invert: function (image) {
             return image.map(function(value){
@@ -115,7 +111,7 @@ define([], function() {
             return image.map(function(value){
                 return value > filterDefinition.threshold ? 1 : 0;
             })
-        },
+        }, // threshold()
 
         _getPixel: function(x, y) {
             return this.image[y * this.width + x];

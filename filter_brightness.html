@@ -522,7 +522,8 @@
                         },
                         "bottomLayer" : { 
                             "type"          : "createPattern",
-                            "patternName"   : "slope"
+                            "patternName"   : "slope",
+                            "filter"        : [{ "name": "brightness", "brightness": -1 }]
                         }
                     },
                     "bottomLayer" : { 
@@ -541,7 +542,7 @@
                     "filter"        : [
                         { "name": "invert" },
                         { "name": "blur", "radius": 1 },
-                        { "name": "threshold", "threshold": "0.55" }
+                        { "name": "contrast", "m": 10, "x": 0.525 }
                     ]
                 }
             }
