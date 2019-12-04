@@ -4,15 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width">
   
-      <title>createPattern | Patina | mareklode</title>
+      <title>examples | Patina | mareklode</title>
 
-  <meta property="og:title" content="createPattern | Patina | mareklode" />
+  <meta property="og:title" content="examples | Patina | mareklode" />
   <meta property="og:image" content="http://mareklode.de/bilder/page/v3/v3_rost4.png" />
-  <meta property="og:description" content="Patina: procedually generated background images in JavaScript. createPattern" />
-  <meta name="description" content="Patina: procedually generated background images in JavaScript. createPattern">
+  <meta property="og:description" content="Patina: procedually generated background images in JavaScript. examples" />
+  <meta name="description" content="Patina: procedually generated background images in JavaScript. examples">
 
   <link rel="stylesheet" type="text/css" href="css/normalize.min.css">
   <link rel="stylesheet" href="css/main.css">
+
+  <style>
+    .pattern { display: block; clear: both;}
+    .pattern__thumbnails { float: left; margin: 0; line-height: 64px; color: purple; background-color: yellow; text-align: center; }
+  </style>
 
 </head>
 <body class="content">
@@ -33,9 +38,9 @@
                     "direction"     : "rectangles",
                     "period"        : 15,
                     "filter"        : [
-                        { "name": "threshold", "threshold": 0.5 },
+                        { "name": "threshold", "threshold": 0.5},
                         { "name": "blur", "radius": 1 },
-                        { "name": "threshold", "threshold": 0.66 }
+                        { "name": "threshold", "threshold": 0.66}
                     ]
                 }
             }
@@ -74,13 +79,27 @@
 
     <main class="content__block">
 
-        <h1>createPattern</h1>
+        <h1>createPattern : border</h1>
 
-        <p class="contentContainer">Every Patina begins with one or more simple Patterns that can be combined into complex surfaces.</p>
-        <p class="contentContainer">https://www.gamasutra.com/view/feature/131507/a_realtime_procedural_universe_.php verschiedene Noise-Algorithmen benannt und erklärt.</p>
+        <p class="contentContainer">
+            The brightness filter can be positive to brighten the color channel or negative to darken it. Values outside of -10 and 10 do not make much sense.
+        </p>
+
+        <h2>Example</h2>
+
+        <pre class="contentContainer">                    
+"patina": {
+    "type"          : "createPattern",
+    "patternName"   : "border"
+}
+        </pre>
+
+        <p class="contentContainer" style="clear: both;">
+            Combined wit a brightness filter, this pattern is very useful.
+        </p>
 
         <div class="pattern">
-            <h2>border</h2>
+            
             <div class="js-require pattern__thumbnails" 
                 data-require-name="patina" 
                 data-require-data='{
@@ -91,77 +110,51 @@
                 }'
             ></div>
 
-            <h2>diamondSquareNoise</h2>
-            <div class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "width": 256,
-                    "height": 256,
-                    "patina": {
-                        "type"          : "createPattern",
-                        "patternName"   : "diamondSquareNoise"
-                    }
-                }'
-            ></div>
-
-            <h2>flat</h2>
-            <div class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "width": 256,
-                    "height": 256,
-                    "patina": 128
-                }'
-            ></div>
-
-            <h2>whiteNoise</h2>
-            <div class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina"    : {
-                        "type"          : "createPattern",
-                        "patternName"   : "whiteNoise"   
-                    }
-                }'
-            ></div>
-
-            <h2>sine</h2>
-            <div class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "width"     : 256,
-                    "height"    : 256,
-                    "patina"    : {
-                        "type"          : "createPattern",
-                        "patternName"   : "sine"
-                    }
-                }'
-            ></div>
-
-            <h2>slope</h2>
-            <div class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina"    : {
-                        "type"          : "createPattern",
-                        "patternName"   : "slope"
-                    }
-                }'
-            ></div>
-
-
-            <h2>twoDimensionalNoise</h2>
             <div class="js-require pattern__thumbnails" 
                 data-require-name="patina" 
                 data-require-data='{
                     "patina": {
                         "type"          : "createPattern",
-                        "patternName"   : "twoDimensionalNoise"
+                        "patternName"   : "border",
+                        "filter"        : [{ "name": "brightness", "brightness": -2 }]
                     }
                 }'
             ></div>
 
-        </div>
+            <div class="js-require pattern__thumbnails" 
+                data-require-name="patina" 
+                data-require-data='{
+                    "patina": {
+                        "type"          : "createPattern",
+                        "patternName"   : "border",
+                        "filter"        : [{ "name": "brightness", "brightness": 1 }]
+                    }
+                }'
+            ></div>
+
+        </div><!--.pattern-->
+
+        <p class="contentContainer" style="clear: both;">
+            Combined wit a brightness filter, this pattern is very useful.
+        </p>
+
+        <div class="pattern">
+            <div class="js-require pattern__thumbnails" 
+                data-require-name="patina" 
+                data-require-data='{
+                    "patina": {
+                        "type"          : "createPattern",
+                        "patternName"   : "border",
+                        "filter"        : [{ "name": "threshold", "threshold": 0.5 }]
+                    }
+                }'
+            ></div>
+        </div><!--.pattern-->
+
+        <p class="contentContainer" style="clear: both;">
+            Or with the threshold.
+        </p>
+
     </main><!-- .content__block -->
 
   
@@ -193,7 +186,8 @@
                         },
                         "bottomLayer" : { 
                             "type"          : "createPattern",
-                            "patternName"   : "slope"
+                            "patternName"   : "slope",
+                            "filter"        : [{ "name": "brightness", "brightness": -1 }]
                         }
                     },
                     "bottomLayer" : { 
@@ -212,7 +206,7 @@
                     "filter"        : [
                         { "name": "invert" },
                         { "name": "blur", "radius": 1 },
-                        { "name": "threshold", "threshold": "0.55" }
+                        { "name": "contrast", "m": 10, "x": 0.525 }
                     ]
                 }
             }

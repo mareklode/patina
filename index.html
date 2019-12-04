@@ -84,7 +84,7 @@
 
         <div class="pattern">
 
-            <div class="js-require pattern__thumbnails pattern__thumbnails--128" 
+            <a href="createPattern_border.html" class="js-require pattern__thumbnails pattern__thumbnails--128" 
                 data-require-name="patina" 
                 data-require-data='{
                     "patina": {
@@ -92,7 +92,7 @@
                         "patternName"   : "border"
                     }
                 }'
-            ></div>
+            >createPattern border</a>
 
             <span class="pattern__textInbetween">+</span>
 
@@ -147,7 +147,7 @@
                             "topLayer"      : {
                                 "type"          : "createPattern",
                                 "patternName"   : "border",
-                                "filter"        : [{ "name": "brightness", "brightness": -1}]
+                                "filter"        : [{ "name": "brightness", "brightness": -1.25 }]
                             },
                             "bottomLayer"   : { 
                                 "type"          : "combine",
@@ -181,41 +181,20 @@
                         }
                     ],
                     "patina": {
-                        "type"      : "combine",
+                        "type"          : "combine",
                         "topLayer"      : {
-                            "type"          : "combine",
-                            "topLayer"      : {
-                                "type"      : "reuseImage",
-                                "reuseId"   : "NoiseBorder",
-                                "filter"        : [
-                                    { "name": "brightness", "brightness": 0.35 },
-                                    { "name": "threshold", "threshold": 0.35 }
-                                ]
-                            },
-                            "bottomLayer"   : { 
-                                "type"      : "reuseImage",
-                                "reuseId"   : "NoiseBorder",
-                                "filter"        : [
-                                    { "name": "threshold", "threshold": 0.45 }
-                                ]
-                            }
+                            "type"      : "reuseImage",
+                            "reuseId"   : "NoiseBorder",
+                            "filter"        : [
+                                { "name": "contrast", "x": 0.55, "m": 6 }
+                            ]
                         },
                         "bottomLayer"   : { 
-                            "type"          : "combine",
-                            "topLayer"      : {
-                                "type"      : "reuseImage",
-                                "reuseId"   : "NoiseBorder",
-                                "filter"        : [
-                                    { "name": "threshold", "threshold": 0.55 }
-                                ]
-                            },
-                            "bottomLayer"   : { 
-                                "type"      : "reuseImage",
-                                "reuseId"   : "NoiseBorder",
-                                "filter"        : [
-                                    { "name": "brightness", "brightness": 0.35 }
-                                ]
-                            }
+                            "type"      : "reuseImage",
+                            "reuseId"   : "NoiseBorder",
+                            "filter"        : [
+                                { "name": "brightness", "brightness": 1 }
+                            ]
                         }
                     }
                 }'
@@ -350,7 +329,8 @@
                         },
                         "bottomLayer" : { 
                             "type"          : "createPattern",
-                            "patternName"   : "slope"
+                            "patternName"   : "slope",
+                            "filter"        : [{ "name": "brightness", "brightness": -1 }]
                         }
                     },
                     "bottomLayer" : { 
@@ -369,7 +349,7 @@
                     "filter"        : [
                         { "name": "invert" },
                         { "name": "blur", "radius": 1 },
-                        { "name": "threshold", "threshold": "0.55" }
+                        { "name": "contrast", "m": 10, "x": 0.525 }
                     ]
                 }
             }

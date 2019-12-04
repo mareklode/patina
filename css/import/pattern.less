@@ -14,9 +14,15 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=gallery
         background-color: @backgroundColor;
         margin: 1vw;
         display: inline-block;
-        line-height: 0;
+        vertical-align: top;
         width: 300px;
         height: 300px;
+
+        color: white;
+        font-weight: bold;
+        text-shadow: 0 0 1px black;
+        padding: 5px;
+
         @media @desktop {
             max-width: 36vw;
             max-height: 36vw;
@@ -41,7 +47,10 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=gallery
     }
     &__textInbetween {
         font-size: 2.5rem;
-        position: relative;
-        bottom: 60px;
+        line-height: 148px;
+        vertical-align: middle;
+        @media @submobile {
+            line-height: 48px;
+        }
     }
 }
