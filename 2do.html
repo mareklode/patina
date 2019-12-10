@@ -246,13 +246,13 @@
 
         var descriptions = {
             createPattern : {
-                border: "The brightness filter can be positive to brighten the color channel or negative to darken it. Values outside of -10 and 10 do not make much sense.",
+                border: "The value of each pixel is determined by the distance to the edge of the image. The closer one or more edges are, the darker the pixel will be.",
                 diamondSquareNoise: "<a href='https://sdm.scad.edu/faculty/mkesson/vsfx419/wip/best/winter12/jonathan_mann/noise.html'>https://sdm.scad.edu/faculty/mkesson/vsfx419/wip/best/winter12/jonathan_mann/noise.html</a>",
                 flat: "This 'Pattern' assigns the same value to all the pixels in this color channel. So we can also generate monochrome background images with no patterns.",
                 whiteNoise: "Every pixel gets a random value with no respect to the neighbouring pixels."
             },
             filter: {
-
+                brightness: "The brightness filter can be positive to brighten the color channel or negative to darken it. Values outside of -10 and 10 do not make much sense."
             }
         }
         var listMissingDescriptions = function () {
@@ -272,7 +272,7 @@
             var header = document.getElementById('template_header').innerHTML
                             .replace(/{{type}}/g, type)
                             .replace(/{{patternOrFilterName}}/g, patternOrFilterName);
-            var description = descriptions.createPattern[patternOrFilterName] || "ToDo: add a description";
+            var description = descriptions[type][patternOrFilterName] || "ToDo: add a description";
             var content = document.getElementById('template_content_' + type ).innerHTML
                             .replace(/{{type}}/g, type)
                             .replace(/{{patternOrFilterName}}/g, patternOrFilterName)
@@ -312,6 +312,9 @@
                 });
             });
         }
+
+        generateMainContent("filter", "brightness");
+
     </script>
 
 </body>
