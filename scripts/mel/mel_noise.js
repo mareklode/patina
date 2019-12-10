@@ -2,10 +2,6 @@ define([], function() {
 
     noise = {
 
-        twoDimensionalNoise: function () {
-            return {};
-        },
-
         // https://sdm.scad.edu/faculty/mkesson/vsfx419/wip/best/winter12/jonathan_mann/noise.html
         diamondSquareNoise: function (width) {
 

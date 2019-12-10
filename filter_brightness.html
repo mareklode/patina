@@ -1,557 +1,159 @@
 <!doctype html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width">
-  
-      <title>examples | Patina | mareklode</title>
-
-  <meta property="og:title" content="examples | Patina | mareklode" />
-  <meta property="og:image" content="http://mareklode.de/bilder/page/v3/v3_rost4.png" />
-  <meta property="og:description" content="Patina: procedually generated background images in JavaScript. examples" />
-  <meta name="description" content="Patina: procedually generated background images in JavaScript. examples">
-
-  <link rel="stylesheet" type="text/css" href="css/normalize.min.css">
-  <link rel="stylesheet" href="css/main.css">
-
-  <style>
-    .pattern { display: block; clear: both;}
-    .pattern__thumbnails { float: left; margin: 0; line-height: 64px; color: purple; background-color: yellow; text-align: center; }
-  </style>
-
-</head>
-<body class="content">
-
-    <header class="header js-require" 
-        data-require-name="patina" 
-        data-require-data='{
-            "width" : 375,
-            "height": 283,
-            "patina": {
-                "type"  : "colorChannels",
-                "red"   : 187,
-                "green" : 50,
-                "blue"  : 0,
-                "alpha" : {
-                    "type"          : "createPattern",
-                    "patternName"   : "sine",
-                    "direction"     : "rectangles",
-                    "period"        : 15,
-                    "filter"        : [
-                        { "name": "threshold", "threshold": 0.5},
-                        { "name": "blur", "radius": 1 },
-                        { "name": "threshold", "threshold": 0.66}
-                    ]
-                }
-            }
-        }'
-    >
-        <div class="header__logo">
-            Patina
-        </div>
-    </header>
-
-
-    <nav class="navigation js-require" 
-        data-require-name="patina" 
-        data-require-data='{
-            "patina": {
-                "type"          : "combine",
-                "topLayer"      : {
-                    "type"          : "createPattern",
-                    "patternName"   : "border"
-                },
-                "bottomLayer"   : {
-                    "type"          : "createPattern",
-                    "patternName"   : "whiteNoise",
-                    "filter"        : [{ "name": "contrast", "x": 2, "m": 0.25 }]
-                }
-            }
-        }'
-    >
-        <a class="navigation__link" href=".">Home</a>
-        <a class="navigation__link" href="createPattern.html">createPattern</a>
-        <a class="navigation__link" href="filter.html">filter</a>
-        <a class="navigation__link" href="reusableImages.html">reusableImages</a>
-        <a class="navigation__link" href="test.html">test</a>
-        <a class="navigation__link" href="examples.html">examples</a>
-    </nav>
-
-    <main class="content__block">
+        <html lang="de">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width">
+          
+              <title>brightness | filter | Patina | mareklode</title>
+        
+          <meta property="og:title" content="brightness | filter | Patina | mareklode" />
+          <meta property="og:image" content="http://mareklode.de/bilder/page/v3/v3_rost4.png" />
+          <meta property="og:description" content="Patina: procedually generated background images in JavaScript. filter : brightness" />
+          <meta name="description" content="Patina: procedually generated background images in JavaScript. filter : brightness">
+        
+          <link rel="stylesheet" type="text/css" href="css/normalize.min.css">
+          <link rel="stylesheet" href="css/main.css">
+        
+        </head>
+        <body class="content">
+        
+            <header class="header js-require" 
+                data-require-name="patina" 
+                data-require-data='{
+                    "width" : 375,
+                    "height": 283,
+                    "patina": {
+                        "type"  : "colorChannels",
+                        "red"   : 187,
+                        "green" : 50,
+                        "blue"  : 0,
+                        "alpha" : {
+                            "type"          : "createPattern",
+                            "patternName"   : "sine",
+                            "direction"     : "rectangles",
+                            "period"        : 15,
+                            "filter"        : [
+                                { "name": "threshold", "threshold": 0.5 },
+                                { "name": "blur", "radius": 1 },
+                                { "name": "threshold", "threshold": 0.66 }
+                            ]
+                        }
+                    }
+                }'
+            >
+                <div class="header__logo">
+                    Patina
+                </div>
+            </header>
+        
+            <nav class="navigation js-require" 
+                data-require-name="patina" 
+                data-require-data='{
+                    "patina": {
+                        "type"          : "combine",
+                        "topLayer"      : {
+                            "type"          : "createPattern",
+                            "patternName"   : "border"
+                        },
+                        "bottomLayer"   : {
+                            "type"          : "createPattern",
+                            "patternName"   : "whiteNoise",
+                            "filter"        : [{ "name": "contrast", "x": 2, "m": 0.25 }]
+                        }
+                    }
+                }'
+            >
+                <a class="navigation__link" href=".">Home</a>
+                <a class="navigation__link" href="createPattern.html">createPattern</a>
+                <a class="navigation__link" href="filter.html">filter</a>
+                <a class="navigation__link" href="reusableImages.html">reusableImages</a>
+                <a class="navigation__link" href="test.html">test</a>
+                <a class="navigation__link" href="examples.html">examples</a>
+            </nav>
+        
+            <main class="content__block">
+        
+    
 
         <h1>filter : brightness</h1>
-
-        <p class="contentContainer">
-            The brightness filter can be positive to brighten the color channel or negative to darken it. Values outside of -10 and 10 do not make much sense.
-        </p>
-
+        <p class="contentContainer">ToDo: add a description</p>
         <h2>Example</h2>
-
-        <pre class="contentContainer">                    
-"patina": {
-    "type"          : "createPattern",
-    "patternName"   : "slope",
-    "filter"        : [
-        { 
-            "name": "brightness", 
-            "brightness": .25 
-        }
-    ]
-}
-        </pre>
-
+        <pre class="contentContainer">"patina" : {
+    "type"          : "filter",
+    "patternName"   : "diamondSquareNoise",
+    "filter"        : [{ "name": "brightness" }]    
+}</pre>
         <div class="pattern">
+            <div class="js-require pattern__thumbnails pattern__thumbnails--256" 
+                data-require-name="patina" 
+                data-require-data='{
+                    "patina": {
+                        "type"          : "createPattern",
+                        "patternName"   : "diamondSquareNoise",
+                        "filter"        : [{ "name": "brightness" }]
+                    }
+                }'
+            ></div>
+        </div><!-- .pattern -->
 
-            <div style="width: 64px; height: 64px;"
-                class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina": {
-                        "type"          : "createPattern",
-                        "patternName"   : "slope",
-                        "filter"        : [
-                            { "name": "brightness", "brightness": 4 }
-                        ]
-                    }
-                }'
-            >4</div>
     
-            <div style="width: 64px; height: 64px;"
-                class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina": {
-                        "type"          : "createPattern",
-                        "patternName"   : "slope",
-                        "filter"        : [
-                            { "name": "brightness", "brightness": 2 }
-                        ]
-                    }
-                }'
-            >2</div>
-            <div style="width: 64px; height: 64px;"
-                class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina": {
-                        "type"          : "createPattern",
-                        "patternName"   : "slope",
-                        "filter"        : [
-                            { "name": "brightness", "brightness": 1 }
-                        ]
-                    }
-                }'
-            >1</div>
-            <div style="width: 64px; height: 64px;"
-                class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina": {
-                        "type"          : "createPattern",
-                        "patternName"   : "slope",
-                        "filter"        : [
-                            { "name": "brightness", "brightness": 0.5 }
-                        ]
-                    }
-                }'
-            >0.5</div>
-            <div style="width: 64px; height: 64px;"
-                class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina": {
-                        "type"          : "createPattern",
-                        "patternName"   : "slope",
-                        "filter"        : [
-                            { "name": "brightness", "brightness": 0.25 }
-                        ]
-                    }
-                }'
-            >0.25</div>
-            <div style="width: 64px; height: 64px;"
-                class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina": {
-                        "type"          : "createPattern",
-                        "patternName"   : "slope",
-                        "filter"        : [
-                            { "name": "brightness", "brightness": 0.125 }
-                        ]
-                    }
-                }'
-            >0.125</div>
-    
-            <!-- hr -->
-    
-            <div style="width: 64px; height: 64px;"
-                class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina": {
-                        "type"          : "createPattern",
-                        "patternName"   : "slope"
-                    }
-                }'
-            >0</div>
-    
-            <!-- div style="width: 64px; height: 64px; transform: rotate(180deg);"
-                class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina": {
-                        "type"          : "createPattern",
-                        "patternName"   : "slope",
-                        "filter"        : [{ "name": "invert" }]
-                    }
-                }'
-            >0</div -->
-    
-            <!-- hr -->
-            
-            <div style="width: 64px; height: 64px;"
-                class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina": {
-                        "type"          : "createPattern",
-                        "patternName"   : "slope",
-                        "filter"        : [
-                            { "name": "brightness", "brightness": -0.125 }
-                        ]
-                    }
-                }'
-            >-0.125</div>
-            <div style="width: 64px; height: 64px;"
-                class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina": {
-                        "type"          : "createPattern",
-                        "patternName"   : "slope",
-                        "filter"        : [
-                            { "name": "brightness", "brightness": -0.25 }
-                        ]
-                    }
-                }'
-            >-0.25</div>
-            <div style="width: 64px; height: 64px;"
-                class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina": {
-                        "type"          : "createPattern",
-                        "patternName"   : "slope",
-                        "filter"        : [
-                            { "name": "brightness", "brightness": -0.5 }
-                        ]
-                    }
-                }'
-            >-0.5</div>
-            <div style="width: 64px; height: 64px;"
-                class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina": {
-                        "type"          : "createPattern",
-                        "patternName"   : "slope",
-                        "filter"        : [
-                            { "name": "brightness", "brightness": -1 }
-                        ]
-                    }
-                }'
-            >-1</div>
-            <div style="width: 64px; height: 64px;"
-                class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina": {
-                        "type"          : "createPattern",
-                        "patternName"   : "slope",
-                        "filter"        : [
-                            { "name": "brightness", "brightness": -2 }
-                        ]
-                    }
-                }'
-            >-2</div>
-            
-            <div style="width: 64px; height: 64px;"
-                class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina": {
-                        "type"          : "createPattern",
-                        "patternName"   : "slope",
-                        "filter"        : [
-                            { "name": "brightness", "brightness": -4 }
-                        ]
-                    }
-                }'
-            >-4</div>
-    
-        </div><!--.pattern-->
-    
-        <div class="pattern">
-    
-            <div style="width: 64px; height: 64px;"
-                class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina": {
-                        "type"          : "createPattern",
-                        "patternName"   : "slope",
-                        "filter"        : [
-                            { "name": "brightness", "brightness": -4 },
-                            { "name": "invert" }
-                        ]
-                    }
-                }'
-            >-4</div>
-    
-            <div style="width: 64px; height: 64px;"
-                class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina": {
-                        "type"          : "createPattern",
-                        "patternName"   : "slope",
-                        "filter"        : [
-                            { "name": "brightness", "brightness": -2 },
-                            { "name": "invert" }
-                        ]
-                    }
-                }'
-            >-2</div>
-            <div style="width: 64px; height: 64px;"
-                class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina": {
-                        "type"          : "createPattern",
-                        "patternName"   : "slope",
-                        "filter"        : [
-                            { "name": "brightness", "brightness": -1 },
-                            { "name": "invert" }
-                        ]
-                    }
-                }'
-            >-1</div>
-            <div style="width: 64px; height: 64px;"
-                class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina": {
-                        "type"          : "createPattern",
-                        "patternName"   : "slope",
-                        "filter"        : [
-                            { "name": "brightness", "brightness": -0.5 },
-                            { "name": "invert" }
-                        ]
-                    }
-                }'
-            >-0.5</div>
-            <div style="width: 64px; height: 64px;"
-                class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina": {
-                        "type"          : "createPattern",
-                        "patternName"   : "slope",
-                        "filter"        : [
-                            { "name": "brightness", "brightness": -0.25 },
-                            { "name": "invert" }
-                        ]
-                    }
-                }'
-            >-0.25</div>
-            <div style="width: 64px; height: 64px;"
-                class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina": {
-                        "type"          : "createPattern",
-                        "patternName"   : "slope",
-                        "filter"        : [
-                            { "name": "brightness", "brightness": -0.125 },
-                            { "name": "invert" }
-                        ]
-                    }
-                }'
-            >-0.125</div>
-    
-            <!-- hr -->
-    
-            <div style="width: 64px; height: 64px;"
-                class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina": {
-                        "type"          : "createPattern",
-                        "patternName"   : "slope",
-                        "filter"        : [
-                            { "name": "invert" }
-                        ]
-                    }
-                }'
-            >0</div>
-    
-            <!-- hr -->
-            
-            <div style="width: 64px; height: 64px;"
-                class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina": {
-                        "type"          : "createPattern",
-                        "patternName"   : "slope",
-                        "filter"        : [
-                            { "name": "brightness", "brightness": 0.125 },
-                            { "name": "invert" }
-                        ]
-                    }
-                }'
-            >0.125</div>
-            <div style="width: 64px; height: 64px;"
-                class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina": {
-                        "type"          : "createPattern",
-                        "patternName"   : "slope",
-                        "filter"        : [
-                            { "name": "brightness", "brightness": 0.25 },
-                            { "name": "invert" }
-                        ]
-                    }
-                }'
-            >0.25</div>
-            <div style="width: 64px; height: 64px;"
-                class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina": {
-                        "type"          : "createPattern",
-                        "patternName"   : "slope",
-                        "filter"        : [
-                            { "name": "brightness", "brightness": 0.5 },
-                            { "name": "invert" }
-                        ]
-                    }
-                }'
-            >0.5</div>
-            <div style="width: 64px; height: 64px;"
-                class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina": {
-                        "type"          : "createPattern",
-                        "patternName"   : "slope",
-                        "filter"        : [
-                            { "name": "brightness", "brightness": 1 },
-                            { "name": "invert" }
-                        ]
-                    }
-                }'
-            >1</div>
-            <div style="width: 64px; height: 64px;"
-                class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina": {
-                        "type"          : "createPattern",
-                        "patternName"   : "slope",
-                        "filter"        : [
-                            { "name": "brightness", "brightness": 2 },
-                            { "name": "invert" }
-                        ]
-                    }
-                }'
-            >2</div>
-            
-            <div style="width: 64px; height: 64px;"
-                class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina": {
-                        "type"          : "createPattern",
-                        "patternName"   : "slope",
-                        "filter"        : [
-                            { "name": "brightness", "brightness": 4 },
-                            { "name": "invert" }
-                        ]
-                    }
-                }'
-            >4</div>
 
-            <br /><-- backwards and inverted
-    
-        </div><!--.pattern-->
-
-        <p class="contentContainer" style="clear: both;">
-            The second line is backwards and inverted. It shows very clear, that brighten and darken are not reversible/equal.
-        </p>
-
-    </main><!-- .content__block -->
-
-  
-    <footer class="footer js-require" 
-        data-require-name="patina" 
-        data-require-data='{
-            "width": 256,
-            "patina": {
-                "type"  : "colorChannels",
-                "red"   : 150,
-                "green" : 40,
-                "blue"  : 0,
-                "alpha" : {
-                    "type"  :   "combine",
-                    "topLayer"    : {
+        </main><!-- .content__block -->
+        <footer class="footer js-require" 
+            data-require-name="patina" 
+            data-require-data='{
+                "width": 256,
+                "patina": {
+                    "type"  : "colorChannels",
+                    "red"   : 150,
+                    "green" : 40,
+                    "blue"  : 0,
+                    "alpha" : {
                         "type"  :   "combine",
                         "topLayer"    : {
                             "type"  :   "combine",
-                            "topLayer"      : {
+                            "topLayer"    : {
+                                "type"  :   "combine",
+                                "topLayer"      : {
+                                    "type"          : "createPattern",
+                                    "patternName"   : "diamondSquareNoise"
+                                },
+                                "bottomLayer"   : {
+                                    "type"          : "createPattern",
+                                    "patternName"   : "sine",
+                                    "direction"     : "horizontal",
+                                    "period"        : "0.6"
+                                }
+                            },
+                            "bottomLayer" : { 
                                 "type"          : "createPattern",
-                                "patternName"   : "diamondSquareNoise"
+                                "patternName"   : "slope",
+                                "filter"        : [{ "name": "brightness", "brightness": -1 }]
+                            }
+                        },
+                        "bottomLayer" : { 
+                            "type"  :   "combine",
+                            "topLayer"    : {
+                                "type"          : "createPattern",
+                                "patternName"   : "whiteNoise"
                             },
                             "bottomLayer"   : {
                                 "type"          : "createPattern",
                                 "patternName"   : "sine",
-                                "direction"     : "horizontal",
-                                "period"        : "0.6"
+                                "direction"     : "vertical",
+                                "period"        : 0.67
                             }
                         },
-                        "bottomLayer" : { 
-                            "type"          : "createPattern",
-                            "patternName"   : "slope",
-                            "filter"        : [{ "name": "brightness", "brightness": -1 }]
-                        }
-                    },
-                    "bottomLayer" : { 
-                        "type"  :   "combine",
-                        "topLayer"    : {
-                            "type"          : "createPattern",
-                            "patternName"   : "whiteNoise"
-                        },
-                        "bottomLayer"   : {
-                            "type"          : "createPattern",
-                            "patternName"   : "sine",
-                            "direction"     : "vertical",
-                            "period"        : 0.67
-                        }
-                    },
-                    "filter"        : [
-                        { "name": "invert" },
-                        { "name": "blur", "radius": 1 },
-                        { "name": "contrast", "m": 10, "x": 0.525 }
-                    ]
+                        "filter"        : [
+                            { "name": "invert" },
+                            { "name": "blur", "radius": 1 },
+                            { "name": "contrast", "m": 10, "x": 0.525 }
+                        ]
+                    }
                 }
-            }
-        }'
-    >
-        &copy; 2019 Marek Lode &nbsp
-    </footer>
+            }'
+        >
+            &copy; 2019 Marek Lode &nbsp
+        </footer>
 
-    <script data-main="scripts/main" src="scripts/vendor/require.js"></script>
-
-</body>
-</html>
+    <script data-main="scripts/main" src="scripts/vendor/require.js"></script></body></html>

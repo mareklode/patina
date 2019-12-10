@@ -16,7 +16,8 @@ define([], function() {
     filter.prototype = {
 
         blur: function (sourceImage, filterDefinition, width, height) {
-            // copied from http://blog.ivank.net/fastest-gaussian-blur.html 
+
+            var description = `copied from http://blog.ivank.net/fastest-gaussian-blur.html `;            
 
             var sigma = filterDefinition.radius || 3, // standard deviation
                 n = 3, // number of boxes
@@ -70,7 +71,7 @@ define([], function() {
         // the brightness function keeps black and white and manipulates the color-curve between them
         // ToDo: naming of contrast and brightness are confusing / misleading
         brightness: function (image, filterDefinition) { 
-            var brightness = filterDefinition.brightness;
+            var brightness = filterDefinition.brightness || -4;
 
             if ( brightness < 0 ) {
                 // for brightness =-2 : https://www.wolframalpha.com/ <-- Plot[x^0.25, {x, 0, 1}] 
@@ -81,7 +82,7 @@ define([], function() {
                 brightness += 1;
             }
             return image.map(function(value){
-                return Math.pow(value, brightness );
+                return value ** brightness;
             });
             
         }, // brightness()
@@ -107,9 +108,9 @@ define([], function() {
         }, // invert() 
 
         threshold: function (image, filterDefinition) {
-            // maybe set a range for the threshold, so the border is smoother?
+            var threshold = filterDefinition.threshold || 0.5;
             return image.map(function(value){
-                return value > filterDefinition.threshold ? 1 : 0;
+                return value > threshold ? 1 : 0;
             })
         }, // threshold()
 

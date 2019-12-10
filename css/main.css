@@ -106,7 +106,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Mixins
 }
 @media screen and (min-width: 600px) {
   .contentContainer {
-    margin: 1rem auto 4rem auto;
+    margin: 3rem auto 1rem auto;
     width: 80vw;
   }
 }
@@ -183,7 +183,7 @@ h1 {
 }
 @media screen and (min-width: 600px) {
   h1 {
-    margin: 1rem auto 4rem auto;
+    margin: 3rem auto 1rem auto;
     width: 80vw;
   }
 }
@@ -200,7 +200,7 @@ h2 {
 }
 @media screen and (min-width: 600px) {
   h2 {
-    margin: 1rem auto 4rem auto;
+    margin: 3rem auto 1rem auto;
     width: 80vw;
   }
 }
@@ -362,7 +362,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=Teaser
 @media screen and (min-width: 600px) {
   .teaser__heading,
   .teaser__text {
-    margin: 1rem auto 4rem auto;
+    margin: 3rem auto 1rem auto;
     width: 80vw;
   }
 }
@@ -452,7 +452,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=Blogpost
 @media screen and (min-width: 600px) {
   .blogpost__heading,
   .blogpost__text {
-    margin: 1rem auto 4rem auto;
+    margin: 3rem auto 1rem auto;
     width: 80vw;
   }
 }
@@ -536,7 +536,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
 }
 @media screen and (min-width: 600px) {
   .copy {
-    margin: 1rem auto 4rem auto;
+    margin: 3rem auto 1rem auto;
     width: 80vw;
   }
 }
@@ -615,7 +615,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
 }
 @media screen and (min-width: 600px) {
   .todo {
-    margin: 1rem auto 4rem auto;
+    margin: 3rem auto 1rem auto;
     width: 80vw;
   }
 }
@@ -650,7 +650,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=gallery
 }
 @media screen and (min-width: 600px) {
   .pattern {
-    margin: 1rem auto 4rem auto;
+    margin: 3rem auto 1rem auto;
     width: 80vw;
   }
 }
@@ -664,7 +664,6 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=gallery
   color: white;
   font-weight: bold;
   text-shadow: 0 0 1px black;
-  padding: 5px;
 }
 @media screen and (min-width: 600px) {
   .pattern__thumbnails {

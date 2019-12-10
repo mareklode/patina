@@ -6,6 +6,7 @@ define(['canvas', 'noise'], function( canvas, noise ) {
 
     function createPattern (layerDefinition, width, height, reusableImages) {
         var pattern = {};
+        var descriptions = {};
 
         if (this[layerDefinition.patternName]) {
             console.log("createPattern: ", layerDefinition.patternName);
@@ -48,7 +49,8 @@ define(['canvas', 'noise'], function( canvas, noise ) {
         },
 
         flat: function ( layerDefinition, width, height ) {
-            return Array.from( {length: width * height}, () => layerDefinition.color / 256 );
+            var color = layerDefinition.color || 128;
+            return Array.from( {length: width * height}, () => color / 256 );
         },
 
         sine: function ( layerDefinition, width, height ) {

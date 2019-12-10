@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    
+    <title>Patina | mareklode</title>
+
+    <meta property="og:title" content="Patina | mareklode" />
+    <meta property="og:image" content="http://mareklode.de/bilder/page/v3/v3_rost4.png" />
+    <meta property="og:description" content="Patina: procedually generated background images in JavaScript" />
+    <meta name="description" content="Patina: procedually generated background images in JavaScript">
+
+    <link rel="stylesheet" type="text/css" href="css/normalize.min.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <script type="text/template" id="template_header"><!doctype html>
+        <html lang="de">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width">
+          
+              <title>{{patternOrFilterName}} | {{type}} | Patina | mareklode</title>
+        
+          <meta property="og:title" content="{{patternOrFilterName}} | {{type}} | Patina | mareklode" />
+          <meta property="og:image" content="http://mareklode.de/bilder/page/v3/v3_rost4.png" />
+          <meta property="og:description" content="Patina: procedually generated background images in JavaScript. {{type}} : {{patternOrFilterName}}" />
+          <meta name="description" content="Patina: procedually generated background images in JavaScript. {{type}} : {{patternOrFilterName}}">
+        
+          <link rel="stylesheet" type="text/css" href="css/normalize.min.css">
+          <link rel="stylesheet" href="css/main.css">
+        
+        </head>
+        <body class="content">
+        
+            <header class="header js-require" 
+                data-require-name="patina" 
+                data-require-data='{
+                    "width" : 375,
+                    "height": 283,
+                    "patina": {
+                        "type"  : "colorChannels",
+                        "red"   : 187,
+                        "green" : 50,
+                        "blue"  : 0,
+                        "alpha" : {
+                            "type"          : "createPattern",
+                            "patternName"   : "sine",
+                            "direction"     : "rectangles",
+                            "period"        : 15,
+                            "filter"        : [
+                                { "name": "threshold", "threshold": 0.5 },
+                                { "name": "blur", "radius": 1 },
+                                { "name": "threshold", "threshold": 0.66 }
+                            ]
+                        }
+                    }
+                }'
+            >
+                <div class="header__logo">
+                    Patina
+                </div>
+            </header>
+        
+            <nav class="navigation js-require" 
+                data-require-name="patina" 
+                data-require-data='{
+                    "patina": {
+                        "type"          : "combine",
+                        "topLayer"      : {
+                            "type"          : "createPattern",
+                            "patternName"   : "border"
+                        },
+                        "bottomLayer"   : {
+                            "type"          : "createPattern",
+                            "patternName"   : "whiteNoise",
+                            "filter"        : [{ "name": "contrast", "x": 2, "m": 0.25 }]
+                        }
+                    }
+                }'
+            >
+                <a class="navigation__link" href=".">Home</a>
+                <a class="navigation__link" href="createPattern.html">createPattern</a>
+                <a class="navigation__link" href="filter.html">filter</a>
+                <a class="navigation__link" href="reusableImages.html">reusableImages</a>
+                <a class="navigation__link" href="test.html">test</a>
+                <a class="navigation__link" href="examples.html">examples</a>
+            </nav>
+        
+            <main class="content__block">
+        
+    </script>
+
+    <script type="text/template" id="template_content_filter">
+
+        <h1>{{type}} : {{patternOrFilterName}}</h1>
+        <p class="contentContainer">{{description}}</p>
+        <h2>Example</h2>
+        <pre class="contentContainer">"patina" : {
+    "type"          : "{{type}}",
+    "patternName"   : "diamondSquareNoise",
+    "filter"        : [{ "name": "{{patternOrFilterName}}" }]    
+}</pre>
+        <div class="pattern">
+            <div class="js-require pattern__thumbnails pattern__thumbnails--256" 
+                data-require-name="patina" 
+                data-require-data='{
+                    "patina": {
+                        "type"          : "createPattern",
+                        "patternName"   : "diamondSquareNoise",
+                        "filter"        : [{ "name": "{{patternOrFilterName}}" }]
+                    }
+                }'
+            ></div>
+        </div><!-- .pattern -->
+
+    </script>
+
+    <script type="text/template" id="template_content_createPattern">
+
+        <h1>{{type}} : {{patternOrFilterName}}</h1>
+        <p class="contentContainer">{{description}}</p>
+        <h2>Example</h2>
+        <pre class="contentContainer">"patina" : {
+    "type"          : "{{type}}",
+    "patternName"   : "{{patternOrFilterName}}"    
+}</pre>
+        <div class="pattern">
+            <div class="js-require pattern__thumbnails pattern__thumbnails--256" 
+                data-require-name="patina" 
+                data-require-data='{
+                    "patina": {
+                        "type"          : "createPattern",
+                        "patternName"   : "{{patternOrFilterName}}"
+                    }
+                }'
+            ></div>
+        </div><!-- .pattern -->
+
+    </script>
+
+    <script type="text/template" id="template_footer">
+
+        </main><!-- .content__block -->
+        <footer class="footer js-require" 
+            data-require-name="patina" 
+            data-require-data='{
+                "width": 256,
+                "patina": {
+                    "type"  : "colorChannels",
+                    "red"   : 150,
+                    "green" : 40,
+                    "blue"  : 0,
+                    "alpha" : {
+                        "type"  :   "combine",
+                        "topLayer"    : {
+                            "type"  :   "combine",
+                            "topLayer"    : {
+                                "type"  :   "combine",
+                                "topLayer"      : {
+                                    "type"          : "createPattern",
+                                    "patternName"   : "diamondSquareNoise"
+                                },
+                                "bottomLayer"   : {
+                                    "type"          : "createPattern",
+                                    "patternName"   : "sine",
+                                    "direction"     : "horizontal",
+                                    "period"        : "0.6"
+                                }
+                            },
+                            "bottomLayer" : { 
+                                "type"          : "createPattern",
+                                "patternName"   : "slope",
+                                "filter"        : [{ "name": "brightness", "brightness": -1 }]
+                            }
+                        },
+                        "bottomLayer" : { 
+                            "type"  :   "combine",
+                            "topLayer"    : {
+                                "type"          : "createPattern",
+                                "patternName"   : "whiteNoise"
+                            },
+                            "bottomLayer"   : {
+                                "type"          : "createPattern",
+                                "patternName"   : "sine",
+                                "direction"     : "vertical",
+                                "period"        : 0.67
+                            }
+                        },
+                        "filter"        : [
+                            { "name": "invert" },
+                            { "name": "blur", "radius": 1 },
+                            { "name": "contrast", "m": 10, "x": 0.525 }
+                        ]
+                    }
+                }
+            }'
+        >
+            &copy; 2019 Marek Lode &nbsp
+        </footer>
+
+    </script>
+
+</head>
+<body class="content">
+
+    <header class="header">
+        <div class="header__logo">
+            Patina
+        </div>
+    </header>
+
+    <nav class="navigation">
+        <a class="navigation__link" href=".">Home</a>
+        <a class="navigation__link" href="createPattern.html">createPattern</a>
+        <a class="navigation__link" href="filter.html">filter</a>
+        <a class="navigation__link" href="reusableImages.html">reusableImages</a>
+        <a class="navigation__link" href="test.html">test</a>
+        <a class="navigation__link" href="examples.html">examples</a>
+    </nav>
+
+    <main class="content__block">
+
+        <h1>ToDo:</h1>
+        <ul class="contentContainer">
+            <li>animations</li>
+        </ul>
+
+        <hr>
+
+        <h2>auto-gerenate filter & pattern pages</h2>
+
+        <p class="contentContainer">https://stackoverflow.com/questions/13405129/javascript-create-and-save-file#30832210</p>
+        <button onclick="generatePages();">generate pages</button>
+        <button onclick="listMissingDescriptions();">list missing descriptions</button>
+
+    </main><!-- .content__block -->
+
+    <footer class="footer">
+        &copy; 2019 Marek Lode &nbsp
+    </footer>
+
+    <script data-main="scripts/main" src="scripts/vendor/require.js"></script>
+
+    <script>
+
+        var descriptions = {
+            createPattern : {
+                border: "The brightness filter can be positive to brighten the color channel or negative to darken it. Values outside of -10 and 10 do not make much sense.",
+                diamondSquareNoise: "<a href='https://sdm.scad.edu/faculty/mkesson/vsfx419/wip/best/winter12/jonathan_mann/noise.html'>https://sdm.scad.edu/faculty/mkesson/vsfx419/wip/best/winter12/jonathan_mann/noise.html</a>",
+                flat: "This 'Pattern' assigns the same value to all the pixels in this color channel. So we can also generate monochrome background images with no patterns.",
+                whiteNoise: "Every pixel gets a random value with no respect to the neighbouring pixels."
+            },
+            filter: {
+
+            }
+        }
+        var listMissingDescriptions = function () {
+            require(['createPattern', 'filter'], function( createPattern, filter ) {
+                console.log("\ncreatePattern:\n");
+                Object.keys(createPattern.prototype).forEach(element => {
+                    if (!descriptions.createPattern[element]) { console.log(element); }
+                });
+                console.log("\nfilter:\n");
+                Object.keys(filter.prototype).forEach(element => {
+                    if (!descriptions.filter[element]) { console.log(element); }
+                });
+            });
+        };
+            
+        var generateMainContent = function (type, patternOrFilterName) {
+            var header = document.getElementById('template_header').innerHTML
+                            .replace(/{{type}}/g, type)
+                            .replace(/{{patternOrFilterName}}/g, patternOrFilterName);
+            var description = descriptions.createPattern[patternOrFilterName] || "ToDo: add a description";
+            var content = document.getElementById('template_content_' + type ).innerHTML
+                            .replace(/{{type}}/g, type)
+                            .replace(/{{patternOrFilterName}}/g, patternOrFilterName)
+                            .replace(/{{description}}/g, description);
+                    
+            var footer = document.getElementById('template_footer').innerHTML;
+            var closingScriptTag = '<script data-main="scripts/main" src="scripts/vendor/require.js"></' + 'script></body></html>';
+            downloadFile (header + content + footer + closingScriptTag, type + '_' + patternOrFilterName + '.html', "text/plain;charset=utf-8");
+        };
+
+        // https://stackoverflow.com/questions/13405129/javascript-create-and-save-file#30832210
+        var downloadFile = function (data, filename, type) {
+            var file = new Blob([data], {type: type});
+            if (window.navigator.msSaveOrOpenBlob) // IE10+
+                window.navigator.msSaveOrOpenBlob(file, filename);
+            else { // Others
+                var a = document.createElement("a"),
+                        url = URL.createObjectURL(file);
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                setTimeout(function() {
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);  
+                }, 0); 
+            }
+        }
+
+        var generatePages = function () {
+            require(['createPattern', 'filter'], function(createPattern, filter) {
+                Object.keys(createPattern.prototype).forEach(element => {
+                    generateMainContent("createPattern", element);
+                });
+                Object.keys(filter.prototype).forEach(element => {
+                    generateMainContent("filter", element);
+                });
+            });
+        }
+    </script>
+
+</body>
+</html>
