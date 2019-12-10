@@ -1,7 +1,5 @@
 define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, filter ) {
 
-    // http://codeblog.cz/vanilla/inside.html#set-element-html
-
     function patina (domElement, parameters) {
         var self = this;
         

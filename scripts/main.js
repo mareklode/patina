@@ -1,5 +1,4 @@
 require.config({
-    //By default load any module IDs from js
     baseUrl: 'scripts',
     paths: {
         patina:         'mel/mel_patina',

@@ -142,14 +142,12 @@ body {
   line-height: 1.4em;
 }
 a {
-  text-decoration: none;
   color: #252050;
   padding: 5px;
 }
 a:active,
 a:focus,
 a:hover {
-  text-decoration: underline;
   background-color: darkslategray;
   color: white;
 }
