@@ -16,8 +16,7 @@ define([], function() {
     filter.prototype = {
 
         blur: function (sourceImage, filterDefinition, width, height) {
-
-            var description = `copied from http://blog.ivank.net/fastest-gaussian-blur.html `;            
+            // copied from http://blog.ivank.net/fastest-gaussian-blur.html 
 
             var sigma = filterDefinition.radius || 3, // standard deviation
                 n = 3, // number of boxes

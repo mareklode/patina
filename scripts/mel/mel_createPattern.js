@@ -6,7 +6,6 @@ define(['canvas', 'noise'], function( canvas, noise ) {
 
     function createPattern (layerDefinition, width, height, reusableImages) {
         var pattern = {};
-        var descriptions = {};
 
         if (this[layerDefinition.patternName]) {
             console.log("createPattern: ", layerDefinition.patternName);
