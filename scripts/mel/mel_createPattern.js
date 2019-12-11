@@ -43,8 +43,8 @@ define(['canvas', 'noise'], function( canvas, noise ) {
             return imageData;
         }, // border()
 
-        diamondSquareNoise: function ( layerDefinition, width, height ) {
-            return noise.diamondSquareNoise(width);
+        noise_plasma: function ( layerDefinition, width, height ) {
+            return noise.noise_plasma(width);
         },
 
         flat: function ( layerDefinition, width, height ) {
@@ -100,7 +100,7 @@ define(['canvas', 'noise'], function( canvas, noise ) {
             return pattern;
         }, // slope()
 
-        twoDimensionalNoise: function ( layerDefinition, width, height ) {
+        noise_2D: function ( layerDefinition, width, height ) {
             var noise, 
                 pattern = new Array(),
                 flattenedArray;
@@ -118,7 +118,7 @@ define(['canvas', 'noise'], function( canvas, noise ) {
             }
             flattenedArray = [].concat.apply([], pattern);
             return flattenedArray;
-        }, // twoDimensionalNoise()
+        }, // noise_2D()
 
         whiteNoise: function ( layerDefinition, width, height ) {
             return Array.from( {length: width * height}, () => Math.random() );

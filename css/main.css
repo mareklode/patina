@@ -100,7 +100,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Mixins
 }
 @media screen and (max-width: 599px) {
   .contentContainer {
-    margin: 1rem auto 1rem auto;
+    margin: 3rem auto 1rem auto;
     width: 90vw;
   }
 }
@@ -175,7 +175,7 @@ h1 {
 }
 @media screen and (max-width: 599px) {
   h1 {
-    margin: 1rem auto 1rem auto;
+    margin: 3rem auto 1rem auto;
     width: 90vw;
   }
 }
@@ -192,7 +192,7 @@ h2 {
 }
 @media screen and (max-width: 599px) {
   h2 {
-    margin: 1rem auto 1rem auto;
+    margin: 3rem auto 1rem auto;
     width: 90vw;
   }
 }
@@ -353,7 +353,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=Teaser
 @media screen and (max-width: 599px) {
   .teaser__heading,
   .teaser__text {
-    margin: 1rem auto 1rem auto;
+    margin: 3rem auto 1rem auto;
     width: 90vw;
   }
 }
@@ -443,7 +443,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=Blogpost
 @media screen and (max-width: 599px) {
   .blogpost__heading,
   .blogpost__text {
-    margin: 1rem auto 1rem auto;
+    margin: 3rem auto 1rem auto;
     width: 90vw;
   }
 }
@@ -528,7 +528,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
 }
 @media screen and (max-width: 599px) {
   .copy {
-    margin: 1rem auto 1rem auto;
+    margin: 3rem auto 1rem auto;
     width: 90vw;
   }
 }
@@ -607,7 +607,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
 }
 @media screen and (max-width: 599px) {
   .todo {
-    margin: 1rem auto 1rem auto;
+    margin: 3rem auto 1rem auto;
     width: 90vw;
   }
 }
@@ -642,7 +642,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=gallery
 }
 @media screen and (max-width: 599px) {
   .pattern {
-    margin: 1rem auto 1rem auto;
+    margin: 3rem auto 1rem auto;
     width: 90vw;
   }
 }
@@ -657,24 +657,11 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=gallery
   margin: 1vw;
   display: inline-block;
   vertical-align: top;
-  width: 300px;
-  height: 300px;
+  width: 256px;
+  height: 256px;
   color: white;
   font-weight: bold;
   text-shadow: 0 0 1px black;
-}
-@media screen and (min-width: 600px) {
-  .pattern__thumbnails {
-    max-width: 36vw;
-    max-height: 36vw;
-  }
-}
-@media screen and (max-width: 599px) {
-  .pattern__thumbnails {
-    width: 42vw;
-    height: 42vw;
-    margin: 1vw;
-  }
 }
 @media screen and (max-width: 299px) {
   .pattern__thumbnails {

@@ -3,7 +3,7 @@ define([], function() {
     noise = {
 
         // https://sdm.scad.edu/faculty/mkesson/vsfx419/wip/best/winter12/jonathan_mann/noise.html
-        diamondSquareNoise: function (width) {
+        noise_plasma: function (width) {
 
             var max=0,
                 min=0,
@@ -151,7 +151,7 @@ define([], function() {
             // debugger
             return noiseString;
 
-        }, // diamondSquareNoise()
+        }, // noise_plasma()
 
         randomFromTo: function( from, to ) {
             return ( Math.random() * ( to - from ) ) + from;
