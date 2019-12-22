@@ -13,9 +13,9 @@ var mel = mel || {};
 
 var setupPage = function () {
 
-    /* GREMLIN: find and execute JavaScript-triggers in HTML-tags */
+    /* find and execute JavaScript-triggers in HTML-tags */
     var nodeList = document.querySelectorAll(".js-require");
-    console.log('GREMLINs:', nodeList.length, nodeList);
+    console.log('JavaScript-triggers in HTML-tags:', nodeList.length, nodeList);
     for (var nl = 0; nl < nodeList.length; nl++) {
         var el = nodeList[nl],
             requireName = el.getAttribute('data-require-name'),
