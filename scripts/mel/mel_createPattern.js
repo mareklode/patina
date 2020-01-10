@@ -47,6 +47,7 @@ define(['canvas', 'noise'], function( canvas, noise ) {
             return noise.noise_plasma(width);
         },
 
+        // better use the number-Shortcut like { "topLayer" : 256 }
         flat: function ( layerDefinition, width, height ) {
             var color = layerDefinition.color || 128;
             return Array.from( {length: width * height}, () => color / 256 );

@@ -677,6 +677,10 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=gallery
   width: 256px;
   height: 256px;
 }
+.pattern__thumbnails--512 {
+  width: 512px;
+  height: 512px;
+}
 .pattern__textInbetween {
   font-size: 2.5rem;
   line-height: 148px;

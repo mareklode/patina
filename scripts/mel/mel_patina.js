@@ -152,22 +152,38 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
             }
         }, // _jsonParse()
 
-        _combineArrays: function (bottomLayer, topLayer) {
-            return bottomLayer.map(function (value, index) {
-                return (value + topLayer[index]) / 2;
-            });
+        _combineArrays: function (bottomLayer, topLayer, width, combineMode) {
+            var modulo = function (divided, m) {
+                return ((divided % m) + m) % m;
+            }
+            if (combineMode === 'distort') {
+                return bottomLayer.map(function (value, index) {
+                    var multiplier = 800,
+                        vector = {},
+                        tll = topLayer.length;
+                    vector.x = topLayer[modulo(index + 1, tll)]     - topLayer[modulo(index - 1, tll)];
+                    vector.y = topLayer[modulo(index + width - 1, tll)] - topLayer[modulo(index - width + 1, tll)]; 
+                    vector.result = index + Math.round(vector.x * multiplier) + Math.round(vector.y * multiplier);
+                    return bottomLayer[ modulo(vector.result, bottomLayer.length) ];
+                });
+            } else {
+                return bottomLayer.map(function (value, index) {
+                    return (value + topLayer[index]) / 2;
+                });
+            }
+            
         },
 
-        _combineLayers: function(bottomLayer, topLayer) {
+        _combineLayers: function(bottomLayer, topLayer, width, combineMode) {
             // could be way more sophisticated. And than deserves an extra file
             var resultingImage,
                 isArrayBottomLayer = Array.isArray(bottomLayer),
                 isArrayTopLayer =  Array.isArray(topLayer);
 
             if ( isArrayBottomLayer && isArrayTopLayer ) {
-                resultingImage = this._combineArrays(bottomLayer, topLayer);
+                resultingImage = this._combineArrays(bottomLayer, topLayer, width, combineMode);
             } else {
-                // at least one of the images has color channels. maybe both.
+                // at least one of the images has color channels. the result has color channels.
                 var bl = {}, tl = {}, resultingImage = {};
 
                 if (isArrayBottomLayer) {
@@ -188,10 +204,10 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
                     tl = topLayer;
                 }
             
-                resultingImage.red   = this._combineArrays(bl.red,   tl.red);
-                resultingImage.green = this._combineArrays(bl.green, tl.green);
-                resultingImage.blue  = this._combineArrays(bl.blue,  tl.blue);
-                resultingImage.alpha = this._combineArrays(bl.alpha, tl.alpha);
+                resultingImage.red   = this._combineArrays(bl.red,   tl.red  , width, combineMode);
+                resultingImage.green = this._combineArrays(bl.green, tl.green, width, combineMode);
+                resultingImage.blue  = this._combineArrays(bl.blue,  tl.blue , width, combineMode);
+                resultingImage.alpha = this._combineArrays(bl.alpha, tl.alpha, width, combineMode);
             } // if isArray
                 
             return resultingImage;
@@ -210,15 +226,17 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
             }
             if (layer.type === "colorChannels") {
                 resultingImage = {};
-                resultingImage.red = this._processPatinaNode(layer.red, width, height);
+                resultingImage.red   = this._processPatinaNode(layer.red, width, height);
                 resultingImage.green = this._processPatinaNode(layer.green, width, height);
-                resultingImage.blue = this._processPatinaNode(layer.blue, width, height);
+                resultingImage.blue  = this._processPatinaNode(layer.blue, width, height);
                 resultingImage.alpha = this._processPatinaNode(layer.alpha, width, height);
             }
             if (layer.type === "combine") {
                 resultingImage = this._combineLayers( 
                     this._processPatinaNode(layer.bottomLayer, width, height),
-                    this._processPatinaNode(layer.topLayer, width, height)
+                    this._processPatinaNode(layer.topLayer, width, height),
+                    width,
+                    layer.combineMode
                 );
             }
             if (layer.type === "createPattern") {

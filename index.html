@@ -79,6 +79,8 @@
 
         <h1>Patina</h1>
 
+        <h2>ToDo: preloadImages AND reusablePatterns</h2>
+
         <p class="contentContainer">
             Combine simple noise patterns to create complex textures with JavaScript.
         </p>
@@ -291,9 +293,11 @@
                     ],
                     "patina": {
                         "type"      : "combine",
+                        "combineMode"   : "distort",
                         "topLayer"  : {
-                            "type"          : "reuseImage",
-                            "reuseId"       : "reetroof"
+                            "type"          : "createPattern",
+                            "patternName"   : "noise_plasma",
+                            "filter"        : [{ "name": "blur", "radius": 5 }]
                         },
                         "bottomLayer"  : {
                             "type"          : "reuseImage",
