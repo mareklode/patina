@@ -152,18 +152,23 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
             }
         }, // _jsonParse()
 
-        _combineArrays: function (bottomLayer, topLayer, width, combineMode) {
+        _combineArrays: function (bottomLayer, topLayer, width, combineMode = {} ) {
             var modulo = function (divided, m) {
                 return ((divided % m) + m) % m;
             }
-            if (combineMode === 'distort') {
+            if (combineMode.name === 'distort') {
                 return bottomLayer.map(function (value, index) {
-                    var multiplier = 800,
+                    var multiplier = combineMode.radius,
                         vector = {},
-                        tll = topLayer.length;
-                    vector.x = topLayer[modulo(index + 1, tll)]     - topLayer[modulo(index - 1, tll)];
-                    vector.y = topLayer[modulo(index + width - 1, tll)] - topLayer[modulo(index - width + 1, tll)]; 
-                    vector.result = index + Math.round(vector.x * multiplier) + Math.round(vector.y * multiplier);
+                        tll = topLayer.length,
+                        left  = topLayer[modulo(index - 1, tll)],
+                        right = topLayer[modulo(index + 1, tll)],
+                        top   = topLayer[modulo(index - width + 1, tll)],
+                        bottom= topLayer[modulo(index + width - 1, tll)];
+                    // debugger
+                    vector.x = right - left;
+                    vector.y = bottom - top; 
+                    vector.result = index + Math.round(vector.x * multiplier) + (Math.round(vector.y * multiplier) * width);
                     return bottomLayer[ modulo(vector.result, bottomLayer.length) ];
                 });
             } else {

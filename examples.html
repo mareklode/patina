@@ -150,8 +150,57 @@
                     }
                 }'
             ></div><!-- patina -->
+            
+            <div class="js-require pattern__thumbnails pattern__thumbnails--512" 
+                data-require-name="patina" 
+                data-require-data='{
+                    "reusableImages" : [
+                        { 
+                            "id"            : "greyNoise", 
+                            "type"          : "combine",
+                            "combineMode"   : { "name": "distort", "radius": 64 },
+                            "topLayer"      : {
+                                "type"          : "createPattern",
+                                "patternName"   : "noise_plasma"
+                            },
+                            "bottomLayer"   : {
+                                "type"          : "combine",
+                                "combineMode"   : { "name": "distort", "radius": 3200 },
+                                "topLayer"      : {
+                                    "type"          : "createPattern",
+                                    "patternName"   : "sine",
+                                    "period"        : 16
+                                },
+                                "bottomLayer"   : {
+                                    "type"          : "createPattern",
+                                    "patternName"   : "sine",
+                                    "direction"     : "vertical", 
+                                    "period"        : 16
+                                }
+                                }
+                        }
+                    ],
+                    "patina": {
+                        "type"  : "colorChannels",
+                        "red"   : {
+                            "type"      :   "reuseImage",
+                            "reuseId"   :   "greyNoise"
+                        },
+                        "green" : {
+                            "type"      :   "reuseImage",
+                            "reuseId"   :   "greyNoise"
+                        },
+                        "blue"  :  {
+                            "type"      :   "reuseImage",
+                            "reuseId"   :   "greyNoise"
+                        },
+                        "alpha" :  256
+                    }
+                }'
+            ></div>
 
         </div><!-- pattern -->
+        
 
         <div class="pattern">
             <div id="js_patina_fromTextarea" 

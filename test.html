@@ -40,37 +40,29 @@
 
 
     <main class="content__block">
+
+        <h1>What's the issue with those borders?</h1>
+
         <div class="pattern">
 
             <div class="js-require pattern__thumbnails pattern__thumbnails--512" 
                 data-require-name="patina" 
                 data-require-data='{
-                    "width"          : 256,
-                    "height"         : 256,
                     "reusableImages" : [
                         { 
                             "id"            : "greyNoise", 
                             "type"          : "combine",
-                            "combineMode"   : "distort",
+                            "combineMode"   : { "name": "distort", "radius": 3200 },
                             "topLayer"      : {
                                 "type"          : "createPattern",
                                 "patternName"   : "sine",
-                                "period"        : 8.15
+                                "period"        : 16
                             },
                             "bottomLayer"   : {
-                                "type"          : "combine",
-                                "topLayer"      : {
-                                    "type"          : "createPattern",
-                                    "patternName"   : "sine",
-                                    "direction"     : "horizontal",
-                                    "period"        : 8.15
-                                },
-                                "bottomLayer"      : {
-                                    "type"          : "createPattern",
-                                    "patternName"   : "sine",
-                                    "direction"     : "vertical",
-                                    "period"        : 8.15
-                                }
+                                "type"          : "createPattern",
+                                "patternName"   : "sine",
+                                "direction"     : "vertical", 
+                                "period"        : 16
                             }
                         }
                     ],
