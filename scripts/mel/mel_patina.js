@@ -1,10 +1,10 @@
 define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, filter ) {
 
     function patina (domElement, parameters) {
-        var self = this;
+        let self = this;
         
         self._parameters = self._completeParameters( parameters, domElement );
-        console.log('###### - Patina - ######', self._parameters);
+        console.log('###### - Patina (LET) - ######', self._parameters);
 
         self.reusableImages = {
             count : this._parameters.reusableImages.length,
@@ -48,32 +48,29 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
         preloadImage: function ( reusableImage, width, height, reusableImages) {
             
             // fetch image from URL and convert it to an Array
-            var myCanvas = canvas.newCanvas(width, height);
+            let myCanvas = canvas.newCanvas(width, height);
             this.imageObj = new Image();
 
             this.imageObj.addEventListener("load", function() {
-                var imgData;
+                let imgData;
 
-                // ToDo: check why i do this from here...
                 myCanvas.context.drawImage(this, 0, 0);
                 imgData = myCanvas.context.getImageData(
                     0, 0,
                     myCanvas.width,
                     myCanvas.height
                 );
-                // Todo: ... to here and if it is necessary
 
-                var data = imgData.data;
+                let data = imgData.data;
 
                 if ( reusableImage.colorChannels === 1 ) {
                     reusableImages[reusableImage.id] = [];
-                    for (var i = 0, len = width * height; i < len; i += 1) {
+                    for (let i = 0, len = width * height; i < len; i += 1) {
                         reusableImages[reusableImage.id][i]   = ( data[i*4] + 
                                                                   data[i*4+1] +
                                                                   data[i*4+2] +
                                                                   data[i*4+3] ) / ( 256 * 4 );
                     }
-    
                 } else {
                     reusableImages[reusableImage.id] = {
                         red: [],
@@ -81,8 +78,7 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
                         blue: [],
                         alpha: []
                     };  
-
-                    for (var i = 0, len = width * height; i < len; i += 1) {
+                    for (let i = 0, len = width * height; i < len; i += 1) {
                         reusableImages[reusableImage.id].red[i]   = data[i*4]   / 256;
                         reusableImages[reusableImage.id].green[i] = data[i*4+1] / 256;
                         reusableImages[reusableImage.id].blue[i]  = data[i*4+2] / 256;
@@ -98,42 +94,24 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
         }, // preloadImage()
         
         createPatina: function (parameters, domElement) {
-            let myCanvas = canvas.newCanvas( parameters.width, parameters.height );
 
-            let patinaArray = this._processPatinaNode( 
+            let patinaData = this._processPatinaNode( 
                 parameters.patina, 
                 parameters.width, 
                 parameters.height
             );
                     
-            if ( Array.isArray(patinaArray) ) {
-                // ToDo: the JSON should specify how the Array is transformed to an 4-channel-image
-                for (var i = 0, len = parameters.width * parameters.height; i < len; i++) {
-                    var alpha = Math.floor(patinaArray[i] * 256);
-                    myCanvas.img.data[i*4] = 0;      // r
-                    myCanvas.img.data[i*4+1] = 0;    // g
-                    myCanvas.img.data[i*4+2] = 0;    // b
-                    myCanvas.img.data[i*4+3] = alpha;  // a
-                }
-            } else {
-                for (var i = 0, len = parameters.width * parameters.height; i < len; i++) {
-                    myCanvas.img.data[i * 4]     = Math.floor(patinaArray.red[i]   * 256);
-                    myCanvas.img.data[i * 4 + 1] = Math.floor(patinaArray.green[i] * 256);
-                    myCanvas.img.data[i * 4 + 2] = Math.floor(patinaArray.blue[i]  * 256);
-                    myCanvas.img.data[i * 4 + 3] = Math.floor(patinaArray.alpha[i] * 256);
-                }
-            }
-            myCanvas.context.putImageData( myCanvas.img, 0, 0 );
+            let myCanvas = this._createCanvas(patinaData, parameters.width, parameters.height );
             this._paintCanvas( myCanvas, domElement );
 
-            let self = this;
-            Object.keys(this.reusableImages).forEach(function(element, index, array) {
-                if (element !== 'count' && element !== 'countdown') {
-                    this._paintCanvasToDiv(
-                        this.reusableImages[element],
+            // draw every reusableImage to a DIV with the correct ID ("reusableImage_" + reuseId) if it exists
+            Object.keys(this.reusableImages).forEach(function(reuseId) {
+                if (reuseId !== 'count' && reuseId !== 'countdown') {
+                    this._paintCanvasToADifferentDiv(
+                        this.reusableImages[reuseId],
                         parameters.width,
                         parameters.height, 
-                        "reusableImage_" + element
+                        "reusableImage_" + reuseId
                     );
                 }
             }, this);
@@ -152,7 +130,7 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
         }, // _completeParameters()
 
         _jsonParse: function (jsonString) {
-            var parsed;
+            let parsed;
             try {
                 parsed = JSON.parse(jsonString);
             }
@@ -165,21 +143,21 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
         }, // _jsonParse()
 
         _combineArrays: function (bottomLayer, topLayer, width, combineMode = {} ) {
-            var modulo = function (divided, m) {
+            let modulo = function (divided, m) {
                 // modulo(index - 1, tll)
                 return ((divided % m) + m) % m;
             }
-            var arrayPos = function (x, y, width) {
+            let arrayPos = function (x, y, width) {
                 return x + y * width;
             }
             if (combineMode.name === 'distort') {
-                var multiplier = combineMode.radius || 1,
+                let multiplier = combineMode.radius || 1,
                     length = topLayer.length,
                     tll = length,
                     height = length / width,
                     x, y, vectorX, vectorY, xNew, yNew;
                 return bottomLayer.map(function (value, index) {
-                    var x = index % width,
+                    let x = index % width,
                         y = (index - x) / width,
                         leftPosX   = (x - 1) % width,
                         rightPosX  = (x + 1) % width,
@@ -190,7 +168,7 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
                     }
                     if (topPosY  < 0) { topPosY  = height + topPosY; }
 
-                    var left  = topLayer[arrayPos(leftPosX, y, width)],
+                    let left  = topLayer[arrayPos(leftPosX, y, width)],
                         right = topLayer[arrayPos(rightPosX, y, width)],
                         top   = topLayer[arrayPos(x, topPosY, width)],
                         bottom= topLayer[arrayPos(x, bottomPosY, width)],
@@ -207,11 +185,11 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
                 });
             }
             
-        },
+        }, // combineArrays()
 
         _combineLayers: function(bottomLayer, topLayer, width, combineMode) {
             // could be way more sophisticated. And than deserves an extra file
-            var resultingImage,
+            let resultingImage,
                 isArrayBottomLayer = Array.isArray(bottomLayer),
                 isArrayTopLayer =  Array.isArray(topLayer);
 
@@ -219,7 +197,8 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
                 resultingImage = this._combineArrays(bottomLayer, topLayer, width, combineMode);
             } else {
                 // at least one of the images has color channels. the result has color channels.
-                var bl = {}, tl = {}, resultingImage = {};
+                let bl = {}, tl = {};
+                resultingImage = {};
 
                 if (isArrayBottomLayer) {
                     bl.red = bottomLayer;
@@ -249,10 +228,10 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
         }, // _combineLayers()
 
         _processPatinaNode: function ( layer, width, height ) {
-            var resultingImage = false;
+            let resultingImage = false;
             
             if (typeof layer === "number") {
-                var color = layer / 256;
+                let color = layer / 256;
                 return Array.from( {length: width * height}, () => color );
             }
 
@@ -307,40 +286,44 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
             }
         }, // _processPatinaNode()
 
-        _paintCanvas: function( myCanvas, element ) {
+        _createCanvas: function (patinaData, width, height) {
+            let myCanvas = canvas.newCanvas( width, height );
+
+            if ( Array.isArray(patinaData) ) {
+                // ToDo: the JSON should specify how the Array is transformed to an 4-channel-image
+                for (let i = 0, len = width * height; i < len; i++) {
+                    let alpha = Math.floor(patinaData[i] * 256);
+                    myCanvas.img.data[i*4] = 0;      // r
+                    myCanvas.img.data[i*4+1] = 0;    // g
+                    myCanvas.img.data[i*4+2] = 0;    // b
+                    myCanvas.img.data[i*4+3] = alpha;  // a
+                }
+            } else {
+                for (let i = 0, len = width * height; i < len; i++) {
+                    myCanvas.img.data[i * 4]     = Math.floor(patinaData.red[i]   * 256);
+                    myCanvas.img.data[i * 4 + 1] = Math.floor(patinaData.green[i] * 256);
+                    myCanvas.img.data[i * 4 + 2] = Math.floor(patinaData.blue[i]  * 256);
+                    myCanvas.img.data[i * 4 + 3] = Math.floor(patinaData.alpha[i] * 256);
+                }
+            }
+            myCanvas.context.putImageData( myCanvas.img, 0, 0 );
+            return myCanvas;
+        }, // _createCanvas()
+
+        _paintCanvas: function ( myCanvas, element ) {
             if (element) {
                 element.style.backgroundImage = 'url(' + myCanvas.toDataURL('image/png') + ')';
             }
         }, // _paintCanvas()
 
-        _paintCanvasToDiv: function( patina, width, height, domElementID ) {
+        _paintCanvasToADifferentDiv: function ( patinaData, width, height, domElementID ) {
 
             let domElement = document.getElementById(domElementID);
             if (domElement) {
-                console.log(domElement);
-                let myCanvas = canvas.newCanvas( width, height );
-
-                if ( Array.isArray(patina) ) {
-                    // ToDo: the JSON should specify how the Array is transformed to an 4-channel-image
-                    for (var i = 0, len = width * height; i < len; i++) {
-                        var alpha = Math.floor(patina[i] * 256);
-                        myCanvas.img.data[i*4] = 0;      // r
-                        myCanvas.img.data[i*4+1] = 0;    // g
-                        myCanvas.img.data[i*4+2] = 0;    // b
-                        myCanvas.img.data[i*4+3] = alpha;  // a
-                    }
-                } else {
-                    for (var i = 0, len = width * height; i < len; i++) {
-                        myCanvas.img.data[i * 4]     = Math.floor(patina.red[i]   * 256);
-                        myCanvas.img.data[i * 4 + 1] = Math.floor(patina.green[i] * 256);
-                        myCanvas.img.data[i * 4 + 2] = Math.floor(patina.blue[i]  * 256);
-                        myCanvas.img.data[i * 4 + 3] = Math.floor(patina.alpha[i] * 256);
-                    }
-                }
-                myCanvas.context.putImageData( myCanvas.img, 0, 0 );
+                let myCanvas = this._createCanvas(patinaData, width, height);
                 this._paintCanvas( myCanvas, domElement );
             }
-        } // _paintCanvas()
+        }, // _paintCanvasToADifferentDiv()
 
     } // patina.prototype
 
