@@ -98,9 +98,9 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
         }, // preloadImage()
         
         createPatina: function (parameters, domElement) {
-            var myCanvas = canvas.newCanvas( parameters.width, parameters.height );
+            let myCanvas = canvas.newCanvas( parameters.width, parameters.height );
 
-            var patinaArray = this._processPatinaNode( 
+            let patinaArray = this._processPatinaNode( 
                 parameters.patina, 
                 parameters.width, 
                 parameters.height
@@ -125,6 +125,18 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
             }
             myCanvas.context.putImageData( myCanvas.img, 0, 0 );
             this._paintCanvas( myCanvas, domElement );
+
+            let self = this;
+            Object.keys(this.reusableImages).forEach(function(element, index, array) {
+                if (element !== 'count' && element !== 'countdown') {
+                    this._paintCanvasToDiv(
+                        this.reusableImages[element],
+                        parameters.width,
+                        parameters.height, 
+                        "reusableImage_" + element
+                    );
+                }
+            }, this);
 
         }, // createPatina()
 
@@ -154,22 +166,40 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
 
         _combineArrays: function (bottomLayer, topLayer, width, combineMode = {} ) {
             var modulo = function (divided, m) {
+                // modulo(index - 1, tll)
                 return ((divided % m) + m) % m;
             }
+            var arrayPos = function (x, y, width) {
+                return x + y * width;
+            }
             if (combineMode.name === 'distort') {
+                var multiplier = combineMode.radius || 1,
+                    length = topLayer.length,
+                    tll = length,
+                    height = length / width,
+                    x, y, vectorX, vectorY, xNew, yNew;
                 return bottomLayer.map(function (value, index) {
-                    var multiplier = combineMode.radius,
-                        vector = {},
-                        tll = topLayer.length,
-                        left  = topLayer[modulo(index - 1, tll)],
-                        right = topLayer[modulo(index + 1, tll)],
-                        top   = topLayer[modulo(index - width + 1, tll)],
-                        bottom= topLayer[modulo(index + width - 1, tll)];
-                    // debugger
-                    vector.x = right - left;
-                    vector.y = bottom - top; 
-                    vector.result = index + Math.round(vector.x * multiplier) + (Math.round(vector.y * multiplier) * width);
-                    return bottomLayer[ modulo(vector.result, bottomLayer.length) ];
+                    var x = index % width,
+                        y = (index - x) / width,
+                        leftPosX   = (x - 1) % width,
+                        rightPosX  = (x + 1) % width,
+                        topPosY    = (y - 1) % height,
+                        bottomPosY = (y + 1) % height;
+                    if (leftPosX < 0) { 
+                        leftPosX = width + leftPosX; 
+                    }
+                    if (topPosY  < 0) { topPosY  = height + topPosY; }
+
+                    var left  = topLayer[arrayPos(leftPosX, y, width)],
+                        right = topLayer[arrayPos(rightPosX, y, width)],
+                        top   = topLayer[arrayPos(x, topPosY, width)],
+                        bottom= topLayer[arrayPos(x, bottomPosY, width)],
+                        vectorX = Math.round((right - left) * multiplier),
+                        vectorY = Math.round((bottom - top) * multiplier);
+                        vector = index + vectorX + (vectorY * width);
+                    if (vectorX < 0) { vectorX = width  + vectorX; }
+                    if (vectorY < 0) { vectorY = height + vectorY; }
+                    return bottomLayer[ modulo(vector, bottomLayer.length) ];
                 });
             } else {
                 return bottomLayer.map(function (value, index) {
@@ -250,6 +280,7 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
             if (layer.type === "reuseImage") {
                 if (this.reusableImages[layer.reuseId]) {
                     resultingImage = this.reusableImages[layer.reuseId];
+
                 } else {
                     console.error("ReusableImage", layer.reuseId, "was not found.");
                 }
@@ -268,6 +299,7 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
                         }
                     });
                 }
+
                 return resultingImage;
             } else {
                 console.log('layer type not recognized ',layer);
@@ -278,6 +310,35 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
         _paintCanvas: function( myCanvas, element ) {
             if (element) {
                 element.style.backgroundImage = 'url(' + myCanvas.toDataURL('image/png') + ')';
+            }
+        }, // _paintCanvas()
+
+        _paintCanvasToDiv: function( patina, width, height, domElementID ) {
+
+            let domElement = document.getElementById(domElementID);
+            if (domElement) {
+                console.log(domElement);
+                let myCanvas = canvas.newCanvas( width, height );
+
+                if ( Array.isArray(patina) ) {
+                    // ToDo: the JSON should specify how the Array is transformed to an 4-channel-image
+                    for (var i = 0, len = width * height; i < len; i++) {
+                        var alpha = Math.floor(patina[i] * 256);
+                        myCanvas.img.data[i*4] = 0;      // r
+                        myCanvas.img.data[i*4+1] = 0;    // g
+                        myCanvas.img.data[i*4+2] = 0;    // b
+                        myCanvas.img.data[i*4+3] = alpha;  // a
+                    }
+                } else {
+                    for (var i = 0, len = width * height; i < len; i++) {
+                        myCanvas.img.data[i * 4]     = Math.floor(patina.red[i]   * 256);
+                        myCanvas.img.data[i * 4 + 1] = Math.floor(patina.green[i] * 256);
+                        myCanvas.img.data[i * 4 + 2] = Math.floor(patina.blue[i]  * 256);
+                        myCanvas.img.data[i * 4 + 3] = Math.floor(patina.alpha[i] * 256);
+                    }
+                }
+                myCanvas.context.putImageData( myCanvas.img, 0, 0 );
+                this._paintCanvas( myCanvas, domElement );
             }
         } // _paintCanvas()
 

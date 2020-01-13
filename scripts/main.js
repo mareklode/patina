@@ -37,7 +37,7 @@ var setupPage = function () {
     mel.kkeys = [];
     mel.konami = "38,38,40,40,37,39,37,39,66,65";
     mel.easteregg = function () {
-        console.log('Konami');
+        mel.onlyLog('Konami');
     }
 
     document.addEventListener('keydown', function(e) {

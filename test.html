@@ -43,26 +43,83 @@
 
         <h1>What's the issue with those borders?</h1>
 
+        <div class="pattern__thumbnails--128" id="reusableImage_greyNoise"></div>
+        <div class="pattern__thumbnails--128" id="reusableImage_plasmaNoise"></div>
+
+        <p>Modulo at the borders wraps to new line!</p>
         <div class="pattern">
 
             <div class="js-require pattern__thumbnails pattern__thumbnails--512" 
+                data-require-name="patina" 
+                data-require-data='{
+                    "width"          : 128,
+                    "height"         : 128,
+                    "reusableImages" : [
+                        {
+                            "id"            : "plasmaNoise",
+                            "type"          : "createPattern",
+                            "patternName"   : "noise_plasma"
+                        },
+                        { 
+                            "id"            : "greyNoise", 
+                            "type"          : "combine",
+                            "combineMode"   : { "name": "distort", "radius": 1024 },
+                            "topLayer"      : {
+                                "type"          : "createPattern",
+                                "patternName"   : "noise_plasma",
+                                "filter"        : [{ "name": "blur", "radius": 8 }]
+                            },
+                            "bottomLayer"   : {
+                                "type"          : "reuseImage",
+                                "reuseId"       : "plasmaNoise"
+                            }
+                        }
+                    ],
+                    "patina": {
+                        "type"  : "colorChannels",
+                        "blue"  : {
+                            "type"          : "combine",
+                            "combineMode"   : { "name": "distort", "radius": 1024 },
+                            "topLayer"      : {
+                                "type"          :   "reuseImage",
+                                "reuseId"       :   "greyNoise"
+                            },
+                            "bottomLayer"   : {
+                                "type"          : "reuseImage",
+                                "reuseId"       : "plasmaNoise"
+                            }
+                        },
+                        "red"   : {
+                            "type"          : "reuseImage",
+                            "reuseId"       : "greyNoise"
+                        },
+                        "green" :  {
+                            "type"          : "reuseImage",
+                            "reuseId"       : "greyNoise"
+                        },
+                        "alpha" :  256
+                    }
+                }'
+            ></div>
+            <!--div class="js-require pattern__thumbnails pattern__thumbnails--128" 
                 data-require-name="patina" 
                 data-require-data='{
                     "reusableImages" : [
                         { 
                             "id"            : "greyNoise", 
                             "type"          : "combine",
-                            "combineMode"   : { "name": "distort", "radius": 3200 },
+                            "combineMode"   : { "name": "distort", "radius": 600 },
                             "topLayer"      : {
                                 "type"          : "createPattern",
                                 "patternName"   : "sine",
-                                "period"        : 16
+                                "direction"     : "vertical", 
+                                "period"        : 8
                             },
                             "bottomLayer"   : {
                                 "type"          : "createPattern",
                                 "patternName"   : "sine",
-                                "direction"     : "vertical", 
-                                "period"        : 16
+                                "direction"     : "horizontal", 
+                                "period"        : 8
                             }
                         }
                     ],
@@ -83,7 +140,8 @@
                         "alpha" :  256
                     }
                 }'
-            ></div>
+            ></div-->
+
         </div>
     </main>
 

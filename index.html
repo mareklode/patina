@@ -88,52 +88,24 @@
         <div class="pattern">
 
             <a href="createPattern_border.html" class="js-require pattern__thumbnails pattern__thumbnails--128" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina": {
-                        "type"          : "createPattern",
-                        "patternName"   : "border"
-                    }
-                }'
-            >createPattern border</a>
+                id="reusableImage_combine_border" >createPattern border</a>
 
             <span class="pattern__textInbetween">+</span>
 
             <a href="createPattern_sine.html" class="js-require pattern__thumbnails pattern__thumbnails--128" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina": {
-                        "type"          : "createPattern",
-                        "patternName"   : "sine",
-                        "direction"     : "rectangles",
-                        "period"        : 2.33
-                    }
-                }'
+                id="reusableImage_combine_sine"
             >createPattern sine</a>
 
             <span class="pattern__textInbetween">+</span>
 
             <a href="createPattern_noise_2D.html" class="js-require pattern__thumbnails pattern__thumbnails--128" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina": {
-                        "type"          : "createPattern",
-                        "patternName"   : "noise_2D"
-                    }
-                }'
+                id="reusableImage_combine_noise2D_horizontal"
             >createPattern noise_2D</a>
 
             <span class="pattern__textInbetween">+</span>
 
             <a href="createPattern_noise_2D.html" class="js-require pattern__thumbnails pattern__thumbnails--128" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina": {
-                        "type"          : "createPattern",
-                        "patternName"   : "noise_2D",
-                        "direction"     : "vertical"
-                    }
-                }'
+                id="reusableImage_combine_noise2D_vertical"
             >createPattern noise_2D</a>
 
             <span class="pattern__textInbetween">=</span>
@@ -145,39 +117,59 @@
                     "height": 256,
                     "reusableImages": [
                         {
+                            "id"            : "combine_border",
+                            "type"          : "createPattern",
+                            "patternName"   : "border",
+                            "filter"        : [{ "name": "brightness", "brightness": -1.25 }]
+                        },
+                        {
+                            "id"            : "combine_sine",
+                            "type"          : "createPattern",
+                            "patternName"   : "sine",
+                            "direction"     : "rectangles",
+                            "period"        : 2.33,
+                            "filter"        : [{ "name": "brightness", "brightness": 1 }]
+                        },
+                        {
+                            "id"            : "combine_noise2D_horizontal",
+                            "type"          : "createPattern",
+                            "patternName"   : "noise_2D"
+                        },
+                        {
+                            "id"            : "combine_noise2D_vertical",
+                            "type"          : "createPattern",
+                            "patternName"   : "noise_2D", 
+                            "direction"     : "vertical"
+                        },
+                        {
                             "id"            : "NoiseBorder",
                             "type"          : "combine",
                             "topLayer"      : {
-                                "type"          : "createPattern",
-                                "patternName"   : "border",
-                                "filter"        : [{ "name": "brightness", "brightness": -1.25 }]
+                                "type"          : "reuseImage",
+                                "reuseId"       : "combine_border"
                             },
                             "bottomLayer"   : { 
                                 "type"          : "combine",
                                 "topLayer"      : {
                                     "type"          : "combine",
                                     "topLayer"      : {
-                                        "type"          : "createPattern",
-                                        "patternName"   : "noise_2D"
+                                        "type"          : "reuseImage",
+                                        "reuseId"       : "combine_noise2D_horizontal"
                                     },
                                     "bottomLayer"   : { 
-                                        "type"          : "createPattern",
-                                        "patternName"   : "noise_2D",
-                                        "direction"     : "vertical"
+                                        "type"          : "reuseImage",
+                                        "reuseId"       : "combine_noise2D_vertical"
                                     }
                                 },
                                 "bottomLayer"   : { 
                                     "type"          : "combine",
                                     "topLayer"      : {
-                                        "type"          : "createPattern",
-                                        "patternName"   : "border"
+                                        "type"          : "reuseImage",
+                                        "reuseId"       : "combine_border"
                                     },
                                     "bottomLayer"   : { 
-                                        "type"          : "createPattern",
-                                        "patternName"   : "sine",
-                                        "direction"     : "rectangles",
-                                        "period"        : 2.33,
-                                        "filter"        : [{ "name": "brightness", "brightness": 1 }]
+                                        "type"          : "reuseImage",
+                                        "reuseId"       : "combine_sine"
                                     }
                                 }
                             }
