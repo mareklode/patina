@@ -31,7 +31,7 @@
                             "type"          : "createPattern",
                             "patternName"   : "sine",
                             "direction"     : "rectangles",
-                            "period"        : 15,
+                            "period"        : 4,
                             "filter"        : [
                                 { "name": "threshold", "threshold": 0.5 },
                                 { "name": "blur", "radius": 1 },
@@ -92,6 +92,71 @@
                     }
                 }'
             ></div>
+
+
+            <div class="js-require pattern__thumbnails pattern__thumbnails--256" 
+                data-require-name="patina" 
+                data-require-data='{
+                    "patina": {
+                        "type"          : "createPattern",
+                        "patternName"   : "sine",
+                        "direction"     : "horizontal"
+                    }
+                }'
+            ></div>
+            <div class="js-require pattern__thumbnails pattern__thumbnails--256" 
+                data-require-name="patina" 
+                data-require-data='{
+                    "patina": {
+                        "type"          : "createPattern",
+                        "patternName"   : "sine",
+                        "direction"     : "vertical",
+                        "period"        : 10
+                    }
+                }'
+            ></div>
+            <div class="js-require pattern__thumbnails pattern__thumbnails--256" 
+                data-require-name="patina" 
+                data-require-data='{
+                    "patina": {
+                        "type"          : "createPattern",
+                        "patternName"   : "sine",
+                        "direction"     : "diagonalUp",
+                        "period"        : 50
+                    }
+                }'
+            ></div>
+            <div class="js-require pattern__thumbnails pattern__thumbnails--128" 
+                data-require-name="patina" 
+                data-require-data='{
+                    "patina": {
+                        "type"          : "createPattern",
+                        "patternName"   : "sine",
+                        "direction"     : "diagonalDown"
+                    }
+                }'
+            ></div>
+            <div class="js-require pattern__thumbnails pattern__thumbnails--512" 
+                data-require-name="patina" 
+                data-require-data='{
+                    "patina": {
+                        "type"          : "createPattern",
+                        "patternName"   : "sine",
+                        "direction"     : "rectangles",
+                        "period"        : 1
+                    }
+                }'
+            ></div>
+            <div class="js-require pattern__thumbnails pattern__thumbnails--128" 
+                data-require-name="patina" 
+                data-require-data='{
+                    "patina": {
+                        "type"          : "createPattern",
+                        "patternName"   : "sine",
+                        "direction"     : "circular"
+                    }
+                }'
+            ></div>
         </div><!-- .pattern -->
 
     
@@ -120,13 +185,13 @@
                                     "type"          : "createPattern",
                                     "patternName"   : "sine",
                                     "direction"     : "horizontal",
-                                    "period"        : "0.6"
+                                    "period"        : 60
                                 }
                             },
                             "bottomLayer" : { 
                                 "type"          : "createPattern",
                                 "patternName"   : "slope",
-                                "filter"        : [{ "name": "brightness", "brightness": -1 }]
+                                "filter"        : [{ "name": "brightness", "brightness": -2 }]
                             }
                         },
                         "bottomLayer" : { 
@@ -139,13 +204,13 @@
                                 "type"          : "createPattern",
                                 "patternName"   : "sine",
                                 "direction"     : "vertical",
-                                "period"        : 0.67
+                                "period"        : 67
                             }
                         },
                         "filter"        : [
                             { "name": "invert" },
                             { "name": "blur", "radius": 1 },
-                            { "name": "contrast", "m": 10, "x": 0.525 }
+                            { "name": "contrast", "m": 7, "x": 0.52 }
                         ]
                     }
                 }

@@ -56,33 +56,31 @@ define(['canvas', 'noise'], function( canvas, noise ) {
         sine: function ( layerDefinition, width, height ) {
             var imageData = new Array( width * height ),
                 color = 0,
-                period = layerDefinition.period || 1;
-            for (var i = 0; i < width; i++ ) {
-                for (var j = 0; j < height; j++ ) {
+                period = width / layerDefinition.period / 6.2832 || width / 31.4156,
+                offset = 0;
+            for (var x = 0; x < width; x++ ) {
+                for (var y = 0; y < height; y++ ) {
 
                     switch ( layerDefinition.direction ) {
                         case 'vertical':
-                            color = Math.sin(i/period);
+                            color = Math.sin((x + offset)/period);
                             break;
                         case 'horizontal':
-                            color = Math.sin(j/period);
+                            color = Math.sin((y + offset)/period);
                             break;
                         case 'rectangles':
-                            color = Math.sin((j*i)/period);
+                            color = Math.sin(((y + offset) * (x + offset))/period);
                             break;
                         case 'diagonalUp':
-                            color = Math.sin((j+i)/period);
+                            color = Math.sin((y + offset + x + offset)/period);
                             break;
                         case 'diagonalDown':
-                            color = Math.sin((j-i)/period);
+                            color = Math.sin((y-x  + offset)/period);
                             break;
-                        case 'circular':
-                            color = Math.sin( Math.sqrt((i*i) + (j*j))/period );
-                            break;
-                        default: 
-                            color = Math.sin( Math.sqrt((i*i) + (j*j))/period );
+                        default: /* concentric */
+                            color = Math.sin( Math.sqrt(((x - offset)*(x - offset)) + ((y - offset) * (y - offset)))/period );
                     }
-                    imageData[j * width + i] = (color / 2) + 0.5;
+                    imageData[y * width + x] = (color / 2) + 0.5;
                 }
             }
             return imageData

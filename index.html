@@ -24,19 +24,18 @@
             "height": 283,
             "patina": {
                 "type"  : "colorChannels",
-                "red"   : 0,
-                "green" : 0,
+                "red"   : 187,
+                "green" : 50,
                 "blue"  : 0,
                 "alpha" : {
                     "type"          : "createPattern",
                     "patternName"   : "sine",
                     "direction"     : "rectangles",
-                    "period"        : 15,
+                    "period"        : 4,
                     "filter"        : [
                         { "name": "threshold", "threshold": 0.5 },
                         { "name": "blur", "radius": 1 },
-                        { "name": "threshold", "threshold": 0.66 },
-                        { "name": "contrast", "m": 0.25, "x": 2.25 }
+                        { "name": "threshold", "threshold": 0.66 }
                     ]
                 }
             }
@@ -71,8 +70,8 @@
         <a class="navigation__link" href="createPattern.html">createPattern</a>
         <a class="navigation__link" href="filter.html">filter</a>
         <a class="navigation__link" href="reusableImages.html">reusableImages</a>
-        <a class="navigation__link" href="test.html">test</a>
         <a class="navigation__link" href="examples.html">examples</a>
+        <a class="navigation__link" href="test.html">test</a>
     </nav>
 
     <main class="content__block">
@@ -80,6 +79,7 @@
         <h1>Patina</h1>
 
         <h2>ToDo: preloadImages AND reusablePatterns</h2>
+        <h2>copy this Footer and Header patina-JSON to all other pages.</h2>
 
         <p class="contentContainer">
             Combine simple noise patterns to create complex textures with JavaScript.
@@ -127,7 +127,7 @@
                             "type"          : "createPattern",
                             "patternName"   : "sine",
                             "direction"     : "rectangles",
-                            "period"        : 2.33,
+                            "period"        : 16,
                             "filter"        : [{ "name": "brightness", "brightness": 1 }]
                         },
                         {
@@ -308,8 +308,8 @@
             "width": 256,
             "patina": {
                 "type"  : "colorChannels",
-                "red"   : 0,
-                "green" : 0,
+                "red"   : 150,
+                "green" : 40,
                 "blue"  : 0,
                 "alpha" : {
                     "type"  :   "combine",
@@ -325,7 +325,7 @@
                                 "type"          : "createPattern",
                                 "patternName"   : "sine",
                                 "direction"     : "horizontal",
-                                "period"        : "0.6"
+                                "period"        : 60
                             }
                         },
                         "bottomLayer" : { 
@@ -344,13 +344,13 @@
                             "type"          : "createPattern",
                             "patternName"   : "sine",
                             "direction"     : "vertical",
-                            "period"        : 0.67
+                            "period"        : 67
                         }
                     },
                     "filter"        : [
                         { "name": "invert" },
                         { "name": "blur", "radius": 1 },
-                        { "name": "contrast", "m": 4, "x": 0.6 }
+                        { "name": "contrast", "m": 7, "x": 0.52 }
                     ]
                 }
             }

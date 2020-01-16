@@ -101,46 +101,17 @@
                     }
                 }'
             ></div>
-            <!--div class="js-require pattern__thumbnails pattern__thumbnails--128" 
+            <div class="js-require pattern__thumbnails pattern__thumbnails--512" 
                 data-require-name="patina" 
                 data-require-data='{
-                    "reusableImages" : [
-                        { 
-                            "id"            : "greyNoise", 
-                            "type"          : "combine",
-                            "combineMode"   : { "name": "distort", "radius": 600 },
-                            "topLayer"      : {
-                                "type"          : "createPattern",
-                                "patternName"   : "sine",
-                                "direction"     : "vertical", 
-                                "period"        : 8
-                            },
-                            "bottomLayer"   : {
-                                "type"          : "createPattern",
-                                "patternName"   : "sine",
-                                "direction"     : "horizontal", 
-                                "period"        : 8
-                            }
-                        }
-                    ],
+                    "width" : 128,
+                    "height": 128,
                     "patina": {
-                        "type"  : "colorChannels",
-                        "red"   : {
-                            "type"      :   "reuseImage",
-                            "reuseId"   :   "greyNoise"
-                        },
-                        "green" : {
-                            "type"      :   "reuseImage",
-                            "reuseId"   :   "greyNoise"
-                        },
-                        "blue"  :  {
-                            "type"      :   "reuseImage",
-                            "reuseId"   :   "greyNoise"
-                        },
-                        "alpha" :  256
+                        "type"  : "createPattern",
+                        "patternName": "noise_plasma"
                     }
                 }'
-            ></div-->
+            ></div>
 
         </div>
     </main>
