@@ -5,13 +5,18 @@ define(['canvas', 'noise'], function( canvas, noise ) {
     // https://github.com/daneden/animate.css
 
     function createPattern (layerDefinition, width, height, reusableImages) {
-        var pattern = {};
+        let pattern = {};
 
-        if (this[layerDefinition.patternName]) {
+        if (layerDefinition.pattern && this[layerDefinition.pattern.name]) {
+            console.log("createPattern: ", layerDefinition.pattern.name);
+            pattern = this[layerDefinition.pattern.name]( layerDefinition.pattern, width, height );
+        } else if (this[layerDefinition.patternName]) {
             console.log("createPattern: ", layerDefinition.patternName);
-            pattern = this[layerDefinition.patternName]( layerDefinition, width, height, reusableImages );
+            pattern = this[layerDefinition.patternName]( layerDefinition, width, height );
         } else {
-            console.error("createPattern: \"", layerDefinition.patternName, "\" does not exist.");
+            let patternName = layerDefinition.patternName;
+            if (layerDefinition.pattern) { patternName = layerDefinition.pattern.name }
+            console.error("createPattern: \"", patternName, "\" does not exist.");
             pattern = this["flat"]({color: 0}, width, height);
         }
 
@@ -21,10 +26,10 @@ define(['canvas', 'noise'], function( canvas, noise ) {
     createPattern.prototype = {
 
         border: function ( layerDefinition, width, height ) {
-            var imageData = new Array( width * height );
-            for (var i = 0; i < width; i++ ) {
-                for (var j = 0; j < height; j++ ) {
-                    var x1 = i / ( width  - 1 ),
+            let imageData = new Array( width * height );
+            for (let i = 0; i < width; i++ ) {
+                for (let j = 0; j < height; j++ ) {
+                    let x1 = i / ( width  - 1 ),
                         x2 = j / ( height - 1 ),
                         y1 = Math.pow(2 * x1, 2) - (4 * x1) + 1,
                         y2 = Math.pow(2 * x2, 2) - (4 * x2) + 1;
@@ -49,36 +54,37 @@ define(['canvas', 'noise'], function( canvas, noise ) {
 
         // better use the number-Shortcut like { "topLayer" : 256 }
         flat: function ( layerDefinition, width, height ) {
-            var color = layerDefinition.color || 128;
+            let color = layerDefinition.color || 128;
             return Array.from( {length: width * height}, () => color / 256 );
         },
 
         sine: function ( layerDefinition, width, height ) {
-            var imageData = new Array( width * height ),
+            let imageData = new Array( width * height ),
                 color = 0,
                 period = width / layerDefinition.period / 6.2832 || width / 31.4156,
-                offset = 0;
-            for (var x = 0; x < width; x++ ) {
-                for (var y = 0; y < height; y++ ) {
+                offsetX = layerDefinition.offsetX || 0,
+                offsetY = layerDefinition.offsetY || 0;
+            for (let x = 0; x < width; x++ ) {
+                for (let y = 0; y < height; y++ ) {
 
                     switch ( layerDefinition.direction ) {
                         case 'vertical':
-                            color = Math.sin((x + offset)/period);
+                            color = Math.sin((x - offsetX)/period);
                             break;
                         case 'horizontal':
-                            color = Math.sin((y + offset)/period);
+                            color = Math.sin((y - offsetY)/period);
                             break;
                         case 'rectangles':
-                            color = Math.sin(((y + offset) * (x + offset))/period);
+                            color = Math.sin(((y - offsetY) * (x - offsetX))/period);
                             break;
                         case 'diagonalUp':
-                            color = Math.sin((y + offset + x + offset)/period);
+                            color = Math.sin(((y - offsetY) + (x - offsetX))/period);
                             break;
                         case 'diagonalDown':
-                            color = Math.sin((y-x  + offset)/period);
+                            color = Math.sin((y - offsetY - x - offsetX)/period);
                             break;
                         default: /* concentric */
-                            color = Math.sin( Math.sqrt(((x - offset)*(x - offset)) + ((y - offset) * (y - offset)))/period );
+                            color = Math.sin( Math.sqrt(((x - offsetX) * (x - offsetX)) + ((y - offsetY) * (y - offsetY)))/period );
                     }
                     imageData[y * width + x] = (color / 2) + 0.5;
                 }
@@ -88,11 +94,11 @@ define(['canvas', 'noise'], function( canvas, noise ) {
         }, // sine()
 
         slope: function ( layerDefinition, width, height ) {
-            var pattern = new Array(width * height);
-            for (var x = 0; x < width; x++) {
-                for (var y = 0; y < height; y++) {
+            let pattern = new Array(width * height);
+            for (let x = 0; x < width; x++) {
+                for (let y = 0; y < height; y++) {
                     // ToDo: changing directions must be possible
-                    var position = y * width + x ;
+                    let position = y * width + x ;
                     pattern[position] = y / (height - 1);
                 }
             }
@@ -100,18 +106,18 @@ define(['canvas', 'noise'], function( canvas, noise ) {
         }, // slope()
 
         noise_2D: function ( layerDefinition, width, height ) {
-            var noise, 
+            let noise, 
                 pattern = new Array(),
                 flattenedArray;
 
             if (layerDefinition.direction === "vertical") {
-                var noise = Array.from( {length: height}, () => Math.random() );
-                for (var i = 0; i < width; i++) {
+                let noise = Array.from( {length: height}, () => Math.random() );
+                for (let i = 0; i < width; i++) {
                     pattern.push(noise);
                 }
             } else {
-                var noise = Array.from( {length: width}, () => Math.random() );
-                for (var i = 0; i < height; i++) {
+                let noise = Array.from( {length: width}, () => Math.random() );
+                for (let i = 0; i < height; i++) {
                     pattern.push(Array.from( {length: height}, () => noise[i] ));
                 }
             }

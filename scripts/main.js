@@ -9,15 +9,15 @@ require.config({
     }
 });
 
-var mel = mel || {};
+let mel = {};
 
-var setupPage = function () {
+let setupPage = function () {
 
     /* find and execute JavaScript-triggers in HTML-tags */
-    var nodeList = document.querySelectorAll(".js-require");
+    let nodeList = document.querySelectorAll(".js-require");
     console.log('JavaScript-triggers in HTML-tags:', nodeList.length, nodeList);
-    for (var nl = 0; nl < nodeList.length; nl++) {
-        var el = nodeList[nl],
+    for (let nl = 0; nl < nodeList.length; nl++) {
+        let el = nodeList[nl],
             requireName = el.getAttribute('data-require-name'),
             requireData = el.getAttribute('data-require-data');
 

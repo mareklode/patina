@@ -1,8 +1,8 @@
 define([], function() {
 
-    var canvas = {
+    let canvas = {
         newCanvas: function (width, height) {
-            var newCanvas = document.createElement('canvas');
+            let newCanvas = document.createElement('canvas');
             newCanvas.width = width;
             newCanvas.height = height;
 
@@ -10,7 +10,7 @@ define([], function() {
             newCanvas.img = newCanvas.context.createImageData(width, height);
 
             newCanvas.getImgData = function (x, y) {
-                var position, r, g, b, a;
+                let position, r, g, b, a;
 
                 if (x < 0) { x = newCanvas.width + x; }
                 if (y < 0) { y = newCanvas.height + y; }
@@ -33,7 +33,7 @@ define([], function() {
             }
 
             newCanvas.setImgData = function (x, y, r, g, b, a) {
-                var position = (y * newCanvas.width + x) * 4;
+                let position = (y * newCanvas.width + x) * 4;
                 newCanvas.img.data[position + 0] = r;
                 newCanvas.img.data[position + 1] = g;
                 newCanvas.img.data[position + 2] = b;
@@ -45,7 +45,7 @@ define([], function() {
             }
 
             newCanvas.setImgDataAlpha = function (x, y, a) {
-                var position = (y * newCanvas.width + x) * 4;
+                let position = (y * newCanvas.width + x) * 4;
                 newCanvas.img.data[position + 3] = newCanvas.img.data[position + 3] * a;
             }
 

@@ -1,7 +1,7 @@
 define([], function() {
 
     function filter (image, filterDefinition, width, height) {
-        var filteredImage = {};
+        let filteredImage = {};
 
         if (this[filterDefinition.name]) {
             filteredImage = this[filterDefinition.name]( image, filterDefinition, width, height );
@@ -18,45 +18,45 @@ define([], function() {
         blur: function (sourceImage, filterDefinition, width, height) {
             // copied from http://blog.ivank.net/fastest-gaussian-blur.html 
 
-            var sigma = filterDefinition.radius || 3, // standard deviation
+            let sigma = filterDefinition.radius || 3, // standard deviation
                 n = 3, // number of boxes
                 targetImage = [];
 
-            var wIdeal = Math.sqrt((12*sigma*sigma/n)+1);  // Ideal averaging filter width 
-            var wl = Math.floor(wIdeal);  if(wl%2==0) wl--;
-            var wu = wl+2;
+            let wIdeal = Math.sqrt((12*sigma*sigma/n)+1);  // Ideal averaging filter width 
+            let wl = Math.floor(wIdeal);  if(wl%2==0) wl--;
+            let wu = wl+2;
                         
-            var mIdeal = (12*sigma*sigma - n*wl*wl - 4*n*wl - 3*n)/(-4*wl - 4);
-            var m = Math.round(mIdeal);
+            let mIdeal = (12*sigma*sigma - n*wl*wl - 4*n*wl - 3*n)/(-4*wl - 4);
+            let m = Math.round(mIdeal);
                         
-            var sizes = [];  
-            for(var i=0; i<n; i++) sizes.push(i<m?wl:wu);
+            let sizes = [];  
+            for(let i=0; i<n; i++) sizes.push(i<m?wl:wu);
             
-            var boxBlur_4 = function (sourceImage, targetImage, w, h, r) {
-                for(var i=0; i<sourceImage.length; i++) targetImage[i] = sourceImage[i];
+            let boxBlur_4 = function (sourceImage, targetImage, w, h, r) {
+                for(let i=0; i<sourceImage.length; i++) targetImage[i] = sourceImage[i];
                 boxBlurH_4(targetImage, sourceImage, w, h, r);
                 boxBlurT_4(sourceImage, targetImage, w, h, r);
             }
-            var boxBlurH_4 = function (sourceImage, targetImage, w, h, r) {
-                var iarr = 1 / (r+r+1);
-                for(var i=0; i<h; i++) {
-                    var ti = i*w, li = ti, ri = ti+r;
-                    var fv = sourceImage[ti], lv = sourceImage[ti+w-1], val = (r+1)*fv;
-                    for(var j=0; j<r; j++) val += sourceImage[ti+j];
-                    for(var j=0  ; j<=r ; j++) { val += sourceImage[ri++] - fv       ;   targetImage[ti++] = val*iarr; }
-                    for(var j=r+1; j<w-r; j++) { val += sourceImage[ri++] - sourceImage[li++];   targetImage[ti++] = val*iarr; }
-                    for(var j=w-r; j<w  ; j++) { val += lv        - sourceImage[li++];   targetImage[ti++] = val*iarr; }
+            let boxBlurH_4 = function (sourceImage, targetImage, w, h, r) {
+                let iarr = 1 / (r+r+1);
+                for(let i=0; i<h; i++) {
+                    let ti = i*w, li = ti, ri = ti+r;
+                    let fv = sourceImage[ti], lv = sourceImage[ti+w-1], val = (r+1)*fv;
+                    for(let j=0; j<r; j++) val += sourceImage[ti+j];
+                    for(let j=0  ; j<=r ; j++) { val += sourceImage[ri++] - fv       ;   targetImage[ti++] = val*iarr; }
+                    for(let j=r+1; j<w-r; j++) { val += sourceImage[ri++] - sourceImage[li++];   targetImage[ti++] = val*iarr; }
+                    for(let j=w-r; j<w  ; j++) { val += lv        - sourceImage[li++];   targetImage[ti++] = val*iarr; }
                 }
             }
-            var boxBlurT_4 = function (sourceImage, targetImage, w, h, r) {
-                var iarr = 1 / (r+r+1);
-                for(var i=0; i<w; i++) {
-                    var ti = i, li = ti, ri = ti+r*w;
-                    var fv = sourceImage[ti], lv = sourceImage[ti+w*(h-1)], val = (r+1)*fv;
-                    for(var j=0; j<r; j++) val += sourceImage[ti+j*w];
-                    for(var j=0  ; j<=r ; j++) { val += sourceImage[ri] - fv ;  targetImage[ti] = val*iarr;  ri+=w; ti+=w; }
-                    for(var j=r+1; j<h-r; j++) { val += sourceImage[ri] - sourceImage[li];  targetImage[ti] = val*iarr;  li+=w; ri+=w; ti+=w; }
-                    for(var j=h-r; j<h  ; j++) { val += lv      - sourceImage[li];  targetImage[ti] = val*iarr;  li+=w; ti+=w; }
+            let boxBlurT_4 = function (sourceImage, targetImage, w, h, r) {
+                let iarr = 1 / (r+r+1);
+                for(let i=0; i<w; i++) {
+                    let ti = i, li = ti, ri = ti+r*w;
+                    let fv = sourceImage[ti], lv = sourceImage[ti+w*(h-1)], val = (r+1)*fv;
+                    for(let j=0; j<r; j++) val += sourceImage[ti+j*w];
+                    for(let j=0  ; j<=r ; j++) { val += sourceImage[ri] - fv ;  targetImage[ti] = val*iarr;  ri+=w; ti+=w; }
+                    for(let j=r+1; j<h-r; j++) { val += sourceImage[ri] - sourceImage[li];  targetImage[ti] = val*iarr;  li+=w; ri+=w; ti+=w; }
+                    for(let j=h-r; j<h  ; j++) { val += lv      - sourceImage[li];  targetImage[ti] = val*iarr;  li+=w; ti+=w; }
                 }
             }
 
@@ -70,7 +70,7 @@ define([], function() {
         // the brightness function keeps black and white and manipulates the color-curve between them
         // ToDo: naming of contrast and brightness are confusing / misleading
         brightness: function (image, filterDefinition) { 
-            var brightness = filterDefinition.brightness || -4;
+            let brightness = filterDefinition.brightness || -4;
 
             if ( brightness < 0 ) {
                 // for brightness =-2 : https://www.wolframalpha.com/ <-- Plot[x^0.25, {x, 0, 1}] 
@@ -87,13 +87,13 @@ define([], function() {
         }, // brightness()
 
         contrast: function (image, filterDefinition) {
-            var y = 0.5, // always
+            let y = 0.5, // always
                 m = filterDefinition.m || 2, // steigung
                 x = filterDefinition.x || 0.5,
                 n = y - m * x;
 
             return image.map( function( value ) {
-                var y = m * value + n; // linear equation
+                let y = m * value + n; // linear equation
                 if ( y < 0 ) { return 0; }
                 if ( y > 1 ) { return 1; }
                 return y;
@@ -107,7 +107,7 @@ define([], function() {
         }, // invert() 
 
         threshold: function (image, filterDefinition) {
-            var threshold = filterDefinition.threshold || 0.5;
+            let threshold = filterDefinition.threshold || 0.5;
             return image.map(function(value){
                 return value > threshold ? 1 : 0;
             })

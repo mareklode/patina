@@ -88,7 +88,7 @@
         <div class="pattern">
 
             <a href="createPattern_border.html" class="js-require pattern__thumbnails pattern__thumbnails--128" 
-                id="reusableImage_combine_border" >createPattern border</a>
+                id="reusableImage_combine_border" style="background-size: contain;">createPattern border</a>
 
             <span class="pattern__textInbetween">+</span>
 
@@ -176,21 +176,12 @@
                         }
                     ],
                     "patina": {
-                        "type"          : "combine",
-                        "topLayer"      : {
-                            "type"      : "reuseImage",
-                            "reuseId"   : "NoiseBorder",
-                            "filter"        : [
-                                { "name": "contrast", "x": 0.55, "m": 6 }
-                            ]
-                        },
-                        "bottomLayer"   : { 
-                            "type"      : "reuseImage",
-                            "reuseId"   : "NoiseBorder",
-                            "filter"        : [
-                                { "name": "brightness", "brightness": 1 }
-                            ]
-                        }
+                        "type"          : "reuseImage",
+                        "reuseId"   : "NoiseBorder",
+                        "filter"        : [
+                            { "name": "contrast", "x": 0.45, "m": 2 },
+                            { "name": "brightness", "brightness": 2 }
+                        ]
                     }
                 }'
             ></div>
@@ -264,7 +255,7 @@
         </div>
 
         <p class="contentContainer">
-            Load images, distort or combine them, apply <a href="filter_brightness.html">filters</a>.
+            Load images, distort or combine them, apply <a href="filter.html">filters</a>.
         </p>
 
         <div class="pattern">

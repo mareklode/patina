@@ -92,15 +92,22 @@
                     }
                 }'
             ></div>
+        </div><!-- .pattern -->
 
 
+        <div class="pattern">
             <div class="js-require pattern__thumbnails pattern__thumbnails--256" 
                 data-require-name="patina" 
                 data-require-data='{
                     "patina": {
                         "type"          : "createPattern",
-                        "patternName"   : "sine",
-                        "direction"     : "horizontal"
+                        "pattern"       : {
+                            "name"          : "sine",
+                            "direction"     : "concentric",
+                            "offsetX"       : 100,
+                            "offsetY"       : 200,
+                            "period"        : 30                       
+                        }
                     }
                 }'
             ></div>
@@ -131,8 +138,11 @@
                 data-require-data='{
                     "patina": {
                         "type"          : "createPattern",
-                        "patternName"   : "sine",
-                        "direction"     : "diagonalDown"
+                        "pattern"       : {
+                            "name"          : "sine",
+                            "direction"     : "diagonalDown",
+                            "offsetX"       : 100                       
+                        }
                     }
                 }'
             ></div>

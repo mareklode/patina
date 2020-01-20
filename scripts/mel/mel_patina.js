@@ -4,7 +4,7 @@ define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, f
         let self = this;
         
         self._parameters = self._completeParameters( parameters, domElement );
-        console.log('###### - Patina (LET) - ######', self._parameters);
+        console.log('###### - Patina - ######', self._parameters);
 
         self.reusableImages = {
             count : this._parameters.reusableImages.length,

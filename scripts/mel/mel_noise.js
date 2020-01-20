@@ -5,11 +5,11 @@ define([], function() {
         // https://sdm.scad.edu/faculty/mkesson/vsfx419/wip/best/winter12/jonathan_mann/noise.html
         noise_plasma: function (width) {
 
-            var max=0,
+            let max=0,
                 min=0,
                 aktX,aktY,
                 noiseMapWidth = (function() {
-                        var powerOfTwo = 2;
+                        let powerOfTwo = 2;
                         while (powerOfTwo < width) {
                             powerOfTwo *= 2;
                         }
@@ -25,7 +25,7 @@ define([], function() {
             // console.log('noiseMapWidth: ', noiseMapWidth);
 
             // creating the array
-            for ( var step = 0; step <= b; step++) {
+            for ( let step = 0; step <= b; step++) {
                 noiseMap[step] = [];
             }
             // setting the corners to the same color
@@ -134,7 +134,7 @@ define([], function() {
             } // while
 
             // stretching to color space
-            var stretchFromZeroTo = 1, // or 255
+            let stretchFromZeroTo = 1, // or 255
                 by = stretchFromZeroTo / (max - min); // how much to stretch
 
             for ( i = 0; i < noiseMapWidth; i++ ) {
@@ -143,8 +143,8 @@ define([], function() {
                 }
             }
 
-            var noiseString = new Array();
-            for (var y = 0; y < width; y++) {
+            let noiseString = new Array();
+            for (let y = 0; y < width; y++) {
                 noiseMap[y].pop(); // every line was one pixel too long. Border-copying?
                 noiseString = noiseString.concat(noiseMap[y]);
             }
