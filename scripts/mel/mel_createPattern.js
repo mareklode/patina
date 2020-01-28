@@ -58,40 +58,40 @@ define(['canvas', 'noise'], function( canvas, noise ) {
             return Array.from( {length: width * height}, () => color / 256 );
         },
 
-        sine: function ( layerDefinition, width, height ) {
+        wave: function ( layerDefinition, width, height ) {
             let imageData = new Array( width * height ),
                 color = 0,
-                period = width / layerDefinition.period / 6.2832 || width / 31.4156,
+                period = width / layerDefinition.period / 6.2832 || width / 31.4156, // default: 5 waves per width
                 offsetX = layerDefinition.offsetX || 0,
                 offsetY = layerDefinition.offsetY || 0;
             for (let x = 0; x < width; x++ ) {
                 for (let y = 0; y < height; y++ ) {
 
                     switch ( layerDefinition.direction ) {
-                        case 'vertical':
-                            color = Math.sin((x - offsetX)/period);
+                        case 'concentric':
+                            color = Math.sin( Math.sqrt(((x - offsetX) * (x - offsetX)) + ((y - offsetY) * (y - offsetY))) / period );
                             break;
                         case 'horizontal':
-                            color = Math.sin((y - offsetY)/period);
+                            color = Math.sin((y - offsetY) / period);
                             break;
                         case 'rectangles':
-                            color = Math.sin(((y - offsetY) * (x - offsetX))/period);
+                            color = Math.sin(((y - offsetY) * (x - offsetX)) / period);
                             break;
                         case 'diagonalUp':
-                            color = Math.sin(((y - offsetY) + (x - offsetX))/period);
-                            break;
+                            color = Math.sin(((y - offsetY) + (x - offsetX)) / period);
+                            break; 
                         case 'diagonalDown':
-                            color = Math.sin((y - offsetY - x - offsetX)/period);
+                            color = Math.sin((y - offsetY - x - offsetX) / period);
                             break;
-                        default: /* concentric */
-                            color = Math.sin( Math.sqrt(((x - offsetX) * (x - offsetX)) + ((y - offsetY) * (y - offsetY)))/period );
+                        default: /* vertical */
+                            color = Math.sin((x - offsetX) / period);
                     }
-                    imageData[y * width + x] = (color / 2) + 0.5;
+                    imageData[y * width + x] = (-color / 2) + 0.5;
                 }
             }
             return imageData
             
-        }, // sine()
+        }, // wave()
 
         slope: function ( layerDefinition, width, height ) {
             let pattern = new Array(width * height);
