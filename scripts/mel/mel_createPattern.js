@@ -16,7 +16,7 @@ define(['canvas', 'noise'], function( canvas, noise ) {
         } else {
             let patternName = layerDefinition.patternName;
             if (layerDefinition.pattern) { patternName = layerDefinition.pattern.name }
-            console.error("createPattern: \"", patternName, "\" does not exist.");
+            console.error("createPattern: \"", patternName, "\" does not exist.", layerDefinition);
             pattern = this["flat"]({color: 0}, width, height);
         }
 

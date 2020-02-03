@@ -78,11 +78,15 @@
 
         <h1>Patina</h1>
 
-        <h2>ToDo: preloadImages AND reusablePatterns</h2>
-        <h2>copy this Footer and Header patina-JSON to all other pages.</h2>
+        <p class="contentContainer">
+            "Patina is a thin layer that variously forms on the surface of [metals] 
+            or any similar acquired change of a surface through age and exposure." <br />
+            <small>https://en.wikipedia.org/wiki/Patina</small>   
+        </p>
 
         <p class="contentContainer">
-            Combine simple noise patterns to create complex textures with JavaScript.
+            This patina is a JavaScript tool that lets you create worn out looking surfaces. 
+            Combine simple noise <a href="createPattern.html">patterns</a> to create complex textures with JavaScript.
         </p>
 
         <div class="pattern">
@@ -187,19 +191,25 @@
             ></div>
         </div>
 
-        <p class="contentContainer"> 
+        <!-- p class="contentContainer"> 
             You can even (soon) animate them.
             It's neither efficient nor practical, but possible.
-        </p>
+        </p -->
 
         <p class="contentContainer">
             Specified by a data structure written in JSON, the browser will render a new background image every time you reload the page.
         </p>
 
+        <pre class="contentContainer">"patina" : {
+    "type"          : "createPattern",
+    "patternName"   : "noise_plasma"    
+}</pre>
+
+        <p class="contentContainer">will become:</p>
+
         <div class="pattern">
             <a href="createPattern_noise_plasma.html"
-                class="js-require pattern__thumbnails" 
-                style="width: 128px; height: 128px;"
+                class="js-require pattern__thumbnails pattern__thumbnails--256"
                 data-require-name="patina" 
                 data-require-data='{
                     "patina": {
@@ -209,8 +219,7 @@
                 }'
             >createPattern noise_plasma</a>
             <a href="createPattern_noise_plasma.html"
-                class="js-require pattern__thumbnails" 
-                style="width: 128px; height: 128px;"
+                class="js-require pattern__thumbnails pattern__thumbnails--256"
                 data-require-name="patina" 
                 data-require-data='{
                     "patina": {
@@ -220,8 +229,7 @@
                 }'
             >createPattern noise_plasma</a>
             <a href="createPattern_noise_plasma.html"
-                class="js-require pattern__thumbnails" 
-                style="width: 128px; height: 128px;"
+                class="js-require pattern__thumbnails pattern__thumbnails--256" 
                 data-require-name="patina" 
                 data-require-data='{
                     "patina": {
@@ -231,8 +239,7 @@
                 }'
             >createPattern noise_plasma</a>
             <a href="createPattern_noise_plasma.html"
-                class="js-require pattern__thumbnails" 
-                style="width: 128px; height: 128px;"
+                class="js-require pattern__thumbnails pattern__thumbnails--256"
                 data-require-name="patina" 
                 data-require-data='{
                     "patina": {
@@ -242,8 +249,7 @@
                 }'
             >createPattern noise_plasma</a>
             <a href="createPattern_noise_plasma.html"
-                class="js-require pattern__thumbnails" 
-                style="width: 128px; height: 128px;"
+                class="js-require pattern__thumbnails"
                 data-require-name="patina" 
                 data-require-data='{
                     "patina": {

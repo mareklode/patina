@@ -75,7 +75,7 @@
     
 
         <h1>createPattern : wave</h1>
-        <p class="contentContainer">ToDo: add a description</p>
+        <p class="contentContainer">The wave patterns are calculated using the sine function. That gives us smooth lines in different directions.</p>
         <h2>Example</h2>
         <pre class="contentContainer">"patina" : {
     "type"          : "createPattern",
@@ -98,7 +98,19 @@
             <img src="https://upload.wikimedia.org/wikipedia/commons/d/d2/Sine_one_period.svg" style="height: 128px;" />
         </p>
 
+        <h2>Options / Parameters</h2>
     
+        <dl class="contentContainer">
+            <dt>direction</dt>
+            <dd>we have 'horizontal', 'vertical', 'diagonalUp', 'diagonalDown', 'concentric' and 'rectangles'</dd>
+
+            <dt>period</dt>
+            <dd>defines how many 'waves' per width you get. Should this parameter be renamed as well?</dd>
+
+            <dt>offsetX / offsetY</dt>
+            <dd>you can slide the pattern up, down, left and right if you provide these values.</dd>
+        </dl>
+
 		<div class="pattern">
 			<div class="js-require pattern__thumbnails pattern__thumbnails--128" 
 				data-require-name="patina" 
