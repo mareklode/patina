@@ -75,9 +75,9 @@
     
 
         <h1>createPattern : wave</h1>
-        <p class="contentContainer">The wave patterns are calculated using the sine function. That gives us smooth lines in different directions.</p>
+        <p class="copy">The wave patterns are calculated using the sine function. That gives us smooth lines in different directions.</p>
         <h2>Example</h2>
-        <pre class="contentContainer">"patina" : {
+        <pre class="copy">"patina" : {
     "type"          : "createPattern",
     "patternName"   : "wave"
 }</pre>
@@ -100,12 +100,117 @@
 
         <h2>Options / Parameters</h2>
     
-        <dl class="contentContainer">
+        <style>
+            dt {
+                width: 185px;
+            }
+            dt::after { 
+                content: ':';
+                float: right;
+            }
+            @media screen and (min-width: 600px) {
+                dd {
+                    margin-left: 210px;
+                    position: relative;
+                    top: -2rem;
+                }                
+            }
+            .pattern__thumbnails--lineHeight { 
+                height: 1.8rem; 
+                width: 128px;
+                margin: 0 1vw;
+                display: inline-block;
+            }
+        </style>
+        <dl class="copy">
             <dt>direction</dt>
-            <dd>we have 'horizontal', 'vertical', 'diagonalUp', 'diagonalDown', 'concentric' and 'rectangles'</dd>
+            <dd>
+                <div class="js-require pattern__thumbnails pattern__thumbnails--lineHeight" 
+                    data-require-name="patina" 
+                    data-require-data='{
+                        "patina": {
+                            "type"          : "createPattern",
+                            "pattern"       : {
+                                "name"          : "wave",
+                                "direction"     : "vertical"
+                            }
+                        }
+                    }'
+                ></div> vertical (default)
+                <br />
+                <div class="js-require pattern__thumbnails pattern__thumbnails--lineHeight" 
+                    data-require-name="patina" 
+                    data-require-data='{
+                        "patina": {
+                            "type"          : "createPattern",
+                            "pattern"       : {
+                                "name"          : "wave",
+                                "direction"     : "horizontal",
+                                "period"        : 20
+                            }
+                        }
+                    }'
+                ></div> horizontal
+                <br />
+                <div class="js-require pattern__thumbnails pattern__thumbnails--lineHeight" 
+                    data-require-name="patina" 
+                    data-require-data='{
+                        "patina": {
+                            "type"          : "createPattern",
+                            "pattern"       : {
+                                "name"          : "wave",
+                                "direction"     : "diagonalUp"
+                            }
+                        }
+                    }'
+                ></div> diagonalUp
+                <br />
+                <div class="js-require pattern__thumbnails pattern__thumbnails--lineHeight" 
+                    data-require-name="patina" 
+                    data-require-data='{
+                        "patina": {
+                            "type"          : "createPattern",
+                            "pattern"       : {
+                                "name"          : "wave",
+                                "direction"     : "diagonalDown"
+                            }
+                        }
+                    }'
+                ></div> diagonalDown
+                <br />
+                <div class="js-require pattern__thumbnails pattern__thumbnails--lineHeight" 
+                    data-require-name="patina" 
+                    data-require-data='{
+                        "patina": {
+                            "type"          : "createPattern",
+                            "pattern"       : {
+                                "name"          : "wave",
+                                "direction"     : "concentric",
+                                "period"        : 20,
+                                "offsetX"       : 64,
+                                "offsetY"       : 5
+
+                            }
+                        }
+                    }'
+                ></div> concentric
+                <br />
+                <div class="js-require pattern__thumbnails pattern__thumbnails--lineHeight" 
+                    data-require-name="patina" 
+                    data-require-data='{
+                        "patina": {
+                            "type"          : "createPattern",
+                            "pattern"       : {
+                                "name"          : "wave",
+                                "direction"     : "rectangles"
+                            }
+                        }
+                    }'
+                ></div> rectangles
+            </dd>
 
             <dt>period</dt>
-            <dd>defines how many 'waves' per width you get. Should this parameter be renamed as well?</dd>
+            <dd>defines how many 'waves' per width you get. Should this parameter be renamed as well? maybe Frequency</dd>
 
             <dt>offsetX / offsetY</dt>
             <dd>you can slide the pattern up, down, left and right if you provide these values.</dd>
@@ -127,9 +232,13 @@
 				data-require-data='{
 					"patina": {
 						"type"          : "createPattern",
-						"patternName"   : "wave",
-						"direction"     : "vertical",
-						"period"        : 10
+                        "pattern"       : {
+                            "name"          : "wave",
+                            "direction"     : "vertical",
+                            "offsetX"       : 100,
+                            "offsetY"       : 200,
+                            "period"        : 1                
+                        }
 					}
 				}'
 			></div>

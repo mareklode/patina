@@ -49,12 +49,10 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Mixins
 .fontHeadingMobile {
   font-size: 2.5rem;
   line-height: 2.5rem;
-  font-weight: normal;
 }
 .fontHeadingDesktop {
   font-size: 2.5rem;
   line-height: 2.5rem;
-  font-weight: normal;
 }
 
 .fontText {
@@ -68,15 +66,17 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Mixins
   }
 }
 .fontHeading {
-  font-weight: bold;
   .fontHeadingMobile;
   @media @desktop {
       .fontHeadingDesktop;
   }
 }
+.fontSubHeading {
+  font-size: 2rem;
+  line-height: 2.5rem;
+}
 
 .contentContainer {
-  .fontText;
   text-align: left;
   @media @mobile {
     margin: 3 * @unitY auto @unitY auto;

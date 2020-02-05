@@ -58,12 +58,10 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Mixins
 .fontHeadingMobile {
   font-size: 2.5rem;
   line-height: 2.5rem;
-  font-weight: normal;
 }
 .fontHeadingDesktop {
   font-size: 2.5rem;
   line-height: 2.5rem;
-  font-weight: normal;
 }
 .fontText {
   font-weight: normal;
@@ -83,35 +81,21 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Mixins
   }
 }
 .fontHeading {
-  font-weight: bold;
   font-size: 2.5rem;
   line-height: 2.5rem;
-  font-weight: normal;
 }
 @media screen and (min-width: 600px) {
   .fontHeading {
     font-size: 2.5rem;
     line-height: 2.5rem;
-    font-weight: normal;
   }
+}
+.fontSubHeading {
+  font-size: 2rem;
+  line-height: 2.5rem;
 }
 .contentContainer {
-  font-weight: normal;
-  font-size: 1rem;
-  line-height: 1.5rem;
   text-align: left;
-}
-@media screen and (min-width: 600px) {
-  .contentContainer {
-    font-size: 1.15rem;
-    line-height: 1.5rem;
-  }
-}
-@media screen and (min-width: 1200px) {
-  .contentContainer {
-    font-size: 1.3rem;
-    line-height: 2rem;
-  }
 }
 @media screen and (max-width: 599px) {
   .contentContainer {
@@ -184,25 +168,9 @@ h3 {
   font-weight: normal;
 }
 h1 {
-  font-size: 1rem;
-  line-height: 1.5rem;
   text-align: left;
-  font-weight: bold;
   font-size: 2.5rem;
   line-height: 2.5rem;
-  font-weight: normal;
-}
-@media screen and (min-width: 600px) {
-  h1 {
-    font-size: 1.15rem;
-    line-height: 1.5rem;
-  }
-}
-@media screen and (min-width: 1200px) {
-  h1 {
-    font-size: 1.3rem;
-    line-height: 2rem;
-  }
 }
 @media screen and (max-width: 599px) {
   h1 {
@@ -220,28 +188,12 @@ h1 {
   h1 {
     font-size: 2.5rem;
     line-height: 2.5rem;
-    font-weight: normal;
   }
 }
 h2 {
-  font-weight: normal;
-  font-size: 1rem;
-  line-height: 1.5rem;
   text-align: left;
   font-size: 2rem;
   line-height: 2.5rem;
-}
-@media screen and (min-width: 600px) {
-  h2 {
-    font-size: 1.15rem;
-    line-height: 1.5rem;
-  }
-}
-@media screen and (min-width: 1200px) {
-  h2 {
-    font-size: 1.3rem;
-    line-height: 2rem;
-  }
 }
 @media screen and (max-width: 599px) {
   h2 {
@@ -380,71 +332,6 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
   }
 }
 /*
-#  #######
-#     #    ######   ##    ####  ###### #####
-#     #    #       #  #  #      #      #    #
-#     #    #####  #    #  ####  #####  #    #
-#     #    #      ######      # #      #####
-#     #    #      #    # #    # #      #   #
-#     #    ###### #    #  ####  ###### #    #
-http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=Teaser
-*/
-.teaser {
-  padding-bottom: 2rem;
-}
-@media screen and (min-width: 600px) {
-  .teaser {
-    width: 76vw;
-    padding-bottom: 1rem;
-  }
-}
-.teaser__heading,
-.teaser__text {
-  font-weight: normal;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  text-align: left;
-  width: 88vw;
-}
-@media screen and (min-width: 600px) {
-  .teaser__heading,
-  .teaser__text {
-    font-size: 1.15rem;
-    line-height: 1.5rem;
-  }
-}
-@media screen and (min-width: 1200px) {
-  .teaser__heading,
-  .teaser__text {
-    font-size: 1.3rem;
-    line-height: 2rem;
-  }
-}
-@media screen and (max-width: 599px) {
-  .teaser__heading,
-  .teaser__text {
-    margin: 3rem auto 1rem auto;
-    width: 90vw;
-  }
-}
-@media screen and (min-width: 600px) {
-  .teaser__heading,
-  .teaser__text {
-    margin: 3rem auto 1rem auto;
-    width: 80vw;
-  }
-}
-@media screen and (min-width: 600px) {
-  .teaser__heading,
-  .teaser__text {
-    width: 76vw;
-  }
-}
-.teaser__heading {
-  margin-top: 2rem;
-  margin-bottom: 4rem;
-}
-/*
 #   #####
 #  #     #  ####  #    # ##### ###### #    # #####
 #  #       #    # ##   #   #   #      ##   #   #
@@ -471,89 +358,6 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=Content
 }
 .content__block--dark {
   background-color: #cde;
-}
-/*
-#  ######
-#  #     # #       ####   ####  #####   ####   ####  #####
-#  #     # #      #    # #    # #    # #    # #        #
-#  ######  #      #    # #      #    # #    #  ####    #
-#  #     # #      #    # #  ### #####  #    #      #   #
-#  #     # #      #    # #    # #      #    # #    #   #
-#  ######  ######  ####   ####  #       ####   ####    #
-http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=Blogpost
-*/
-.blogpost__date {
-  font-weight: normal;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  margin: 14px 0 0 4vw;
-}
-@media screen and (min-width: 600px) {
-  .blogpost__date {
-    font-size: 1.15rem;
-    line-height: 1.5rem;
-  }
-}
-@media screen and (min-width: 1200px) {
-  .blogpost__date {
-    font-size: 1.3rem;
-    line-height: 2rem;
-  }
-}
-@media screen and (min-width: 600px) {
-  .blogpost__date {
-    float: right;
-  }
-}
-.blogpost__heading,
-.blogpost__text {
-  font-weight: normal;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  text-align: left;
-  width: 88vw;
-}
-@media screen and (min-width: 600px) {
-  .blogpost__heading,
-  .blogpost__text {
-    font-size: 1.15rem;
-    line-height: 1.5rem;
-  }
-}
-@media screen and (min-width: 1200px) {
-  .blogpost__heading,
-  .blogpost__text {
-    font-size: 1.3rem;
-    line-height: 2rem;
-  }
-}
-@media screen and (max-width: 599px) {
-  .blogpost__heading,
-  .blogpost__text {
-    margin: 3rem auto 1rem auto;
-    width: 90vw;
-  }
-}
-@media screen and (min-width: 600px) {
-  .blogpost__heading,
-  .blogpost__text {
-    margin: 3rem auto 1rem auto;
-    width: 80vw;
-  }
-}
-@media screen and (min-width: 600px) {
-  .blogpost__heading,
-  .blogpost__text {
-    width: 76vw;
-  }
-}
-.blogpost__heading {
-  margin-top: 2rem;
-  margin-bottom: 4rem;
-}
-.blogpost__heading--small {
-  margin-top: 4rem;
-  margin-bottom: 2rem;
 }
 /*
 #  ######  ####   ####  ##### ###### #####
@@ -613,18 +417,6 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
     line-height: 2rem;
   }
 }
-@media screen and (min-width: 600px) {
-  .copy {
-    font-size: 1.15rem;
-    line-height: 1.5rem;
-  }
-}
-@media screen and (min-width: 1200px) {
-  .copy {
-    font-size: 1.3rem;
-    line-height: 2rem;
-  }
-}
 @media screen and (max-width: 599px) {
   .copy {
     margin: 3rem auto 1rem auto;
@@ -635,136 +427,17 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   .copy {
     margin: 3rem auto 1rem auto;
     width: 80vw;
-  }
-}
-@media screen and (min-width: 600px) {
-  .copy {
-    width: 76vw;
-    padding-bottom: 0;
-    margin-bottom: 2rem;
-  }
-}
-.copy__textlink {
-  border-bottom: 1px solid;
-}
-.copy__textlink:hover,
-.copy__textlink:active,
-.copy__textlink:focus {
-  border: none;
-  border-radius: 2px;
-  background-color: #e0d8e8;
-  box-shadow: 0 0 0 2px #e0d8e8;
-  color: black;
-}
-.copy__image {
-  margin: 2rem -4vw;
-}
-@media screen and (max-width: 599px) {
-  .copy__image {
-    width: 96vw;
-  }
-}
-@media screen and (min-width: 600px) {
-  .copy__image {
-    max-width: 24vw;
-    max-height: 24vw;
-    margin: 1rem 4vw;
-  }
-  .copy__image--left {
-    float: left;
-    margin-left: 0;
-  }
-  .copy__image--right {
-    float: right;
-    margin-right: 0;
-  }
-}
-.copy__video {
-  width: 100%;
-  margin-top: 1rem;
-}
-.todo {
-  font-weight: normal;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  text-align: left;
-  background-color: lightskyblue;
-  color: black;
-  padding: 1rem;
-}
-@media screen and (min-width: 600px) {
-  .todo {
-    font-size: 1.15rem;
-    line-height: 1.5rem;
-  }
-}
-@media screen and (min-width: 1200px) {
-  .todo {
-    font-size: 1.3rem;
-    line-height: 2rem;
-  }
-}
-@media screen and (min-width: 600px) {
-  .todo {
-    font-size: 1.15rem;
-    line-height: 1.5rem;
-  }
-}
-@media screen and (min-width: 1200px) {
-  .todo {
-    font-size: 1.3rem;
-    line-height: 2rem;
-  }
-}
-@media screen and (max-width: 599px) {
-  .todo {
-    margin: 3rem auto 1rem auto;
-    width: 90vw;
-  }
-}
-@media screen and (min-width: 600px) {
-  .todo {
-    margin: 3rem auto 1rem auto;
-    width: 80vw;
-  }
-}
-@media screen and (min-width: 600px) {
-  .todo {
-    width: 76vw;
-    padding-bottom: 0;
-    margin-bottom: 2rem;
   }
 }
 .pattern-sample {
   background-color: #023;
   height: 256px;
 }
-/*
-#    ####    ##   #      #      ###### #####  #   #
-#   #    #  #  #  #      #      #      #    #  # #
-#   #      #    # #      #      #####  #    #   #
-#   #  ### ###### #      #      #      #####    #
-#   #    # #    # #      #      #      #   #    #
-#    ####  #    # ###### ###### ###### #    #   #
-http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=gallery
-*/
 .pattern {
+  text-align: left;
   font-weight: normal;
   font-size: 1rem;
   line-height: 1.5rem;
-  text-align: left;
-}
-@media screen and (min-width: 600px) {
-  .pattern {
-    font-size: 1.15rem;
-    line-height: 1.5rem;
-  }
-}
-@media screen and (min-width: 1200px) {
-  .pattern {
-    font-size: 1.3rem;
-    line-height: 2rem;
-  }
 }
 @media screen and (max-width: 599px) {
   .pattern {
@@ -776,6 +449,18 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=gallery
   .pattern {
     margin: 3rem auto 1rem auto;
     width: 80vw;
+  }
+}
+@media screen and (min-width: 600px) {
+  .pattern {
+    font-size: 1.15rem;
+    line-height: 1.5rem;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .pattern {
+    font-size: 1.3rem;
+    line-height: 2rem;
   }
 }
 .pattern__thumbnails {
