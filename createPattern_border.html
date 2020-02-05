@@ -1,90 +1,89 @@
 <!doctype html>
-        <html lang="de">
-        <head>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width">
-          
-              <title>border | createPattern | Patina | mareklode</title>
-        
-          <meta property="og:title" content="border | createPattern | Patina | mareklode" />
-          <meta property="og:image" content="http://mareklode.de/bilder/page/v3/v3_rost4.png" />
-          <meta property="og:description" content="Patina: procedually generated background images in JavaScript. createPattern : border" />
-          <meta name="description" content="Patina: procedually generated background images in JavaScript. createPattern : border">
-        
-          <link rel="stylesheet" type="text/css" href="css/normalize.min.css">
-          <link rel="stylesheet" href="css/main.css">
-        
-        </head>
-        <body class="content">
-        
-            <header class="header js-require" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "width" : 375,
-                    "height": 283,
-                    "patina": {
-                        "type"  : "colorChannels",
-                        "red"   : 187,
-                        "green" : 50,
-                        "blue"  : 0,
-                        "alpha" : {
-                            "type"          : "createPattern",
-                            "patternName"   : "wave",
-                            "direction"     : "rectangles",
-                            "frequency"     : 15,
-                            "filter"        : [
-                                { "name": "threshold", "threshold": 0.5 },
-                                { "name": "blur", "radius": 1 },
-                                { "name": "threshold", "threshold": 0.66 }
-                            ]
-                        }
-                    }
-                }'
-            >
-                <div class="header__logo">
-                    Patina
-                </div>
-            </header>
-        
-            <nav class="navigation js-require" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina": {
-                        "type"          : "combine",
-                        "topLayer"      : {
-                            "type"          : "createPattern",
-                            "patternName"   : "border"
-                        },
-                        "bottomLayer"   : {
-                            "type"          : "createPattern",
-                            "patternName"   : "whiteNoise",
-                            "filter"        : [{ "name": "contrast", "x": 2, "m": 0.25 }]
-                        }
-                    }
-                }'
-            >
-                <a class="navigation__link" href=".">Home</a>
-                <a class="navigation__link" href="createPattern.html">createPattern</a>
-                <a class="navigation__link" href="filter.html">filter</a>
-                <a class="navigation__link" href="reusableImages.html">reusableImages</a>
-                <a class="navigation__link" href="test.html">test</a>
-                <a class="navigation__link" href="examples.html">examples</a>
-            </nav>
-        
-            <main class="content__block">
-        
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+
+    <title>border | createPattern | Patina | mareklode</title>
+
+    <meta property="og:title" content="border | createPattern | Patina | mareklode" />
+    <meta property="og:image" content="http://mareklode.de/bilder/page/v3/v3_rost4.png" />
+    <meta property="og:description" content="Patina: procedually generated background images in JavaScript. createPattern : border" />
+    <meta name="description" content="Patina: procedually generated background images in JavaScript. createPattern : border">
+
+    <link rel="stylesheet" type="text/css" href="css/normalize.min.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body class="content">
+
+    <header class="header js-require"
+        data-require-name="patina"
+        data-require-data='{
+            "width" : 375,
+            "height": 283,
+            "patina": {
+                "type"  : "colorChannels",
+                "red"   : 187,
+                "green" : 50,
+                "blue"  : 0,
+                "alpha" : {
+                    "type"          : "createPattern",
+                    "patternName"   : "wave",
+                    "direction"     : "rectangles",
+                    "frequency"     : 4,
+                    "filter"        : [
+                        { "name": "threshold", "threshold": 0.5 },
+                        { "name": "blur", "radius": 1 },
+                        { "name": "threshold", "threshold": 0.66 }
+                    ]
+                }
+            }
+        }'
+    >
+        <div class="header__logo">
+            Patina
+        </div>
+    </header>
+
+    <nav class="navigation js-require"
+        data-require-name="patina"
+        data-require-data='{
+            "patina": {
+                "type"          : "combine",
+                "topLayer"      : {
+                    "type"          : "createPattern",
+                    "patternName"   : "border"
+                },
+                "bottomLayer"   : {
+                    "type"          : "createPattern",
+                    "patternName"   : "noise_white",
+                    "filter"        : [{ "name": "contrast", "x": 2, "m": 0.25 }]
+                }
+            }
+        }'
+    >
+        <a class="navigation__link" href=".">Home</a>
+        <a class="navigation__link" href="createPattern.html">createPattern</a>
+        <a class="navigation__link" href="filter.html">filter</a>
+        <a class="navigation__link" href="reusableImages.html">reusableImages</a>
+        <a class="navigation__link" href="test.html">test</a>
+        <a class="navigation__link" href="examples.html">examples</a>
+    </nav>
+
+    <main class="content__block">
+
     
 
         <h1>createPattern : border</h1>
-        <p class="copy">The value of each pixel is determined by the distance to the edge of the image. The closer one or more edges are, the darker the pixel will be.</p>
-        <h2>Example</h2>
+        <p class="copy">The value of each pixel is determined by the distance to the edge of the image. The closer one or more edges are, the darker the pixel will be. This pattern is not random, the same parameters create the exact same image.</p>
+        <h2>Basic Example</h2>
         <pre class="copy">"patina" : {
     "type"          : "createPattern",
-    "patternName"   : "border"    
+    "patternName"   : "border"
 }</pre>
         <div class="pattern">
-            <div class="js-require pattern__thumbnails pattern__thumbnails--256" 
-                data-require-name="patina" 
+            <div class="js-require pattern__thumbnails pattern__thumbnails--256"
+                data-require-name="patina"
                 data-require-data='{
                     "patina": {
                         "type"          : "createPattern",
@@ -95,63 +94,64 @@
         </div><!-- .pattern -->
 
     
-
-        </main><!-- .content__block -->
-        <footer class="footer js-require" 
-            data-require-name="patina" 
-            data-require-data='{
-                "width": 256,
-                "patina": {
-                    "type"  : "colorChannels",
-                    "red"   : 150,
-                    "green" : 40,
-                    "blue"  : 0,
-                    "alpha" : {
+    </main><!-- .content__block -->
+    <footer class="footer js-require"
+        data-require-name="patina"
+        data-require-data='{
+            "width": 256,
+            "patina": {
+                "type"  : "colorChannels",
+                "red"   : 150,
+                "green" : 40,
+                "blue"  : 0,
+                "alpha" : {
+                    "type"  :   "combine",
+                    "topLayer"    : {
                         "type"  :   "combine",
                         "topLayer"    : {
                             "type"  :   "combine",
-                            "topLayer"    : {
-                                "type"  :   "combine",
-                                "topLayer"      : {
-                                    "type"          : "createPattern",
-                                    "patternName"   : "noise_plasma"
-                                },
-                                "bottomLayer"   : {
-                                    "type"          : "createPattern",
-                                    "patternName"   : "wave",
-                                    "direction"     : "horizontal",
-                                    "frequency"     : "0.6"
-                                }
-                            },
-                            "bottomLayer" : { 
+                            "topLayer"      : {
                                 "type"          : "createPattern",
-                                "patternName"   : "slope",
-                                "filter"        : [{ "name": "brightness", "brightness": -1 }]
-                            }
-                        },
-                        "bottomLayer" : { 
-                            "type"  :   "combine",
-                            "topLayer"    : {
-                                "type"          : "createPattern",
-                                "patternName"   : "whiteNoise"
+                                "patternName"   : "noise_plasma"
                             },
                             "bottomLayer"   : {
                                 "type"          : "createPattern",
                                 "patternName"   : "wave",
-                                "direction"     : "vertical",
-                                "frequency"     : 0.67
+                                "direction"     : "horizontal",
+                                "frequency"     : 60
                             }
                         },
-                        "filter"        : [
-                            { "name": "invert" },
-                            { "name": "blur", "radius": 1 },
-                            { "name": "contrast", "m": 10, "x": 0.525 }
-                        ]
-                    }
+                        "bottomLayer" : {
+                            "type"          : "createPattern",
+                            "patternName"   : "slope",
+                            "filter"        : [{ "name": "brightness", "brightness": -2 }]
+                        }
+                    },
+                    "bottomLayer" : {
+                        "type"  :   "combine",
+                        "topLayer"    : {
+                            "type"          : "createPattern",
+                            "patternName"   : "noise_white"
+                        },
+                        "bottomLayer"   : {
+                            "type"          : "createPattern",
+                            "patternName"   : "wave",
+                            "direction"     : "vertical",
+                            "frequency"     : 67
+                        }
+                    },
+                    "filter"        : [
+                        { "name": "invert" },
+                        { "name": "blur", "radius": 1 },
+                        { "name": "contrast", "m": 7, "x": 0.52 }
+                    ]
                 }
-            }'
-        >
-            &copy; 2019 Marek Lode &nbsp
-        </footer>
+            }
+        }'
+    >
+        &copy; 2019 Marek Lode &nbsp
+    </footer>
 
-    <script data-main="scripts/main" src="scripts/vendor/require.js"></script></body></html>
+    <script data-main="scripts/main" src="scripts/vendor/require.js"></script>
+</body>
+</html>

@@ -105,27 +105,27 @@ define(['canvas', 'noise'], function( canvas, noise ) {
             return pattern;
         }, // slope()
 
-        noise_2D: function ( layerDefinition, width, height ) {
+        noise_1D: function ( layerDefinition, width, height ) {
             let noise, 
                 pattern = new Array(),
                 flattenedArray;
 
-            if (layerDefinition.direction === "vertical") {
+            if (layerDefinition.direction === "horizontal") {
                 let noise = Array.from( {length: height}, () => Math.random() );
                 for (let i = 0; i < width; i++) {
-                    pattern.push(noise);
+                    pattern.push(Array.from( {length: width}, () => noise[i] ));
                 }
-            } else {
+            } else { // vertical
                 let noise = Array.from( {length: width}, () => Math.random() );
                 for (let i = 0; i < height; i++) {
-                    pattern.push(Array.from( {length: height}, () => noise[i] ));
+                    pattern.push(noise);
                 }
             }
             flattenedArray = [].concat.apply([], pattern);
             return flattenedArray;
-        }, // noise_2D()
+        }, // noise_1D()
 
-        whiteNoise: function ( layerDefinition, width, height ) {
+        noise_white: function ( layerDefinition, width, height ) {
             return Array.from( {length: width * height}, () => Math.random() );
         },
 

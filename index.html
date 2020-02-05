@@ -60,7 +60,7 @@
                 },
                 "bottomLayer"   : {
                     "type"          : "createPattern",
-                    "patternName"   : "whiteNoise",
+                    "patternName"   : "noise_white",
                     "filter"        : [{ "name": "contrast", "x": 2, "m": 0.25 }]
                 }
             }
@@ -102,15 +102,15 @@
 
             <span class="pattern__textInbetween">+</span>
 
-            <a href="createPattern_noise_2D.html" class="js-require pattern__thumbnails pattern__thumbnails--128" 
-                id="reusableImage_combine_noise2D_horizontal"
-            >createPattern noise_2D</a>
+            <a href="createPattern_noise_1D.html" class="js-require pattern__thumbnails pattern__thumbnails--128" 
+                id="reusableImage_combine_noise1D_horizontal"
+            >createPattern noise_1D</a>
 
             <span class="pattern__textInbetween">+</span>
 
-            <a href="createPattern_noise_2D.html" class="js-require pattern__thumbnails pattern__thumbnails--128" 
-                id="reusableImage_combine_noise2D_vertical"
-            >createPattern noise_2D</a>
+            <a href="createPattern_noise_1D.html" class="js-require pattern__thumbnails pattern__thumbnails--128" 
+                id="reusableImage_combine_noise1D_vertical"
+            >createPattern noise_1D</a>
 
             <span class="pattern__textInbetween">=</span>
 
@@ -135,14 +135,14 @@
                             "filter"        : [{ "name": "brightness", "brightness": 1 }]
                         },
                         {
-                            "id"            : "combine_noise2D_horizontal",
+                            "id"            : "combine_noise1D_horizontal",
                             "type"          : "createPattern",
-                            "patternName"   : "noise_2D"
+                            "patternName"   : "noise_1D"
                         },
                         {
-                            "id"            : "combine_noise2D_vertical",
+                            "id"            : "combine_noise1D_vertical",
                             "type"          : "createPattern",
-                            "patternName"   : "noise_2D", 
+                            "patternName"   : "noise_1D", 
                             "direction"     : "vertical"
                         },
                         {
@@ -158,11 +158,11 @@
                                     "type"          : "combine",
                                     "topLayer"      : {
                                         "type"          : "reuseImage",
-                                        "reuseId"       : "combine_noise2D_horizontal"
+                                        "reuseId"       : "combine_noise1D_horizontal"
                                     },
                                     "bottomLayer"   : { 
                                         "type"          : "reuseImage",
-                                        "reuseId"       : "combine_noise2D_vertical"
+                                        "reuseId"       : "combine_noise1D_vertical"
                                     }
                                 },
                                 "bottomLayer"   : { 
@@ -335,7 +335,7 @@
                         "type"  :   "combine",
                         "topLayer"    : {
                             "type"          : "createPattern",
-                            "patternName"   : "whiteNoise"
+                            "patternName"   : "noise_white"
                         },
                         "bottomLayer"   : {
                             "type"          : "createPattern",
