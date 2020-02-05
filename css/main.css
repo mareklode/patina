@@ -433,6 +433,32 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   background-color: #023;
   height: 256px;
 }
+.parameters dt::after {
+  content: ' :';
+}
+@media screen and (max-width: 599px) {
+  .parameters dd {
+    margin-bottom: 1.5rem;
+  }
+}
+@media screen and (min-width: 600px) {
+  .parameters dt {
+    width: 185px;
+  }
+  .parameters dt::after {
+    float: right;
+  }
+  .parameters dd {
+    margin-left: 210px;
+    position: relative;
+    top: -1.5rem;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .parameters dd {
+    top: -2rem;
+  }
+}
 .pattern {
   text-align: left;
   font-weight: normal;
@@ -471,6 +497,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   width: 256px;
   height: 256px;
   padding: 10px 20px;
+  max-width: 100%;
   color: white;
   text-shadow: 0 0 1px black, 0 0 2px black;
 }
@@ -480,12 +507,16 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
     height: 88vw;
   }
 }
+.pattern__thumbnails--lineHeight {
+  width: 128px;
+  height: 1.8rem;
+  margin: 0 1vw 0 0;
+  outline: 1px solid white;
+}
 .pattern__thumbnails--128 {
   width: 128px;
   height: 128px;
   padding: 5px;
-  font-size: 1.15rem;
-  line-height: 1.5rem;
 }
 .pattern__thumbnails--256 {
   width: 256px;

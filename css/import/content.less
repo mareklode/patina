@@ -21,3 +21,33 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
     //max-width: 100%;
     height: 256px;
 }
+
+.parameters {
+    dt::after { 
+        content: ' :';
+    }
+    @media @mobile {
+        dd {
+            margin-bottom: 1.5rem;
+        }
+    }
+    @media @desktop {
+        dt {
+            width: 185px;
+        }
+        dt::after { 
+            float: right;
+        }
+        dd {
+            margin-left: 210px;
+            position: relative;
+            top: -1.5rem;
+        }
+    }
+    @media @widescreen {
+        dd {
+            top: -2rem;
+        }                
+    }
+
+}

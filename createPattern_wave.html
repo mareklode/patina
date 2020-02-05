@@ -30,7 +30,7 @@
                     "type"          : "createPattern",
                     "patternName"   : "wave",
                     "direction"     : "rectangles",
-                    "period"        : 4,
+                    "frequency"     : 4,
                     "filter"        : [
                         { "name": "threshold", "threshold": 0.5 },
                         { "name": "blur", "radius": 1 },
@@ -93,38 +93,13 @@
             ></div>
         </div><!-- .pattern -->
 
-
-        <p>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d2/Sine_one_period.svg" style="height: 128px;" />
-        </p>
-
         <h2>Options / Parameters</h2>
     
-        <style>
-            dt {
-                width: 185px;
-            }
-            dt::after { 
-                content: ':';
-                float: right;
-            }
-            @media screen and (min-width: 600px) {
-                dd {
-                    margin-left: 210px;
-                    position: relative;
-                    top: -2rem;
-                }                
-            }
-            .pattern__thumbnails--lineHeight { 
-                height: 1.8rem; 
-                width: 128px;
-                margin: 0 1vw;
-                display: inline-block;
-            }
-        </style>
-        <dl class="copy">
+        <dl class="copy parameters">
             <dt>direction</dt>
             <dd>
+                possible values are these strings:
+                <br />
                 <div class="js-require pattern__thumbnails pattern__thumbnails--lineHeight" 
                     data-require-name="patina" 
                     data-require-data='{
@@ -146,7 +121,7 @@
                             "pattern"       : {
                                 "name"          : "wave",
                                 "direction"     : "horizontal",
-                                "period"        : 20
+                                "frequency"     : 20
                             }
                         }
                     }'
@@ -186,10 +161,7 @@
                             "pattern"       : {
                                 "name"          : "wave",
                                 "direction"     : "concentric",
-                                "period"        : 20,
-                                "offsetX"       : 64,
-                                "offsetY"       : 5
-
+                                "frequency"     : 20
                             }
                         }
                     }'
@@ -209,11 +181,109 @@
                 ></div> rectangles
             </dd>
 
-            <dt>period</dt>
-            <dd>defines how many 'waves' per width you get. Should this parameter be renamed as well? maybe Frequency</dd>
+            <dt>frequency</dt>
+            <dd>
+                defines how many 'waves' per width you get. Possible values are numbers. Negative numbers invert the pattern.
+                <br />
+                <div class="js-require pattern__thumbnails pattern__thumbnails--lineHeight" 
+                    data-require-name="patina" 
+                    data-require-data='{
+                        "patina": {
+                            "type"          : "createPattern",
+                            "pattern"       : {
+                                "name"          : "wave"
+                            }
+                        }
+                    }'
+                ></div> 5 (default)
+                <br />
+                <div class="js-require pattern__thumbnails pattern__thumbnails--lineHeight" 
+                    data-require-name="patina" 
+                    data-require-data='{
+                        "patina": {
+                            "type"          : "createPattern",
+                            "pattern"       : {
+                                "name"          : "wave",
+                                "frequency"     : 2
+                            }
+                        }
+                    }'
+                ></div> 2
+                <br />
+                <div class="js-require pattern__thumbnails pattern__thumbnails--lineHeight" 
+                    data-require-name="patina" 
+                    data-require-data='{
+                        "patina": {
+                            "type"          : "createPattern",
+                            "pattern"       : {
+                                "name"          : "wave",
+                                "frequency"     : -2
+                            }
+                        }
+                    }'
+                ></div> -2
+                <br />
+                <div class="js-require pattern__thumbnails pattern__thumbnails--lineHeight" 
+                    data-require-name="patina" 
+                    data-require-data='{
+                        "patina": {
+                            "type"          : "createPattern",
+                            "pattern"       : {
+                                "name"          : "wave",
+                                "frequency"     : 20
+                            }
+                        }
+                    }'
+                ></div> 20
+            </dd>
 
-            <dt>offsetX / offsetY</dt>
-            <dd>you can slide the pattern up, down, left and right if you provide these values.</dd>
+            <dt>offsetX | offsetY</dt>
+            <dd>
+                you can slide the pattern up, down, left and right. Possible values are numbers.
+                <br />
+                <div class="js-require pattern__thumbnails pattern__thumbnails--lineHeight" 
+                    data-require-name="patina" 
+                    data-require-data='{
+                        "patina": {
+                            "type"          : "createPattern",
+                            "pattern"       : {
+                                "name"          : "wave",
+                                "direction"     : "concentric"
+                            }
+                        }
+                    }'
+                ></div> 0 | 0 (default)
+                <br />
+                <div class="js-require pattern__thumbnails pattern__thumbnails--lineHeight" 
+                    data-require-name="patina" 
+                    data-require-data='{
+                        "patina": {
+                            "type"          : "createPattern",
+                            "pattern"       : {
+                                "name"          : "wave",
+                                "direction"     : "concentric",
+                                "offsetY"       : 15
+                            }
+                        }
+                    }'
+                ></div> 0 | 15
+
+                <br />
+                <div class="js-require pattern__thumbnails pattern__thumbnails--lineHeight" 
+                    data-require-name="patina" 
+                    data-require-data='{
+                        "patina": {
+                            "type"          : "createPattern",
+                            "pattern"       : {
+                                "name"          : "wave",
+                                "direction"     : "concentric",
+                                "offsetX"       : 100,
+                                "offsetY"       : 5
+                            }
+                        }
+                    }'
+                ></div> 100 | 5
+            </dd>
         </dl>
 
 		<div class="pattern">
@@ -237,7 +307,7 @@
                             "direction"     : "vertical",
                             "offsetX"       : 100,
                             "offsetY"       : 200,
-                            "period"        : 1                
+                            "frequency"     : 1                
                         }
 					}
 				}'
@@ -249,7 +319,7 @@
 						"type"          : "createPattern",
 						"patternName"   : "wave",
 						"direction"     : "diagonalUp",
-						"period"        : 50
+						"frequency"     : 50
 					}
 				}'
 			></div>
@@ -270,7 +340,7 @@
 						"type"          : "createPattern",
 						"patternName"   : "wave",
 						"direction"     : "rectangles",
-						"period"        : 1
+						"frequency"     : 1
 					}
 				}'
 			></div>
@@ -284,7 +354,7 @@
                             "direction"     : "concentric",
                             "offsetX"       : 100,
                             "offsetY"       : 200,
-                            "period"        : 30                       
+                            "frequency"     : 30                       
                         }
 					}
 				}'
@@ -315,7 +385,7 @@
                                 "type"          : "createPattern",
                                 "patternName"   : "wave",
                                 "direction"     : "horizontal",
-                                "period"        : 60
+                                "frequency"     : 60
                             }
                         },
                         "bottomLayer" : {
@@ -334,7 +404,7 @@
                             "type"          : "createPattern",
                             "patternName"   : "wave",
                             "direction"     : "vertical",
-                            "period"        : 67
+                            "frequency"     : 67
                         }
                     },
                     "filter"        : [

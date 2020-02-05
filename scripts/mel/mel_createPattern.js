@@ -61,7 +61,7 @@ define(['canvas', 'noise'], function( canvas, noise ) {
         wave: function ( layerDefinition, width, height ) {
             let imageData = new Array( width * height ),
                 color = 0,
-                period = width / layerDefinition.period / 6.2832 || width / 31.4156, // default: 5 waves per width
+                frequency = width / layerDefinition.frequency / 6.2832 || width / 31.4156, // default: 5 waves per width
                 offsetX = layerDefinition.offsetX || 0,
                 offsetY = layerDefinition.offsetY || 0;
             for (let x = 0; x < width; x++ ) {
@@ -69,22 +69,22 @@ define(['canvas', 'noise'], function( canvas, noise ) {
 
                     switch ( layerDefinition.direction ) {
                         case 'concentric':
-                            color = Math.sin( Math.sqrt(((x - offsetX) * (x - offsetX)) + ((y - offsetY) * (y - offsetY))) / period );
+                            color = Math.sin( Math.sqrt(((x - offsetX) * (x - offsetX)) + ((y - offsetY) * (y - offsetY))) / frequency );
                             break;
                         case 'horizontal':
-                            color = Math.sin((y - offsetY) / period);
+                            color = Math.sin((y - offsetY) / frequency);
                             break;
                         case 'rectangles':
-                            color = Math.sin(((y - offsetY) * (x - offsetX)) / period);
+                            color = Math.sin(((y - offsetY) * (x - offsetX)) / frequency);
                             break;
                         case 'diagonalUp':
-                            color = Math.sin(((y - offsetY) + (x - offsetX)) / period);
+                            color = Math.sin(((y - offsetY) + (x - offsetX)) / frequency);
                             break; 
                         case 'diagonalDown':
-                            color = Math.sin((y - offsetY - x - offsetX) / period);
+                            color = Math.sin((y - offsetY - x - offsetX) / frequency);
                             break;
                         default: /* vertical */
-                            color = Math.sin((x - offsetX) / period);
+                            color = Math.sin((x - offsetX) / frequency);
                     }
                     imageData[y * width + x] = (-color / 2) + 0.5;
                 }
