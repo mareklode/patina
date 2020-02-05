@@ -517,6 +517,8 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   width: 128px;
   height: 128px;
   padding: 5px;
+  font-size: 1.15rem;
+  line-height: 1.5rem;
 }
 .pattern__thumbnails--256 {
   width: 256px;
