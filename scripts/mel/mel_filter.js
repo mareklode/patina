@@ -21,7 +21,7 @@ define([], function() {
             let sigma = filterDefinition.radius || 3, // standard deviation
                 n = 3, // number of boxes
                 targetImage = [];
-
+                
             let wIdeal = Math.sqrt((12*sigma*sigma/n)+1);  // Ideal averaging filter width 
             let wl = Math.floor(wIdeal);  if(wl%2==0) wl--;
             let wu = wl+2;
@@ -70,7 +70,7 @@ define([], function() {
         // the brightness function keeps black and white and manipulates the color-curve between them
         // ToDo: naming of contrast and brightness are confusing / misleading
         brightness: function (image, filterDefinition) { 
-            let brightness = filterDefinition.brightness || -4;
+            let brightness = filterDefinition.brightness || 0;
 
             if ( brightness < 0 ) {
                 // for brightness =-2 : https://www.wolframalpha.com/ <-- Plot[x^0.25, {x, 0, 1}] 
@@ -88,7 +88,7 @@ define([], function() {
 
         contrast: function (image, filterDefinition) {
             let y = 0.5, // always
-                m = filterDefinition.m || 2, // steigung
+                m = filterDefinition.m || 1, // steigung
                 x = filterDefinition.x || 0.5,
                 n = y - m * x;
 
