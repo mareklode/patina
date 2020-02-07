@@ -110,7 +110,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Mixins
   }
 }
 .buttonColors {
-  background-color: #fffbbb;
+  background-color: #fff999;
   border: 1px solid #867e00;
   border-radius: 2px;
 }
@@ -150,7 +150,7 @@ a {
 a:active,
 a:focus,
 a:hover {
-  background-color: darkslategray;
+  background-color: #867e00;
   color: white;
 }
 a.link-disabled.link-disabled {
@@ -211,7 +211,7 @@ h2 {
   }
 }
 .button {
-  background-color: #fffbbb;
+  background-color: #fff999;
   border: 1px solid #867e00;
   font-weight: normal;
   font-size: 1rem;
@@ -243,7 +243,7 @@ h2 {
 }
 .button--disabled {
   opacity: 0.5;
-  background-color: #fffbbb;
+  background-color: #fff999;
 }
 .button--big {
   padding: 1rem;
@@ -437,8 +437,11 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   padding: 5px 10px;
   margin: -5px;
 }
-.copy a:hover {
+.copy a:hover,
+.copy a:active,
+.copy a:focus {
   background-color: #867e00;
+  text-decoration: none;
 }
 .button {
   padding: 1vw 2vw;
@@ -544,9 +547,11 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   height: 512px;
 }
 .pattern__thumbnails--clickable {
-  background-color: #fffbbb;
+  background-color: #fff999;
 }
-.pattern__thumbnails--clickable:hover {
+.pattern__thumbnails--clickable:hover,
+.pattern__thumbnails--clickable:active,
+.pattern__thumbnails--clickable:focus {
   background-color: #867e00;
   text-decoration: none;
 }

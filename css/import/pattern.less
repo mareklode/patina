@@ -43,7 +43,9 @@
         }
         &--clickable {
             background-color: @buttonBackgroundColor;
-            &:hover  {
+            &:hover,
+            &:active,
+            &:focus  {
                 background-color: @buttonHoverBackgroundColor;
                 text-decoration: none;
             }

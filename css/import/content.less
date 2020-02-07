@@ -15,8 +15,11 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
     a {
         padding: 5px 10px;
         margin: -5px;
-        &:hover {
+        &:hover,
+        &:active,
+        &:focus {
             background-color: @buttonHoverBackgroundColor;
+            text-decoration: none;
         }
     }
 }
