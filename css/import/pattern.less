@@ -14,7 +14,7 @@
         max-width: 100%;
 
         color: white;
-        text-shadow: 0 0 1px black, 0 0 2px black;
+        text-shadow: 0 0 1px black, 0 0 2px black, 0 0 3px black;
 
         @media @submobile {
             width: 88vw;
@@ -32,16 +32,21 @@
             padding: 5px;
             .fontTextDesktop; // so it is not too big in widescreen mode
         }
+        /*
         &--256 {
             width: 256px;
             height: 256px;
-        }
+        }*/
         &--512 {
             width: 512px;
             height: 512px;
         }
-        &:hover  {
-            text-decoration: none;
+        &--clickable {
+            background-color: @buttonBackgroundColor;
+            &:hover  {
+                background-color: @buttonHoverBackgroundColor;
+                text-decoration: none;
+            }
         }
     }
     &__textInbetween {
@@ -51,5 +56,9 @@
         @media @submobile {
             line-height: 48px;
         }
+    }
+
+    &--patinaFromTextarea {
+        line-height: 256px;
     }
 }

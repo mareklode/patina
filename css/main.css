@@ -110,16 +110,19 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Mixins
   }
 }
 .buttonColors {
-  background-color: #d6c5d9;
+  background-color: #fffbbb;
+  border: 1px solid #867e00;
+  border-radius: 2px;
 }
 .buttonColors:hover,
 .buttonColors:active,
 .buttonColors:focus {
-  background-color: #e0d8e8;
-  color: black;
+  background-color: #867e00;
+  color: white;
+  box-shadow: 2px 2px 8px lightgray;
 }
 .buttonColors:active {
-  background-color: #bab3c9;
+  background-color: #867e00;
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.25);
 }
 /*
@@ -141,7 +144,7 @@ body {
   line-height: 1.4em;
 }
 a {
-  color: #252050;
+  color: #867e00;
   padding: 5px;
 }
 a:active,
@@ -208,21 +211,22 @@ h2 {
   }
 }
 .button {
-  background-color: #d6c5d9;
+  background-color: #fffbbb;
+  border: 1px solid #867e00;
   font-weight: normal;
   font-size: 1rem;
   line-height: 1.5rem;
-  border: none;
   border-radius: 2px;
 }
 .button:hover,
 .button:active,
 .button:focus {
-  background-color: #e0d8e8;
-  color: black;
+  background-color: #867e00;
+  color: white;
+  box-shadow: 2px 2px 8px lightgray;
 }
 .button:active {
-  background-color: #bab3c9;
+  background-color: #867e00;
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.25);
 }
 @media screen and (min-width: 600px) {
@@ -239,7 +243,7 @@ h2 {
 }
 .button--disabled {
   opacity: 0.5;
-  background-color: #d6c5d9;
+  background-color: #fffbbb;
 }
 .button--big {
   padding: 1rem;
@@ -429,9 +433,19 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
     width: 80vw;
   }
 }
-.pattern-sample {
-  background-color: #023;
-  height: 256px;
+.copy a {
+  padding: 5px 10px;
+  margin: -5px;
+}
+.copy a:hover {
+  background-color: #867e00;
+}
+.button {
+  padding: 1vw 2vw;
+}
+.button__applyPatinaTextarea {
+  vertical-align: bottom;
+  border-bottom: none;
 }
 .parameters dt::after {
   content: ' :';
@@ -499,7 +513,12 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   padding: 10px 20px;
   max-width: 100%;
   color: white;
-  text-shadow: 0 0 1px black, 0 0 2px black;
+  text-shadow: 0 0 1px black, 0 0 2px black, 0 0 3px black;
+  /*
+        &--256 {
+            width: 256px;
+            height: 256px;
+        }*/
 }
 @media screen and (max-width: 299px) {
   .pattern__thumbnails {
@@ -520,15 +539,15 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   font-size: 1.15rem;
   line-height: 1.5rem;
 }
-.pattern__thumbnails--256 {
-  width: 256px;
-  height: 256px;
-}
 .pattern__thumbnails--512 {
   width: 512px;
   height: 512px;
 }
-.pattern__thumbnails:hover {
+.pattern__thumbnails--clickable {
+  background-color: #fffbbb;
+}
+.pattern__thumbnails--clickable:hover {
+  background-color: #867e00;
   text-decoration: none;
 }
 .pattern__textInbetween {
@@ -540,4 +559,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   .pattern__textInbetween {
     line-height: 48px;
   }
+}
+.pattern--patinaFromTextarea {
+  line-height: 256px;
 }

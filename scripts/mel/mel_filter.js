@@ -88,7 +88,7 @@ define([], function() {
 
         contrast: function (image, filterDefinition) {
             let y = 0.5, // always
-                m = filterDefinition.m || 1, // steigung
+                m = filterDefinition.m || 1, // slope
                 x = filterDefinition.x || 0.5,
                 n = y - m * x;
 
