@@ -12,7 +12,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
 .copy {
     .fontText;
     .contentContainer;
-    a {
+    a:not(.button){
         padding: 5px 10px;
         margin: -5px;
         &:hover,
@@ -22,6 +22,15 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
             text-decoration: none;
         }
     }
+}
+
+.code {
+    .contentContainer;
+    font-family: monospace, serif;
+    font-size: 1rem;
+    padding: 1rem;
+    background-color: blanchedalmond;
+    border: 1px solid gray;
 }
 
 .button {

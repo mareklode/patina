@@ -107,22 +107,23 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Mixins
   .contentContainer {
     margin: 3rem auto 1rem auto;
     width: 80vw;
+    max-width: 1000px;
   }
 }
 .buttonColors {
-  background-color: #fff999;
-  border: 1px solid #867e00;
+  background-color: #2f4000;
+  border: 1px solid #680;
   border-radius: 2px;
 }
 .buttonColors:hover,
 .buttonColors:active,
 .buttonColors:focus {
-  background-color: #867e00;
+  background-color: #680;
   color: white;
   box-shadow: 2px 2px 8px lightgray;
 }
 .buttonColors:active {
-  background-color: #867e00;
+  background-color: #680;
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.25);
 }
 /*
@@ -144,13 +145,13 @@ body {
   line-height: 1.4em;
 }
 a {
-  color: #867e00;
+  color: #2f4000;
   padding: 5px;
 }
 a:active,
 a:focus,
 a:hover {
-  background-color: #867e00;
+  background-color: #680;
   color: white;
 }
 a.link-disabled.link-disabled {
@@ -185,6 +186,7 @@ h1 {
   h1 {
     margin: 3rem auto 1rem auto;
     width: 80vw;
+    max-width: 1000px;
   }
 }
 @media screen and (min-width: 600px) {
@@ -208,25 +210,27 @@ h2 {
   h2 {
     margin: 3rem auto 1rem auto;
     width: 80vw;
+    max-width: 1000px;
   }
 }
 .button {
-  background-color: #fff999;
-  border: 1px solid #867e00;
+  background-color: #2f4000;
+  border: 1px solid #680;
   font-weight: normal;
   font-size: 1rem;
   line-height: 1.5rem;
+  color: white;
   border-radius: 2px;
 }
 .button:hover,
 .button:active,
 .button:focus {
-  background-color: #867e00;
+  background-color: #680;
   color: white;
   box-shadow: 2px 2px 8px lightgray;
 }
 .button:active {
-  background-color: #867e00;
+  background-color: #680;
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.25);
 }
 @media screen and (min-width: 600px) {
@@ -243,7 +247,7 @@ h2 {
 }
 .button--disabled {
   opacity: 0.5;
-  background-color: #fff999;
+  background-color: #2f4000;
 }
 .button--big {
   padding: 1rem;
@@ -313,7 +317,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
   }
 }
 .navigation {
-  background-color: #962800;
+  background-color: #2f4000;
 }
 .navigation__link {
   display: inline-block;
@@ -325,7 +329,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
 .navigation__link:hover,
 .navigation__link:active,
 .navigation__link:focus {
-  background-color: rgba(0, 0, 0, 0.33);
+  background-color: #680;
   opacity: 1;
 }
 @media screen and (min-width: 600px) {
@@ -431,17 +435,39 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   .copy {
     margin: 3rem auto 1rem auto;
     width: 80vw;
+    max-width: 1000px;
   }
 }
-.copy a {
+.copy a:not(.button) {
   padding: 5px 10px;
   margin: -5px;
 }
-.copy a:hover,
-.copy a:active,
-.copy a:focus {
-  background-color: #867e00;
+.copy a:not(.button):hover,
+.copy a:not(.button):active,
+.copy a:not(.button):focus {
+  background-color: #680;
   text-decoration: none;
+}
+.code {
+  text-align: left;
+  font-family: monospace, serif;
+  font-size: 1rem;
+  padding: 1rem;
+  background-color: blanchedalmond;
+  border: 1px solid gray;
+}
+@media screen and (max-width: 599px) {
+  .code {
+    margin: 3rem auto 1rem auto;
+    width: 90vw;
+  }
+}
+@media screen and (min-width: 600px) {
+  .code {
+    margin: 3rem auto 1rem auto;
+    width: 80vw;
+    max-width: 1000px;
+  }
 }
 .button {
   padding: 1vw 2vw;
@@ -492,6 +518,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   .pattern {
     margin: 3rem auto 1rem auto;
     width: 80vw;
+    max-width: 1000px;
   }
 }
 @media screen and (min-width: 600px) {
@@ -547,17 +574,20 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   height: 512px;
 }
 .pattern__thumbnails--clickable {
-  background-color: #fff999;
+  background-color: #2f4000;
 }
 .pattern__thumbnails--clickable:hover,
 .pattern__thumbnails--clickable:active,
 .pattern__thumbnails--clickable:focus {
-  background-color: #867e00;
+  background-color: #680;
   text-decoration: none;
+}
+.pattern__thumbnails--nomargin {
+  margin: 0 0 2vw 0;
 }
 .pattern__textInbetween {
   font-size: 2.5rem;
-  line-height: 148px;
+  line-height: 130px;
   vertical-align: middle;
 }
 @media screen and (max-width: 299px) {

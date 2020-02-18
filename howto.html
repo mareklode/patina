@@ -4,18 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width">
   
-      <title>Patina | mareklode</title>
+      <title>How To | Patina | mareklode</title>
 
-  <meta property="og:title" content="Patina | mareklode" />
+  <meta property="og:title" content="How To | Patina | mareklode" />
   <meta property="og:image" content="http://mareklode.de/bilder/page/v3/v3_rost4.png" />
-  <meta property="og:description" content="Patina: procedually generated background images in JavaScript" />
-  <meta name="description" content="Patina: procedually generated background images in JavaScript">
+  <meta property="og:description" content="Patina: procedually generated background images in JavaScript. How to use it." />
+  <meta name="description" content="Patina: procedually generated background images in JavaScript. How to use it.">
 
   <link rel="stylesheet" type="text/css" href="css/normalize.min.css">
   <link rel="stylesheet" href="css/main.css">
 
 </head>
-<body class="content pagemode_homepage">
+<body class="content">
 
     <header class="header js-require" 
         data-require-name="patina" 
@@ -44,8 +44,6 @@
         <div class="header__logo">
             Patina
         </div>
-        <p class="header__claim"
-            style="transform: translate(-50%, -50%);position: absolute; left: 39%; bottom: 1vw;">Procedurally generated images, inside your browser.</p>
     </header>
 
 
@@ -76,12 +74,19 @@
 
     <main class="content__block">
 
-        <h1>Patina</h1>
+        <h1>How To use it</h1>
 
         <p class="copy">
-            "Patina is a thin layer that variously forms on the surface of [metals] 
-            or any similar acquired change of a surface through age and exposure." <br />
-            <small>https://en.wikipedia.org/wiki/Patina</small>   
+            <a href="scripts/patina.js" class="button button--big button--disabled" style="float: right; margin: 0 0 0 2vw; pointer-events: none;"><!--download-->ToDo: create<br />patina.js</a>
+            To include the js-file into your project, you would download patina.js 
+            and place it at the bottom of your html-file like this:
+        </p>
+
+        <pre class="code">
+&lt;script src="scripts/patina.js" /></pre>
+        
+        <p class="copy">
+            You want all of the DOM to to be there, when it does its work.
         </p>
 
         <p class="copy">
@@ -91,30 +96,30 @@
 
         <div class="pattern">
 
-            <a href="createPattern_border.html" class="js-require pattern__thumbnails pattern__thumbnails--128 pattern__thumbnails--clickable pattern__thumbnails--nomargin" 
+            <a href="createPattern_border.html" class="js-require pattern__thumbnails pattern__thumbnails--128 pattern__thumbnails--clickable" 
                 id="reusableImage_combine_border" style="background-size: contain;">createPattern border</a>
 
             <span class="pattern__textInbetween">+</span>
 
-            <a href="createPattern_wave.html" class="js-require pattern__thumbnails pattern__thumbnails--128 pattern__thumbnails--clickable pattern__thumbnails--nomargin" 
+            <a href="createPattern_wave.html" class="js-require pattern__thumbnails pattern__thumbnails--128 pattern__thumbnails--clickable" 
                 id="reusableImage_combine_wave"
             >createPattern wave</a>
 
             <span class="pattern__textInbetween">+</span>
 
-            <a href="createPattern_noise_1D.html" class="js-require pattern__thumbnails pattern__thumbnails--128 pattern__thumbnails--clickable pattern__thumbnails--nomargin" 
+            <a href="createPattern_noise_1D.html" class="js-require pattern__thumbnails pattern__thumbnails--128 pattern__thumbnails--clickable" 
                 id="reusableImage_combine_noise1D_horizontal"
             >createPattern noise_1D</a>
 
             <span class="pattern__textInbetween">+</span>
 
-            <a href="createPattern_noise_1D.html" class="js-require pattern__thumbnails pattern__thumbnails--128 pattern__thumbnails--clickable pattern__thumbnails--nomargin" 
+            <a href="createPattern_noise_1D.html" class="js-require pattern__thumbnails pattern__thumbnails--128 pattern__thumbnails--clickable" 
                 id="reusableImage_combine_noise1D_vertical"
             >createPattern noise_1D</a>
 
             <span class="pattern__textInbetween">=</span>
 
-            <div class="js-require pattern__thumbnails pattern__thumbnails--256 pattern__thumbnails--nomargin   " 
+            <div class="js-require pattern__thumbnails pattern__thumbnails--256" 
                 data-require-name="patina" 
                 data-require-data='{
                     "width": 256,
