@@ -77,232 +77,67 @@
         <h1>How To use it</h1>
 
         <p class="copy">
-            <a href="scripts/patina.js" class="button button--big button--disabled" style="float: right; margin: 0 0 0 2vw; pointer-events: none;"><!--download-->ToDo: create<br />patina.js</a>
-            To include the js-file into your project, you would download patina.js 
-            and place it at the bottom of your html-file like this:
+            <a href="scripts/patina.js" class="button button--big" style="float: right; margin: 0 0 0 2vw;">download<br />patina.js</a>
+            To use the js-file in your project, you download patina.js 
+            and include it at the bottom of your html-file like this, 
+            where "scripts/patina" is the path to patina.js without the file extension.
         </p>
 
         <pre class="code">
-&lt;script src="scripts/patina.js" /></pre>
+&lt;script data-main="scripts/patina" src="scripts/vendor/require.js">&lt;/script></pre>
         
         <p class="copy">
-            You want all of the DOM to to be there, when it does its work.
+            <span id="js-patina-goes-here" style="width: 64px; height: 64px; float: right; box-shadow: 0 0 5px black;" ></span>
+            You also need a &lt;div> or any other HTML-element that you want to decorate with patina.
         </p>
+
+        <pre class="code">
+&lt;div id="js-patina-goes-here" style="width: 64px; height: 64px;" >&lt;/div></pre>
 
         <p class="copy">
-            This patina is a JavaScript tool that lets you create worn out looking surfaces. 
-            Combine simple noise <a href="createPattern.html">patterns</a> to create complex textures with JavaScript.
+            Now you can call the patina-function and apply a randomly generated background image to your &lt;div> like this:
         </p>
 
-        <div class="pattern">
+        <pre class="code">
+&lt;script>
+    const target  = document.getElementById('js-patina-goes-here');
+    const json    = `"patina" : {
+                        "type"          : "createPattern",
+                        "patternName"   : "noise_1D"
+                    }`;
+    new patina(target, json);
+&lt;/script></pre>
 
-            <a href="createPattern_border.html" class="js-require pattern__thumbnails pattern__thumbnails--128 pattern__thumbnails--clickable" 
-                id="reusableImage_combine_border" style="background-size: contain;">createPattern border</a>
-
-            <span class="pattern__textInbetween">+</span>
-
-            <a href="createPattern_wave.html" class="js-require pattern__thumbnails pattern__thumbnails--128 pattern__thumbnails--clickable" 
-                id="reusableImage_combine_wave"
-            >createPattern wave</a>
-
-            <span class="pattern__textInbetween">+</span>
-
-            <a href="createPattern_noise_1D.html" class="js-require pattern__thumbnails pattern__thumbnails--128 pattern__thumbnails--clickable" 
-                id="reusableImage_combine_noise1D_horizontal"
-            >createPattern noise_1D</a>
-
-            <span class="pattern__textInbetween">+</span>
-
-            <a href="createPattern_noise_1D.html" class="js-require pattern__thumbnails pattern__thumbnails--128 pattern__thumbnails--clickable" 
-                id="reusableImage_combine_noise1D_vertical"
-            >createPattern noise_1D</a>
-
-            <span class="pattern__textInbetween">=</span>
-
-            <div class="js-require pattern__thumbnails pattern__thumbnails--256" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "width": 256,
-                    "height": 256,
-                    "reusableImages": [
-                        {
-                            "id"            : "combine_border",
-                            "type"          : "createPattern",
-                            "patternName"   : "border",
-                            "filter"        : [{ "name": "brightness", "brightness": -1.25 }]
-                        },
-                        {
-                            "id"            : "combine_wave",
-                            "type"          : "createPattern",
-                            "patternName"   : "wave",
-                            "direction"     : "rectangles",
-                            "frequency"     : 16,
-                            "filter"        : [{ "name": "brightness", "brightness": 1 }]
-                        },
-                        {
-                            "id"            : "combine_noise1D_horizontal",
-                            "type"          : "createPattern",
-                            "patternName"   : "noise_1D", 
-                            "direction"     : "vertical"
-                        },
-                        {
-                            "id"            : "combine_noise1D_vertical",
-                            "type"          : "createPattern",
-                            "patternName"   : "noise_1D", 
-                            "direction"     : "horizontal"
-                        },
-                        {
-                            "id"            : "NoiseBorder",
-                            "type"          : "combine",
-                            "topLayer"      : {
-                                "type"          : "reuseImage",
-                                "reuseId"       : "combine_border"
-                            },
-                            "bottomLayer"   : { 
-                                "type"          : "combine",
-                                "topLayer"      : {
-                                    "type"          : "combine",
-                                    "topLayer"      : {
-                                        "type"          : "reuseImage",
-                                        "reuseId"       : "combine_noise1D_horizontal"
-                                    },
-                                    "bottomLayer"   : { 
-                                        "type"          : "reuseImage",
-                                        "reuseId"       : "combine_noise1D_vertical"
-                                    }
-                                },
-                                "bottomLayer"   : { 
-                                    "type"          : "combine",
-                                    "topLayer"      : {
-                                        "type"          : "reuseImage",
-                                        "reuseId"       : "combine_border"
-                                    },
-                                    "bottomLayer"   : { 
-                                        "type"          : "reuseImage",
-                                        "reuseId"       : "combine_wave"
-                                    }
-                                }
-                            }
-                        }
-                    ],
-                    "patina": {
-                        "type"          : "reuseImage",
-                        "reuseId"   : "NoiseBorder",
-                        "filter"        : [
-                            { "name": "contrast", "x": 0.45, "m": 2 },
-                            { "name": "brightness", "brightness": 2 }
-                        ]
-                    }
-                }'
-            ></div>
-        </div>
-
-        <!-- p class="copy"> 
-            You can even (soon) animate them.
-            It's neither efficient nor practical, but possible.
-        </p -->
+        <h2>JSON</h2>
 
         <p class="copy">
-            Specified by a data structure written in JSON, the browser will render a new background image every time you reload the page.
+            The const json in the example above is the data structure, that defines how the patina is being created. 
+            This is a very basic example and the JSON-structure can get very unmanageable. 
+            To help you, here are the basic structure and building blocks.
         </p>
 
-        <pre class="code">"patina" : {
-    "type"          : "createPattern",
-    "patternName"   : "noise_plasma"    
+        <h3>the basic structure</h3>
+
+        <pre class="code">
+{
+    "width"     : 256,
+    "height"    : 256,
+    "patina"    : {
+
+    }
 }</pre>
 
-        <p class="copy">will become:</p>
+        <h3>building blocks</h3>
 
-        <div class="pattern">
-            <a href="createPattern_noise_plasma.html"
-                class="js-require pattern__thumbnails pattern__thumbnails--clickable"
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina": {
-                        "type"          : "createPattern",
-                        "patternName"   : "noise_plasma"
-                    }
-                }'
-            >createPattern noise_plasma</a>
-            <a href="createPattern_noise_plasma.html"
-                class="js-require pattern__thumbnails pattern__thumbnails--clickable"
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina": {
-                        "type"          : "createPattern",
-                        "patternName"   : "noise_plasma"
-                    }
-                }'
-            >createPattern noise_plasma</a>
-            <a href="createPattern_noise_plasma.html"
-                class="js-require pattern__thumbnails pattern__thumbnails--clickable" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina": {
-                        "type"          : "createPattern",
-                        "patternName"   : "noise_plasma"
-                    }
-                }'
-            >createPattern noise_plasma</a>
-            <a href="createPattern_noise_plasma.html"
-                class="js-require pattern__thumbnails pattern__thumbnails--clickable"
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina": {
-                        "type"          : "createPattern",
-                        "patternName"   : "noise_plasma"
-                    }
-                }'
-            >createPattern noise_plasma</a>
-            <a href="createPattern_noise_plasma.html"
-                class="js-require pattern__thumbnails pattern__thumbnails--clickable"
-                data-require-name="patina" 
-                data-require-data='{
-                    "patina": {
-                        "type"          : "createPattern",
-                        "patternName"   : "noise_plasma"
-                    }
-                }'
-            >createPattern noise_plasma</a>
-        </div>
+        <ul class="copy">
+            <li>createPattern</li>
+            <li>combine</li>
+            <li>reusableImages</li>
+            <li>filter</li>
+            <li></li>
+        </ul>
 
-        <p class="copy">
-            Load images, distort or combine them, apply <a href="filter.html">filters</a>.
-        </p>
-
-        <div class="pattern">
-            <div class="js-require pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "reusableImages"    : [
-                        { 
-                            "id"            : "reetroof", 
-                            "type"          : "preloadImage",
-                            "url"           : "images/reetroof_300.jpg"
-                        },
-                        { 
-                            "id"            : "zweiBaeume_300", 
-                            "type"          : "preloadImage",
-                            "url"           : "images/zweiBaeume_300.jpg"
-                        }
-                    ],
-                    "patina": {
-                        "type"      : "combine",
-                        "combineMode"   : { "name": "distort", "radius": 256 },
-                        "topLayer"  : {
-                            "type"          : "createPattern",
-                            "patternName"   : "noise_plasma",
-                            "filter"        : [{ "name": "blur", "radius": 5 }]
-                        },
-                        "bottomLayer"  : {
-                            "type"          : "reuseImage",
-                            "reuseId"       : "zweiBaeume_300"
-                        }
-                    }
-                }'
-            ></div>
-        </div>
-
+        
     </main><!-- .content__block -->
   
     <footer class="footer js-require" 
@@ -362,7 +197,7 @@
         &copy; 2019 Marek Lode &nbsp; | &nbsp; <a href="https://github.com/mareklode/patina">looking to contribute?</a>
     </footer>
 
-    <script data-main="scripts/main" src="scripts/vendor/require.js"></script>
+    <script data-main="scripts/patina" src="scripts/vendor/require.js"></script>
 
 </body>
 </html>
