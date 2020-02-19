@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Patina | the minimalistic example</title>
+    <script data-main="scripts/patina" src="scripts/vendor/require.js"></script>
+  </head>
+  <body>
+    <div id="js-patina-goes-here" style="width: 64px; height: 64px;" ></div>
+  </body>
+  <script>
+        // get rid of this with https://github.com/requirejs/almond
+        require(['patina'], function( patina ) {
+            const target  = document.getElementById('js-patina-goes-here');
+            const json    = `{"patina" : {
+                         "type"          : "createPattern",
+                         "patternName"   : "noise_1D"
+                     } }`;
+            new patina(target, json);
+        });
+  </script>
+</html>

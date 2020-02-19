@@ -14,7 +14,6 @@ let mel = {};
 let setupPage = function () {
 
     console.info('ToDo: preloadImages AND reusablePatterns');
-    console.info('copy this Footer and Header patina-JSON to all other pages.');
 
     /* find and execute JavaScript-triggers in HTML-tags */
     let nodeList = document.querySelectorAll(".js-require");
@@ -57,7 +56,6 @@ let setupPage = function () {
 };
 
 setupPage();
-define("main", function(){});
 
 define('canvas',[], function() {
 
@@ -881,4 +879,6 @@ define('patina',['canvas', 'createPattern', 'filter'], function( canvas, createP
     return patina;
 
 });
+
+
 

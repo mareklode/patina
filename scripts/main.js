@@ -14,7 +14,6 @@ let mel = {};
 let setupPage = function () {
 
     console.info('ToDo: preloadImages AND reusablePatterns');
-    console.info('copy this Footer and Header patina-JSON to all other pages.');
 
     /* find and execute JavaScript-triggers in HTML-tags */
     let nodeList = document.querySelectorAll(".js-require");
@@ -57,3 +56,11 @@ let setupPage = function () {
 };
 
 setupPage();
+
+const patina = function(target, json) {
+    require(['main'], function() {
+        require(['patina'], function( patina ) {
+            new patina(target, json);
+        });
+    });
+};

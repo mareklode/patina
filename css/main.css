@@ -450,10 +450,11 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
 }
 .code {
   text-align: left;
-  font-family: monospace, serif;
+  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+  /* from GitHub */
   font-size: 1rem;
   padding: 1rem;
-  background-color: blanchedalmond;
+  background-color: #efb;
   border: 1px solid gray;
 }
 @media screen and (max-width: 599px) {

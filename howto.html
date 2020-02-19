@@ -12,7 +12,7 @@
   <meta name="description" content="Patina: procedually generated background images in JavaScript. How to use it.">
 
   <link rel="stylesheet" type="text/css" href="css/normalize.min.css">
-  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/main.css?version=2">
 
 </head>
 <body class="content">
@@ -77,17 +77,41 @@
         <h1>How To use it</h1>
 
         <p class="copy">
-            <a href="scripts/patina.js" class="button button--big" style="float: right; margin: 0 0 0 2vw;">download<br />patina.js</a>
-            To use the js-file in your project, you download patina.js 
-            and include it at the bottom of your html-file like this, 
-            where "scripts/patina" is the path to patina.js without the file extension.
+            To follow this manual create a HTML-file in your root folder and name it patina_test.html.
+            Create a folder named "scripts" and within this folder a subfolder named "vendor".
+        </p>
+
+        <p class="copy">
+            <a href="scripts/patina.js" class="button button--big" style="float: right; margin: 0 0 0 2vw;" 
+                data-info="patina/build_patina_js.html">download<br />patina.js</a>
+            For the patina to work you need two JavaScript files. Download patina.js and save it in the "scripts"-folder.
+        </p>
+
+        <p class="copy">
+            Download the <a href="https://requirejs.org/docs/download.html">latest require.js</a> and save it under "scripts/vendor".
+        </p>
+
+        <p class="copy">
+            Your file structure should look something like this now.
         </p>
 
         <pre class="code">
-&lt;script data-main="scripts/patina" src="scripts/vendor/require.js">&lt;/script></pre>
-        
+WWW
+├── scripts
+│   ├── vendor
+│   │   └── require.js
+│   └── patina.js
+└── patina_test.html</pre>
+
         <p class="copy">
-            <span id="js-patina-goes-here" style="width: 64px; height: 64px; float: right; box-shadow: 0 0 5px black;" ></span>
+            Open patina_test.html in a text editor and include
+            the following line at the bottom of your html-file. 
+            (data-main="scripts/patina" is the path to patina.js without the file extension)
+        </p>
+        <pre class="code">
+&lt;script data-main="scripts/patina" src="scripts/vendor/require.js">&lt;/script></pre>
+            
+        <p class="copy">
             You also need a &lt;div> or any other HTML-element that you want to decorate with patina.
         </p>
 
@@ -100,13 +124,43 @@
 
         <pre class="code">
 &lt;script>
-    const target  = document.getElementById('js-patina-goes-here');
-    const json    = `"patina" : {
+    require(['patina'], function( patina ) {
+        const target  = document.getElementById('js-patina-goes-here');
+        const json    = `{"patina" : {
+                    "type"          : "createPattern",
+                    "patternName"   : "noise_1D"
+                } }`;
+        new patina(target, json);
+    });
+&lt;/script></pre>
+
+        <h2>the minimalistic example</h2>
+
+        <pre class="code">
+&lt;!DOCTYPE html>
+&lt;html lang="en">
+    &lt;head>
+        &lt;meta charset="utf-8">
+        &lt;title>Patina | the minimalistic example&lt;/title>
+        &lt;script data-main="scripts/patina" src="scripts/vendor/require.js">&lt;/script>
+    &lt;/head>
+    &lt;body>
+        &lt;div id="js-patina-goes-here" style="width: 64px; height: 64px;" >&lt;/div>
+    &lt;/body>
+    &lt;script>
+        // get rid of this with https://github.com/requirejs/almond
+        require(['patina'], function( patina ) {
+            const target  = document.getElementById('js-patina-goes-here');
+            const json    = `{"patina" : {
                         "type"          : "createPattern",
                         "patternName"   : "noise_1D"
-                    }`;
-    new patina(target, json);
-&lt;/script></pre>
+                    } }`;
+            new patina(target, json);
+        });
+    &lt;/script>
+&lt;/html></pre>
+
+        <p class="copy">Have a look at <a href="the_minimalistic_example.html">the minimalistic example</a>.</p>
 
         <h2>JSON</h2>
 
