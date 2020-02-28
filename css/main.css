@@ -95,6 +95,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Mixins
   line-height: 2.5rem;
 }
 .contentContainer {
+  display: block;
   text-align: left;
 }
 @media screen and (max-width: 599px) {
@@ -111,7 +112,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Mixins
   }
 }
 .buttonColors {
-  background-color: #2f4000;
+  background-color: #495e12;
   border: 1px solid #680;
   border-radius: 2px;
 }
@@ -145,7 +146,7 @@ body {
   line-height: 1.4em;
 }
 a {
-  color: #2f4000;
+  color: #495e12;
   padding: 5px;
 }
 a:active,
@@ -172,6 +173,7 @@ h3 {
   font-weight: normal;
 }
 h1 {
+  display: block;
   text-align: left;
   font-size: 2.5rem;
   line-height: 2.5rem;
@@ -196,6 +198,7 @@ h1 {
   }
 }
 h2 {
+  display: block;
   text-align: left;
   font-size: 2rem;
   line-height: 2.5rem;
@@ -214,13 +217,14 @@ h2 {
   }
 }
 .button {
-  background-color: #2f4000;
+  background-color: #495e12;
   border: 1px solid #680;
   font-weight: normal;
   font-size: 1rem;
   line-height: 1.5rem;
   color: white;
   border-radius: 2px;
+  text-decoration: none;
 }
 .button:hover,
 .button:active,
@@ -247,7 +251,7 @@ h2 {
 }
 .button--disabled {
   opacity: 0.5;
-  background-color: #2f4000;
+  background-color: #495e12;
 }
 .button--big {
   padding: 1rem;
@@ -269,8 +273,9 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
 */
 .header {
   height: 128px;
-  background-color: #e84000;
+  background-color: #f4ae28;
   background-position: center;
+  background-blend-mode: soft-light;
   position: relative;
 }
 .pagemode_homepage .header {
@@ -290,10 +295,10 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
   top: 50%;
   left: 39%;
   transform: translate(-50%, -50%);
-  color: white;
+  color: black;
   font-size: 400%;
   font-weight: bold;
-  text-shadow: 0 0 2px black, 0 0 1px black;
+  text-shadow: 0 0 2px white, 0 0 1px white;
 }
 .header__logo path {
   fill: #fff;
@@ -317,7 +322,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
   }
 }
 .navigation {
-  background-color: #2f4000;
+  background-color: #495e12;
 }
 .navigation__link {
   display: inline-block;
@@ -330,11 +335,10 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
 .navigation__link:active,
 .navigation__link:focus {
   background-color: #680;
-  opacity: 1;
+  opacity: 0.9;
 }
 @media screen and (min-width: 600px) {
   .navigation__link {
-    opacity: 0.66;
     font-size: 150%;
     padding: 15px 2vw;
   }
@@ -378,9 +382,10 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=footer
 */
 .footer {
   padding: 5rem 0;
-  background-color: #e84000;
+  background-color: #f4ae28;
+  background-blend-mode: soft-light;
   background-repeat: repeat-x;
-  color: white;
+  color: black;
   font-weight: normal;
   font-size: 1rem;
   line-height: 1.5rem;
@@ -411,6 +416,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   font-weight: normal;
   font-size: 1rem;
   line-height: 1.5rem;
+  display: block;
   text-align: left;
 }
 @media screen and (min-width: 600px) {
@@ -449,12 +455,13 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   text-decoration: none;
 }
 .code {
+  display: block;
   text-align: left;
   font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
   /* from GitHub */
   font-size: 1rem;
   padding: 1rem;
-  background-color: #efb;
+  background-color: #f4ae28;
   border: 1px solid gray;
 }
 @media screen and (max-width: 599px) {
@@ -504,6 +511,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   }
 }
 .pattern {
+  display: block;
   text-align: left;
   font-weight: normal;
   font-size: 1rem;
@@ -535,7 +543,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   }
 }
 .pattern__thumbnails {
-  background-color: #e84000;
+  background-color: #f4ae28;
   margin: 1vw;
   display: inline-block;
   vertical-align: top;
@@ -575,7 +583,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   height: 512px;
 }
 .pattern__thumbnails--clickable {
-  background-color: #2f4000;
+  background-color: #495e12;
 }
 .pattern__thumbnails--clickable:hover,
 .pattern__thumbnails--clickable:active,
