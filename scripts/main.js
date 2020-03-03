@@ -14,8 +14,6 @@ let mel = {};
 
 mel.setupPage = function () {
 
-    console.info('ToDo: preloadImages AND reusablePatterns');
-
     /* find and execute JavaScript-triggers in HTML-tags */
     let nodeList = document.querySelectorAll(".js-require");
     console.log('JavaScript-triggers in HTML-tags:', nodeList.length, nodeList);
@@ -40,18 +38,15 @@ mel.setupPage = function () {
     mel.kkeys = [];
     mel.konami = "38,38,40,40,37,39,37,39,66,65";
     mel.easteregg = function () {
-        mel.onlyLog('Konami');
+        alert('Konami');
     }
 
     document.addEventListener('keydown', function(e) {
-    
       mel.kkeys.push( e.keyCode );
-    
       if ( mel.kkeys.toString().indexOf( mel.konami ) >= 0 ) {
         mel.kkeys = [];        
         mel.easteregg();
       }
-    
     });
 
 };

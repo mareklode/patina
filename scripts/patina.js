@@ -1,8 +1,18 @@
+require.config({
+    baseUrl: 'scripts',
+    paths: {
+        patina:         'mel/mel_patina',
+        canvas:         'mel/mel_canvas',
+        createPattern:  'mel/mel_createPattern',
+        noise:          'mel/mel_noise',
+        filter:         'mel/mel_filter',
+        templates:      'mel/mel_pageTemplates',
+    }
+});
+
 let mel = {};
 
 mel.setupPage = function () {
-
-    console.info('ToDo: preloadImages AND reusablePatterns');
 
     /* find and execute JavaScript-triggers in HTML-tags */
     let nodeList = document.querySelectorAll(".js-require");
@@ -32,20 +42,17 @@ mel.setupPage = function () {
     }
 
     document.addEventListener('keydown', function(e) {
-    
       mel.kkeys.push( e.keyCode );
-    
       if ( mel.kkeys.toString().indexOf( mel.konami ) >= 0 ) {
         mel.kkeys = [];        
         mel.easteregg();
       }
-    
     });
 
 };
 
 mel.setupPage();
-define("mel/test", function(){});
+define("main", function(){});
 
 define('canvas',[], function() {
 
@@ -963,4 +970,3 @@ define('patina',['canvas', 'createPattern', 'filter', 'templates'], function( ca
     return patina;
 
 });
-
