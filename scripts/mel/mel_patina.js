@@ -1,7 +1,11 @@
-define(['canvas', 'createPattern', 'filter'], function( canvas, createPattern, filter ) {
+define(['canvas', 'createPattern', 'filter', 'templates'], function( canvas, createPattern, filter, templates ) {
 
     function patina (domElement, parameters) {
         let self = this;
+
+        if (parameters.startsWith('template_')) {
+            parameters = templates[parameters.substring(9)];
+        };
         
         self._parameters = self._completeParameters( parameters, domElement );
         console.log('###### - Patina - ######', self._parameters);

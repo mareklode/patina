@@ -13,49 +13,55 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
   height: 128px;
   background-color: @headerBackgroundColor;
   background-position: center;
-  background-blend-mode: soft-light;
   position: relative;
   .pagemode_homepage & {
     height: 330px; // fallback für altes Motorola
     height: 33vw;
-    @media @mobile {
-      height: 67vw;
-      max-height: 100vh;
-    }
+    min-height: 128px;
   }
   
   &__logo {
-    height: 128px;
-    line-height: 128px;
     position: absolute;
     top: 50%;
-    left: 39%;
+    left: 50%;
     transform: translate(-50%, -50%);
     color: black;
     font-size: 400%;
     font-weight: bold; 
-    text-shadow: 0 0 2px white, 0 0 1px white;
-    path {
-        fill: #fff;
+    text-shadow: 0 0 1px black;
+    text-decoration: none;
+    &:hover,
+    &:focus,
+    &:active {
+      color: black;
     }
-    @media @mobile {
-      font-size: 15vw;
-    }
-    .pagemode_homepage & {
-      height: 120px; // fallback für altes Motorola
-      width: 370px; // fallback für altes Motorola
-      height: 4 * @unitX;
-      width: 12 * @unitX;
+    &__image {
+      width: 250px; // fallback für altes Motorola
+      max-width: 80vw;
       font-size: 15vw;
       line-height: 15vw;
-      @media @desktop {
-        width: 10 * @unitX;
+      .pagemode_homepage & {
+        @media @desktop {
+          width: 10 * @unitX;
+        }
       }
+    }
+  }
+  &__claim {
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    width: 40%;
+    margin: 0;
+    @media @mobile {
+      display: none;
     }
   }
 }
 .navigation {
   background-color: @buttonBackgroundColor;
+  background-size: 100% 100%;
+  background-position: center;
   &__link {
     display: inline-block;
     padding: 1vw 2vw;

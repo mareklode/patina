@@ -18,31 +18,10 @@
 
     <header class="header js-require"
         data-require-name="patina"
-        data-require-data='{
-            "width" : 375,
-            "height": 283,
-            "patina": {
-                "type"  : "colorChannels",
-                "red"   : 187,
-                "green" : 50,
-                "blue"  : 0,
-                "alpha" : {
-                    "type"          : "createPattern",
-                    "patternName"   : "wave",
-                    "direction"     : "rectangles",
-                    "frequency"     : 4,
-                    "filter"        : [
-                        { "name": "threshold", "threshold": 0.5 },
-                        { "name": "blur", "radius": 1 },
-                        { "name": "threshold", "threshold": 0.66 }
-                    ]
-                }
-            }
-        }'
-    >
-        <div class="header__logo">
-            Patina
-        </div>
+        data-require-data="template_header">
+        <a href="." class="header__logo" title="Homepage">
+            <img src="images/page/header__logo--PatinaFont-rough_@2x.png" class="header__logo__image" alt="Patina" />
+        </a>
     </header>
 
     <nav class="navigation js-require"
@@ -334,61 +313,15 @@
         </div><!-- .pattern -->
     
     </main><!-- .content__block -->
+
     <footer class="footer js-require"
-        data-require-name="patina"
-        data-require-data='{
-            "width": 256,
-            "patina": {
-                "type"  : "colorChannels",
-                "red"   : 150,
-                "green" : 40,
-                "blue"  : 0,
-                "alpha" : {
-                    "type"  :   "combine",
-                    "topLayer"    : {
-                        "type"  :   "combine",
-                        "topLayer"    : {
-                            "type"  :   "combine",
-                            "topLayer"      : {
-                                "type"          : "createPattern",
-                                "patternName"   : "noise_plasma"
-                            },
-                            "bottomLayer"   : {
-                                "type"          : "createPattern",
-                                "patternName"   : "wave",
-                                "direction"     : "horizontal",
-                                "frequency"     : 60
-                            }
-                        },
-                        "bottomLayer" : {
-                            "type"          : "createPattern",
-                            "patternName"   : "slope",
-                            "filter"        : [{ "name": "brightness", "brightness": -2 }]
-                        }
-                    },
-                    "bottomLayer" : {
-                        "type"  :   "combine",
-                        "topLayer"    : {
-                            "type"          : "createPattern",
-                            "patternName"   : "noise_white"
-                        },
-                        "bottomLayer"   : {
-                            "type"          : "createPattern",
-                            "patternName"   : "wave",
-                            "direction"     : "vertical",
-                            "frequency"     : 67
-                        }
-                    },
-                    "filter"        : [
-                        { "name": "invert" },
-                        { "name": "blur", "radius": 1 },
-                        { "name": "contrast", "m": 7, "x": 0.52 }
-                    ]
-                }
-            }
-        }'
-    >
-        &copy; 2020 Marek Lode &nbsp
+            data-require-name="patina"
+            data-require-data="template_footer">
+        &copy; 2020 Marek Lode &nbsp; | &nbsp; 
+        <a href="https://github.com/mareklode/patina">
+            <img class="footer__githublogo" src="images/page/GitHub-Mark-32px.png" alt="GitHub Logo" />
+            This Project on GitHub
+        </a>
     </footer>
 
     <script data-main="scripts/main" src="scripts/vendor/require.js"></script>

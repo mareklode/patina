@@ -1,15 +1,3 @@
-require.config({
-    baseUrl: 'scripts',
-    paths: {
-        patina:         'mel/mel_patina',
-        canvas:         'mel/mel_canvas',
-        createPattern:  'mel/mel_createPattern',
-        noise:          'mel/mel_noise',
-        filter:         'mel/mel_filter',
-        templates:      'mel/mel_pageTemplates',
-    }
-});
-
 let mel = {};
 
 mel.setupPage = function () {
@@ -40,7 +28,7 @@ mel.setupPage = function () {
     mel.kkeys = [];
     mel.konami = "38,38,40,40,37,39,37,39,66,65";
     mel.easteregg = function () {
-        mel.onlyLog('Konami');
+        alert('Konami');
     }
 
     document.addEventListener('keydown', function(e) {

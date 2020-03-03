@@ -1,17 +1,6 @@
-require.config({
-    baseUrl: 'scripts',
-    paths: {
-        patina:         'mel/mel_patina',
-        canvas:         'mel/mel_canvas',
-        createPattern:  'mel/mel_createPattern',
-        noise:          'mel/mel_noise',
-        filter:         'mel/mel_filter',
-    }
-});
-
 let mel = {};
 
-let setupPage = function () {
+mel.setupPage = function () {
 
     console.info('ToDo: preloadImages AND reusablePatterns');
 
@@ -23,14 +12,14 @@ let setupPage = function () {
             requireName = el.getAttribute('data-require-name'),
             requireData = el.getAttribute('data-require-data');
 
-        (function (el, requireName,requireData) { // to eliminate the race condition
+        (function (el, requireName, requireData) { // to eliminate the race condition
             require([requireName], function( requireName ) {
                 if (typeof requireName === 'function') {
                     new requireName(el, requireData);
                     el.classList.remove('js-require');
                     el.classList.add('js-require-processed');
                 } else {
-                    console.log(requireName, ' does not exist?');
+                    console.error(requireName, ' does not exist? ', el);
                 }
             });
         })(el, requireName, requireData);
@@ -39,7 +28,7 @@ let setupPage = function () {
     mel.kkeys = [];
     mel.konami = "38,38,40,40,37,39,37,39,66,65";
     mel.easteregg = function () {
-        mel.onlyLog('Konami');
+        alert('Konami');
     }
 
     document.addEventListener('keydown', function(e) {
@@ -55,7 +44,8 @@ let setupPage = function () {
 
 };
 
-setupPage();
+mel.setupPage();
+define("mel/test", function(){});
 
 define('canvas',[], function() {
 
@@ -243,6 +233,96 @@ define('filter',[], function() {
 
     return filter;
 
+});
+
+define('templates',{
+    header:  `{
+        "width" : 375,
+        "height": 283,
+        "patina": {
+            "type"  : "colorChannels",
+            "red"   : 73,
+            "green" : 94,
+            "blue"  : 18,
+            "alpha" : {
+                "type"          : "createPattern",
+                "patternName"   : "wave",
+                "direction"     : "rectangles",
+                "frequency"     : 4,
+                "filter"        : [
+                    { "name": "threshold", "threshold": 0.5 },
+                    { "name": "blur", "radius": 1 },
+                    { "name": "threshold", "threshold": 0.66 },
+                    { "name": "contrast", "m": 0.5, "x": 1.5 }
+                ]
+            }
+        }
+    }`,
+    navigation: `{
+        "patina": {
+            "type"          : "combine",
+            "topLayer"      : {
+                "type"          : "createPattern",
+                "patternName"   : "border"
+            },
+            "bottomLayer"   : {
+                "type"          : "createPattern",
+                "patternName"   : "noise_white",
+                "filter"        : [{ "name": "contrast", "x": 2, "m": 0.25 }]
+            }
+        }
+    }`,
+    footer: `{
+        "width": 256,
+        "patina": {
+            "type"  : "colorChannels",
+            "red"   : 73,
+            "green" : 94,
+            "blue"  : 18,
+            "alpha" : {
+                "type"  :   "combine",
+                "topLayer"    : {
+                    "type"  :   "combine",
+                    "topLayer"    : {
+                        "type"  :   "combine",
+                        "topLayer"      : {
+                            "type"          : "createPattern",
+                            "patternName"   : "noise_plasma"
+                        },
+                        "bottomLayer"   : {
+                            "type"          : "createPattern",
+                            "patternName"   : "wave",
+                            "direction"     : "horizontal",
+                            "frequency"     : 60
+                        }
+                    },
+                    "bottomLayer" : { 
+                        "type"          : "createPattern",
+                        "patternName"   : "slope",
+                        "filter"        : [{ "name": "brightness", "brightness": -2 }]
+                    }
+                },
+                "bottomLayer" : { 
+                    "type"  :   "combine",
+                    "topLayer"    : {
+                        "type"          : "createPattern",
+                        "patternName"   : "noise_white"
+                    },
+                    "bottomLayer"   : {
+                        "type"          : "createPattern",
+                        "patternName"   : "wave",
+                        "direction"     : "vertical",
+                        "frequency"     : 67
+                    }
+                },
+                "filter"        : [
+                    { "name": "invert" },
+                    { "name": "blur", "radius": 1 },
+                    { "name": "contrast", "m": 3, "x": 0.625 }
+                ]
+            }
+        }
+    }`
 });
 
 define('noise',[], function() {
@@ -547,10 +627,14 @@ define('createPattern',['canvas', 'noise'], function( canvas, noise ) {
 
 });
 
-define('patina',['canvas', 'createPattern', 'filter'], function( canvas, createPattern, filter ) {
+define('patina',['canvas', 'createPattern', 'filter', 'templates'], function( canvas, createPattern, filter, templates ) {
 
     function patina (domElement, parameters) {
         let self = this;
+
+        if (parameters.startsWith('template_')) {
+            parameters = templates[parameters.substring(9)];
+        };
         
         self._parameters = self._completeParameters( parameters, domElement );
         console.log('###### - Patina - ######', self._parameters);
@@ -879,6 +963,4 @@ define('patina',['canvas', 'createPattern', 'filter'], function( canvas, createP
     return patina;
 
 });
-
-
 
