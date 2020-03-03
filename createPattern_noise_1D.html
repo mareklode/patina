@@ -24,29 +24,15 @@
         </a>
     </header>
 
-    <nav class="navigation js-require"
-        data-require-name="patina"
-        data-require-data='{
-            "patina": {
-                "type"          : "combine",
-                "topLayer"      : {
-                    "type"          : "createPattern",
-                    "patternName"   : "border"
-                },
-                "bottomLayer"   : {
-                    "type"          : "createPattern",
-                    "patternName"   : "noise_white",
-                    "filter"        : [{ "name": "contrast", "x": 2, "m": 0.25 }]
-                }
-            }
-        }'
-    >
+    <nav class="navigation js-require" 
+         data-require-name="patina" 
+         data-require-data='template_navigation'>
         <a class="navigation__link" href=".">Home</a>
         <a class="navigation__link" href="howto.html">HowTo</a>
         <a class="navigation__link" href="filter.html">filter</a>
         <a class="navigation__link" href="reusableImages.html">reusableImages</a>
-        <a class="navigation__link" href="test.html">test</a>
         <a class="navigation__link" href="examples.html">examples</a>
+        <a class="navigation__link" href="test.html">test</a>
     </nav>
 
     <main class="content__block">
