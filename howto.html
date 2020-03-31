@@ -38,21 +38,60 @@
 
     <main class="content__block">
 
-        <h1>How To use it</h1>
+        <h1>How to use it</h1>
 
         <p class="copy">
-            To follow this manual create a HTML-file in your root folder and name it patina_test.html.
-            Create a folder named "scripts" and within this folder a subfolder named "vendor".
+            In its current state this project is too complicated to use and it has a long way to go to be useful for anybody, including me.
+            But if you're curious here is how it works.
+        </p>
+
+        <h2>The minimalistic example</h2>
+
+        <p class="copy">
+            "Patina" runs inside the browser, so you need a HTML-file. 
+            Copy the following code and save it in your root folder as "minimalistic_example.html".
+        </p>
+
+        <pre class="code">
+&lt;!DOCTYPE html>
+&lt;html lang="en">
+    &lt;head>
+        &lt;meta charset="utf-8">
+        &lt;title>Patina | the minimalistic example&lt;/title>
+        &lt;script data-main="scripts/patina" src="scripts/vendor/require.js">&lt;/script>
+    &lt;/head>
+    &lt;body>
+        &lt;div id="js-patina-goes-here" style="width: 64px; height: 64px;" >&lt;/div>
+    &lt;/body>
+    &lt;script>
+        require(['patina'], function( patina ) {
+            const target  = document.getElementById('js-patina-goes-here');
+            const json    = `{"patina" : {
+                        "type"          : "createPattern",
+                        "patternName"   : "noise_1D"
+                    } }`;
+            new patina(target, json);
+        });
+    &lt;/script>
+&lt;/html></pre>
+
+        <p class="copy">Have a look at the <a href="minimalistic_example.html">minimalistic example</a> in action.</p>
+
+        <h2>The JavaScript</h2>
+
+        <p class="copy">
+            For the patina to work you need two JavaScript files. First download patina.js and save it in a folder called "scripts".
+            <a href="scripts/patina.js" style="display: block; margin-top: 0.5em" data-info="patina/build_patina_js.html">download patina.js</a>
         </p>
 
         <p class="copy">
-            <a href="scripts/patina.js" class="button button--big" style="float: right; margin: 0 0 0 2vw;" 
-                data-info="patina/build_patina_js.html">download<br />patina.js</a>
-            For the patina to work you need two JavaScript files. Download patina.js and save it in the "scripts"-folder.
         </p>
 
         <p class="copy">
-            Download the <a href="https://requirejs.org/docs/download.html">latest require.js</a> and save it under "scripts/vendor".
+            <!-- get rid of this with https://github.com/requirejs/almond -->
+            Within the "scripts"-folder create a subfolder named "vendor".
+            Download the latest requireJs and save it under "scripts/vendor".
+            <a href="https://requirejs.org/docs/download.html" style="display: block; margin-top: 0.5em;">latest require.js</a>
         </p>
 
         <p class="copy">
@@ -66,6 +105,8 @@ WWW
 │   │   └── require.js
 │   └── patina.js
 └── patina_test.html</pre>
+
+        <h2>Explanation</h2>
 
         <p class="copy">
             Open patina_test.html in a text editor and include
@@ -98,40 +139,6 @@ WWW
     });
 &lt;/script></pre>
 
-        <h2>the minimalistic example</h2>
-
-        <p class="copy">
-            If you put that together, you should have something like this.
-        </p>
-
-        <pre class="code">
-&lt;!DOCTYPE html>
-&lt;html lang="en">
-    &lt;head>
-        &lt;meta charset="utf-8">
-        &lt;title>Patina | the minimalistic example&lt;/title>
-    &lt;/head>
-
-    &lt;body>
-        &lt;div id="js-patina-goes-here" style="width: 64px; height: 64px;" >&lt;/div>
-    &lt;/body>
-
-    &lt;script data-main="scripts/patina" src="scripts/vendor/require.js">&lt;/script>
-    &lt;script>
-        // get rid of this with https://github.com/requirejs/almond
-        require(['patina'], function( patina ) {
-            const target  = document.getElementById('js-patina-goes-here');
-            const json    = `{"patina": {
-                                "type"          : "createPattern",
-                                "patternName"   : "noise_1D"
-                            }}`;
-            new patina(target, json);
-        });
-    &lt;/script>
-&lt;/html></pre>
-
-        <p class="copy">Have a look at <a href="the_minimalistic_example.html">the minimalistic example</a> in action.</p>
-
         <h2>JSON</h2>
 
         <p class="copy">
@@ -144,9 +151,9 @@ WWW
         </a>
         
     </main><!-- .content__block -->
-  
-    <footer class="footer js-require"
-            data-require-name="patina"
+
+    <footer class="footer js-require" 
+            data-require-name="patina" 
             data-require-data="template_footer">
         &copy; 2020 Marek Lode &nbsp; | &nbsp; 
         <a href="https://github.com/mareklode/patina">

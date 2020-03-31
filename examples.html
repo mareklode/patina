@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width">
   
-      <title>examples | Patina | mareklode</title>
+  <title>examples | Patina | mareklode</title>
 
   <meta property="og:title" content="examples | Patina | mareklode" />
   <meta property="og:image" content="http://mareklode.de/bilder/page/v3/v3_rost4.png" />
@@ -13,8 +13,8 @@
 
   <link rel="stylesheet" type="text/css" href="css/normalize.min.css">
   <link rel="stylesheet" href="css/main.css">
-
 </head>
+
 <body class="content">
 
     <header class="header js-require" 
@@ -38,7 +38,7 @@
 
     <main class="content__block">
 
-        <h1>examples</h1>
+        <h1>examples (wait for it...)</h1>
 
         <div class="pattern">
 
@@ -126,6 +126,7 @@
                                 "topLayer"      : {
                                     "type"          : "createPattern",
                                     "patternName"   : "wave",
+                                    "direction"     : "concentric",
                                     "frequency"     : 6
                                 },
                                 "bottomLayer"   : {
@@ -181,6 +182,62 @@
             ></div>
 
         </div><!-- pattern -->
+
+        <div class="pattern">
+
+            <div class="js-require pattern__thumbnails pattern__thumbnails--512" 
+                data-require-name="patina" 
+                data-require-data='{
+                    "width"          : 128,
+                    "height"         : 128,
+                    "reusableImages" : [
+                        {
+                            "id"            : "plasmaNoise",
+                            "type"          : "createPattern",
+                            "patternName"   : "noise_plasma"
+                        },
+                        { 
+                            "id"            : "greyNoise", 
+                            "type"          : "combine",
+                            "combineMode"   : { "name": "distort", "radius": 1024 },
+                            "topLayer"      : {
+                                "type"          : "createPattern",
+                                "patternName"   : "noise_plasma",
+                                "filter"        : [{ "name": "blur", "radius": 8 }]
+                            },
+                            "bottomLayer"   : {
+                                "type"          : "reuseImage",
+                                "reuseId"       : "plasmaNoise"
+                            }
+                        }
+                    ],
+                    "patina": {
+                        "type"  : "colorChannels",
+                        "blue"  : {
+                            "type"          : "combine",
+                            "combineMode"   : { "name": "distort", "radius": 1024 },
+                            "topLayer"      : {
+                                "type"          :   "reuseImage",
+                                "reuseId"       :   "greyNoise"
+                            },
+                            "bottomLayer"   : {
+                                "type"          : "reuseImage",
+                                "reuseId"       : "plasmaNoise"
+                            }
+                        },
+                        "red"   : {
+                            "type"          : "reuseImage",
+                            "reuseId"       : "greyNoise"
+                        },
+                        "green" :  {
+                            "type"          : "reuseImage",
+                            "reuseId"       : "greyNoise"
+                        },
+                        "alpha" :  256
+                    }
+                }'
+            ></div>
+        </div>
 
         <div class="pattern pattern--patinaFromTextarea">
             <div id="js_patina_fromTextarea" 

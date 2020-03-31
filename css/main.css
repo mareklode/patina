@@ -279,7 +279,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
 }
 .pagemode_homepage .header {
   height: 330px;
-  height: 33vw;
+  height: 25vw;
   min-height: 128px;
 }
 .header__logo {
@@ -299,7 +299,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
   color: black;
 }
 .header__logo__image {
-  width: 250px;
+  width: 350px;
   max-width: 80vw;
   font-size: 15vw;
   line-height: 15vw;
