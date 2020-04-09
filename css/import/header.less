@@ -38,9 +38,11 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
     &__image {
       width: 350px;
       max-width: 80vw;
-      font-size: 15vw;
-      line-height: 15vw;
+      font-size: 5rem;
+      line-height: 96px;
       .pagemode_homepage & {
+        font-size: 10vw;
+        line-height: 12vw;
         @media @desktop {
           width: 10 * @unitX;
         }
@@ -67,13 +69,15 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
     display: inline-block;
     padding: 1vw 2vw;
     color: white;
+    opacity: 0.85;
     font-weight: bold;
     text-decoration: none;
     &:hover,
     &:active,
     &:focus {
-        background-color: @buttonHoverBackgroundColor;
-        opacity: 0.9;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.4);
+        opacity: 1;
     }
     @media @desktop {
       font-size: 150%;

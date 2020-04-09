@@ -113,18 +113,18 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Mixins
 }
 .buttonColors {
   background-color: #495e12;
-  border: 1px solid rgba(102, 136, 0, 0.75);
+  border: 1px solid rgba(102, 136, 0, 0.5);
   border-radius: 2px;
 }
 .buttonColors:hover,
 .buttonColors:active,
 .buttonColors:focus {
-  background-color: rgba(102, 136, 0, 0.75);
+  background-color: rgba(102, 136, 0, 0.5);
   color: black;
   box-shadow: 2px 2px 8px lightgray;
 }
 .buttonColors:active {
-  background-color: rgba(102, 136, 0, 0.75);
+  background-color: rgba(102, 136, 0, 0.5);
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.25);
 }
 /*
@@ -152,7 +152,7 @@ a {
 a:active,
 a:focus,
 a:hover {
-  background-color: rgba(102, 136, 0, 0.75);
+  background-color: rgba(102, 136, 0, 0.5);
   color: black;
 }
 a.link-disabled.link-disabled {
@@ -218,7 +218,7 @@ h2 {
 }
 .button {
   background-color: #495e12;
-  border: 1px solid rgba(102, 136, 0, 0.75);
+  border: 1px solid rgba(102, 136, 0, 0.5);
   font-weight: normal;
   font-size: 1rem;
   line-height: 1.5rem;
@@ -229,12 +229,12 @@ h2 {
 .button:hover,
 .button:active,
 .button:focus {
-  background-color: rgba(102, 136, 0, 0.75);
+  background-color: rgba(102, 136, 0, 0.5);
   color: black;
   box-shadow: 2px 2px 8px lightgray;
 }
 .button:active {
-  background-color: rgba(102, 136, 0, 0.75);
+  background-color: rgba(102, 136, 0, 0.5);
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.25);
 }
 @media screen and (min-width: 600px) {
@@ -301,8 +301,12 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
 .header__logo__image {
   width: 350px;
   max-width: 80vw;
-  font-size: 15vw;
-  line-height: 15vw;
+  font-size: 5rem;
+  line-height: 96px;
+}
+.pagemode_homepage .header__logo__image {
+  font-size: 10vw;
+  line-height: 12vw;
 }
 @media screen and (min-width: 600px) {
   .pagemode_homepage .header__logo__image {
@@ -345,14 +349,16 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
   display: inline-block;
   padding: 1vw 2vw;
   color: white;
+  opacity: 0.85;
   font-weight: bold;
   text-decoration: none;
 }
 .navigation__link:hover,
 .navigation__link:active,
 .navigation__link:focus {
-  background-color: rgba(102, 136, 0, 0.75);
-  opacity: 0.9;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.4);
+  opacity: 1;
 }
 @media screen and (min-width: 600px) {
   .navigation__link {
@@ -471,7 +477,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
 .copy a:not(.button):hover,
 .copy a:not(.button):active,
 .copy a:not(.button):focus {
-  background-color: rgba(102, 136, 0, 0.75);
+  background-color: rgba(102, 136, 0, 0.5);
   text-decoration: none;
 }
 .code {
@@ -608,7 +614,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
 .pattern__thumbnails--clickable:hover,
 .pattern__thumbnails--clickable:active,
 .pattern__thumbnails--clickable:focus {
-  background-color: rgba(102, 136, 0, 0.75);
+  background-color: rgba(102, 136, 0, 0.5);
   text-decoration: none;
   color: white;
 }
