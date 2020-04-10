@@ -609,12 +609,13 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   height: 512px;
 }
 .pattern__thumbnails--clickable {
-  background-color: #495e12;
+  background-color: rgba(102, 136, 0, 0.5);
 }
 .pattern__thumbnails--clickable:hover,
 .pattern__thumbnails--clickable:active,
 .pattern__thumbnails--clickable:focus {
-  background-color: rgba(102, 136, 0, 0.5);
+  transform: scale(1.033);
+  background-color: #495e12;
   text-decoration: none;
   color: white;
 }

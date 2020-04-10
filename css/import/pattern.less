@@ -42,11 +42,12 @@
             height: 512px;
         }
         &--clickable {
-            background-color: @buttonBackgroundColor;
+            background-color: @clickableThumbnailBackgroundColor;
             &:hover,
             &:active,
             &:focus  {
-                background-color: @buttonHoverBackgroundColor;
+                transform: scale(1.033);
+                background-color: @buttonBackgroundColor;
                 text-decoration: none;
                 color: white;
             }
