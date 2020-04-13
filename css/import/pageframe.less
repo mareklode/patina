@@ -52,4 +52,14 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=footer
     height: 1.5rem;
     vertical-align: text-bottom;
   }
+  a:not(.button){
+    padding: 5px 10px;
+    margin: -5px;
+    &:hover,
+    &:active,
+    &:focus {
+        background-color: @linkBackgroundColor;
+        text-decoration: none;
+    }
+  }
 }
