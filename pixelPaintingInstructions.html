@@ -138,21 +138,25 @@
         </div>
 
         <style>
-            .nested {
-                width: 50%;
-                float: left;
+            .pixelPaintingInstructions_visualisation {
+                font-size: 5vw;
+                line-height: 1;
             }
 
+            .nested {
+                width: 50%;
+                font-size: 66%;
+                float: left;
+            }
             .nested_left,
             .nested_right {
                 width: 45%;
-                float: left;
                 margin: 0 2.25%;
             }
             .PPI-root,
             .PPI-node {
                 width: 80%;
-                margin-right: 20%;
+                margin-left: 20%;
                 margin-bottom: 20px;
                 height: 200px;
                 background: yellow;
@@ -175,15 +179,15 @@
                 margin-left: 20%;
             }
             .nested_right .PPI-node {
-                margin-right: 0;
-                margin-left: 20%;
+                margin-right: 20%;
+                margin-left: 0;
             }
         </style>
 
         <div class="pixelPaintingInstructions_visualisation">
             <div class="PPI-root" >patina</div>
 
-            <span class="nested nested_right">
+            <span class="nested nested_left">
                 <div class="PPI-node">node</div>
 
                 <span class="nested">
@@ -213,7 +217,7 @@
 
                 </span>
             </span>
-            <span class="nested nested_left">
+            <span class="nested nested_right">
                 <div class="PPI-node">node</div>
 
                 <span class="nested">

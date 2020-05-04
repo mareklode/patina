@@ -133,19 +133,20 @@ WWW
         <pre class="code">
 &lt;script>
     require(['patina'], function( patina ) {
-        const target  = document.getElementById('js-patina-goes-here');
-        const json    = `{"patina" : {
-                             "type"          : "createPattern",
-                             "patternName"   : "noise_1D"
-                         } }`;
-        new patina(target, json);
+        const target = document.getElementById('js-patina-goes-here');
+        const pixelPaintingInstructions =
+	    `{"patina" : {
+                "type"          : "createPattern",
+                "patternName"   : "noise_1D"
+            } }`;
+        new patina(target, pixelPaintingInstructions);
     });
 &lt;/script></pre>
 
         <h2>Pixel Painting Instructions</h2>
 
         <p class="copy">
-            The "const json" in the example above is the data structure, that defines how the patina is being created. 
+            The "pixelPaintingInstructions" in the example above is the data structure, that defines how the patina is being created. 
             This is a very basic example and the Pixel Painting Instructions can get very unmanageable.
         </p>
 

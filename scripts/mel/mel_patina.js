@@ -87,7 +87,7 @@ define(['canvas', 'createPattern', 'filter', 'templates'], function( canvas, cre
                             self.reusableImages
                         );
                     } else {
-                        self.reusableImages[imageDefinition.id] = self._processPatinaNode(
+                        self.reusableImages[imageDefinition.id] = await self._processPatinaNode(
                             imageDefinition,
                             parameters.width,
                             parameters.height
@@ -103,22 +103,18 @@ define(['canvas', 'createPattern', 'filter', 'templates'], function( canvas, cre
             );
 
             // draw every reusableImage to a DIV with the correct ID ("reusableImage_" + reuseId) if it exists
-            /*
-            Object.keys(this.reusableImages).forEach(function(reuseId) {
-               // console.log(this.reusableImagess[reuseId]);
-                if (reuseId !== 'count' && reuseId !== 'countdown') {
-                    console.log(patinaData);
-                    this._paintCanvasToADifferentDiv(
-                        this.reusableImages[reuseId],
-                        parameters.width,
-                        parameters.height, 
-                        "reusableImage_" + reuseId
-                    );
-                }
-            }, this);
-               */
-
-            let myCanvas = this._createCanvas(patinaData, parameters.width, parameters.height );
+            Object.keys( this.reusableImages ).forEach( function( reuseId ) {
+                 if ( reuseId !== 'count' && reuseId !== 'countdown' ) {
+                     this._paintCanvasToADifferentDiv(
+                         this.reusableImages[reuseId],
+                         parameters.width,
+                         parameters.height, 
+                         "reusableImage_" + reuseId
+                     );
+                 }
+             }, this );
+                
+            let myCanvas = this._createCanvas( patinaData, parameters.width, parameters.height );
             this._paintCanvas( myCanvas, domElement );
 
         }, // createPatina()
@@ -284,7 +280,6 @@ define(['canvas', 'createPattern', 'filter', 'templates'], function( canvas, cre
             }
             if (resultingImage) {
                 if (layer.filter) {
-                    console.log(resultingImage, layer);
                     layer.filter.forEach(element => {
                         // todo: check wether this is done sequentially or are there chances for race conditions
                         if (Array.isArray(resultingImage)) {
@@ -317,7 +312,6 @@ define(['canvas', 'createPattern', 'filter', 'templates'], function( canvas, cre
                     myCanvas.img.data[i*4+3] = alpha;  // a
                 }
             } else {
-                console.log(patinaData);
                 for (let i = 0, len = width * height; i < len; i++) {
                     myCanvas.img.data[i * 4]     = Math.floor(patinaData.red[i]   * 256);
                     myCanvas.img.data[i * 4 + 1] = Math.floor(patinaData.green[i] * 256);
@@ -336,12 +330,13 @@ define(['canvas', 'createPattern', 'filter', 'templates'], function( canvas, cre
         }, // _paintCanvas()
 
         _paintCanvasToADifferentDiv: function ( patinaData, width, height, domElementID ) {
-
             let domElement = document.getElementById(domElementID);
             if (domElement) {
-                console.log('_paintCanvasToADifferentDiv');
+                console.log('_paintCanvasToADifferentDiv', domElementID);
                 let myCanvas = this._createCanvas(patinaData, width, height);
                 this._paintCanvas( myCanvas, domElement );
+            } else {
+                // console.log('_paintCanvasToADifferentDiv ', domElementID, ' dom element not found.');
             }
         }, // _paintCanvasToADifferentDiv()
 
