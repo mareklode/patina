@@ -319,9 +319,8 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
   font-size: 1rem;
   line-height: 1.5rem;
   position: absolute;
-  top: 67%;
-  left: 50%;
-  width: 42%;
+  bottom: 12%;
+  right: 12%;
   margin: 0;
 }
 @media screen and (min-width: 600px) {
@@ -500,6 +499,8 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   padding: 1rem;
   background-color: #fee689;
   border: 1px solid gray;
+  overflow: auto;
+  white-space: pre;
 }
 @media screen and (max-width: 599px) {
   .code {
@@ -520,6 +521,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
 .button__applyPatinaTextarea {
   vertical-align: bottom;
   border-bottom: none;
+  text-align: left;
 }
 .parameters dt::after {
   content: ' :';
@@ -642,7 +644,4 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   .pattern__textInbetween {
     line-height: 48px;
   }
-}
-.pattern--patinaFromTextarea {
-  line-height: 256px;
 }
