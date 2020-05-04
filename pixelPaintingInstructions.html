@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width">
   
-      <title>JSON | Patina | mareklode</title>
+      <title>Pixel Painting Instructions | Patina | mareklode</title>
 
-  <meta property="og:title" content="JSON | Patina | mareklode" />
+  <meta property="og:title" content="Pixel Painting Instructions | Patina | mareklode" />
   <meta property="og:image" content="http://mareklode.de/bilder/page/v3/v3_rost4.png" />
-  <meta property="og:description" content="Patina: procedually generated background images in JavaScript. Creating the JSON." />
-  <meta name="description" content="Patina: procedually generated background images in JavaScript. Creating the JSON.">
+  <meta property="og:description" content="Patina: procedually generated background images in JavaScript. Creating the Pixel Painting Instructions." />
+  <meta name="description" content="Patina: procedually generated background images in JavaScript. Creating the Pixel Painting Instructions.">
 
   <link rel="stylesheet" type="text/css" href="css/normalize.min.css">
   <link rel="stylesheet" href="css/main.css?version=2">
@@ -38,17 +38,17 @@
 
     <main class="content__block">
 
-        <h1>Creating the JSON</h1>
+        <h1>Pixel Painting Instructions</h1>
 
         <p class="copy">
-            The JSON describes a data structure that defines how the patina is being created. 
+            The Pixel Painting Instructions describe a data structure that defines how the patina is being created. 
             It is a binary tree, where the end-nodes are images or patterns that are then combined, two at a time, to create the patina.
         </p>
 
         
 
         <p class="copy">
-            This is a very basic example and the JSON-structure can get very unmanageable. 
+            This is a very basic example and the Pixel Painting Instructions can get very unmanageable. 
             To help you, here are the basic structure and building blocks.
         </p>
 
@@ -136,6 +136,116 @@
                 }'
             >createPattern noise_plasma</a>
         </div>
+
+        <style>
+            .nested {
+                width: 50%;
+                float: left;
+            }
+
+            .nested_left,
+            .nested_right {
+                width: 45%;
+                float: left;
+                margin: 0 2.25%;
+            }
+            .PPI-root,
+            .PPI-node {
+                width: 80%;
+                margin-right: 20%;
+                margin-bottom: 20px;
+                height: 200px;
+                background: yellow;
+                display: inline-block;
+                position: relative;
+                border: 1px solid green;
+            }
+            .PPI-node::before {
+                content: '';
+                position: absolute;
+                left: 50%;
+                top: -22px;
+                height: 22px;
+                width: 2px;
+                background-color: green;
+            }
+            .PPI-root {
+                width: 60%;
+                margin-right: 20%;
+                margin-left: 20%;
+            }
+            .nested_right .PPI-node {
+                margin-right: 0;
+                margin-left: 20%;
+            }
+        </style>
+
+        <div class="pixelPaintingInstructions_visualisation">
+            <div class="PPI-root" >patina</div>
+
+            <span class="nested nested_right">
+                <div class="PPI-node">node</div>
+
+                <span class="nested">
+                    <div class="PPI-node">node</div>
+
+                    <span class="nested">
+                        <div class="PPI-node">node</div>
+
+                    </span>
+                    <span class="nested">
+                        <div class="PPI-node">node</div>
+
+                    </span>
+
+                </span>
+                <span class="nested">
+                    <div class="PPI-node">node</div>
+
+                    <span class="nested">
+                        <div class="PPI-node">node</div>
+
+                    </span>
+                    <span class="nested">
+                        <div class="PPI-node">node</div>
+
+                    </span>
+
+                </span>
+            </span>
+            <span class="nested nested_left">
+                <div class="PPI-node">node</div>
+
+                <span class="nested">
+                    <div class="PPI-node">node</div>
+
+                    <span class="nested">
+                        <div class="PPI-node">node</div>
+
+                    </span>
+                    <span class="nested">
+                        <div class="PPI-node">node</div>
+
+                    </span>
+
+                </span>
+                <span class="nested">
+                    <div class="PPI-node">node</div>
+
+                    <span class="nested">
+                        <div class="PPI-node">node</div>
+
+                    </span>
+                    <span class="nested">
+                        <div class="PPI-node">node</div>
+
+                    </span>
+
+                </span>
+            </span>
+        </div>
+
+        <br style="clear: both;">
         
     </main><!-- .content__block -->
   

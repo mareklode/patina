@@ -134,13 +134,13 @@ define(['canvas', 'createPattern', 'filter', 'templates'], function( canvas, cre
             return parameters;
         }, // _completeParameters()
 
-        _jsonParse: function (jsonString) {
+        _jsonParse: function (pixelPaintingInstructions) {
             let parsed;
             try {
-                parsed = JSON.parse(jsonString);
+                parsed = JSON.parse(pixelPaintingInstructions);
             }
             catch (e) {
-                console.error(jsonString, e);
+                console.error(pixelPaintingInstructions, e);
             }
             finally {
                 return parsed || {};
@@ -308,7 +308,7 @@ define(['canvas', 'createPattern', 'filter', 'templates'], function( canvas, cre
             let myCanvas = canvas.newCanvas( width, height );
 
             if ( Array.isArray(patinaData) ) {
-                // ToDo: the JSON should specify how the Array is transformed to an 4-channel-image
+                // ToDo: the pixelPaintingInstructions should specify how the Array is transformed to an 4-channel-image
                 for (let i = 0, len = width * height; i < len; i++) {
                     let alpha = Math.floor(patinaData[i] * 256);
                     myCanvas.img.data[i*4] = 0;      // r

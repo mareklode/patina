@@ -13,11 +13,12 @@
   <script>
         require(['patina'], function( patina ) {
             const target  = document.getElementById('js-patina-goes-here');
-            const json    = `{"patina" : {
-                         "type"          : "createPattern",
-                         "patternName"   : "noise_1D"
-                     } }`;
-            new patina(target, json);
+            const pixelPaintingInstructions =
+                `{ "patina" : {
+                    "type"          : "createPattern",
+                    "patternName"   : "noise_1D"
+                }}`;
+            new patina(target, pixelPaintingInstructions);
         });
   </script>
 </html>

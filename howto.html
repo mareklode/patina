@@ -64,13 +64,14 @@
         &lt;div id="js-patina-goes-here" style="width: 64px; height: 64px;" >&lt;/div>
     &lt;/body>
     &lt;script>
-        require(['patina'], function( patina ) {
-            const target  = document.getElementById('js-patina-goes-here');
-            const json    = `{"patina" : {
-                        "type"          : "createPattern",
-                        "patternName"   : "noise_1D"
-                    } }`;
-            new patina(target, json);
+        require(['patina'], function(patina) {
+            const target = document.getElementById('js-patina-goes-here');
+            const pixelPaintingInstructions =
+                `{ "patina" : {
+                    "type"          : "createPattern",
+                    "patternName"   : "noise_1D"
+                }}`;
+            new patina(target, pixelPaintingInstructions);
         });
     &lt;/script>
 &lt;/html></pre>
@@ -141,27 +142,15 @@ WWW
     });
 &lt;/script></pre>
 
-        <h2>JSON (i should really rename this to something more describing its function) </h2>
-            
-        <p class="copy">For example:</p>
-        <ul class="copy">
-            <li>Pixel Pushing Instructions</li>
-            <li>painting instructions
-            <li>weathering rules
-            <li>building description 
-            <li>computation directive
-            <li>pixel manipulation guide(line)
-            <li>data-flow model
-            <li>layer tree
-        </ul>
+        <h2>Pixel Painting Instructions</h2>
 
         <p class="copy">
             The "const json" in the example above is the data structure, that defines how the patina is being created. 
-            This is a very basic example and the JSON-structure can get very unmanageable.
+            This is a very basic example and the Pixel Painting Instructions can get very unmanageable.
         </p>
 
-        <a class="button copy" href="json.html" style="padding: 4vw;">
-            Next: JSON. How to create this data structure.
+        <a class="button copy" href="pixelPaintingInstructions.html" style="padding: 4vw;">
+            Next: How to create the Pixel Painting Instructions.
         </a>
         
     </main><!-- .content__block -->
