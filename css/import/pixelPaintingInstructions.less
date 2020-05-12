@@ -1,0 +1,52 @@
+.pixelPaintingInstructions {
+    font-size: 4vw;
+    line-height: 1.5;
+}
+
+.PPI-branch {
+    width: 50%;
+    font-size: 75%;
+    float: left;
+}
+.PPI-branch--fourChildren > .PPI-branch {
+    width: 25%;
+    font-size: 40%;
+}
+.PPI-branch--fourChildren > .PPI-branch--left,
+.PPI-branch--fourChildren > .PPI-branch--right {
+    width: 20%;
+    margin: 0 2.5%;
+}
+.PPI-branch--left,
+.PPI-branch--right {
+    width: 45%;
+    margin: 0 2.25%;
+}
+.PPI-root,
+.PPI-node {
+    width: 80%;
+    margin-left: 20%;
+    margin-bottom: 20px;
+    background: @backgroundColor;
+    display: inline-block;
+    position: relative;
+    border: 1px solid @borderColor;
+}
+.PPI-node::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: -22px;
+    height: 22px;
+    width: 2px;
+    background-color: @borderColor;
+}
+.PPI-root {
+    width: 60%;
+    margin-right: 20%;
+    margin-left: 20%;
+}
+.PPI-branch--right .PPI-node {
+    margin-right: 20%;
+    margin-left: 0;
+}

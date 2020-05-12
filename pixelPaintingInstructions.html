@@ -137,114 +137,135 @@
             >createPattern noise_plasma</a>
         </div>
 
-        <style>
-            .pixelPaintingInstructions_visualisation {
-                font-size: 5vw;
-                line-height: 1;
-            }
+        <div class="pixelPaintingInstructions">
 
-            .nested {
-                width: 50%;
-                font-size: 66%;
-                float: left;
-            }
-            .nested_left,
-            .nested_right {
-                width: 45%;
-                margin: 0 2.25%;
-            }
-            .PPI-root,
-            .PPI-node {
-                width: 80%;
-                margin-left: 20%;
-                margin-bottom: 20px;
-                height: 200px;
-                background: yellow;
-                display: inline-block;
-                position: relative;
-                border: 1px solid green;
-            }
-            .PPI-node::before {
-                content: '';
-                position: absolute;
-                left: 50%;
-                top: -22px;
-                height: 22px;
-                width: 2px;
-                background-color: green;
-            }
-            .PPI-root {
-                width: 60%;
-                margin-right: 20%;
-                margin-left: 20%;
-            }
-            .nested_right .PPI-node {
-                margin-right: 20%;
-                margin-left: 0;
-            }
-        </style>
+            <span class="PPI-branch PPI-branch--fourChildren" style="width: 100%;">  
+                <div class="PPI-root js-require" 
+                    data-require-name="patina" 
+                    data-require-data='{
+                        "width" :   256,
+                        "height":   256,
+                        "reusableImages" : [
+                            { 
+                                "id"            : "greyNoise", 
+                                    "type"          : "combine",
+                                    "combineMode"   : { "name": "distort", "radius": 800 },
+                                    "topLayer"      : {
+                                        "type"          : "createPattern",
+                                        "patternName"   : "wave",
+                                        "direction"     : "concentric",
+                                        "frequency"     : 3
+                                    },
+                                    "bottomLayer"   : {
+                                        "type"          : "createPattern",
+                                        "patternName"   : "wave",
+                                        "direction"     : "vertical", 
+                                        "frequency"     : 3
+                                    }
+                                
+                            }
+                        ],
+                        "patina": {
+                            "type"  : "colorChannels",
+                            "red"   : {
+                                "type"          : "combine",
+                                "combineMode"   : { "name": "distort", "radius": 32 },
+                                "topLayer"      : {
+                                    "type"          : "createPattern",
+                                    "patternName"   : "noise_plasma"
+                                },
+                                "bottomLayer"   : {
+                                    "type"      :   "reuseImage",
+                                    "reuseId"   :   "greyNoise"
+                                }
+                            },
+                            "green" : {
+                                "type"          : "combine",
+                                "combineMode"   : { "name": "distort", "radius": 32 },
+                                "topLayer"      : {
+                                    "type"          : "createPattern",
+                                    "patternName"   : "noise_plasma"
+                                },
+                                "bottomLayer"   : {
+                                    "type"      :   "reuseImage",
+                                    "reuseId"   :   "greyNoise"
+                                }
+                            },
+                            "blue"  :  {
+                                "type"          : "combine",
+                                "combineMode"   : { "name": "distort", "radius": 32 },
+                                "topLayer"      : {
+                                    "type"          : "createPattern",
+                                    "patternName"   : "noise_plasma"
+                                },
+                                "bottomLayer"   : {
+                                    "type"      :   "reuseImage",
+                                    "reuseId"   :   "greyNoise"
+                                }
+                            },
+                            "alpha" :  128
+                        }
+                    }' >
+                    patina<br>
+                    type: colorChannels<br>
+                    width: 256<br>
+                    height: 256
+                </div>
 
-        <div class="pixelPaintingInstructions_visualisation">
-            <div class="PPI-root" >patina</div>
+                <span class="PPI-branch PPI-branch--left">
+                    <div class="PPI-node">node: red<br>combine</div>
 
-            <span class="nested nested_left">
-                <div class="PPI-node">node</div>
-
-                <span class="nested">
-                    <div class="PPI-node">node</div>
-
-                    <span class="nested">
-                        <div class="PPI-node">node</div>
+                    <span class="PPI-branch">
+                        <div class="PPI-node">topLayer</div>
 
                     </span>
-                    <span class="nested">
-                        <div class="PPI-node">node</div>
+                    <span class="PPI-branch">
+                        <div class="PPI-node">bottomLayer</div>
 
                     </span>
-
                 </span>
-                <span class="nested">
-                    <div class="PPI-node">node</div>
+                <span class="PPI-branch PPI-branch--left">
+                    <div class="PPI-node">green</div>
 
-                    <span class="nested">
+                    <span class="PPI-branch">
                         <div class="PPI-node">node</div>
-
                     </span>
-                    <span class="nested">
+                    <span class="PPI-branch">
                         <div class="PPI-node">node</div>
-
                     </span>
-
                 </span>
-            </span>
-            <span class="nested nested_right">
-                <div class="PPI-node">node</div>
+                <span class="PPI-branch PPI-branch--right">
+                    <div class="PPI-node">blue</div>
 
-                <span class="nested">
-                    <div class="PPI-node">node</div>
-
-                    <span class="nested">
+                    <span class="PPI-branch">
                         <div class="PPI-node">node</div>
 
+                        <span class="PPI-branch">
+                            <div class="PPI-node">node</div>
+
+                        </span>
+                        <span class="PPI-branch">
+                            <div class="PPI-node">node</div>
+
+                        </span>
+
                     </span>
-                    <span class="nested">
+                    <span class="PPI-branch">
                         <div class="PPI-node">node</div>
 
-                    </span>
+                        <span class="PPI-branch">
+                            <div class="PPI-node">node</div>
 
+                        </span>
+                        <span class="PPI-branch">
+                            <div class="PPI-node">node</div>
+
+                        </span>
+
+                    </span>
                 </span>
-                <span class="nested">
-                    <div class="PPI-node">node</div>
-
-                    <span class="nested">
-                        <div class="PPI-node">node</div>
-
-                    </span>
-                    <span class="nested">
-                        <div class="PPI-node">node</div>
-
-                    </span>
-
+                <span class="PPI-branch PPI-branch--right">
+                    <div class="PPI-node">alpha: 128</div>
                 </span>
             </span>
         </div>

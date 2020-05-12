@@ -42,7 +42,23 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
         border-bottom: none;
         text-align: left;
     }
+    &__nextPage {
+        .contentContainer;
+        position: relative;
+        &::after {
+            position: absolute;
+            content: '';
+            right: 2vw;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 0;
+            border-style: solid;
+            border-color: transparent rgba( 255, 255, 255, 0.2 );
+            border-width: 3vw 0 3vw 3vw;
+        }
+    }
 }
+
 
 .parameters {
     dt::after { 

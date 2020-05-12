@@ -523,6 +523,35 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   border-bottom: none;
   text-align: left;
 }
+.button__nextPage {
+  display: block;
+  text-align: left;
+  position: relative;
+}
+@media screen and (max-width: 599px) {
+  .button__nextPage {
+    margin: 3rem auto 1rem auto;
+    width: 90vw;
+  }
+}
+@media screen and (min-width: 600px) {
+  .button__nextPage {
+    margin: 3rem auto 1rem auto;
+    width: 80vw;
+    max-width: 1000px;
+  }
+}
+.button__nextPage::after {
+  position: absolute;
+  content: '';
+  right: 2vw;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 0;
+  border-style: solid;
+  border-color: transparent rgba(255, 255, 255, 0.2);
+  border-width: 3vw 0 3vw 3vw;
+}
 .parameters dt::after {
   content: ' :';
 }
@@ -644,4 +673,55 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   .pattern__textInbetween {
     line-height: 48px;
   }
+}
+.pixelPaintingInstructions {
+  font-size: 4vw;
+  line-height: 1.5;
+}
+.PPI-branch {
+  width: 50%;
+  font-size: 75%;
+  float: left;
+}
+.PPI-branch--fourChildren > .PPI-branch {
+  width: 25%;
+  font-size: 40%;
+}
+.PPI-branch--fourChildren > .PPI-branch--left,
+.PPI-branch--fourChildren > .PPI-branch--right {
+  width: 20%;
+  margin: 0 2.5%;
+}
+.PPI-branch--left,
+.PPI-branch--right {
+  width: 45%;
+  margin: 0 2.25%;
+}
+.PPI-root,
+.PPI-node {
+  width: 80%;
+  margin-left: 20%;
+  margin-bottom: 20px;
+  background: #fee689;
+  display: inline-block;
+  position: relative;
+  border: 1px solid gray;
+}
+.PPI-node::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -22px;
+  height: 22px;
+  width: 2px;
+  background-color: gray;
+}
+.PPI-root {
+  width: 60%;
+  margin-right: 20%;
+  margin-left: 20%;
+}
+.PPI-branch--right .PPI-node {
+  margin-right: 20%;
+  margin-left: 0;
 }
