@@ -366,6 +366,14 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
     padding: 15px 2vw;
   }
 }
+.navigation__nowrap {
+  white-space: nowrap;
+}
+@media screen and (max-width: 299px) {
+  .navigation__nowrap {
+    white-space: unset;
+  }
+}
 /*
 #   #####
 #  #     #  ####  #    # ##### ###### #    # #####
