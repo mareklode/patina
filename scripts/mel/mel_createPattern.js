@@ -49,7 +49,7 @@ define(['canvas', 'noise'], function( canvas, noise ) {
         }, // border()
 
         noise_plasma: function ( layerDefinition, width, height ) {
-            return noise.noise_plasma(width);
+            return noise.noise_plasma(width, layerDefinition.frequency);
         },
 
         // better use the number-Shortcut like { "topLayer" : 256 }

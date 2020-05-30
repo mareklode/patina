@@ -3,8 +3,9 @@ define([], function() {
     noise = {
 
         // https://sdm.scad.edu/faculty/mkesson/vsfx419/wip/best/winter12/jonathan_mann/noise.html
-        noise_plasma: function (width) {
+        noise_plasma: function (width, frequency) {
 
+            frequency = frequency || 1;
             let max=0,
                 min=0,
                 aktX,aktY,
@@ -20,7 +21,8 @@ define([], function() {
                 displacementDistance,
                 averageColor, range = b,
                 chunkSize = b/2,// * b,
-                noiseMap = [];
+                noiseMap = [],
+                threshold = noiseMapWidth / frequency;
 
             // console.log('noiseMapWidth: ', noiseMapWidth);
 
@@ -44,20 +46,25 @@ define([], function() {
                 // and assign new value to center of the square
                 for ( aktX = 0; aktX < noiseMapWidth; aktX=aktX+b ){
                     for ( aktY = 0; aktY < noiseMapWidth; aktY=aktY+b ){
-                        // set range for displacement distance
-                        if ( b < chunkSize) {
-                            range = b * 1.414 + (1/b) +3.1415;
+                        if (b > threshold) { 
+                            displacementDistance = 0; 
+                            averageColor = 0;
                         } else {
-                            range = 0;
-                        }
-                        displacementDistance = this.randomFromTo( -range , range );
+                            // set range for displacement distance
+                            if ( b < chunkSize) {
+                                range = b * 1.414 + (1/b) +3.1415;
+                            } else {
+                                range = 0;
+                            }
+                            displacementDistance = this.randomFromTo( -range , range );
 
-                        // calculate average of the corners
-                        averageColor = ( noiseMap[aktX][aktY]
-                                       + noiseMap[aktX+b][aktY]
-                                       + noiseMap[aktX][aktY+b]
-                                       + noiseMap[aktX+b][aktY+b]
-                                       ) / 4;
+                            // calculate average of the corners
+                            averageColor = ( noiseMap[aktX][aktY]
+                                        + noiseMap[aktX+b][aktY]
+                                        + noiseMap[aktX][aktY+b]
+                                        + noiseMap[aktX+b][aktY+b]
+                                        ) / 4;
+                        }
                         try {
                             // assign new value to center of the square
                             noiseMap[aktX+bh][aktY+bh] = averageColor + displacementDistance;
@@ -77,26 +84,31 @@ define([], function() {
                 // and assign new value to center of the diamond
                 for ( aktX=0; aktX < ( (noiseMapWidth-1) ); aktX=aktX+b ){
                     for ( aktY=0; aktY< ( (noiseMapWidth-1) ); aktY=aktY+b ){
-                        if ( b < chunkSize ) {
-                            range = b + (1/b) +3.1415;
+                        if (b > threshold) { 
+                            displacementDistance = 0; 
+                            averageColor = 0;
                         } else {
-                            range = 0;
+                            if ( b < chunkSize ) {
+                                range = b + (1/b) +3.1415;
+                            } else {
+                                range = 0;
+                            }
+
+                            if ( aktY == 0 ){
+                                feldOben = noiseMap[aktX+bh][noiseMapWidth-bh];
+                            } else {
+                                feldOben = noiseMap[aktX+bh][aktY-bh];
+                            }
+
+                            // calculate average of the corners
+                            averageColor = ( noiseMap[aktX][aktY]
+                                        + noiseMap[aktX+b][aktY]
+                                        + feldOben
+                                        + noiseMap[aktX+bh][aktY+bh]
+                                        ) / 4;
+
+                            displacementDistance = this.randomFromTo( -range , range );
                         }
-
-                        if ( aktY == 0 ){
-                            feldOben = noiseMap[aktX+bh][noiseMapWidth-bh];
-                        } else {
-                            feldOben = noiseMap[aktX+bh][aktY-bh];
-                        }
-
-                        // calculate average of the corners
-                        averageColor = ( noiseMap[aktX][aktY]
-                                       + noiseMap[aktX+b][aktY]
-                                       + feldOben
-                                       + noiseMap[aktX+bh][aktY+bh]
-                                       ) / 4;
-
-                        displacementDistance = this.randomFromTo( -range , range );
                         // assign new value to center of the square
                         noiseMap[aktX+bh][aktY] = averageColor + displacementDistance;
 
@@ -108,14 +120,21 @@ define([], function() {
                         } else {
                             feldLinks = noiseMap[aktX-bh][aktY+bh];
                         }
-                        // calculate average of the corners
-                        averageColor = ( noiseMap[aktX][aktY]
-                                       + noiseMap[aktX+b][aktY]
-                                       + noiseMap[aktX+bh][aktY+bh]
-                                       + feldLinks
-                                       ) / 4;
-                        displacementDistance = this.randomFromTo( -range, range );
-                        // assign new value to center of the square
+
+                        if (b > threshold) { 
+                            displacementDistance = 0; 
+                            averageColor = 0;
+                        } else {
+
+                            // calculate average of the corners
+                            averageColor = ( noiseMap[aktX][aktY]
+                                        + noiseMap[aktX+b][aktY]
+                                        + noiseMap[aktX+bh][aktY+bh]
+                                        + feldLinks
+                                        ) / 4;
+                            displacementDistance = this.randomFromTo( -range, range );
+                            // assign new value to center of the square
+                        }
                         noiseMap[aktX][aktY+bh]=averageColor + displacementDistance;
 
                         // need min & max for stretching to color space
