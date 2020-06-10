@@ -153,7 +153,7 @@ define([], function() {
             } // while
 
             // stretching to color space
-            let stretchFromZeroTo = 1, // or 255
+            const stretchFromZeroTo = 1, // or 255
                 by = stretchFromZeroTo / (max - min); // how much to stretch
 
             for ( i = 0; i < noiseMapWidth; i++ ) {

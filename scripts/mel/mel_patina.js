@@ -180,6 +180,15 @@ define(['canvas', 'createPattern', 'filter', 'templates'], function( canvas, cre
                     if (vectorY < 0) { vectorY = height + vectorY; }
                     return bottomLayer[ modulo(vector, bottomLayer.length) ];
                 });
+            } else if (combineMode.name === 'subtract') {
+                return bottomLayer.map(function (value, index) {
+                    const result = topLayer[index] - value;
+                    return ( result > 0 ? result : 0);
+                });
+            } else if (combineMode.name === 'multiply') {
+                return bottomLayer.map(function (value, index) {
+                    return (topLayer[index] * value);
+                });
             } else {
                 return bottomLayer.map(function (value, index) {
                     return (value + topLayer[index]) / 2;

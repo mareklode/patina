@@ -41,72 +41,95 @@
 
         <h1>What's the issue with those borders?</h1>
 
-        <div class="pattern__thumbnails--128" id="reusableImage_greyNoise"></div>
+        <div class="pattern__thumbnails--128" id="reusableImage_firstBorder"></div>
+        <div class="pattern__thumbnails--128" id="reusableImage_secondBorder"></div>
+        <div class="pattern__thumbnails--128" id="reusableImage_subtractedBorder"></div>
         <div class="pattern__thumbnails--128" id="reusableImage_plasmaNoise"></div>
 
         <p>Modulo at the borders wraps to new line!</p>
         <div class="pattern">
 
-            <div class="js-require pattern__thumbnails pattern__thumbnails--512" 
+            <div class="js-require pattern__thumbnails pattern__thumbnails--256" 
+                style="background-color: #7d9cb1;"
                 data-require-name="patina" 
                 data-require-data='{
-                    "width"          : 128,
-                    "height"         : 128,
+                    "width"          : 256,
+                    "height"         : 256,
                     "reusableImages" : [
                         {
-                            "id"            : "plasmaNoise",
+                            "id"            : "firstBorder",
                             "type"          : "createPattern",
-                            "patternName"   : "noise_plasma"
+                            "patternName"   : "border",
+                            "filter"        : [
+                                { "name": "brightness", "brightness": -1.5 }
+                            ]
                         },
                         { 
-                            "id"            : "greyNoise", 
+                            "id"            : "secondBorder",
+                            "type"          : "createPattern",
+                            "patternName"   : "border",
+                            "filter"        : [{ "name": "contrast", "x": 0.33, "m": 2 }]
+                        },
+                        { 
+                            "id"            : "plasmaNoise",
+                            "type"          : "createPattern",
+                            "pattern"       : {
+                                "name"          : "noise_plasma",
+                                "frequency"     : 2
+                            }
+                        },
+                        { 
+                            "id"            : "subtractedBorder", 
                             "type"          : "combine",
-                            "combineMode"   : { "name": "distort", "radius": 1024 },
+                            "combineMode"   : { "name": "subtract" },
                             "topLayer"      : {
-                                "type"          : "createPattern",
-                                "patternName"   : "noise_plasma",
-                                "filter"        : [{ "name": "blur", "radius": 8 }]
+                                "type"          : "reuseImage",
+                                "reuseId"       : "firstBorder"
                             },
                             "bottomLayer"   : {
                                 "type"          : "reuseImage",
-                                "reuseId"       : "plasmaNoise"
-                            }
+                                "reuseId"       : "secondBorder"
+                            },
+                            "filter"        : [
+                                { "name": "brightness", "brightness": -0.51 },
+                                { "name": "blur", "radius": 2 }
+                            ]
+                        },
+                        { 
+                            "id"            : "multipliedNoise", 
+                            "type"          : "combine",
+                            "combineMode"   : { "name": "subtract" },
+                            "topLayer"      : {
+                                "type"          : "reuseImage",
+                                "reuseId"       : "subtractedBorder"
+                            },
+                            "bottomLayer"   : {
+                                "type"          : "reuseImage",
+                                "reuseId"       : "plasmaNoise",
+                                "filter"        : [{ "name": "contrast", "m": 1.5, "x": 0.4 }]
+                            },
+                            "filter"        : [{ "name": "push" }]
                         }
                     ],
                     "patina": {
                         "type"  : "colorChannels",
-                        "blue"  : {
-                            "type"          : "combine",
-                            "combineMode"   : { "name": "distort", "radius": 1024 },
+                        "red"   : 210,
+                        "green" : 110,
+                        "blue"  : 70,
+                        "alpha" : {
+                            "type"  : "combine",
+                            "combineMode" : { "name": "subtract" },
                             "topLayer"      : {
-                                "type"          :   "reuseImage",
-                                "reuseId"       :   "greyNoise"
+                                "type"          : "reuseImage",
+                                "reuseId"       : "multipliedNoise",
+                                "filter"        : [{ "name": "contrast", "m": 2, "x": 0.33 }]
                             },
                             "bottomLayer"   : {
-                                "type"          : "reuseImage",
-                                "reuseId"       : "plasmaNoise"
+                                "type"          : "createPattern",
+                                "patternName"   : "noise_white",
+                                "filter"        : [{ "name": "brightness", "brightness": 4 }]
                             }
-                        },
-                        "red"   : {
-                            "type"          : "reuseImage",
-                            "reuseId"       : "greyNoise"
-                        },
-                        "green" :  {
-                            "type"          : "reuseImage",
-                            "reuseId"       : "greyNoise"
-                        },
-                        "alpha" :  256
-                    }
-                }'
-            ></div>
-            <div class="js-require pattern__thumbnails pattern__thumbnails--512" 
-                data-require-name="patina" 
-                data-require-data='{
-                    "width" : 128,
-                    "height": 128,
-                    "patina": {
-                        "type"  : "createPattern",
-                        "patternName": "noise_plasma"
+                        }
                     }
                 }'
             ></div>

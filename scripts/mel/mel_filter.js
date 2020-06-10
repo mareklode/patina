@@ -106,6 +106,17 @@ define([], function() {
             });
         }, // invert() 
 
+        // maximize the color range of the array to 0..1s
+        push: function (image) {
+            const max = Math.max(...image),
+                  min = Math.min(...image),
+                  by = 1 / (max - min);;
+
+            return image.map(function(value){
+                return (value - min) * by;
+            })
+        }, // push()
+
         threshold: function (image, filterDefinition) {
             let threshold = filterDefinition.threshold || 0.5;
             return image.map(function(value){
