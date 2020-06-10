@@ -273,7 +273,7 @@ define(['canvas', 'createPattern', 'filter', 'templates'], function( canvas, cre
             }
 
             
-            await this.waitMilliseconds(250);
+            await this.waitMilliseconds(50);
             
             
             if (layer.type === "createPattern") {

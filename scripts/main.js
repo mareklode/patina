@@ -7,7 +7,8 @@ require.config({
         noise:          'mel/mel_noise',
         filter:         'mel/mel_filter',
         templates:      'mel/mel_pageTemplates',
-    }
+    },
+    urlArgs: "bust=v2"
 });
 
 let mel = {};

@@ -106,11 +106,29 @@ define([], function() {
             });
         }, // invert() 
 
-        // maximize the color range of the array to 0..1s
+        // maximize the color range of the array to 0..1
         push: function (image) {
+            /*
             const max = Math.max(...image),
                   min = Math.min(...image),
-                  by = 1 / (max - min);;
+            this breaks for large arrays and the standard loop is faster
+            see https://jsperf.com/find-min-max-of-array
+            */
+            let max = image[0];
+            for (let i = 1; i < image.length; ++i) {
+                if (image[i] > max) {
+                    max = image[i];
+                }
+            }
+            
+            let min = image[0];
+            for (let i = 1; i < image.length; ++i) {
+                if (image[i] < min) {
+                    min = image[i];
+                }
+            }
+
+            const by = 1 / (max - min);
 
             return image.map(function(value){
                 return (value - min) * by;

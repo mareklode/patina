@@ -108,7 +108,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Mixins
   .contentContainer {
     margin: 3rem auto 1rem auto;
     width: 80vw;
-    max-width: 1000px;
+    max-width: 1024px;
   }
 }
 .buttonColors {
@@ -188,7 +188,7 @@ h1 {
   h1 {
     margin: 3rem auto 1rem auto;
     width: 80vw;
-    max-width: 1000px;
+    max-width: 1024px;
   }
 }
 @media screen and (min-width: 600px) {
@@ -213,7 +213,7 @@ h2 {
   h2 {
     margin: 3rem auto 1rem auto;
     width: 80vw;
-    max-width: 1000px;
+    max-width: 1024px;
   }
 }
 .button {
@@ -485,7 +485,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   .copy {
     margin: 3rem auto 1rem auto;
     width: 80vw;
-    max-width: 1000px;
+    max-width: 1024px;
   }
 }
 .copy a:not(.button) {
@@ -520,7 +520,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   .code {
     margin: 3rem auto 1rem auto;
     width: 80vw;
-    max-width: 1000px;
+    max-width: 1024px;
   }
 }
 .button {
@@ -546,7 +546,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   .button__nextPage {
     margin: 3rem auto 1rem auto;
     width: 80vw;
-    max-width: 1000px;
+    max-width: 1024px;
   }
 }
 .button__nextPage::after {
@@ -603,7 +603,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   .pattern {
     margin: 3rem auto 1rem auto;
     width: 80vw;
-    max-width: 1000px;
+    max-width: 1024px;
   }
 }
 @media screen and (min-width: 600px) {
