@@ -16,7 +16,7 @@
 </head>
 <body class="content">
 
-    <header class="header js-require"
+    <header class="header js-module"
         data-require-name="patina"
         data-require-data="template_header">
         <a href="." class="header__logo" title="Homepage">
@@ -24,15 +24,17 @@
         </a>
     </header>
 
-    <nav class="navigation js-require" 
+    <nav class="navigation js-module" 
          data-require-name="patina" 
          data-require-data='template_navigation'>
         <a class="navigation__link" href=".">Home</a>
         <a class="navigation__link" href="howto.html">HowTo</a>
         <a class="navigation__link" href="filter.html">filter</a>
-        <a class="navigation__link" href="reusableImages.html">reusableImages</a>
-        <a class="navigation__link" href="examples.html">examples</a>
-        <a class="navigation__link" href="test.html">test</a>
+        <span class="navigation__nowrap">
+            <a class="navigation__link" href="reusableImages.html">reusableImages</a>
+            <a class="navigation__link" href="examples.html">examples</a>
+            <a class="navigation__link" href="test.html">test</a>
+        </span>
     </nav>
 
     <main class="content__block">
@@ -47,7 +49,7 @@
     "patternName"   : "wave"
 }</pre>
         <div class="pattern">
-            <div class="js-require pattern__thumbnails pattern__thumbnails--256"
+            <div class="js-module pattern__thumbnails pattern__thumbnails--256"
                 data-require-name="patina"
                 data-require-data='{
                     "patina": {
@@ -66,7 +68,7 @@
             <dd>
                 possible values are these strings:
                 <br />
-                <div class="js-require pattern__thumbnails pattern__thumbnails--lineHeight" 
+                <div class="js-module pattern__thumbnails pattern__thumbnails--lineHeight" 
                     data-require-name="patina" 
                     data-require-data='{
                         "patina": {
@@ -79,7 +81,7 @@
                     }'
                 ></div> vertical (default)
                 <br />
-                <div class="js-require pattern__thumbnails pattern__thumbnails--lineHeight" 
+                <div class="js-module pattern__thumbnails pattern__thumbnails--lineHeight" 
                     data-require-name="patina" 
                     data-require-data='{
                         "patina": {
@@ -93,7 +95,7 @@
                     }'
                 ></div> horizontal
                 <br />
-                <div class="js-require pattern__thumbnails pattern__thumbnails--lineHeight" 
+                <div class="js-module pattern__thumbnails pattern__thumbnails--lineHeight" 
                     data-require-name="patina" 
                     data-require-data='{
                         "patina": {
@@ -106,7 +108,7 @@
                     }'
                 ></div> diagonalUp
                 <br />
-                <div class="js-require pattern__thumbnails pattern__thumbnails--lineHeight" 
+                <div class="js-module pattern__thumbnails pattern__thumbnails--lineHeight" 
                     data-require-name="patina" 
                     data-require-data='{
                         "patina": {
@@ -119,7 +121,7 @@
                     }'
                 ></div> diagonalDown
                 <br />
-                <div class="js-require pattern__thumbnails pattern__thumbnails--lineHeight" 
+                <div class="js-module pattern__thumbnails pattern__thumbnails--lineHeight" 
                     data-require-name="patina" 
                     data-require-data='{
                         "patina": {
@@ -133,7 +135,7 @@
                     }'
                 ></div> concentric
                 <br />
-                <div class="js-require pattern__thumbnails pattern__thumbnails--lineHeight" 
+                <div class="js-module pattern__thumbnails pattern__thumbnails--lineHeight" 
                     data-require-name="patina" 
                     data-require-data='{
                         "patina": {
@@ -151,7 +153,7 @@
             <dd>
                 defines how many 'waves' per width you get. Possible values are numbers. Negative numbers invert the pattern.
                 <br />
-                <div class="js-require pattern__thumbnails pattern__thumbnails--lineHeight" 
+                <div class="js-module pattern__thumbnails pattern__thumbnails--lineHeight" 
                     data-require-name="patina" 
                     data-require-data='{
                         "patina": {
@@ -163,7 +165,7 @@
                     }'
                 ></div> 5 (default)
                 <br />
-                <div class="js-require pattern__thumbnails pattern__thumbnails--lineHeight" 
+                <div class="js-module pattern__thumbnails pattern__thumbnails--lineHeight" 
                     data-require-name="patina" 
                     data-require-data='{
                         "patina": {
@@ -176,7 +178,7 @@
                     }'
                 ></div> 2
                 <br />
-                <div class="js-require pattern__thumbnails pattern__thumbnails--lineHeight" 
+                <div class="js-module pattern__thumbnails pattern__thumbnails--lineHeight" 
                     data-require-name="patina" 
                     data-require-data='{
                         "patina": {
@@ -189,7 +191,7 @@
                     }'
                 ></div> -2
                 <br />
-                <div class="js-require pattern__thumbnails pattern__thumbnails--lineHeight" 
+                <div class="js-module pattern__thumbnails pattern__thumbnails--lineHeight" 
                     data-require-name="patina" 
                     data-require-data='{
                         "patina": {
@@ -207,7 +209,7 @@
             <dd>
                 you can slide the pattern up, down, left and right. Possible values are numbers.
                 <br />
-                <div class="js-require pattern__thumbnails pattern__thumbnails--lineHeight" 
+                <div class="js-module pattern__thumbnails pattern__thumbnails--lineHeight" 
                     data-require-name="patina" 
                     data-require-data='{
                         "patina": {
@@ -220,7 +222,7 @@
                     }'
                 ></div> 0 | 0 (default)
                 <br />
-                <div class="js-require pattern__thumbnails pattern__thumbnails--lineHeight" 
+                <div class="js-module pattern__thumbnails pattern__thumbnails--lineHeight" 
                     data-require-name="patina" 
                     data-require-data='{
                         "patina": {
@@ -235,7 +237,7 @@
                 ></div> 0 | 15
 
                 <br />
-                <div class="js-require pattern__thumbnails pattern__thumbnails--lineHeight" 
+                <div class="js-module pattern__thumbnails pattern__thumbnails--lineHeight" 
                     data-require-name="patina" 
                     data-require-data='{
                         "patina": {
@@ -277,40 +279,36 @@
 }
             </textarea>
         
-            <!-- ToDo: i have to rename this, don't i ? -->
-            <script src="scripts/vendor/require.js"></script>
+            <script type="module" src="scripts/main.js"></script>
             <script>
-                // for inline require calls you do not use the "data-main" entry point
-                // https://requirejs.org/docs/api.html#data-main
-                require(['scripts/main'], function() {
-                    const trigger  = document.getElementById('js_patina_CallToAction'),
-                        textarea = document.getElementById('js_patina_textarea'),
-                        target   = document.getElementById('js_patina_fromTextarea');
-        
-                    const calculatePatinaFromTextarea = function () {
-                        require(['patina'], function( patina ) {
-                            new patina(target, textarea.value);
+                const trigger  = document.getElementById('js_patina_CallToAction');
+                const textarea = document.getElementById('js_patina_textarea');
+                const target   = document.getElementById('js_patina_fromTextarea');
+
+                const calculatePatinaFromTextarea = function () {
+                    import('./scripts/modules/mel_patina.js')
+                        .then((patina) => {
+                            new patina.default(target, textarea.value);
                         });
-                    };
-        
-                    trigger.addEventListener('click', calculatePatinaFromTextarea);
-                    calculatePatinaFromTextarea();
-                });
+                };
+    
+                trigger.addEventListener('click', calculatePatinaFromTextarea);
+                calculatePatinaFromTextarea();
             </script>
         </div><!-- .pattern -->
     
     </main><!-- .content__block -->
 
-    <footer class="footer js-require"
+    <footer class="footer js-module"
             data-require-name="patina"
             data-require-data="template_footer">
-        &copy; 2020 Marek Lode &nbsp; | &nbsp; 
+        &copy; 2022 Marek Lode &nbsp; | &nbsp; 
         <a href="https://github.com/mareklode/patina">
             <img class="footer__githublogo" src="images/page/GitHub-Mark-32px.png" alt="GitHub Logo" />
             This Project on GitHub
         </a>
     </footer>
 
-    <script data-main="scripts/main" src="scripts/vendor/require.js"></script>
+    <script type="module" src="scripts/main.js"></script>
 </body>
 </html>

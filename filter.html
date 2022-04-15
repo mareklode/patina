@@ -17,7 +17,7 @@
 </head>
 <body class="content">
 
-    <header class="header js-require" 
+    <header class="header js-module" 
         data-require-name="patina" 
         data-require-data="template_header">
         <a href="." class="header__logo" title="Homepage">
@@ -25,7 +25,7 @@
         </a>
     </header>
 
-    <nav class="navigation js-require" 
+    <nav class="navigation js-module" 
          data-require-name="patina" 
          data-require-data='template_navigation'>
         <a class="navigation__link" href=".">Home</a>
@@ -43,7 +43,7 @@
         <div class="pattern">
 
             <a href="filter_blur.html"
-                class="js-require pattern__thumbnails pattern__thumbnails--clickable" 
+                class="js-module pattern__thumbnails pattern__thumbnails--clickable" 
                 data-require-name="patina" 
                 data-require-data='{
                     "width": 256,
@@ -64,7 +64,7 @@
             >filter : blur</a>
 
             <a href="filter_brightness.html"
-                class="js-require pattern__thumbnails pattern__thumbnails--clickable" 
+                class="js-module pattern__thumbnails pattern__thumbnails--clickable" 
                 data-require-name="patina" 
                 data-require-data='{
                     "width": 256,
@@ -85,7 +85,7 @@
             >filter : brightness</a>
 
             <a href="filter_contrast.html"
-                class="js-require pattern__thumbnails pattern__thumbnails--clickable" 
+                class="js-module pattern__thumbnails pattern__thumbnails--clickable" 
                 data-require-name="patina" 
                 data-require-data='{
                     "width": 256,
@@ -106,7 +106,7 @@
             >filter : contrast</a>
 
             <a href="filter_invert.html"
-                class="js-require pattern__thumbnails pattern__thumbnails--clickable" 
+                class="js-module pattern__thumbnails pattern__thumbnails--clickable" 
                 data-require-name="patina" 
                 data-require-data='{
                     "reusableImages"    : [
@@ -125,7 +125,7 @@
             >filter : invert</a>
 
             <a href="filter_threshold.html"
-                class="js-require pattern__thumbnails pattern__thumbnails--clickable" 
+                class="js-module pattern__thumbnails pattern__thumbnails--clickable" 
                 data-require-name="patina" 
                 data-require-data='{
                     "width": 256,
@@ -148,7 +148,7 @@
         </div>
     </main><!-- .content__block -->
 
-    <footer class="footer js-require"
+    <footer class="footer js-module"
             data-require-name="patina"
             data-require-data="template_footer">
         &copy; 2020 Marek Lode &nbsp; | &nbsp; 
@@ -158,7 +158,6 @@
         </a>
     </footer>
 
-    <script data-main="scripts/main" src="scripts/vendor/require.js"></script>
-
+    <script type="module" src="scripts/main.js"></script>
 </body>
 </html>

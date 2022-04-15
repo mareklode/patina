@@ -16,7 +16,7 @@
 </head>
 <body class="content">
 
-    <header class="header js-require"
+    <header class="header js-module"
         data-require-name="patina"
         data-require-data="template_header">
         <a href="." class="header__logo" title="Homepage">
@@ -24,15 +24,17 @@
         </a>
     </header>
 
-    <nav class="navigation js-require" 
+    <nav class="navigation js-module" 
          data-require-name="patina" 
          data-require-data='template_navigation'>
         <a class="navigation__link" href=".">Home</a>
         <a class="navigation__link" href="howto.html">HowTo</a>
         <a class="navigation__link" href="filter.html">filter</a>
-        <a class="navigation__link" href="reusableImages.html">reusableImages</a>
-        <a class="navigation__link" href="examples.html">examples</a>
-        <a class="navigation__link" href="test.html">test</a>
+        <span class="navigation__nowrap">
+            <a class="navigation__link" href="reusableImages.html">reusableImages</a>
+            <a class="navigation__link" href="examples.html">examples</a>
+            <a class="navigation__link" href="test.html">test</a>
+        </span>
     </nav>
 
     <main class="content__block">
@@ -47,7 +49,7 @@
     "patternName"   : "noise_white"
 }</pre>
         <div class="pattern">
-            <div class="js-require pattern__thumbnails pattern__thumbnails--256"
+            <div class="js-module pattern__thumbnails pattern__thumbnails--256"
                 data-require-name="patina"
                 data-require-data='{
                     "patina": {
@@ -60,16 +62,17 @@
 
     
     </main><!-- .content__block -->
-    <footer class="footer js-require"
+
+    <footer class="footer js-module"
             data-require-name="patina"
             data-require-data="template_footer">
-        &copy; 2020 Marek Lode &nbsp; | &nbsp; 
+        &copy; 2022 Marek Lode &nbsp; | &nbsp; 
         <a href="https://github.com/mareklode/patina">
             <img class="footer__githublogo" src="images/page/GitHub-Mark-32px.png" alt="GitHub Logo" />
             This Project on GitHub
         </a>
     </footer>
 
-    <script data-main="scripts/main" src="scripts/vendor/require.js"></script>
+    <script type="module" src="scripts/main.js"></script>
 </body>
 </html>

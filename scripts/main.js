@@ -1,53 +1,44 @@
-require.config({
-    baseUrl: 'scripts',
-    paths: {
-        patina:         'mel/mel_patina',
-        canvas:         'mel/mel_canvas',
-        createPattern:  'mel/mel_createPattern',
-        noise:          'mel/mel_noise',
-        filter:         'mel/mel_filter',
-        templates:      'mel/mel_pageTemplates',
-    },
-    urlArgs: "bust=v2"
-});
+'use strict';
+
+const modulesPath = './modules/mel_';
+const cacheBusterVersion = '4';
 
 let mel = {};
 
 mel.setupPage = function () {
 
     /* find and execute JavaScript-triggers in HTML-tags */
-    let nodeList = document.querySelectorAll(".js-require");
+    let nodeList = document.querySelectorAll(".js-module");
     console.log('JavaScript-triggers in HTML-tags:', nodeList.length, nodeList);
     for (let nl = 0; nl < nodeList.length; nl++) {
-        let el = nodeList[nl],
-            requireName = el.getAttribute('data-require-name'),
-            requireData = el.getAttribute('data-require-data');
+        const el = nodeList[nl];
+        const moduleName = el.getAttribute('data-require-name');
+        const moduleData = el.getAttribute('data-require-data');
 
-        (function (el, requireName, requireData) { // to eliminate the race condition
-            require([requireName], function( requireName ) {
-                if (typeof requireName === 'function') {
-                    new requireName(el, requireData);
-                    el.classList.remove('js-require');
-                    el.classList.add('js-require-processed');
-                } else {
-                    console.error(requireName, ' does not exist? ', el);
-                }
-            });
-        })(el, requireName, requireData);
+        (function (el, moduleName, moduleData) { // to eliminate the race condition
+            import(modulesPath + moduleName + '.js?v=' + cacheBusterVersion)
+                .then((module) => {
+                    new module.default(el, moduleData);
+
+                    el.classList.remove('js-module');
+                    el.classList.add('js-module-processed');
+                })
+                .catch(err => console.error(moduleName, ' does not exist? ', el));
+        })(el, moduleName, moduleData);
     }
 
     mel.kkeys = [];
-    mel.konami = "38,38,40,40,37,39,37,39,66,65";
+    mel.konami = "arrowup,arrowup,arrowdown,arrowdown,arrowleft,arrowright,arrowleft,arrowright,b,a";
     mel.easteregg = function () {
-        alert('Konami');
+        console.log('Konami');
     }
 
     document.addEventListener('keydown', function(e) {
-      mel.kkeys.push( e.keyCode );
-      if ( mel.kkeys.toString().indexOf( mel.konami ) >= 0 ) {
-        mel.kkeys = [];        
-        mel.easteregg();
-      }
+        mel.kkeys.push( e.key.toLowerCase() );
+        if ( mel.kkeys.toString().indexOf( mel.konami ) >= 0 ) {
+            mel.kkeys = [];        
+            mel.easteregg();
+        }
     });
 
 };

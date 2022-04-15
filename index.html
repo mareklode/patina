@@ -1,7 +1,7 @@
 <!doctype html>
-<html lang="de">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   
   <title>Patina | mareklode</title>
@@ -14,11 +14,11 @@
 
   <link rel="stylesheet" type="text/css" href="css/normalize.min.css">
   <link rel="stylesheet" href="css/main.css">
-</head>
 
+</head>
 <body class="content pagemode_homepage">
 
-    <header class="header js-require" 
+    <header class="header js-module" 
             data-require-name="patina" 
             data-require-data="template_header">
         <a href="." class="header__logo" title="Homepage">
@@ -27,7 +27,7 @@
         <p class="header__claim">Procedurally generated images, inside your browser.</p>
     </header>
 
-    <nav class="navigation js-require" 
+    <nav class="navigation js-module" 
          data-require-name="patina" 
          data-require-data='template_navigation'>
         <a class="navigation__link" href=".">Home</a>
@@ -42,7 +42,7 @@
 
     <main class="content__block">
 
-        <h1>Patina</h1>
+        <h1>Patina | TODO_convertToModules!!!</h1>
 
         <p class="copy">
             "Patina is a thin layer that variously forms on the surface of [metals] 
@@ -80,7 +80,7 @@
 
             <span class="pattern__textInbetween">=</span>
 
-            <div class="js-require pattern__thumbnails pattern__thumbnails--256 pattern__thumbnails--nomargin   " 
+            <div class="js-module pattern__thumbnails pattern__thumbnails--256 pattern__thumbnails--nomargin   " 
                 data-require-name="patina" 
                 data-require-data='{
                     "width": 256,
@@ -181,7 +181,7 @@
 
     </main><!-- .content__block -->
 
-    <footer class="footer js-require" 
+    <footer class="footer js-module" 
             data-require-name="patina" 
             data-require-data="template_footer">
         &copy; 2020 Marek Lode &nbsp; | &nbsp; 
@@ -191,7 +191,6 @@
         </a>
     </footer>
 
-    <script data-main="scripts/main" src="scripts/vendor/require.js"></script>
-
+    <script type="module" src="scripts/main.js"></script>
 </body>
 </html>

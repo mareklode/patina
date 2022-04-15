@@ -9,16 +9,16 @@
     <div id="js-patina-goes-here" style="width: 64px; height: 64px;" ></div>
   </body>
 
-  <script data-main="scripts/patina" src="scripts/vendor/require.js"></script>
   <script>
-        require(['patina'], function( patina ) {
-            const target  = document.getElementById('js-patina-goes-here');
-            const pixelPaintingInstructions =
-                `{ "patina" : {
-                    "type"          : "createPattern",
-                    "patternName"   : "noise_1D"
-                }}`;
-            new patina(target, pixelPaintingInstructions);
-        });
+    const target = document.getElementById('js-patina-goes-here');
+    const pixelPaintingInstructions =
+      `{ "patina" : {
+          "type"          : "createPattern",
+          "patternName"   : "noise_1D"
+      }}`;
+    import('./scripts/modules/mel_patina.js')
+      .then((patina) => {
+          new patina.default(target, pixelPaintingInstructions);
+      });
   </script>
 </html>

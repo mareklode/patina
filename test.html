@@ -46,12 +46,12 @@
 
         <div class="pattern">
 
-            <div class="js-require pattern__thumbnails pattern__thumbnails--512" 
-                style="background-color: #7d9cb1;"
+            <div class="js-module pattern__thumbnails pattern__thumbnails--512" 
+                style="background-color: #7d9cb1; height: 256px;"
                 data-require-name="patina" 
                 data-require-data='{
-                    "width"          : 512,
-                    "height"         : 512,
+                    "__width"          : 512,
+                    "__height"         : 256,
                     "reusableImages" : [
                         {
                             "id"            : "firstBorder",
@@ -132,15 +132,9 @@
             ></div>
 
         </div>
-
-        <br>
-        <br>
-        <br>
-        <br>
-        
     </main>
 
-    <script data-main="scripts/main" src="scripts/vendor/require.js"></script>
+    <script type="module" src="scripts/main.js"></script>
 
 </body>
 </html>
