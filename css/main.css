@@ -157,7 +157,7 @@ a:hover {
 }
 a.link-disabled.link-disabled {
   background-color: black;
-  opacity: 0.25;
+  opacity: .25;
   cursor: default;
   pointer-events: none;
 }
@@ -498,6 +498,11 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   background-color: rgba(102, 136, 0, 0.5);
   text-decoration: none;
 }
+.alert {
+  background-color: #ffc0cb;
+  border: 1px solid #ff0000;
+  padding: 1rem 4vw;
+}
 .code {
   display: block;
   text-align: left;
@@ -713,7 +718,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   background: #fee689;
   display: inline-block;
   position: relative;
-  border: 1px solid gray;
+  border: 1px solid #808080;
 }
 .PPI-node::before {
   content: '';
@@ -722,7 +727,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   top: -22px;
   height: 22px;
   width: 2px;
-  background-color: gray;
+  background-color: #808080;
 }
 .PPI-root {
   width: 60%;
