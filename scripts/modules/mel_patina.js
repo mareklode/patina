@@ -36,7 +36,7 @@ patina.prototype = {
         this.imageObj.addEventListener("load", function() {
             let imgData;
 
-            myCanvas.context.drawImage(this, 0, 0);
+            myCanvas.context.drawImage(this, 0, 0, width, height);
             imgData = myCanvas.context.getImageData(
                 0, 0,
                 myCanvas.width,

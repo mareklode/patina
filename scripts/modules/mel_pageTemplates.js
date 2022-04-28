@@ -1,6 +1,65 @@
 'use strict';
 
 const templates = {
+
+    header_logo_image:  `{
+        "reusableImages"    : [
+            { 
+                "id"            : "marekkeram_256", 
+                "type"          : "preloadImage",
+                "url"           : "images/page/header__logo--PatinaFont-rough_white.png",
+                "colorChannels" : 1
+            }
+        ],
+        "patina": {
+            "type"  : "colorChannels",
+            "red"   : 100,
+            "green" : 125,
+            "blue"  : 0,
+            "alpha" : { 
+                "type"          : "combine",
+                "topLayer"      : {
+                        "type"          : "createPattern",
+                        "patternName"   : "border",
+                        "filter": [
+                            {"name": "invert"},
+                            { "name": "contrast", "x": 0.85, "m": 6 }
+                        ]
+                },
+                "bottomLayer"   : {
+                    "type"          : "combine",
+                    "topLayer"      : {
+                        "type"          : "combine",
+                        "topLayer"      : {
+                            "type"          : "createPattern",
+                            "patternName"      : "noise_white",
+                            "filter"        : [
+                                { "name": "blur", "radius": 1 }
+                            ]
+                        },
+                        "bottomLayer"   : { 
+                            "type"          : "createPattern",
+                            "patternName"      : "noise_white"
+                        }
+                    },
+                    "bottomLayer"   : { 
+                        "type"          : "reuseImage",
+                        "reuseId"       : "marekkeram_256",
+                        "filter"        : [
+                            { "name": "blur", "radius": 4 },
+                            { "name": "contrast", "x": 0.25, "m": 3 }
+                        ]
+                    },
+                    "filter": [
+                        { "name": "contrast", "x": 0.66, "m": 2 }
+                    ]
+                },
+                "filter"        : [
+                    { "name": "contrast", "x": 0.85, "m": 2 }
+                ]
+            }
+        }
+    }`,
     header:  `{
         "width" : 375,
         "height": 283,
