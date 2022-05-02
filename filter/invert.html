@@ -1,84 +1,99 @@
 <!doctype html>
-<html lang="de">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
+    <base href=""><?php/* das fliegt beim build prozess raus */?>
 
-    <title>invert | filter | Patina | mareklode</title>
+    <title>Invert | Filter | Patina | mareklode</title>
 
-    <meta property="og:title" content="invert | filter | Patina | mareklode" />
-    <meta property="og:image" content="http://mareklode.de/bilder/page/v3/v3_rost4.png" />
-    <meta property="og:description" content="Patina: procedually generated background images in JavaScript. filter : invert" />
-    <meta name="description" content="Patina: procedually generated background images in JavaScript. filter : invert">
+    <meta property="og:title" content="Invert | Filter | Patina | mareklode">
+    <meta property="og:image" content="http://mareklode.de/bilder/page/v3/v3_rost4.png">
+    <meta property="og:description" content="Patina: procedually generated background images in JavaScript. filter : invert.">
+    <meta name="description" content="Patina: procedually generated background images in JavaScript. filter : invert.">
+    <meta name="theme-color" content="#28330a">
 
-    <link rel="stylesheet" type="text/css" href="css/normalize.min.css">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="../css/normalize.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+
 </head>
+
 <body class="content">
 
-    <header class="header js-module"
-        data-require-name="patina"
-        data-require-data="template_header">
-        <a href="." 
+    <header class="header js-module" 
+        data-module-name="patina" 
+        data-module-data="template_header">
+        <a href="../index.html" 
             class="header__logo js-module" 
-            data-require-name="patina" 
-            data-require-data="template_header_logo_image" 
+            data-module-name="patina" 
+            data-module-data="template_header_logo_image" 
             title="Homepage">
-            <img src="images/page/header__logo--PatinaFont-rough_@2x.png" class="header__logo__image" alt="Patina" style="opacity: 1;">
-        </a>
+            <img src="../images/page/header__logo--PatinaFont-rough_@2x.png" class="header__logo__image" alt="Patina" style="opacity: 1;">
+        </a> 
     </header>
-
+    
     <nav class="navigation js-module" 
-         data-require-name="patina" 
-         data-require-data='template_navigation'>
-        <a class="navigation__link" href=".">Home</a>
-        <a class="navigation__link" href="howto.html">HowTo</a>
-        <a class="navigation__link" href="filter.html">filter</a>
+         data-module-name="patina" 
+         data-module-data='template_navigation'>
+        <a class="navigation__link" href="../index.html">Home</a>
+        <a class="navigation__link" href="../howto.html">HowTo</a>
+        <a class="navigation__link" href="../createPattern.html">createPattern</a>
+        <a class="navigation__link" href="../filter.html">filter</a>
         <span class="navigation__nowrap">
-            <a class="navigation__link" href="reusableImages.html">reusableImages</a>
-            <a class="navigation__link" href="examples.html">examples</a>
-            <a class="navigation__link" href="test.html">test</a>
+            <a class="navigation__link" href="../reusableImages.html">reusableImages</a>
+            <a class="navigation__link" href="../examples.html">examples</a>
+            <a class="navigation__link" href="../test.html">test</a>
         </span>
     </nav>
 
     <main class="content__block">
-
-    
-
         <h1>filter : invert</h1>
-        <p class="copy">The invert filter takes no arguments and just inverts the image.</p>
-        <h2>Basic Example</h2>
-        <pre class="copy">"patina" : {
+
+        
+
+<p class="copy">The invert filter takes no arguments and just inverts the image.</p>
+
+<h2>Basic Example</h2>
+
+<pre class="code">"patina" : {
     "type"          : "filter",
     "patternName"   : "noise_plasma",
     "filter"        : [{ "name": "invert" }]
 }</pre>
-        <div class="pattern">
-            <div class="js-module pattern__thumbnails pattern__thumbnails--256"
-                data-require-name="patina"
-                data-require-data='{
-                    "patina": {
-                        "type"          : "createPattern",
-                        "patternName"   : "noise_plasma",
-                        "filter"        : [{ "name": "invert" }]
-                    }
-                }'
-            ></div>
-        </div><!-- .pattern -->
 
-    
+<div class="pattern">
+    <div class="js-module pattern__thumbnails pattern__thumbnails--256"
+        data-module-name="patina"
+        data-module-data='{
+            "patina": {
+                "type"          : "createPattern",
+                "patternName"   : "noise_plasma",
+                "filter"        : [{ "name": "invert" }]
+            }
+        }'
+    ></div>
+</div><!-- .pattern -->
+
+
+
+
+
     </main><!-- .content__block -->
 
-    <footer class="footer js-module"
-            data-require-name="patina"
-            data-require-data="template_footer">
+
+    <footer	class="footer js-module" 
+            data-module-name="patina" 
+            data-module-data="template_footer">
         &copy; 2022 Marek Lode &nbsp; | &nbsp; 
         <a href="https://github.com/mareklode/patina">
-            <img class="footer__githublogo" src="images/page/GitHub-Mark-32px.png" alt="GitHub Logo" />
+            <img class="footer__githublogo" src="../images/page/GitHub-Mark-32px.png" alt="GitHub Logo">
             This Project on GitHub
         </a>
     </footer>
 
-    <script type="module" src="scripts/main.js"></script>
+    <script type="module" src="../scripts/main.js"></script>
+
+ 
+
 </body>
 </html>
