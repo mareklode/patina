@@ -19,8 +19,8 @@ mel.setupPage = function () {
     console.log('JavaScript-triggers in HTML-tags:', nodeList.length, nodeList);
     for (let nl = 0; nl < nodeList.length; nl++) {
         let el = nodeList[nl],
-            requireName = el.getAttribute('data-module-name'),
-            requireData = el.getAttribute('data-module-data');
+            requireName = el.getAttribute('data-require-name'),
+            requireData = el.getAttribute('data-require-data');
 
         (function (el, requireName, requireData) { // to eliminate the race condition
             require([requireName], function( requireName ) {
