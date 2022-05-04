@@ -1,200 +1,141 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  
-  <title>Patina | mareklode</title>
+<?php 
+    $h1 = 'Patina';
+    include '_header.php' 
+?>
 
-  <meta property="og:title" content="Patina | mareklode">
-  <meta property="og:image" content="http://mareklode.de/bilder/page/v3/v3_rost4.png">
-  <meta property="og:description" content="Patina: procedually generated background images in JavaScript">
-  <meta name="description" content="Patina: procedually generated background images in JavaScript">
-  <meta name="theme-color" content="#28330a">
+    <p class="copy">
+        "Patina is a thin layer that variously forms on the surface of [metals] 
+        or any similar acquired change of a surface through age and exposure." <br>
+        <small>https://en.wikipedia.org/wiki/Patina</small>   
+    </p>
 
-  <link rel="stylesheet" type="text/css" href="css/normalize.min.css">
-  <link rel="stylesheet" href="css/main.css">
+    <p class="copy">
+        This "Patina" is a JavaScript tool that lets you create worn out looking surfaces. 
+        Combine simple noise <a href="createPattern">patterns</a> to create complex textures with JavaScript.
+    </p>
 
-</head>
-<body class="content pagemode_homepage">
+    <div class="pattern">
 
-    <header class="header js-module" 
-        data-require-name="patina" 
-        data-require-data="template_header">
-        <a href="." 
-            class="header__logo js-module" 
-            data-require-name="patina" 
-            data-require-data="template_header_logo_image" 
-            title="Homepage">
-            <img src="images/page/header__logo--PatinaFont-rough_@2x.png" class="header__logo__image" alt="Patina" style="opacity: 1;">
-        </a>
-        <p class="header__claim">Procedurally generated images, inside your browser.</p>
-    </header>
+        <a href="createPattern/border" class="pattern__thumbnails pattern__thumbnails--128 pattern__thumbnails--clickable pattern__thumbnails--nomargin" 
+            id="reusableImage_combine_border" style="background-size: contain;">createPattern border</a>
 
-    <nav class="navigation js-module" 
-         data-require-name="patina" 
-         data-require-data='template_navigation'>
-        <a class="navigation__link" href=".">Home</a>
-        <a class="navigation__link" href="howto.html">HowTo</a>
-        <a class="navigation__link" href="filter.html">filter</a>
-        <span class="navigation__nowrap">
-            <a class="navigation__link" href="reusableImages.html">reusableImages</a>
-            <a class="navigation__link" href="examples.html">examples</a>
-            <a class="navigation__link" href="test.html">test</a>
-        </span>
-    </nav>
+        <span class="pattern__textInbetween">+</span>
 
-    <main class="content__block">
+        <a href="createPattern/wave" class="pattern__thumbnails pattern__thumbnails--128 pattern__thumbnails--clickable pattern__thumbnails--nomargin" 
+            id="reusableImage_combine_wave"
+        >createPattern wave</a>
 
-        <h1>Patina</h1>
+        <span class="pattern__textInbetween">+</span>
 
-        <p class="copy">
-            "Patina is a thin layer that variously forms on the surface of [metals] 
-            or any similar acquired change of a surface through age and exposure." <br>
-            <small>https://en.wikipedia.org/wiki/Patina</small>   
-        </p>
+        <a href="createPattern/noise_1D" class="pattern__thumbnails pattern__thumbnails--128 pattern__thumbnails--clickable pattern__thumbnails--nomargin" 
+            id="reusableImage_combine_noise1D_horizontal"
+        >createPattern noise_1D</a>
 
-        <p class="copy">
-            This "Patina" is a JavaScript tool that lets you create worn out looking surfaces. 
-            Combine simple noise <a href="createPattern.html">patterns</a> to create complex textures with JavaScript.
-        </p>
+        <span class="pattern__textInbetween">+</span>
 
-        <div class="pattern">
+        <a href="createPattern/noise_1D" class="pattern__thumbnails pattern__thumbnails--128 pattern__thumbnails--clickable pattern__thumbnails--nomargin" 
+            id="reusableImage_combine_noise1D_vertical"
+        >createPattern noise_1D</a>
 
-            <a href="createPattern_border.html" class="pattern__thumbnails pattern__thumbnails--128 pattern__thumbnails--clickable pattern__thumbnails--nomargin" 
-                id="reusableImage_combine_border" style="background-size: contain;">createPattern border</a>
+        <span class="pattern__textInbetween">=</span>
 
-            <span class="pattern__textInbetween">+</span>
-
-            <a href="createPattern_wave.html" class="pattern__thumbnails pattern__thumbnails--128 pattern__thumbnails--clickable pattern__thumbnails--nomargin" 
-                id="reusableImage_combine_wave"
-            >createPattern wave</a>
-
-            <span class="pattern__textInbetween">+</span>
-
-            <a href="createPattern_noise_1D.html" class="pattern__thumbnails pattern__thumbnails--128 pattern__thumbnails--clickable pattern__thumbnails--nomargin" 
-                id="reusableImage_combine_noise1D_horizontal"
-            >createPattern noise_1D</a>
-
-            <span class="pattern__textInbetween">+</span>
-
-            <a href="createPattern_noise_1D.html" class="pattern__thumbnails pattern__thumbnails--128 pattern__thumbnails--clickable pattern__thumbnails--nomargin" 
-                id="reusableImage_combine_noise1D_vertical"
-            >createPattern noise_1D</a>
-
-            <span class="pattern__textInbetween">=</span>
-
-            <div class="js-module pattern__thumbnails pattern__thumbnails--256 pattern__thumbnails--nomargin   " 
-                data-require-name="patina" 
-                data-require-data='{
-                    "width": 256,
-                    "height": 256,
-                    "reusableImages": [
-                        {
-                            "id"            : "combine_border",
-                            "type"          : "createPattern",
-                            "patternName"   : "border",
-                            "filter"        : [{ "name": "brightness", "brightness": -1.25 }]
+        <div class="js-module pattern__thumbnails pattern__thumbnails--256 pattern__thumbnails--nomargin   " 
+            data-module-name="patina" 
+            data-module-data='{
+                "width": 256,
+                "height": 256,
+                "reusableImages": [
+                    {
+                        "id"            : "combine_border",
+                        "type"          : "createPattern",
+                        "patternName"   : "border",
+                        "filter"        : [{ "name": "brightness", "brightness": -1.25 }]
+                    },
+                    {
+                        "id"            : "combine_wave",
+                        "type"          : "createPattern",
+                        "patternName"   : "wave",
+                        "direction"     : "rectangles",
+                        "frequency"     : 16,
+                        "filter"        : [{ "name": "brightness", "brightness": 1 }]
+                    },
+                    {
+                        "id"            : "combine_noise1D_horizontal",
+                        "type"          : "createPattern",
+                        "patternName"   : "noise_1D", 
+                        "direction"     : "vertical"
+                    },
+                    {
+                        "id"            : "combine_noise1D_vertical",
+                        "type"          : "createPattern",
+                        "patternName"   : "noise_1D", 
+                        "direction"     : "horizontal"
+                    },
+                    {
+                        "id"            : "NoiseBorder",
+                        "type"          : "combine",
+                        "topLayer"      : {
+                            "type"          : "reuseImage",
+                            "reuseId"       : "combine_border"
                         },
-                        {
-                            "id"            : "combine_wave",
-                            "type"          : "createPattern",
-                            "patternName"   : "wave",
-                            "direction"     : "rectangles",
-                            "frequency"     : 16,
-                            "filter"        : [{ "name": "brightness", "brightness": 1 }]
-                        },
-                        {
-                            "id"            : "combine_noise1D_horizontal",
-                            "type"          : "createPattern",
-                            "patternName"   : "noise_1D", 
-                            "direction"     : "vertical"
-                        },
-                        {
-                            "id"            : "combine_noise1D_vertical",
-                            "type"          : "createPattern",
-                            "patternName"   : "noise_1D", 
-                            "direction"     : "horizontal"
-                        },
-                        {
-                            "id"            : "NoiseBorder",
+                        "bottomLayer"   : { 
                             "type"          : "combine",
                             "topLayer"      : {
-                                "type"          : "reuseImage",
-                                "reuseId"       : "combine_border"
+                                "type"          : "combine",
+                                "topLayer"      : {
+                                    "type"          : "reuseImage",
+                                    "reuseId"       : "combine_noise1D_horizontal"
+                                },
+                                "bottomLayer"   : { 
+                                    "type"          : "reuseImage",
+                                    "reuseId"       : "combine_noise1D_vertical"
+                                }
                             },
                             "bottomLayer"   : { 
                                 "type"          : "combine",
                                 "topLayer"      : {
-                                    "type"          : "combine",
-                                    "topLayer"      : {
-                                        "type"          : "reuseImage",
-                                        "reuseId"       : "combine_noise1D_horizontal"
-                                    },
-                                    "bottomLayer"   : { 
-                                        "type"          : "reuseImage",
-                                        "reuseId"       : "combine_noise1D_vertical"
-                                    }
+                                    "type"          : "reuseImage",
+                                    "reuseId"       : "combine_border"
                                 },
                                 "bottomLayer"   : { 
-                                    "type"          : "combine",
-                                    "topLayer"      : {
-                                        "type"          : "reuseImage",
-                                        "reuseId"       : "combine_border"
-                                    },
-                                    "bottomLayer"   : { 
-                                        "type"          : "reuseImage",
-                                        "reuseId"       : "combine_wave"
-                                    }
+                                    "type"          : "reuseImage",
+                                    "reuseId"       : "combine_wave"
                                 }
                             }
                         }
-                    ],
-                    "patina": {
-                        "type"      : "reuseImage",
-                        "reuseId"   : "NoiseBorder",
-                        "filter"        : [
-                            { "name": "contrast", "x": 0.45, "m": 2 },
-                            { "name": "brightness", "brightness": 2 }
-                        ]
                     }
-                }'
-            ></div>
-        </div>
+                ],
+                "patina": {
+                    "type"      : "reuseImage",
+                    "reuseId"   : "NoiseBorder",
+                    "filter"        : [
+                        { "name": "contrast", "x": 0.45, "m": 2 },
+                        { "name": "brightness", "brightness": 2 }
+                    ]
+                }
+            }'
+        ></div>
+    </div>
 
-        <p class="copy"> 
-            It's neither efficient nor practical, but possible and fun for me. 
-            It is very much work in progress and i have to simplify lots of things before it is usable for anybody.
-        </p>
+    <p class="copy"> 
+        It's neither efficient nor practical, but possible and fun for me. 
+        It is very much work in progress and i have to simplify lots of things before it is usable for anybody.
+    </p>
 
-        <h2>Don't use it on a webpage</h2>
+    <h2>Don't use it on a webpage</h2>
 
-        <p class="copy">
-            This technology is not meant to be used on a websites like i use it on this one here. 
-            In my opinion JavaScript should be used to enhance the usability of a page and this is not what Patina does.
-            Patina is purely decorative and because of its randomness it does not carry any information.
-            On the web, we should not use the users device for calculating decorative pixels.
-        </p>
+    <p class="copy">
+        This technology is not meant to be used on a websites like i use it on this one here. 
+        In my opinion JavaScript should be used to enhance the usability of a page and this is not what Patina does.
+        Patina is purely decorative and because of its randomness it does not carry any information.
+        On the web, we should not use the users device for calculating decorative pixels.
+    </p>
 
-        <h2>Use it to generate art</h2>
+    <h2>Use it to generate art</h2>
 
-        <p class="copy">
-            What Patina could be used for.
-            Pixel based effects. Games or effects or organic art. I should really add the possibility to save the generated images.
-        </p>
+    <p class="copy">
+        What Patina could be used for.
+        Pixel based effects. Games or effects or organic art. I should really add the possibility to save the generated images.
+    </p>
 
-    </main><!-- .content__block -->
-
-    <footer class="footer js-module" 
-            data-require-name="patina" 
-            data-require-data="template_footer">
-        &copy; 2022 Marek Lode &nbsp; | &nbsp; 
-        <a href="https://github.com/mareklode/patina">
-            <img class="footer__githublogo" src="images/page/GitHub-Mark-32px.png" alt="GitHub Logo">
-            This Project on GitHub
-        </a>
-    </footer>
-
-    <script type="module" src="scripts/main.js"></script>
-</body>
-</html>
+<?php include "_footer.php" ?>

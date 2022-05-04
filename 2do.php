@@ -1,50 +1,44 @@
-<!doctype html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
-    
-    <title>Patina | ToDo</title>
+<?php
+    $h1 = 'ToDo';
+    $headerSimple = true;
+    include '_header.php' 
+?>
 
-    <link rel="stylesheet" type="text/css" href="css/normalize.min.css">
-    <link rel="stylesheet" href="css/main.css">
+        <!--p class="copy nurZumTesten bringtDenBuildprozessDurcheinander">
+            <a href=".">home</a><br />
+            <a href="filter.php">filter.php</a><br />
+            <a href="filter">filter</a><br />
+            <a href="filter/">filter/</a><br />
+            <a href="filter/blur">filter/blur</a><br />
+            <a href="filter/blur/">filter/blur/</a><br />
 
-</head>
-<body class="content">
+            <p class="copy"><a href="http://localhost/patinastatic/">this static-site</a></p>
+        </p-->
 
-    <header class="header">
-        <div class="header__logo">
-            Patina
-        </div>
-    </header>
+        <pre class="code">
+    das ist ein Zwischenschritt, bis ich dem buildprozess vertraue
+cd ~/WWW/localhost/patinastatic/ 
+    leeren
+rm -r localhost
+    dynamische Seite von localhost/patina/ nach localhost/patinastatic holen
+wget --recursive --convert-links --page-requisites --html-extension localhost/patina/
+    die Scripte und Bilder kommen nur teilweise mit, die müssen extra kopiert werden.
+cp -r ../patina/scripts/ ./localhost/patina/
+cp -r ../patina/images/ ./localhost/patina/
+cp -r ../patina/css/ ./localhost/patina/
+cp -r ../patina/LICENSE ./localhost/patina/
 
-    <nav class="navigation">
-        <a class="navigation__link" href=".">Home</a>
-        <a class="navigation__link" href="howto.html">HowTo</a>
-        <a class="navigation__link" href="filter.html">filter</a>
-        <a class="navigation__link" href="reusableImages.html">reusableImages</a>
-        <a class="navigation__link" href="examples.html">examples</a>
-        <a class="navigation__link" href="test.html">test</a>
-    </nav>
-
-    <main class="content__block">
-
-        <h1>ToDo:</h1>
+<!--	jetzt alles zusammen rüber zur website
+cp -r ./localhost/patina ../mareklode/ .-->
+        </pre>
+        
         <ul class="copy">
+            <li>reusable images are not always fully loaded, resulting in error message and faulty patina
             <li>rewrite the howto for JavaScript modules</li>
             <li>build_patina_js.html is still using require </li>
-            <li>and so is my static site generator</li>
-            <li>throw out r.js</li>
             <li>animations</li>
             <li>http://html2canvas.hertzen.com/ && https://github.com/eligrey/FileSaver.js</li>
             <li>compare noise algorithm names: https://www.gamasutra.com/view/feature/131507/a_realtime_procedural_universe_.php</li>
         </ul>
 
-    </main><!-- .content__block -->
-
-    <footer class="footer">
-        &copy; 2022 Marek Lode &nbsp
-    </footer>
-
-</body>
-</html>
+<?php include "_footer.php" ?>

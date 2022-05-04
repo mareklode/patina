@@ -1,48 +1,7 @@
-<!doctype html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width">
-  
-      <title>reusableImages | Patina | mareklode</title>
-
-  <meta property="og:title" content="reusableImages | Patina | mareklode" />
-  <meta property="og:image" content="http://mareklode.de/bilder/page/v3/v3_rost4.png" />
-  <meta property="og:description" content="Patina: procedually generated background images in JavaScript. reusableImages" />
-  <meta name="description" content="Patina: procedually generated background images in JavaScript. reusableImages">
-
-  <link rel="stylesheet" type="text/css" href="css/normalize.min.css">
-  <link rel="stylesheet" href="css/main.css">
-
-</head>
-<body class="content">
-
-    <header class="header js-module" 
-        data-require-name="patina" 
-        data-require-data="template_header">
-        <a href="." 
-            class="header__logo js-module" 
-            data-require-name="patina" 
-            data-require-data="template_header_logo_image" 
-            title="Homepage">
-            <img src="images/page/header__logo--PatinaFont-rough_@2x.png" class="header__logo__image" alt="Patina" style="opacity: 1;">
-        </a>
-    </header>
-
-    <nav class="navigation js-module" 
-         data-require-name="patina" 
-         data-require-data='template_navigation'>
-        <a class="navigation__link" href=".">Home</a>
-        <a class="navigation__link" href="howto.html">HowTo</a>
-        <a class="navigation__link" href="filter.html">filter</a>
-        <a class="navigation__link" href="reusableImages.html">reusableImages</a>
-        <a class="navigation__link" href="examples.html">examples</a>
-        <a class="navigation__link" href="test.html">test</a>
-    </nav>
-
-    <main class="content__block">
-
-        <h1>reusableImages</h1>
+<?php
+    $h1 = 'reusableImages';
+    include '_header.php' 
+?>
 
         <p class="copy">The only way to use a pixel array at two different points inside the data structure (two different color channels for example) is to use "reusableImages". Better Explanation follows.</p>
 
@@ -51,8 +10,8 @@
             <h2>noise_plasma</h2>
             <pre style="width: 512px;max-width: 90%;"
                 class="js-module pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
+                data-module-name="patina" 
+                data-module-data='{
                     "width": 256,
                     "reusableImages" : [
                         { 
@@ -92,8 +51,8 @@
             
             <h2>combining two images</h2>
             <pre class="js-module pattern__thumbnails" 
-                data-require-name="patina" 
-                data-require-data='{
+                data-module-name="patina" 
+                data-module-data='{
                     "reusableImages"    : [
                         { 
                             "id"            : "reetroof", 
@@ -121,13 +80,13 @@
             ></pre>
 
             <p class="copy">
-                Load images, distort or combine them, apply <a href="filter.html">filters</a>.
+                Load images, distort or combine them, apply <a href="filter">filters</a>.
             </p>
     
             <div class="pattern">
                 <div class="js-module pattern__thumbnails" 
-                    data-require-name="patina" 
-                    data-require-data='{
+                    data-module-name="patina" 
+                    data-module-data='{
                         "reusableImages"    : [
                             { 
                                 "id"            : "reetroof", 
@@ -157,18 +116,5 @@
                 ></div>
             </div>
         </div>
-    </main><!-- .content__block -->
 
-    <footer class="footer js-module"
-            data-require-name="patina"
-            data-require-data="template_footer">
-        &copy; 2022 Marek Lode &nbsp; | &nbsp; 
-        <a href="https://github.com/mareklode/patina">
-            <img class="footer__githublogo" src="images/page/GitHub-Mark-32px.png" alt="GitHub Logo" />
-            This Project on GitHub
-        </a>
-    </footer>
-
-    <script type="module" src="scripts/main.js"></script>
-</body>
-</html>
+<?php include "_footer.php" ?>

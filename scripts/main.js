@@ -1,7 +1,7 @@
 'use strict';
 
 const modulesPath = './modules/mel_';
-const cacheBusterVersion = '4';
+const cacheBusterVersion = '5';
 
 let mel = {};
 
@@ -12,8 +12,8 @@ mel.setupPage = function () {
     console.log('JavaScript-triggers in HTML-tags:', nodeList.length, nodeList);
     for (let nl = 0; nl < nodeList.length; nl++) {
         const el = nodeList[nl];
-        const moduleName = el.getAttribute('data-require-name');
-        const moduleData = el.getAttribute('data-require-data');
+        const moduleName = el.getAttribute('data-module-name');
+        const moduleData = el.getAttribute('data-module-data');
 
         (function (el, moduleName, moduleData) { // to eliminate the race condition
             import(modulesPath + moduleName + '.js?v=' + cacheBusterVersion)

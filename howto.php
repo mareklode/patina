@@ -1,50 +1,7 @@
-<!doctype html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width">
-  
-      <title>How To | Patina | mareklode</title>
-
-  <meta property="og:title" content="How To | Patina | mareklode" />
-  <meta property="og:image" content="http://mareklode.de/bilder/page/v3/v3_rost4.png" />
-  <meta property="og:description" content="Patina: procedually generated background images in JavaScript. How to use it." />
-  <meta name="description" content="Patina: procedually generated background images in JavaScript. How to use it.">
-
-  <link rel="stylesheet" type="text/css" href="css/normalize.min.css">
-  <link rel="stylesheet" href="css/main.css?version=2">
-
-</head>
-<body class="content">
-
-    <header class="header js-module" 
-        data-require-name="patina" 
-        data-require-data="template_header">
-        <a href="." 
-            class="header__logo js-module" 
-            data-require-name="patina" 
-            data-require-data="template_header_logo_image" 
-            title="Homepage">
-            <img src="images/page/header__logo--PatinaFont-rough_@2x.png" class="header__logo__image" alt="Patina" style="opacity: 1;">
-        </a>
-    </header>
-
-    <nav class="navigation js-module" 
-         data-require-name="patina" 
-         data-require-data='template_navigation'>
-        <a class="navigation__link" href=".">Home</a>
-        <a class="navigation__link" href="howto.html">HowTo</a>
-        <a class="navigation__link" href="filter.html">filter</a>
-        <span class="navigation__nowrap">
-            <a class="navigation__link" href="reusableImages.html">reusableImages</a>
-            <a class="navigation__link" href="examples.html">examples</a>
-            <a class="navigation__link" href="test.html">test</a>
-        </span>
-    </nav>
-
-    <main class="content__block">
-
-        <h1>How to use it</h1>
+<?php
+    $h1 = 'How to use it';
+    include '_header.php' 
+?>
 
         <p class="copy alert">
             This HowTo is outdated since i updated the way the JavaScript modules are getting loaded.
@@ -94,7 +51,7 @@
     &lt;/script>
 &lt;/html></pre>
 
-        <p class="copy">Have a look at the <a href="minimalistic_example.html">minimalistic example</a> in action.</p>
+        <p class="copy">Have a look at the <a href="minimalistic_example">minimalistic example</a> in action.</p>
 
         <h2>The JavaScript</h2>
 
@@ -168,22 +125,11 @@ WWW
             This is a very basic example and the Pixel Painting Instructions can get very unmanageable.
         </p>
 
-        <a class="button button__nextPage" href="pixelPaintingInstructions.html" style="padding: 4vw;">
+        <a class="button button__nextPage" href="pixelPaintingInstructions" style="padding: 4vw;">
             Next: How to create the Pixel Painting Instructions.
         </a>
-        
-    </main><!-- .content__block -->
+        <a href="2do">.</a>
+        <a href="LICENSE">.</a>
+        <a href="README.md">.</a>
 
-    <footer class="footer js-module"
-            data-require-name="patina"
-            data-require-data="template_footer">
-        &copy; 2022 Marek Lode &nbsp; | &nbsp; 
-        <a href="https://github.com/mareklode/patina">
-            <img class="footer__githublogo" src="images/page/GitHub-Mark-32px.png" alt="GitHub Logo" />
-            This Project on GitHub
-        </a>
-    </footer>
-
-    <script type="module" src="scripts/main.js"></script>
-</body>
-</html>
+<?php include "_footer.php" ?>
