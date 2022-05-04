@@ -1,0 +1,13 @@
+# https://htaccess.madewithlove.com/
+RewriteEngine on
+
+RewriteCond %{REQUEST_URI} !/(filter.php) [NC]
+RewriteRule ^filter/(.+)$ filter_allTheFilters.php?f=$1 [NC,QSA,L,END]
+
+RewriteCond %{REQUEST_URI} !/(createPattern.php) [NC]
+RewriteRule ^createPattern/(.+)$ createPattern_allThePatterns.php?f=$1 [NC,QSA,L,END]
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^.]+)/$ $1.php [L]
+RewriteRule ^([^.]+)$ $1.php [L]
