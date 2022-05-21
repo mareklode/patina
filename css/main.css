@@ -301,7 +301,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
 .header__logo:focus,
 .header__logo:active {
   color: black;
-  background-color: rgba(102, 136, 0, 0.5);
+  background-color: rgba(32, 0, 0, 0.25);
 }
 .header__logo__image {
   width: 350px;
@@ -348,6 +348,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
   background-color: #445c19;
   background-size: 100% 100%;
   background-position: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
 }
 .navigation__link {
   display: inline-block;
@@ -402,6 +403,8 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=Content
   padding-bottom: 2rem;
   text-align: center;
   list-style-type: none;
+  background: #f9f8f8;
+  border-top: 1px solid white;
 }
 .content__block--dark {
   background-color: #cde;

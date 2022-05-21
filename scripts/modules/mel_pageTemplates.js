@@ -13,49 +13,40 @@ const templates = {
         ],
         "patina": {
             "type"  : "colorChannels",
-            "red"   : 100,
-            "green" : 125,
-            "blue"  : 0,
+            "red"   : 128,
+            "green" : 64,
+            "blue"  : 32,
             "alpha" : { 
                 "type"          : "combine",
                 "topLayer"      : {
+                    "type"          : "reuseImage",
+                    "reuseId"       : "marekkeram_256",
+                    "filter"        : [
+                        { "name": "blur", "radius": 4.5 },
+                        { "name": "contrast", "x": 0.1125, "m": 1.125 }
+                    ]
+                },
+                "bottomLayer"   : {
+                    "type"          : "combine",
+                    "topLayer"      : {
+                        "type"          : "createPattern",
+                        "patternName"   : "noise_plasma",
+                        "frequency"     : 10,    
+                        "filter": [
+                            { "name": "contrast", "x": 0.456, "m": 3 }
+                        ]
+                    },
+                    "bottomLayer"   : { 
                         "type"          : "createPattern",
                         "patternName"   : "border",
                         "filter": [
                             {"name": "invert"},
                             { "name": "contrast", "x": 0.85, "m": 6 }
                         ]
-                },
-                "bottomLayer"   : {
-                    "type"          : "combine",
-                    "topLayer"      : {
-                        "type"          : "combine",
-                        "topLayer"      : {
-                            "type"          : "createPattern",
-                            "patternName"      : "noise_white",
-                            "filter"        : [
-                                { "name": "blur", "radius": 1 }
-                            ]
-                        },
-                        "bottomLayer"   : { 
-                            "type"          : "createPattern",
-                            "patternName"      : "noise_white"
-                        }
-                    },
-                    "bottomLayer"   : { 
-                        "type"          : "reuseImage",
-                        "reuseId"       : "marekkeram_256",
-                        "filter"        : [
-                            { "name": "blur", "radius": 4 },
-                            { "name": "contrast", "x": 0.25, "m": 3 }
-                        ]
-                    },
-                    "filter": [
-                        { "name": "contrast", "x": 0.66, "m": 2 }
-                    ]
+                    }
                 },
                 "filter"        : [
-                    { "name": "contrast", "x": 0.85, "m": 2 }
+                    { "name": "contrast", "x": 0.875, "m": 3 }
                 ]
             }
         }
@@ -87,7 +78,8 @@ const templates = {
             "type"          : "combine",
             "topLayer"      : {
                 "type"          : "createPattern",
-                "patternName"   : "border"
+                "patternName"   : "slope",
+                "filter"        : [{ "name": "contrast", "x": 0.75, "m": 1 }]
             },
             "bottomLayer"   : {
                 "type"          : "createPattern",

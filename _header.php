@@ -1,28 +1,28 @@
 <?php 
     // localhost or mareklode.de
-    $url_host = $_SERVER['HTTP_HOST'];
+    $url_host = $_SERVER["HTTP_HOST"];
 
     // Alles nach dem UrlHost
-    $url_request = array_reverse(explode('/', $_SERVER['REQUEST_URI']));
+    $url_request = array_reverse(explode("/", $_SERVER["REQUEST_URI"]));
 
     $breadcrumb = [];
     foreach ($url_request as $arg) {
-        if ($arg != '') {
+        if ($arg != "") {
             array_push($breadcrumb, ucfirst($arg));
         }
     }
 
-    $title = '';
+    $title = "";
     foreach ($breadcrumb as $arg) {
-        if ($arg != '') {
+        if ($arg != "") {
             $title .= $arg." | ";
         }
     }
-    $title .= 'mareklode';
+    $title .= "mareklode";
 
     $thisPageDescription = $h1;
     if (count($breadcrumb) == 1) {
-        $thisPageDescription = '';
+        $thisPageDescription = "";
     }
 ?>
 <!doctype html>
@@ -48,9 +48,9 @@
 </head>
 
 <?php
-    $bodyClass = '';
+    $bodyClass = "";
     if (count($breadcrumb) == 1) {
-        $bodyClass = ' pagemode_homepage';
+        $bodyClass = " pagemode_homepage";
     }
 ?>
 <body class="content<?= $bodyClass ?>">
@@ -65,8 +65,43 @@
     <nav class="navigation" 
 <?php } else { ?>
     <header class="header js-module" 
+        style="position:relative"
         data-module-name="patina" 
         data-module-data="template_header">
+        <div class="header__before js-module"
+            style="position:absolute; inset: 0; background-size: 100% 100%; opacity: .2;"
+            data-module-name="patina" 
+            data-module-data='{
+                "patina": {
+                    "type"  : "colorChannels",
+                    "red"   : 255,
+                    "green" : 0,
+                    "blue"  : 0,
+                    "alpha" : {
+                        "type"          : "createPattern",
+                        "patternName"   : "border",
+                        "filter"        : [{ "name": "contrast", "x": 0.33, "m": 2 }]
+                    }
+                }
+            }' >
+        </div>
+        <div class="header__after js-module"
+            style="position:absolute; inset: 0; background-size: 100% 100%; opacity: .5;"
+            data-module-name="patina" 
+            data-module-data='{
+                "patina": {
+                    "type"  : "colorChannels",
+                    "red"   : 0,
+                    "green" : 0,
+                    "blue"  : 0,
+                    "alpha" : {
+                        "type"          : "createPattern",
+                        "patternName"   : "border",
+                        "filter"        : [{ "name": "contrast", "x": 0.4, "m": 1.2 }]
+                    }
+                }
+            }' >
+        </div>
         <a href="." 
             class="header__logo js-module" 
             data-module-name="patina" 
@@ -83,7 +118,7 @@
     <nav class="navigation js-module" 
 <?php } ?>
          data-module-name="patina" 
-         data-module-data='template_navigation'>
+         data-module-data="template_navigation">
         <a class="navigation__link" href=".">Home</a>
         <a class="navigation__link" href="howto">HowTo</a>
         <a class="navigation__link" href="createPattern">createPattern</a>

@@ -9,10 +9,14 @@ function createPattern (layerDefinition, width, height, reusableImages) {
     let pattern = {};
 
     if (layerDefinition.pattern && this[layerDefinition.pattern.name]) {
-        console.log("createPattern: ", layerDefinition.pattern.name);
+        if (window.consoleVerbose) {
+            console.log("createPattern: ", layerDefinition.pattern.name);
+        }
         pattern = this[layerDefinition.pattern.name]( layerDefinition.pattern, width, height );
     } else if (this[layerDefinition.patternName]) {
-        console.log("createPattern: ", layerDefinition.patternName);
+        if (window.consoleVerbose) {
+            console.log("createPattern: ", layerDefinition.patternName);
+        }
         pattern = this[layerDefinition.patternName]( layerDefinition, width, height );
     } else {
         let patternName = layerDefinition.patternName;

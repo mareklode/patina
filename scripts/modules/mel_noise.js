@@ -23,8 +23,6 @@ const noise = {
             noiseMap = [],
             threshold = noiseMapWidth / frequency;
 
-        // console.log('noiseMapWidth: ', noiseMapWidth);
-
         // creating the array
         for ( let step = 0; step <= b; step++) {
             noiseMap[step] = [];
@@ -164,9 +162,10 @@ const noise = {
         }
 
         let noiseString = new Array();
-        for (let y = 0; y < width; y++) {
-            noiseMap[y].pop(); // every line was one pixel too long. Border-copying?
-            noiseString = noiseString.concat(noiseMap[y]);
+        for (let y = 0; y < noiseMapWidth; y++) {
+            // here the end of every line gets sliced off, 
+            // if the canvas width is not a power of 2
+            noiseString = noiseString.concat(noiseMap[y].slice(0, width));
         }
         // debugger
         return noiseString;

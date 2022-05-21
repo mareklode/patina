@@ -19,7 +19,9 @@ function patina (domElement, parameters) {
     self._parameters = self._completeParameters( parameters, domElement );
     self.reusableImages = {};
 
-    console.log('###### - Patina - ######', self._parameters);
+    if (window.consoleVerbose) {
+        console.log('###### - Patina - ######', self._parameters);
+    }
     
     self.createPatina(self._parameters, domElement);
         
@@ -288,7 +290,9 @@ patina.prototype = {
         if (layer.type === "createPattern") {
 
             const {default: createPattern} = await import('./mel_createPattern.js');
-            console.log(createPattern);
+            if (window.consoleVerbose) {
+                console.log(createPattern);
+            }
             resultingImage = new createPattern( layer, width, height );
 
         } else if (layer.type === "reuseImage") {

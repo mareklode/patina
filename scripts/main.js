@@ -2,6 +2,7 @@
 
 const modulesPath = './modules/mel_';
 const cacheBusterVersion = '5';
+window.consoleVerbose = true;
 
 let mel = {};
 
