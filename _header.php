@@ -30,7 +30,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <base href="http://localhost/patina/"><?php/* das fliegt beim build prozess raus */?>
+    <base href="http://localhost/patina/"><?php /* das fliegt beim build prozess raus */ ?>
 
     <title><?= $title ?></title>
 
@@ -65,42 +65,15 @@
     <nav class="navigation" 
 <?php } else { ?>
     <header class="header js-module" 
-        style="position:relative"
         data-module-name="patina" 
         data-module-data="template_header">
         <div class="header__before js-module"
-            style="position:absolute; inset: 0; background-size: 100% 100%; opacity: .2;"
             data-module-name="patina" 
-            data-module-data='{
-                "patina": {
-                    "type"  : "colorChannels",
-                    "red"   : 255,
-                    "green" : 0,
-                    "blue"  : 0,
-                    "alpha" : {
-                        "type"          : "createPattern",
-                        "patternName"   : "border",
-                        "filter"        : [{ "name": "contrast", "x": 0.33, "m": 2 }]
-                    }
-                }
-            }' >
+            data-module-data='template_header_logo_before'>
         </div>
         <div class="header__after js-module"
-            style="position:absolute; inset: 0; background-size: 100% 100%; opacity: .5;"
             data-module-name="patina" 
-            data-module-data='{
-                "patina": {
-                    "type"  : "colorChannels",
-                    "red"   : 0,
-                    "green" : 0,
-                    "blue"  : 0,
-                    "alpha" : {
-                        "type"          : "createPattern",
-                        "patternName"   : "border",
-                        "filter"        : [{ "name": "contrast", "x": 0.4, "m": 1.2 }]
-                    }
-                }
-            }' >
+            data-module-data='template_header_logo_after'>
         </div>
         <a href="." 
             class="header__logo js-module" 

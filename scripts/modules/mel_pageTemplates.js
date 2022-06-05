@@ -51,6 +51,32 @@ const templates = {
             }
         }
     }`,
+    header_logo_before: `{
+        "patina": {
+            "type"  : "colorChannels",
+            "red"   : 255,
+            "green" : 0,
+            "blue"  : 0,
+            "alpha" : {
+                "type"          : "createPattern",
+                "patternName"   : "border",
+                "filter"        : [{ "name": "contrast", "x": 0.33, "m": 2 }]
+            }
+        }
+    }`,
+    header_logo_after: `{
+        "patina": {
+            "type"  : "colorChannels",
+            "red"   : 0,
+            "green" : 0,
+            "blue"  : 0,
+            "alpha" : {
+                "type"          : "createPattern",
+                "patternName"   : "border",
+                "filter"        : [{ "name": "contrast", "x": 0.4, "m": 1.2 }]
+            }
+        }
+    }`,
     header:  `{
         "width" : 375,
         "height": 283,

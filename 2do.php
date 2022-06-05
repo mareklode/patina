@@ -28,8 +28,9 @@ cp -r ../patina/images/ ./localhost/patina/
 cp -r ../patina/css/ ./localhost/patina/
 cp -r ../patina/LICENSE ./localhost/patina/
 
-<!--	jetzt alles zusammen rüber zur website
-cp -r ./localhost/patina ../mareklode/ .-->
+    jetzt alles zusammen rüber zur website
+meld ./localhost/patina/ ../mareklode/patina/
+<!--cp -r ./localhost/patina ../mareklode/ .-->
         </pre>
         
         <ul class="copy">
