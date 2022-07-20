@@ -65,6 +65,22 @@ filter.prototype = {
         return targetImage;
     }, // blur()
 
+    alpha: function (image, filterDefinition) {
+        let opacity = filterDefinition.opacity || 1;
+        /*
+        for (let i = 0; i< image.length/4; i++) {
+            image[i*5] = opacity;
+        };*/
+        return image.map(function(value, index){
+            if (index % 4 === 0) {
+                return opacity;
+            } else {
+                return value;
+            }
+        });
+        
+    },
+
     // the brightness function keeps black and white and manipulates the color-curve between them
     // ToDo: naming of contrast and brightness are confusing / misleading
     brightness: function (image, filterDefinition) { 
