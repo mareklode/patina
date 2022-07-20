@@ -200,7 +200,13 @@ patina.prototype = {
             return bottomLayer.map(function (value, index) {
                 return (topLayer[index] * value);
             });
+        } else if (combineMode.name === 'add') {
+            let opacity = combineMode.opacity || 1;
+            return bottomLayer.map(function (value, index) {
+                return (value + (topLayer[index] * opacity));
+            });
         } else {
+            // half and half
             return bottomLayer.map(function (value, index) {
                 return (value + topLayer[index]) / 2;
             });
@@ -321,6 +327,7 @@ patina.prototype = {
                     }
                 });
             }
+            this._paintCanvasToADifferentDiv(resultingImage, width, height);
             return resultingImage;
         } else {
             console.log('layer type not recognized ',layer);
@@ -359,12 +366,32 @@ patina.prototype = {
     }, // _paintCanvas()
 
     _paintCanvasToADifferentDiv: function ( patinaData, width, height, domElementID ) {
+        domElementID = domElementID || 'thisIDDoesNotExist';    
         let domElement = document.getElementById(domElementID);
         if (domElement) {
             console.log('_paintCanvasToADifferentDiv', domElementID);
             let myCanvas = this._createCanvas(patinaData, width, height);
             this._paintCanvas( myCanvas, domElement );
         } else {
+            let intermediateSteps = document.querySelector('.intermediateSteps') || document.createElement('div');
+            let stepCounter = 0;
+            if (!intermediateSteps.classList.contains('intermediateSteps')) {
+                intermediateSteps.classList.add('intermediateSteps');
+                document.body.append(intermediateSteps);
+            } else {
+                stepCounter = intermediateSteps.getAttribute('data-step-counter');
+            }
+
+            stepCounter++;
+
+            intermediateSteps.setAttribute('data-step-counter', stepCounter);
+
+            intermediateSteps.insertAdjacentHTML('beforeend', '<div class=stepCounter id=stepCounter' + stepCounter + '></div>');
+
+            let domElement = document.getElementById('stepCounter' + stepCounter );
+            let myCanvas = this._createCanvas(patinaData, width, height);
+            this._paintCanvas( myCanvas, domElement );
+
             // console.log('_paintCanvasToADifferentDiv ', domElementID, ' dom element not found.');
         }
     }, // _paintCanvasToADifferentDiv()
