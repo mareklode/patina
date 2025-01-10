@@ -3,6 +3,7 @@
     include '_header.php' 
 ?>
 
+
         <p class="copy alert">
             This HowTo is outdated since i updated the way the JavaScript modules are getting loaded.
             I threw out require.js and  now use native <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules">JavaScript modules</a>

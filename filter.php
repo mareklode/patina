@@ -3,6 +3,7 @@
     include '_header.php' 
 ?>
 
+
         <div class="pattern">
 
             <a href="filter/blur"

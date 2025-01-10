@@ -3,6 +3,7 @@
     include '_header.php' 
 ?>
 
+
         <p class="copy">The only way to use a pixel array at two different points inside the data structure (two different color channels for example) is to use "reusableImages". Better Explanation follows.</p>
 
         <div class="pattern">
