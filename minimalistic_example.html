@@ -11,11 +11,13 @@
 
   <script>
     const target = document.getElementById('js-patina-goes-here');
-    const pixelPaintingInstructions =
-      `{ "patina" : {
+    const pixelPaintingInstructions = `
+      { "patina" : {
           "type"          : "createPattern",
           "patternName"   : "noise_1D"
-      }}`;
+      }}
+    `;
+
     import('./scripts/modules/mel_patina.js')
       .then((patina) => {
           new patina.default(target, pixelPaintingInstructions);

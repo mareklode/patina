@@ -2,6 +2,15 @@
 
 const noise = {
     // https://sdm.scad.edu/faculty/mkesson/vsfx419/wip/best/winter12/jonathan_mann/noise.html
+    diamondSquare: function (frequency, width, height) {
+        function noiseMapWidth () {
+            let powerOfTwo = 2;
+            while (powerOfTwo < width) {
+                powerOfTwo *= 2;
+            }
+            return powerOfTwo;
+        }
+    }, // diamondSquare()
     noise_plasma: function (width, frequency) {
 
         frequency = frequency || 1;
@@ -35,6 +44,7 @@ const noise = {
 
         // repeating the displacement steps down to pixel level
         while (b >= 2) {
+            console.log(b);
 
             // diamondStep:
             // take a square (first is the whole area),

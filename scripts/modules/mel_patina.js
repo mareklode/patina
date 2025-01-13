@@ -200,6 +200,10 @@ patina.prototype = {
             return bottomLayer.map(function (value, index) {
                 return (topLayer[index] * value);
             });
+        } else if (combineMode.name === 'nachbelichten') {
+            return bottomLayer.map(function (value, index) {
+                return ((1 + topLayer[index]) * value);
+            });
         } else if (combineMode.name === 'add') {
             let opacity = combineMode.opacity || 1;
             return bottomLayer.map(function (value, index) {

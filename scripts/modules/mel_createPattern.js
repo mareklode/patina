@@ -1,5 +1,5 @@
-import canvas from './mel_canvas.js';
 import noise from './mel_noise.js';
+// import canvas from './mel_canvas.js';
 
 // http://youmightnotneedjquery.com/
 // http://codeblog.cz/vanilla/inside.html#set-element-html
@@ -26,7 +26,7 @@ function createPattern (layerDefinition, width, height, reusableImages) {
     }
 
     return pattern;
-} // createPattern()
+}; // createPattern()
 
 createPattern.prototype = {
 
@@ -60,6 +60,7 @@ createPattern.prototype = {
 
     noise_plasma: function ( layerDefinition, width, height ) {
         return noise.noise_plasma(width, layerDefinition.frequency);
+        //return noise.diamondSquare(layerDefinition.frequency, width, height);
     },
 
     // better use the number-Shortcut like { "topLayer" : 256 }
@@ -239,6 +240,6 @@ createPattern.prototype = {
         return pattern;
     }, // random_walker()
 
-} // createPattern.prototype
+}; // createPattern.prototype
 
 export default createPattern;

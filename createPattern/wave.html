@@ -1,15 +1,16 @@
 <!doctype html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
-
+    <base href="http://localhost/mareklode/patina/">
     <title>wave | createPattern | Patina | mareklode</title>
 
     <meta property="og:title" content="wave | createPattern | Patina | mareklode" />
     <meta property="og:image" content="http://mareklode.de/bilder/page/v3/v3_rost4.png" />
     <meta property="og:description" content="Patina: procedually generated background images in JavaScript. createPattern : wave" />
     <meta name="description" content="Patina: procedually generated background images in JavaScript. createPattern : wave">
+    <meta name="theme-color" content="#28330a">
 
     <link rel="stylesheet" type="text/css" href="css/normalize.min.css">
     <link rel="stylesheet" href="css/main.css">
@@ -17,18 +18,31 @@
 <body class="content">
 
     <header class="header js-module" 
-            data-require-name="patina" 
-            data-require-data="template_header">
-        <a href="." class="header__logo" title="Homepage">
+            data-module-name="patina" 
+            data-module-data="template_header">
+        <div class="header__before js-module"
+            data-module-name="patina" 
+            data-module-data='template_header_logo_before'>
+        </div>
+        <div class="header__after js-module"
+            data-module-name="patina" 
+            data-module-data='template_header_logo_after'>
+        </div>
+        <a href="." 
+            class="header__logo js-module" 
+            data-module-name="patina" 
+            data-module-data="template_header_logo_image" 
+            title="Homepage">
             <img src="images/page/header__logo--PatinaFont-rough_@2x.png" class="header__logo__image" alt="Patina" />
         </a>
     </header>
 
     <nav class="navigation js-module" 
-         data-require-name="patina" 
-         data-require-data='template_navigation'>
+         data-module-name="patina" 
+         data-module-data='template_navigation'>
         <a class="navigation__link" href=".">Home</a>
         <a class="navigation__link" href="howto.html">HowTo</a>
+        <a class="navigation__link" href="createPattern.html">createPattern</a>
         <a class="navigation__link" href="filter.html">filter</a>
         <span class="navigation__nowrap">
             <a class="navigation__link" href="reusableImages.html">reusableImages</a>
@@ -44,14 +58,14 @@
         <h1>createPattern : wave</h1>
         <p class="copy">The wave patterns are calculated using the sine function. That gives us smooth lines in different directions. This pattern is not random, the same parameters create the exact same image.</p>
         <h2>Basic Example</h2>
-        <pre class="copy">"patina" : {
+        <pre class="code">"patina" : {
     "type"          : "createPattern",
     "patternName"   : "wave"
 }</pre>
         <div class="pattern">
             <div class="js-module pattern__thumbnails pattern__thumbnails--256"
-                data-require-name="patina"
-                data-require-data='{
+                data-module-name="patina"
+                data-module-data='{
                     "patina": {
                         "type"          : "createPattern",
                         "patternName"   : "wave"
@@ -69,8 +83,8 @@
                 possible values are these strings:
                 <br />
                 <div class="js-module pattern__thumbnails pattern__thumbnails--lineHeight" 
-                    data-require-name="patina" 
-                    data-require-data='{
+                    data-module-name="patina" 
+                    data-module-data='{
                         "patina": {
                             "type"          : "createPattern",
                             "pattern"       : {
@@ -82,8 +96,8 @@
                 ></div> vertical (default)
                 <br />
                 <div class="js-module pattern__thumbnails pattern__thumbnails--lineHeight" 
-                    data-require-name="patina" 
-                    data-require-data='{
+                    data-module-name="patina" 
+                    data-module-data='{
                         "patina": {
                             "type"          : "createPattern",
                             "pattern"       : {
@@ -96,8 +110,8 @@
                 ></div> horizontal
                 <br />
                 <div class="js-module pattern__thumbnails pattern__thumbnails--lineHeight" 
-                    data-require-name="patina" 
-                    data-require-data='{
+                    data-module-name="patina" 
+                    data-module-data='{
                         "patina": {
                             "type"          : "createPattern",
                             "pattern"       : {
@@ -109,8 +123,8 @@
                 ></div> diagonalUp
                 <br />
                 <div class="js-module pattern__thumbnails pattern__thumbnails--lineHeight" 
-                    data-require-name="patina" 
-                    data-require-data='{
+                    data-module-name="patina" 
+                    data-module-data='{
                         "patina": {
                             "type"          : "createPattern",
                             "pattern"       : {
@@ -122,8 +136,8 @@
                 ></div> diagonalDown
                 <br />
                 <div class="js-module pattern__thumbnails pattern__thumbnails--lineHeight" 
-                    data-require-name="patina" 
-                    data-require-data='{
+                    data-module-name="patina" 
+                    data-module-data='{
                         "patina": {
                             "type"          : "createPattern",
                             "pattern"       : {
@@ -136,8 +150,8 @@
                 ></div> concentric
                 <br />
                 <div class="js-module pattern__thumbnails pattern__thumbnails--lineHeight" 
-                    data-require-name="patina" 
-                    data-require-data='{
+                    data-module-name="patina" 
+                    data-module-data='{
                         "patina": {
                             "type"          : "createPattern",
                             "pattern"       : {
@@ -154,8 +168,8 @@
                 defines how many 'waves' per width you get. Possible values are numbers. Negative numbers invert the pattern.
                 <br />
                 <div class="js-module pattern__thumbnails pattern__thumbnails--lineHeight" 
-                    data-require-name="patina" 
-                    data-require-data='{
+                    data-module-name="patina" 
+                    data-module-data='{
                         "patina": {
                             "type"          : "createPattern",
                             "pattern"       : {
@@ -166,8 +180,8 @@
                 ></div> 5 (default)
                 <br />
                 <div class="js-module pattern__thumbnails pattern__thumbnails--lineHeight" 
-                    data-require-name="patina" 
-                    data-require-data='{
+                    data-module-name="patina" 
+                    data-module-data='{
                         "patina": {
                             "type"          : "createPattern",
                             "pattern"       : {
@@ -179,8 +193,8 @@
                 ></div> 2
                 <br />
                 <div class="js-module pattern__thumbnails pattern__thumbnails--lineHeight" 
-                    data-require-name="patina" 
-                    data-require-data='{
+                    data-module-name="patina" 
+                    data-module-data='{
                         "patina": {
                             "type"          : "createPattern",
                             "pattern"       : {
@@ -192,8 +206,8 @@
                 ></div> -2
                 <br />
                 <div class="js-module pattern__thumbnails pattern__thumbnails--lineHeight" 
-                    data-require-name="patina" 
-                    data-require-data='{
+                    data-module-name="patina" 
+                    data-module-data='{
                         "patina": {
                             "type"          : "createPattern",
                             "pattern"       : {
@@ -210,8 +224,8 @@
                 you can slide the pattern up, down, left and right. Possible values are numbers.
                 <br />
                 <div class="js-module pattern__thumbnails pattern__thumbnails--lineHeight" 
-                    data-require-name="patina" 
-                    data-require-data='{
+                    data-module-name="patina" 
+                    data-module-data='{
                         "patina": {
                             "type"          : "createPattern",
                             "pattern"       : {
@@ -223,8 +237,8 @@
                 ></div> 0 | 0 (default)
                 <br />
                 <div class="js-module pattern__thumbnails pattern__thumbnails--lineHeight" 
-                    data-require-name="patina" 
-                    data-require-data='{
+                    data-module-name="patina" 
+                    data-module-data='{
                         "patina": {
                             "type"          : "createPattern",
                             "pattern"       : {
@@ -238,8 +252,8 @@
 
                 <br />
                 <div class="js-module pattern__thumbnails pattern__thumbnails--lineHeight" 
-                    data-require-name="patina" 
-                    data-require-data='{
+                    data-module-name="patina" 
+                    data-module-data='{
                         "patina": {
                             "type"          : "createPattern",
                             "pattern"       : {
@@ -260,7 +274,7 @@
 
         <div class="pattern">
             <div id="js_patina_fromTextarea" 
-                class="js-module pattern__thumbnails pattern__thumbnails--256"
+                class="pattern__thumbnails pattern__thumbnails--256"
             ></div>
         
             <button id="js_patina_CallToAction" style="margin: 3vw 1vw 1vw 1vw; padding: 1vw 2vw; position: relative; bottom: 1vw; background-color: rgb(47, 79, 79); color: white;">apply</button>
@@ -280,38 +294,37 @@
 }
             </textarea>
         
-            <script src="scripts/vendor/require.js"></script>
+            <script type="module" src="scripts/main.js"></script>
             <script>
-                // for inline require calls you do not use the "data-main" entry point
-                // https://requirejs.org/docs/api.html#data-main
-                require(['scripts/main'], function() {
-                    const trigger  = document.getElementById('js_patina_CallToAction'),
-                    textarea = document.getElementById('js_patina_textarea'),
-                    target   = document.getElementById('js_patina_fromTextarea');
-        
-                    const calculatePatinaFromTextarea = function () {
-                        require(['patina'], function( patina ) {
-                            new patina(target, textarea.value);
+                const trigger  = document.getElementById('js_patina_CallToAction');
+                const textarea = document.getElementById('js_patina_textarea');
+                const target   = document.getElementById('js_patina_fromTextarea');
+
+                // ich importiere von /patina... weil die dynamische und die statische Version 
+                // der seite unterschiedliche base href haben und der relative Pfad nicht funktioniert hat
+                const calculatePatinaFromTextarea = function () {
+                    import('/patina/scripts/modules/mel_patina.js')
+                        .then((patina) => {
+                            new patina.default(target, textarea.value);
                         });
-                    };
-        
-                    trigger.addEventListener('click', calculatePatinaFromTextarea);
-                    calculatePatinaFromTextarea();
-                });
-            </script>
+                };
+
+                trigger.addEventListener('click', calculatePatinaFromTextarea);
+                calculatePatinaFromTextarea();
+            </script>            
         </div><!-- .pattern -->
     
     </main><!-- .content__block -->
 
     <footer class="footer js-module" 
-            data-require-name="patina" 
-            data-require-data="template_footer">
-        &copy; 2022 Marek Lode &nbsp; | &nbsp; 
+            data-module-name="patina" 
+            data-module-data="template_footer">
+        &copy; 2025 Marek Lode &nbsp; | &nbsp; 
         <a href="https://github.com/mareklode/patina">
             <img class="footer__githublogo" src="images/page/GitHub-Mark-32px.png" alt="GitHub Logo" />
             This Project on GitHub
         </a>
     </footer>
-    <script data-main="scripts/main" src="scripts/vendor/require.js"></script>
+    <script type="module" src="scripts/main.js"></script>
 </body>
 </html>

@@ -1,7 +1,61 @@
-<?php 
-    $h1 = 'Creating the Pixel Painting Instructions';
-    include '_header.php' 
-?>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <base href="">
+    <title>Pixel Painting Instructions | Patina | mareklode</title>
+
+    <meta property="og:title" content="Pixel Painting Instructions | Patina | mareklode">
+    <meta property="og:image" content="http://mareklode.de/bilder/page/v3/v3_rost4.png">
+    <meta property="og:description" content="Patina: procedually generated background images in JavaScript. Pixel Painting Instructions.">
+    <meta name="description" content="Patina: procedually generated background images in JavaScript. Pixel Painting Instructions.">
+    <meta name="theme-color" content="#28330a">
+
+    <link rel="stylesheet" type="text/css" href="css/normalize.min.css">
+    <link rel="stylesheet" href="css/main.css">
+
+</head>
+
+<body class="content">
+
+    <header class="header js-module" 
+        data-module-name="patina" 
+        data-module-data="template_header">
+        <div class="header__before js-module"
+            data-module-name="patina" 
+            data-module-data='template_header_logo_before'>
+        </div>
+        <div class="header__after js-module"
+            data-module-name="patina" 
+            data-module-data='template_header_logo_after'>
+        </div>
+        <a href="." 
+            class="header__logo js-module" 
+            data-module-name="patina" 
+            data-module-data="template_header_logo_image" 
+            title="Homepage">
+            <img src="images/page/header__logo--PatinaFont-rough_@2x.png" class="header__logo__image" alt="Patina">
+        </a> 
+    </header>
+    
+    <nav class="navigation js-module" 
+         data-module-name="patina" 
+         data-module-data="template_navigation">
+        <a class="navigation__link" href="index.html">Home</a>
+        <a class="navigation__link" href="howto.html">HowTo</a>
+        <a class="navigation__link" href="createPattern.html">createPattern</a>
+        <a class="navigation__link" href="filter.html">filter</a>
+        <span class="navigation__nowrap">
+            <a class="navigation__link" href="reusableImages.html">reusableImages</a>
+            <a class="navigation__link" href="examples.html">examples</a>
+            <a class="navigation__link" href="test.html">test</a>
+        </span>
+    </nav>
+
+    <main class="content__block">
+
+        <h1>Pixel Painting Instructions</h1>
 
         <p class="copy">
             The Pixel Painting Instructions describe a data structure that defines how the patina is being created. 
@@ -29,10 +83,10 @@
         <h3>building blocks</h3>
 
         <ul class="copy">
-            <li><a href="createPattern">createPattern</a></li>
+            <li><a href="createPattern.html">createPattern</a></li>
             <li>combine</li>
             <li>reusableImages</li>
-            <li><a href="filter">filter</a></li>
+            <li><a href="filter.html">filter</a></li>
             <li></li>
         </ul>
 
@@ -48,7 +102,7 @@
         <p class="copy">will become:</p>
 
         <div class="pattern">
-            <a href="createPattern/noise_plasma"
+            <a href="createPattern/noise_plasma.html"
                 class="js-module pattern__thumbnails pattern__thumbnails--clickable"
                 data-module-name="patina" 
                 data-module-data='{
@@ -58,7 +112,7 @@
                     }
                 }'
             >createPattern noise_plasma</a>
-            <a href="createPattern/noise_plasma"
+            <a href="createPattern/noise_plasma.html"
                 class="js-module pattern__thumbnails pattern__thumbnails--clickable"
                 data-module-name="patina" 
                 data-module-data='{
@@ -68,7 +122,7 @@
                     }
                 }'
             >createPattern noise_plasma</a>
-            <a href="createPattern/noise_plasma"
+            <a href="createPattern/noise_plasma.html"
                 class="js-module pattern__thumbnails pattern__thumbnails--clickable" 
                 data-module-name="patina" 
                 data-module-data='{
@@ -78,7 +132,7 @@
                     }
                 }'
             >createPattern noise_plasma</a>
-            <a href="createPattern/noise_plasma"
+            <a href="createPattern/noise_plasma.html"
                 class="js-module pattern__thumbnails pattern__thumbnails--clickable"
                 data-module-name="patina" 
                 data-module-data='{
@@ -88,7 +142,7 @@
                     }
                 }'
             >createPattern noise_plasma</a>
-            <a href="createPattern/noise_plasma"
+            <a href="createPattern/noise_plasma.html"
                 class="js-module pattern__thumbnails pattern__thumbnails--clickable"
                 data-module-name="patina" 
                 data-module-data='{
@@ -231,9 +285,24 @@
                     <div class="PPI-node">alpha: 128</div>
                 </span>
             </span>
-        </div>
+        </div><!-- .pattern -->
 
         <br style="clear: both;">
         
 
-<?php include "_footer.php" ?>
+    </main><!-- .content__block -->
+
+    <footer	class="footer js-module" 
+            data-module-name="patina" 
+            data-module-data="template_footer">
+        &copy; 2025 Marek Lode &nbsp; | &nbsp; 
+        <a href="https://github.com/mareklode/patina">
+            <img class="footer__githublogo" src="images/page/GitHub-Mark-32px.png" alt="GitHub Logo">
+            This Project on GitHub
+        </a>
+    </footer>
+
+    <script type="module" src="scripts/main.js"></script>
+
+</body>
+</html>
