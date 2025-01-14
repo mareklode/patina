@@ -7,7 +7,7 @@ const templates = {
             { 
                 "id"            : "marekkeram_256", 
                 "type"          : "preloadImage",
-                "url"           : "/patina/images/page/header__logo--PatinaFont-rough_white.png",
+                "url"           : "./images/page/header__logo--PatinaFont-rough_white.png",
                 "colorChannels" : 1
             }
         ],

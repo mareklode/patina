@@ -172,7 +172,7 @@
             // ich importiere von /patina... weil die dynamische und die statische Version 
             // der seite unterschiedliche base href haben und der relative Pfad nicht funktioniert hat
             const calculatePatinaFromTextarea = function () {
-                import('/patina/scripts/modules/mel_patina.js')
+                import('./scripts/modules/mel_patina.js')
                     .then((patina) => {
                         new patina.default(target, textarea.value);
                     });
