@@ -147,7 +147,7 @@ patina.prototype = {
             parsed = JSON.parse(pixelPaintingInstructions);
         }
         catch (e) {
-            console.error(pixelPaintingInstructions, e);
+            console.error("Error in pixelPaintingInstructions:",     pixelPaintingInstructions, e);
         }
         finally {
             return parsed || {};
@@ -277,14 +277,14 @@ patina.prototype = {
         if ( Array.isArray(layer) ) {
             return layer;
         }
-        if (layer.type === "colorChannels") {
+        if (layer?.type === "colorChannels") {
             resultingImage = {};
             resultingImage.red   = await this._processPatinaNode(layer.red, width, height);
             resultingImage.green = await this._processPatinaNode(layer.green, width, height);
             resultingImage.blue  = await this._processPatinaNode(layer.blue, width, height);
             resultingImage.alpha = await this._processPatinaNode(layer.alpha, width, height);
         }
-        if (layer.type === "combine") {
+        if (layer?.type === "combine") {
             resultingImage = this._combineLayers( 
                 await this._processPatinaNode(layer.bottomLayer, width, height),
                 await this._processPatinaNode(layer.topLayer, width, height),
@@ -297,7 +297,7 @@ patina.prototype = {
         await this.waitMilliseconds(50);
         
         
-        if (layer.type === "createPattern") {
+        if (layer?.type === "createPattern") {
 
             const {default: createPattern} = await import('./mel_createPattern.js');
             if (window.consoleVerbose) {
@@ -305,7 +305,7 @@ patina.prototype = {
             }
             resultingImage = new createPattern( layer, width, height );
 
-        } else if (layer.type === "reuseImage") {
+        } else if (layer?.type === "reuseImage") {
             if (this.reusableImages[layer.reuseId]) {
                 resultingImage = await this.reusableImages[layer.reuseId];
             } else {

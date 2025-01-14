@@ -38,20 +38,18 @@ createPattern.prototype = {
         let pattern = new Array( width * height );
         for (let i = 0; i < width; i++ ) {
             for (let j = 0; j < height; j++ ) {
-                let x1 = i / ( width  - 1 ),
-                    x2 = j / ( height - 1 ),
-                    y1 = Math.pow(2 * x1, 2) - (4 * x1) + 1,
-                    y2 = Math.pow(2 * x2, 2) - (4 * x2) + 1;
-                    // https://www.wolframalpha.com/ <-- plot (2*x)^2 - 4x + 1
+                const linearX = i / ( width  - 1 );
+                const linearY = j / ( height - 1 );
                 
+                // https://www.wolframalpha.com/ <-- plot (2*x)^2 - 4x + 1
+                const circularX = Math.pow(2 * linearX, 2) - (4 * linearX) + 1;
+                const circularY = Math.pow(2 * linearY, 2) - (4 * linearY) + 1;
+
+                // https://easings.net/#easeInCirc
                 pattern[j * width + i] = (
-                    Math.pow(y1, 32) + 
-                    Math.pow(y2, 32) + 
-                    Math.pow(y1, 8) + 
-                    Math.pow(y2, 8) + 
-                    Math.pow(y1, 2) + 
-                    Math.pow(y2, 2)
-                ) / 6;
+                    1 - Math.sqrt(1 - Math.pow(circularX, 2)) +
+                    1 - Math.sqrt(1 - Math.pow(circularY, 2)) 
+                ) / 2;
             }
         }
         return pattern;
