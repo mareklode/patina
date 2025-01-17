@@ -26,26 +26,77 @@
         </style>
 
         <div class="output"></div>
+
         <div class="pattern">
-            <div class="js-module pattern__thumbnail pattern__thumbnail--512" 
+            <div class="js-module" 
                 style="background-color: #7d9cb1; height: 100vh; width: 100%;"
-                data-module-name="patina" 
-                data-module-data='{
-                    "patina": {
-                        "type"  : "createPattern",
-                        "patternName": "rays",
-                        "count": 180,
-                        "offsetX"   : 0,
-                        "offsetY"   : 0,
-                        "sharpen"   : 4,
-                        "rotation"  : 1
-                    }
-                }'
+                id="js-treeview-goes-here"
             ></div>
         </div>
+
+        <script>
+            const target = document.getElementById('js-treeview-goes-here');
+            const pixelPaintingInstructions = `{
+                "width": 256,
+                "patina": {
+                    "type"  : "colorChannels",
+                    "red"   : 73,
+                    "green" : 94,
+                    "blue"  : 18,
+                    "alpha" : {
+                        "type"  :   "combine",
+                        "topLayer"    : {
+                            "type"  :   "combine",
+                            "topLayer"    : {
+                                "type"  :   "combine",
+                                "topLayer"      : {
+                                    "type"          : "createPattern",
+                                    "patternName"   : "noise_plasma"
+                                },
+                                "bottomLayer"   : {
+                                    "type"          : "createPattern",
+                                    "patternName"   : "wave",
+                                    "direction"     : "horizontal",
+                                    "frequency"     : 60
+                                }
+                            },
+                            "bottomLayer" : { 
+                                "type"          : "createPattern",
+                                "patternName"   : "slope",
+                                "filter"        : [{ "name": "brightness", "brightness": -2 }]
+                            }
+                        },
+                        "bottomLayer" : { 
+                            "type"  :   "combine",
+                            "topLayer"    : {
+                                "type"          : "createPattern",
+                                "patternName"   : "noise_white"
+                            },
+                            "bottomLayer"   : {
+                                "type"          : "createPattern",
+                                "patternName"   : "wave",
+                                "direction"     : "vertical",
+                                "frequency"     : 67
+                            }
+                        },
+                        "filter"        : [
+                            { "name": "invert" },
+                            { "name": "blur", "radius": 1 },
+                            { "name": "contrast", "m": 3, "x": 0.625 }
+                        ]
+                    }
+                }
+            }`;
+        
+            import('./scripts/modules/mel_patina.js')
+              .then((patina) => {
+                new patina.default(target, pixelPaintingInstructions);
+                new patina.visualize(target, pixelPaintingInstructions);
+              });
+          </script>
     </main>
 
-    <script type="module" src="scripts/main.js"></script>
+    <!--script type="module" src="scripts/main.js"></script-->
 
 </body>
 </html>

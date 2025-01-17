@@ -9,6 +9,7 @@ import templates from './mel_pageTemplates.js';
 
 function patina (domElement, parameters) {
     let self = this;
+    console.log(parameters);
 
     if (parameters.startsWith('template_')) {
         // todo: dynamisch 2/2
@@ -19,18 +20,14 @@ function patina (domElement, parameters) {
     self._parameters = self._completeParameters( parameters, domElement );
     self.reusableImages = {};
 
-    if (window.consoleVerbose) {
-        console.log('###### - Patina - ######', self._parameters);
-    }
-    
-    self.createPatina(self._parameters, domElement);
-        
+    window.consoleVerbose &&
+    console.log('###### - Patina - ######', self._parameters);
+
+    self.createPatina(self._parameters, domElement);  
 } // patina()
 
 patina.prototype = {
-
     preloadImage: function ( reusableImage, width, height, reusableImages) {
-        
         // fetch image from URL and convert it to an Array
         let myCanvas = canvas.newCanvas(width, height);
         this.imageObj = new Image();
@@ -72,7 +69,6 @@ patina.prototype = {
         });
 
         this.imageObj.src = reusableImage.url;
-
     }, // preloadImage()
 
     calculateReusablePattern: async function (value, width, height) {
@@ -84,7 +80,6 @@ patina.prototype = {
     }, // just to make async possible
 
     createPatina: async function (parameters, domElement) {
-
         if ( parameters.reusableImages.length > 0 ) {
             let self = this;
 
@@ -127,7 +122,6 @@ patina.prototype = {
             
         let myCanvas = this._createCanvas( patinaData, parameters.width, parameters.height );
         this._paintCanvas( myCanvas, domElement );
-
     }, // createPatina()
 
     _completeParameters: function ( parameters, domElement ) {
@@ -222,7 +216,6 @@ patina.prototype = {
                 return (value + topLayer[index]) / 2;
             });
         }
-        
     }, // combineArrays()
 
     _combineLayers: function(bottomLayer, topLayer, width, combineMode) {
@@ -414,3 +407,8 @@ patina.prototype = {
 } // patina.prototype
 
 export default patina;
+
+export const visualize = function (domElement, parameters) {
+    console.log(domElement);
+    return parameters;
+}
