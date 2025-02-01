@@ -393,25 +393,24 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
   }
 }
 /*
-#   #####
-#  #     #  ####  #    # ##### ###### #    # #####
-#  #       #    # ##   #   #   #      ##   #   #
-#  #       #    # # #  #   #   #####  # #  #   #
-#  #       #    # #  # #   #   #      #  # #   #
-#  #     # #    # #   ##   #   #      #   ##   #
-#   #####   ####  #    #   #   ###### #    #   #
-http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=Content
+#  #####   ####  #####  #   # 
+#  #    # #    # #    #  # #  
+#  #####  #    # #    #   #   
+#  #    # #    # #    #   #   
+#  #    # #    # #    #   #   
+#  #####   ####  #####    #   
+http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=body
 */
-.content {
+.body {
   text-align: center;
   display: block;
 }
 @media screen and (min-width: 600px) {
-  .content {
+  .body {
     margin-top: 0;
   }
 }
-.content__block {
+.body__block {
   padding-top: 2rem;
   padding-bottom: 2rem;
   text-align: center;
@@ -419,7 +418,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=Content
   background: #f9f8f8;
   border-top: 1px solid white;
 }
-.content__block--dark {
+.body__block--dark {
   background-color: #cde;
 }
 /*
@@ -645,6 +644,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
 }
 .pattern__thumbnail {
   background-color: #ffe687;
+  background-size: contain;
   margin: 1vw;
   display: inline-block;
   vertical-align: top;
@@ -654,7 +654,11 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   max-width: 100%;
   color: white;
   text-shadow: 0 0 1px black, 0 0 2px black, 0 0 3px black;
-  background-size: contain;
+  /*
+        &--256 {
+            width: 256px;
+            height: 256px;
+        }*/
 }
 @media screen and (max-width: 299px) {
   .pattern__thumbnail {

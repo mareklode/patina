@@ -130,13 +130,20 @@ patina.prototype = {
 
     }, // createPatina()
 
-    _completeParameters: function ( parameters, element ) {
+    _completeParameters: function ( parameters, domElement ) {
         parameters = this._jsonParse( parameters );
 
         parameters.reusableImages = parameters.reusableImages || [];
 
-        parameters.width = parameters.width || element.clientWidth;
-        parameters.height = parameters.height || element.clientHeight;
+        let pixelRatio = window.devicePixelRatio;
+        // pixelRatio = 2.8125;
+
+        parameters.width = parameters.width || Math.round(domElement.clientWidth * pixelRatio);
+        parameters.height = parameters.height ||  Math.round(domElement.clientHeight * pixelRatio);
+
+        const output = document.querySelectorAll('.output');
+        if (output.length) output[0].textContent = pixelRatio + "px";
+        // console.log(document.querySelector('.output'));
 
         return parameters;
     }, // _completeParameters()
