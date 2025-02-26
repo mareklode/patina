@@ -7,9 +7,77 @@
         <style>
             html, body { margin: 0 }
             .pattern__thumbnail { float: left; margin: 0; line-height: 64px; color: purple; text-align: center; }
+
+            .view {
+                width: 1000px;
+                border: 1px solid black;
+            }
+            .two_go_into_one {
+                display: grid;
+                grid-template-columns: auto auto;
+                grid-template-rows: auto auto;
+                grid-template-areas: 
+                "two two"
+                "one one"
+                ;
+                gap: 1rem;
+
+                width: calc(100% - 2rem);
+                height: calc(100% - 0rem);
+                padding: 0 1rem 0 1rem;
+
+                background-color: transparent;
+                border: 1px solid red;
+            }
+            .one {
+                grid-area: one;
+                border: 5px solid green;
+                min-height: 200px;
+            }
+            .two {
+                grid-area: two two;
+                border: 5px solid yellow;
+                min-height: 200px;
+                min-width: 100px;
+
+                position: relative;
+                &::after {
+                    display: block;
+                    content: "";
+                    height: 1rem;
+                    width: 5px;
+                    background-color: black;
+                    position: absolute;
+                    bottom: -1.3rem;
+                    right: 20%;
+                }
+                + .two::after {
+                    right: 80%;
+                }
+            }
         </style>
 
-        <div class="pattern">
+        <div class="view">
+            <div class="two_go_into_one">
+                <div class="two">
+                    <div class="two_go_into_one">
+                        <div class="two">b</div>
+                        <div class="two">
+                            <div class="two_go_into_one">
+                                <div class="two">a</div>
+                                <div class="two">b</div>
+                                <div class="one">c</div>
+                            </div>
+                        </div>
+                        <div class="one">c</div>
+                    </div>        
+                </div>
+                <div class="two">b</div>
+                <div class="one">c</div>
+            </div>
+        </div>
+
+        <!--div class="pattern">
             <div class="js-module pattern__thumbnail pattern__thumbnail--512" 
                 style="background-color: #7d9cb1; height: 100vh; width: 100%;"
                 data-module-name="patina" 
@@ -109,7 +177,7 @@
                     }
                 }'
             ></div>
-        </div>
+        </div-->
     </main>
 
     <script type="module" src="scripts/main.js"></script>
