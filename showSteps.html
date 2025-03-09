@@ -5,75 +5,130 @@
 ?-->
   
         <style>
+            :root {
+                --gap-width: 1rem;
+                --view-background-color: white;
+
+                --stroke-width: .5rem;
+                --half-stroke-width: calc(var(--stroke-width) / 2);
+                --stroke-color: gray;
+
+                --border-radius: var(--half-stroke-width);
+            }
             html, body { margin: 0 }
             .pattern__thumbnail { float: left; margin: 0; line-height: 64px; color: purple; text-align: center; }
 
             .view {
-                width: 1000px;
-                border: 1px solid black;
+                margin: 0 auto;
+                width: fit-content;
+                background-color: var(--view-background-color);
             }
-            .two_go_into_one {
+            .family {
                 display: grid;
                 grid-template-columns: auto auto;
                 grid-template-rows: auto auto;
                 grid-template-areas: 
-                "two two"
-                "one one"
+                "parent parent"
+                "child child"
                 ;
-                gap: 1rem;
-
-                width: calc(100% - 2rem);
-                height: calc(100% - 0rem);
-                padding: 0 1rem 0 1rem;
-
+                gap: calc(2 * var(--gap-width)) var(--gap-width);
+                
                 background-color: transparent;
-                border: 1px solid red;
             }
-            .one {
-                grid-area: one;
-                border: 5px solid green;
-                min-height: 200px;
-            }
-            .two {
-                grid-area: two two;
-                border: 5px solid yellow;
-                min-height: 200px;
-                min-width: 100px;
+            .child {
+                grid-area: child;
+                min-height: 200px;                
 
-                position: relative;
-                &::after {
+                position: relative; /* to position the :after-markers */
+
+                &::before { /* marker on top */
                     display: block;
                     content: "";
-                    height: 1rem;
-                    width: 5px;
-                    background-color: black;
+                    height: var(--gap-width);
+                    width: var(--stroke-width);
+                    transform: translateX(var(--half-stroke-width));
+                    background-color: var(--stroke-color);
                     position: absolute;
-                    bottom: -1.3rem;
-                    right: 20%;
+                    top: calc(var(--gap-width) * -1);
+                    right: 50%;
                 }
-                + .two::after {
-                    right: 80%;
+            }
+            .parent {
+                min-height: 200px;
+
+                display: grid;
+                align-items: end;
+
+                position: relative; /* to position the bracket below */
+
+                /* bracket below is a rectangle with 2 visible borders */
+                &::after { 
+                    display: block;
+                    content: "";
+                    width: calc(50% + var(--gap-width));
+                    height: calc(var(--gap-width) - var(--half-stroke-width));
+                    border: 0 solid var(--stroke-color);
+                    position: absolute;
+                    bottom: calc(-1 * calc(var(--gap-width) + var(--half-stroke-width)));
+                    background-color: transparent;
+                    
+                    /* left part of the bracket */
+                    right: calc(calc(0px - var(--gap-width)) - var(--half-stroke-width));
+
+                    border-width: 0 0 var(--stroke-width) var(--stroke-width);
+                    border-bottom-left-radius: calc(2 * var(--stroke-width));
                 }
+
+                /* right part of the bracket .parent + .parent:after */
+                + .parent::after {
+                    right: unset;
+                    left: calc(calc(0px - var(--gap-width)) - var(--half-stroke-width));
+
+                    border-width: 0 var(--stroke-width) var(--stroke-width) 0;
+                    border-bottom-left-radius: unset;
+                    border-bottom-right-radius: calc(2 * var(--stroke-width));
+                }
+            }
+            .patina-node {
+                width: 200px;
+                margin: 0 auto;
+                background: darkslategray;
+                min-height: 200px;
+                border-radius: var(--border-radius);
             }
         </style>
 
         <div class="view">
-            <div class="two_go_into_one">
-                <div class="two">
-                    <div class="two_go_into_one">
-                        <div class="two">b</div>
-                        <div class="two">
-                            <div class="two_go_into_one">
-                                <div class="two">a</div>
-                                <div class="two">b</div>
-                                <div class="one">c</div>
+            <div class="family">
+                <div class="parent">
+                    <div class="family">
+                        <div class="parent">
+                            <div class="patina-node">x</div>
+                        </div>
+                        <div class="parent">
+                            <div class="family">
+                                <div class="parent">
+                                    <div class="patina-node">x</div>
+                                </div>
+                                <div class="parent">
+                                    <div class="patina-node">x</div>
+                                </div>
+                                <div class="child">
+                                    <div class="patina-node">x</div>
+                                </div>
                             </div>
                         </div>
-                        <div class="one">c</div>
+                        <div class="child">
+                            <div class="patina-node">x</div>
+                        </div>
                     </div>        
                 </div>
-                <div class="two">b</div>
-                <div class="one">c</div>
+                <div class="parent">
+                    <div class="patina-node">x</div>
+                </div>
+                <div class="child">
+                    <div class="patina-node">x</div>
+                </div>
             </div>
         </div>
 
