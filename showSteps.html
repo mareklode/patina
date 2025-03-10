@@ -28,70 +28,91 @@
                 grid-template-columns: auto auto;
                 grid-template-rows: auto auto;
                 grid-template-areas: 
-                "parent parent"
-                "child child"
+                "parent parent parent parent parent parent"
+                "child child child child child child"
                 ;
-                gap: calc(2 * var(--gap-width)) var(--gap-width);
+                gap: calc(2 * var(--gap-width)) 0;
                 
                 background-color: transparent;
             }
             .child {
                 grid-area: child;
                 min-height: 200px;                
+				margin: 0 auto;
 
-                position: relative; /* to position the :after-markers */
-
+                position: relative; /* to position the marker on top */
                 &::before { /* marker on top */
                     display: block;
                     content: "";
                     height: var(--gap-width);
                     width: var(--stroke-width);
-                    transform: translateX(var(--half-stroke-width));
-                    background-color: var(--stroke-color);
                     position: absolute;
-                    top: calc(var(--gap-width) * -1);
                     right: 50%;
+                    transform: translate(var(--half-stroke-width), calc(-1 * var(--gap-width)));
+                    background-color: var(--stroke-color);
                 }
             }
+
             .parent {
                 min-height: 200px;
+				margin: 0 calc(var(--gap-width) / 2);
 
                 display: grid;
                 align-items: end;
 
                 position: relative; /* to position the bracket below */
 
-                /* bracket below is a rectangle with 2 visible borders */
+                /* bracket below is a rectangle with 1-2 visible borders */
                 &::after { 
                     display: block;
                     content: "";
-                    width: calc(50% + var(--gap-width));
                     height: calc(var(--gap-width) - var(--half-stroke-width));
-                    border: 0 solid var(--stroke-color);
+                    border: 1px solid var(--stroke-color);
                     position: absolute;
                     bottom: calc(-1 * calc(var(--gap-width) + var(--half-stroke-width)));
                     background-color: transparent;
+
+					/* right part of the bracket .parent + .parent:after */
+					left: calc(calc(0px - var(--gap-width)) - var(--half-stroke-width));
+					width: calc(50% + var(--gap-width));
+
+					border-width: 0 var(--stroke-width) var(--stroke-width) 0;
+					border-bottom-right-radius: calc(2 * var(--stroke-width));
                     
-                    /* left part of the bracket */
+				}
+				/* middle part of the bracket, if there is one .parent before and another one afterwards */
+				& + .parent:has(+ .parent) {
+					&::after {
+						left: calc(-1 * var(--gap-width));
+						width: calc(var(--gap-width) + 100%);
+						border-width: 0 0 var(--stroke-width) 0;
+						border-bottom-right-radius: unset;
+					}
+					&::before {
+						display: block;
+						content: "";
+						height: var(--gap-width);
+						border-left: var(--stroke-width) solid var(--stroke-color);
+						position: absolute;
+						bottom: calc(-1 * var(--gap-width));
+						left: calc(50% - var(--half-stroke-width));
+					}
+				}
+
+				/* left part of the bracket */
+				&:first-child::after {
+					left: unset;
                     right: calc(calc(0px - var(--gap-width)) - var(--half-stroke-width));
+                    width: calc(50% + var(--gap-width));
 
                     border-width: 0 0 var(--stroke-width) var(--stroke-width);
+					border-bottom-right-radius: unset;
                     border-bottom-left-radius: calc(2 * var(--stroke-width));
                 }
-
-                /* right part of the bracket .parent + .parent:after */
-                + .parent::after {
-                    right: unset;
-                    left: calc(calc(0px - var(--gap-width)) - var(--half-stroke-width));
-
-                    border-width: 0 var(--stroke-width) var(--stroke-width) 0;
-                    border-bottom-left-radius: unset;
-                    border-bottom-right-radius: calc(2 * var(--stroke-width));
-                }
             }
+
             .patina-node {
                 width: 200px;
-                margin: 0 auto;
                 background: darkslategray;
                 min-height: 200px;
                 border-radius: var(--border-radius);
@@ -99,9 +120,17 @@
         </style>
 
         <div class="view">
+
+
             <div class="family">
                 <div class="parent">
                     <div class="family">
+						<div class="parent">
+							<div class="patina-node">x</div>
+						</div>
+						<div class="parent">
+							<div class="patina-node">x</div>
+						</div>
                         <div class="parent">
                             <div class="patina-node">x</div>
                         </div>
@@ -113,9 +142,9 @@
                                 <div class="parent">
                                     <div class="patina-node">x</div>
                                 </div>
-                                <div class="child">
-                                    <div class="patina-node">x</div>
-                                </div>
+								<div class="child">
+									<div class="patina-node">x</div>
+								</div>
                             </div>
                         </div>
                         <div class="child">
@@ -126,116 +155,136 @@
                 <div class="parent">
                     <div class="patina-node">x</div>
                 </div>
+				<div class="parent">
+					<div class="patina-node">x</div>
+				</div>
                 <div class="child">
                     <div class="patina-node">x</div>
                 </div>
             </div>
         </div>
-
-        <!--div class="pattern">
-            <div class="js-module pattern__thumbnail pattern__thumbnail--512" 
-                style="background-color: #7d9cb1; height: 100vh; width: 100%;"
-                data-module-name="patina" 
-                data-module-data='{
-                    "width"          : 512,
-                    "height"         : 512,
-                    "patina": {
-                        "type"  : "combine",
-                        "combineMode" : { 
-                            "name"      : "add",
-                            "opacity"   : 0.5
-                        },
-                        "topLayer"      : {
-                            "type"  : "createPattern",
-                            "patternName": "random_walker",
-                            "impact": 0.1
-                        },
-                        "bottomLayer" : {
-                            "type"  : "combine",
-                            "combineMode" : { 
-                                "name"      : "add",
-                                "opacity"   : 0.075
-                            },
-                            "topLayer"      : {
-                                "type"  : "createPattern",
-                                "patternName": "labyrinth",
-                                "color": 1
-                            },
-                            "bottomLayer" : {
-                                "type"  : "colorChannels",
-                                "red"   : {
-                                    "type"  : "combine",
-                                    "combineMode" : { 
-                                        "name": "add",
-                                        "opacity": 0.15
-                                    },
-                                    "topLayer"      : {
-                                        "type"          : "createPattern",
-                                        "patternName"   : "noise_white"
-                                    },
-                                    "bottomLayer"   : {
-                                        "type"      : "createPattern",
-                                        "pattern"   : {
-                                            "name"      : "slope",
-                                            "direction" : "to bottom",
-                                            "colorBegin": 0,
-                                            "colorEnd"  : 90
-                                        }
-                                    }
-                                },                        
-                                "green" : {
-                                    "type"  : "combine",
-                                    "combineMode" : { 
-                                        "name": "add",
-                                        "opacity": 0.075
-                                    },
-                                    "topLayer"      : {
-                                        "type"          : "createPattern",
-                                        "patternName"   : "noise_white",
-                                        "filter"        : [
-                                            { "name": "contrast", "m": 1, "x": 0.5 }
-                                        ]
-                                    },
-                                    "bottomLayer"   : {
-                                        "type"      : "createPattern",
-                                        "pattern"   : {
-                                            "name"      : "slope",
-                                            "direction" : "to bottom",
-                                            "colorBegin": 25,
-                                            "colorEnd"  : 15
-                                        }
-                                    }
-                                },
-                                "blue"  : {
-                                    "type"  : "combine",
-                                    "combineMode" : { 
-                                        "name": "add",
-                                        "opacity": 0.15
-                                    },
-                                    "topLayer"      : {
-                                        "type"          : "createPattern",
-                                        "patternName"   : "noise_white"
-                                    },
-                                    "bottomLayer"   : {
-                                        "type"      : "createPattern",
-                                        "pattern"   : {
-                                            "name"      : "slope",
-                                            "direction" : "to right",
-                                            "colorBegin": 0,
-                                            "colorEnd"  : 150
-                                        }
-                                    }
-                                },
-                                "alpha" : 255
-                            }
-                        }
-                    }
-                }'
-            ></div>
-        </div-->
     </main>
+	
+	<script>
+		let patina = {
+        "width": 256,
+        "patina": {
+            "type"  : "colorChannels",
+            "red"   : 73,
+            "green" : 94,
+            "blue"  : 18,
+            "alpha" : {
+                "type"  :   "combine",
+                "topLayer"    : {
+                    "type"  :   "combine",
+                    "topLayer"    : {
+                        "type"  :   "combine",
+                        "topLayer"      : {
+                            "type"          : "createPattern",
+                            "patternName"   : "noise_plasma"
+                        },
+                        "bottomLayer"   : {
+                            "type"          : "createPattern",
+                            "patternName"   : "wave",
+                            "direction"     : "horizontal",
+                            "frequency"     : 60
+                        }
+                    },
+                    "bottomLayer" : { 
+                        "type"          : "createPattern",
+                        "patternName"   : "slope",
+                        "filter"        : [{ "name": "brightness", "brightness": -2 }]
+                    }
+                },
+                "bottomLayer" : { 
+                    "type"  :   "combine",
+                    "topLayer"    : {
+                        "type"          : "createPattern",
+                        "patternName"   : "noise_white"
+                    },
+                    "bottomLayer"   : {
+                        "type"          : "createPattern",
+                        "patternName"   : "wave",
+                        "direction"     : "vertical",
+                        "frequency"     : 67
+                    }
+                },
+                "filter"        : [
+                    { "name": "invert" },
+                    { "name": "blur", "radius": 1 },
+                    { "name": "contrast", "m": 3, "x": 0.625 }
+                ]
+            }
+        }
+    };
 
-    <script type="module" src="scripts/main.js"></script>
+                let spaces = (length) => {
+                    return new Array(length * 4).join(" ");
+                }
+				
+				let processNode = (node, nestingLevel) => {
+                    nestingLevel += 1;
+                    
+                    if (node.type === "combine") {
+                        let htmlstring = spaces(nestingLevel) + '<div class="family"> \n';
+                        nestingLevel += 1;
+
+                        htmlstring += spaces(nestingLevel) + '<div class="parent">\n';    
+                        node.topLayer && ( htmlstring += processNode(node.topLayer, nestingLevel) );
+                        htmlstring += spaces(nestingLevel) + '</div>\n';    
+                        htmlstring += spaces(nestingLevel) + '<div class="parent">\n';    
+                        node.bottomLayer && ( htmlstring += processNode(node.bottomLayer, nestingLevel) );
+                        htmlstring += spaces(nestingLevel) + '</div>\n';    
+
+                        htmlstring += spaces(nestingLevel) + '<div class="child"><div class="patina-node">combine</div></div> \n';
+                        nestingLevel -= 1;
+
+                        htmlstring += spaces(nestingLevel) + '</div><!-- .family -->\n';
+                        return htmlstring;
+					}
+
+					if (node.type === "colorChannels") {
+                        let htmlstring = spaces(nestingLevel) + '<div class="family"> \n';
+                            nestingLevel += 1;
+
+                        htmlstring += spaces(nestingLevel) + '<div class="parent">\n';    
+
+                        node.red && ( htmlstring += processNode(node.red, nestingLevel));
+
+                        htmlstring += spaces(nestingLevel) + '</div>\n';    
+                        htmlstring += spaces(nestingLevel) + '<div class="parent">\n';    
+
+						node.green && ( htmlstring += processNode(node.green, nestingLevel));
+
+                        htmlstring += spaces(nestingLevel) + '</div>\n';    
+                        htmlstring += spaces(nestingLevel) + '<div class="parent">\n';    
+
+						node.blue && ( htmlstring += processNode(node.blue, nestingLevel));
+
+                        htmlstring += spaces(nestingLevel) + '</div>\n';    
+                        htmlstring += spaces(nestingLevel) + '<div class="parent">\n';    
+
+						node.alpha && ( htmlstring += processNode(node.alpha, nestingLevel));
+
+                        htmlstring += spaces(nestingLevel) + '</div>\n';    
+
+                        htmlstring += spaces(nestingLevel) + '<div class="child"><div class="patina-node">colorChannels</div></div>\n';
+                        nestingLevel -= 1;
+
+                        htmlstring += spaces(nestingLevel) + '</div><!-- .family -->\n';
+                        return htmlstring;
+					}
+
+                    return spaces(nestingLevel) + '<div class="patina-node">' + node.type + '</div>\n';
+				}
+				
+                let htmlstring = processNode(patina.patina, 0);
+                console.log(htmlstring);
+                document.querySelector('.view').innerHTML = htmlstring;
+				
+	</script>
+
+    <!--script type="module" src="scripts/main.js"></script-->
 
 </body>
 </html>
