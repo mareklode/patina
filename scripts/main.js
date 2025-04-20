@@ -4,10 +4,9 @@ const modulesPath = './modules/mel_';
 const cacheBusterVersion = '6';
 window.consoleVerbose = true;
 
-let mel = {};
+window.mel = {};
 
-mel.setupPage = function () {
-
+mel.jsTriggers = () => {
     /* find and execute JavaScript-triggers in HTML-tags */
     let nodeList = document.querySelectorAll(".js-module");
     console.log('JavaScript-triggers in HTML-tags:', nodeList.length, nodeList);
@@ -27,6 +26,11 @@ mel.setupPage = function () {
                 .catch(err => console.error(moduleName, ' does not exist? ', el));
         })(el, moduleName, moduleData);
     }
+}
+
+mel.setupPage = function () {
+
+    mel.jsTriggers();
 
     mel.kkeys = [];
     mel.konami = "arrowup,arrowup,arrowdown,arrowdown,arrowleft,arrowright,arrowleft,arrowright,b,a";

@@ -29,17 +29,17 @@ function patina (domElement, parameters) {
 patina.prototype = {
     preloadImage: function ( reusableImage, width, height, reusableImages) {
         // fetch image from URL and convert it to an Array
-        let myCanvas = canvas.newCanvas(width, height);
+        let myCanvas = canvas.init(width, height);
         this.imageObj = new Image();
 
         this.imageObj.addEventListener("load", function() {
             let imgData;
 
-            myCanvas.context.drawImage(this, 0, 0, width, height);
-            imgData = myCanvas.context.getImageData(
+            myCanvas.el.context.drawImage(this, 0, 0, width, height);
+            imgData = myCanvas.el.context.getImageData(
                 0, 0,
-                myCanvas.width,
-                myCanvas.height
+                myCanvas.el.width,
+                myCanvas.el.height
             );
 
             let data = imgData.data;
@@ -340,32 +340,32 @@ patina.prototype = {
     }, // _processPatinaNode()
 
     _createCanvas: function (patinaData, width, height) {
-        let myCanvas = canvas.newCanvas( width, height );
+        let myCanvas = canvas.init(width, height);
 
         if ( Array.isArray(patinaData) ) {
             // ToDo: the pixelPaintingInstructions should specify how the Array is transformed to an 4-channel-image
             for (let i = 0, len = width * height; i < len; i++) {
                 let alpha = Math.floor(patinaData[i] * 256);
-                myCanvas.img.data[i*4] = 0;      // r
-                myCanvas.img.data[i*4+1] = 0;    // g
-                myCanvas.img.data[i*4+2] = 0;    // b
-                myCanvas.img.data[i*4+3] = alpha;  // a
+                myCanvas.el.img.data[i*4] = 0;      // r
+                myCanvas.el.img.data[i*4+1] = 0;    // g
+                myCanvas.el.img.data[i*4+2] = 0;    // b
+                myCanvas.el.img.data[i*4+3] = alpha;  // a
             }
         } else {
             for (let i = 0, len = width * height; i < len; i++) {
-                myCanvas.img.data[i * 4]     = Math.floor(patinaData.red[i]   * 256);
-                myCanvas.img.data[i * 4 + 1] = Math.floor(patinaData.green[i] * 256);
-                myCanvas.img.data[i * 4 + 2] = Math.floor(patinaData.blue[i]  * 256);
-                myCanvas.img.data[i * 4 + 3] = Math.floor(patinaData.alpha[i] * 256);
+                myCanvas.el.img.data[i * 4]     = Math.floor(patinaData.red[i]   * 256);
+                myCanvas.el.img.data[i * 4 + 1] = Math.floor(patinaData.green[i] * 256);
+                myCanvas.el.img.data[i * 4 + 2] = Math.floor(patinaData.blue[i]  * 256);
+                myCanvas.el.img.data[i * 4 + 3] = Math.floor(patinaData.alpha[i] * 256);
             }
         }
-        myCanvas.context.putImageData( myCanvas.img, 0, 0 );
+        myCanvas.el.context.putImageData( myCanvas.el.img, 0, 0 );
         return myCanvas;
     }, // _createCanvas()
 
     _paintCanvas: function ( myCanvas, element ) {
         if (element) {
-            element.style.backgroundImage = 'url(' + myCanvas.toDataURL('image/png') + ')';
+            element.style.backgroundImage = 'url(' + myCanvas.el.toDataURL('image/png') + ')';
         }
     }, // _paintCanvas()
 

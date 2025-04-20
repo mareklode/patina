@@ -19,10 +19,10 @@ function paintArtpiece () {
     artPiece.height = artPiece.domelement.offsetHeight;
     
 
-    let myCanvas = canvas.newCanvas( artPiece.width, artPiece.height );
+    let myCanvas = canvas.init( artPiece.width, artPiece.height );
 
     console.log(artPiece.width, artPiece.height);
-    artPiece.domelement.appendChild(myCanvas);
+    artPiece.domelement.appendChild(myCanvas.el);
 
     let minimum, maximum;
     function minimumMaximum (value) {
@@ -38,11 +38,11 @@ function paintArtpiece () {
     for (let x = 0; x < artPiece.width; x++) {
         for (let y = 0; y < artPiece.height; y++) {
             let position = (x + (y * artPiece.width)) *4 ;
-            myCanvas.img.data[position]     = (y / artPiece.height) * 90; // Math.floor(Math.random() * 32) + 100;
-            myCanvas.img.data[position + 1] = ((artPiece.width-y) / artPiece.height) * 20; // Math.floor(Math.random() * 32) + 100;
-            myCanvas.img.data[position + 2] = (x / (artPiece.width + artPiece.height)) * 150; // Math.floor(Math.random() * 32) + 100;
+            myCanvas.el.img.data[position]     = (y / artPiece.height) * 90; // Math.floor(Math.random() * 32) + 100;
+            myCanvas.el.img.data[position + 1] = ((artPiece.width-y) / artPiece.height) * 20; // Math.floor(Math.random() * 32) + 100;
+            myCanvas.el.img.data[position + 2] = (x / (artPiece.width + artPiece.height)) * 150; // Math.floor(Math.random() * 32) + 100;
             //minimumMaximum(myCanvas.img.data[position + 2]);
-            myCanvas.img.data[position + 3] = 255;
+            myCanvas.el.img.data[position + 3] = 255;
         }
     }
 
@@ -50,10 +50,10 @@ function paintArtpiece () {
     
     // random gekrissel
     for (let i = 0, len = artPiece.width * artPiece.height; i < len; i++) {
-        myCanvas.img.data[i * 4]     *= Math.random() / 2 + .75;
-        myCanvas.img.data[i * 4 + 1] *= Math.random() / 2 + .75;
-        myCanvas.img.data[i * 4 + 2] *= Math.random() + 1;
-        myCanvas.img.data[i * 4 + 3] = 256;
+        myCanvas.el.img.data[i * 4]     *= Math.random() / 2 + .75;
+        myCanvas.el.img.data[i * 4 + 1] *= Math.random() / 2 + .75;
+        myCanvas.el.img.data[i * 4 + 2] *= Math.random() + 1;
+        myCanvas.el.img.data[i * 4 + 3] = 256;
     }
     
     // Labyrinth
@@ -133,7 +133,8 @@ function paintArtpiece () {
     1555 ms für mit seedrandom 
      680 ms mit builtin random
     */
-    myCanvas.context.putImageData( myCanvas.img, 0, 0 );
+    console.log(myCanvas.el);
+    myCanvas.el.context.putImageData( myCanvas.el.img, 0, 0 );
 }
 
 let timeStart = Date.now();
