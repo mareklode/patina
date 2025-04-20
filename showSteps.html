@@ -1,13 +1,46 @@
-<!--?php
-    $h1 = 'test';
-    $headerSimple = true;
-    include '_header.php' 
-?-->
-  
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <base href="">
+    <title>Show Steps | Patina | mareklode</title>
+
+
+    <link rel="stylesheet" type="text/css" href="css/normalize.min.css">
+    <link rel="stylesheet" href="css/main.css">
+
+</head>
+
+<body class="body">
+
+    <header class="header">
+        <div class="header__logo">
+            Patina
+        </div>
+    </header>
+
+    <nav class="navigation" data-module-name="patina" data-module-data="template_navigation">
+        <a class="navigation__link" href="index.html">Home</a>
+        <a class="navigation__link" href="howto.html">HowTo</a>
+        <a class="navigation__link" href="createPattern.html">createPattern</a>
+        <a class="navigation__link" href="filter.html">filter</a>
+        <span class="navigation__nowrap">
+            <a class="navigation__link" href="reusableImages.html">reusableImages</a>
+            <a class="navigation__link" href="examples.html">examples</a>
+            <a class="navigation__link" href="test.html">test</a>
+        </span>
+    </nav>
+
+    <main class="body__block">
+
+        <h1>Show Steps</h1>
+
         <style>
             :root {
                 --gap-width: 1rem;
-                --view-background-color: white;
+                --view-background-color: transparent;
 
                 --stroke-width: .5rem;
                 --half-stroke-width: calc(var(--stroke-width) / 2);
@@ -15,33 +48,49 @@
 
                 --border-radius: var(--half-stroke-width);
             }
-            html, body { margin: 0 }
-            .pattern__thumbnail { float: left; margin: 0; line-height: 64px; color: purple; text-align: center; }
 
-            .view {
+            html,
+            body {
+                margin: 0
+            }
+
+            .pattern__thumbnail {
+                float: left;
+                margin: 0;
+                line-height: 64px;
+                color: purple;
+                text-align: center;
+            }
+
+            .treeview {
                 margin: 0 auto;
                 width: fit-content;
                 background-color: var(--view-background-color);
             }
+
             .family {
                 display: grid;
                 grid-template-columns: auto auto;
                 grid-template-rows: auto auto;
-                grid-template-areas: 
-                "parent parent parent parent parent parent"
-                "child child child child child child"
+                grid-template-areas:
+                    "parent parent parent parent parent parent"
+                    "child child child child child child"
                 ;
                 gap: calc(2 * var(--gap-width)) 0;
-                
+
                 background-color: transparent;
             }
+
             .child {
                 grid-area: child;
-                min-height: 200px;                
-				margin: 0 auto;
+                min-height: 200px;
+                margin: 0 auto;
 
-                position: relative; /* to position the marker on top */
-                &::before { /* marker on top */
+                position: relative;
+
+                /* to position the marker on top */
+                &::before {
+                    /* marker on top */
                     display: block;
                     content: "";
                     height: var(--gap-width);
@@ -55,15 +104,16 @@
 
             .parent {
                 min-height: 200px;
-				margin: 0 calc(var(--gap-width) / 2);
+                margin: 0 calc(var(--gap-width) / 2);
 
                 display: grid;
                 align-items: end;
 
-                position: relative; /* to position the bracket below */
+                position: relative;
+                /* to position the bracket below */
 
                 /* bracket below is a rectangle with 1-2 visible borders */
-                &::after { 
+                &::after {
                     display: block;
                     content: "";
                     height: calc(var(--gap-width) - var(--half-stroke-width));
@@ -72,65 +122,128 @@
                     bottom: calc(-1 * calc(var(--gap-width) + var(--half-stroke-width)));
                     background-color: transparent;
 
-					/* right part of the bracket .parent + .parent:after */
-					left: calc(calc(0px - var(--gap-width)) - var(--half-stroke-width));
-					width: calc(50% + var(--gap-width));
+                    /* right part of the bracket .parent + .parent:after */
+                    left: calc(calc(0px - var(--gap-width)) - var(--half-stroke-width));
+                    width: calc(50% + var(--gap-width));
 
-					border-width: 0 var(--stroke-width) var(--stroke-width) 0;
-					border-bottom-right-radius: calc(2 * var(--stroke-width));
-                    
-				}
-				/* middle part of the bracket, if there is one .parent before and another one afterwards */
-				& + .parent:has(+ .parent) {
-					&::after {
-						left: calc(-1 * var(--gap-width));
-						width: calc(var(--gap-width) + 100%);
-						border-width: 0 0 var(--stroke-width) 0;
-						border-bottom-right-radius: unset;
-					}
-					&::before {
-						display: block;
-						content: "";
-						height: var(--gap-width);
-						border-left: var(--stroke-width) solid var(--stroke-color);
-						position: absolute;
-						bottom: calc(-1 * var(--gap-width));
-						left: calc(50% - var(--half-stroke-width));
-					}
-				}
+                    border-width: 0 var(--stroke-width) var(--stroke-width) 0;
+                    border-bottom-right-radius: calc(2 * var(--stroke-width));
 
-				/* left part of the bracket */
-				&:first-child::after {
-					left: unset;
+                }
+
+                /* middle part of the bracket, if there is one .parent before and another one afterwards */
+                &+.parent:has(+ .parent) {
+                    &::after {
+                        left: calc(-1 * var(--gap-width));
+                        width: calc(var(--gap-width) + 100%);
+                        border-width: 0 0 var(--stroke-width) 0;
+                        border-bottom-right-radius: unset;
+                    }
+
+                    &::before {
+                        display: block;
+                        content: "";
+                        height: var(--gap-width);
+                        border-left: var(--stroke-width) solid var(--stroke-color);
+                        position: absolute;
+                        bottom: calc(-1 * var(--gap-width));
+                        left: calc(50% - var(--half-stroke-width));
+                    }
+                }
+
+                /* left part of the bracket */
+                &:first-child::after {
+                    left: unset;
                     right: calc(calc(0px - var(--gap-width)) - var(--half-stroke-width));
                     width: calc(50% + var(--gap-width));
 
                     border-width: 0 0 var(--stroke-width) var(--stroke-width);
-					border-bottom-right-radius: unset;
+                    border-bottom-right-radius: unset;
                     border-bottom-left-radius: calc(2 * var(--stroke-width));
                 }
             }
 
             .patina-node {
+                box-sizing: border-box;
                 width: 200px;
-                background: darkslategray;
                 min-height: 200px;
                 border-radius: var(--border-radius);
+                padding: .5rem;
+
+                background: white;
+                border: 1px solid black;
+                background-size: contain;
+
+                & p {
+                    margin: 0;
+                    background-color: rgba(255, 255, 255, .67);
+                }
+            }
+
+            .patina-node__type {
+                font-weight: bold;
+            }
+
+
+            .jsonpatina-container {
+                position: fixed;
+                right: 0px;
+                top: 0px;
+                height: 100%;
+                width: 50%;
+                min-width: 750px;
+                z-index: 1;
+
+                transition: transform .33s ease-in-out;
+                transform: translateX(90%);
+            }
+
+            .jsonpatina-container:focus-within {
+                transform: translateX(0);
+            }
+
+            .jsonpatina-textarea {
+                width: 100%;
+                height: 100%;
+            }
+
+            .button-jsonpatina-to-textarea {
+                position: absolute;
+                top: 10px;
+                left: -200px;
+            }
+            .button-textarea-to-jsonpatina {
+                position: absolute;
+                top: 50px;
+                left: -200px;
+            }
+            .button-draw-jsonpatina {
+                position: absolute;
+                top: 90px;
+                left: -200px;
             }
         </style>
 
-        <div class="view">
+        <div class="jsonpatina-container">
+            <textarea class="jsonpatina-textarea jsonpatina-textarea--hidden" spellcheck="false" autocorrect="off"
+            autocapitalize="off"></textarea>
+            <button class="js-jsonpatina-to-textarea button-jsonpatina-to-textarea" >jsonpatina-to-textarea</button>
+            <button class="js-textarea-to-jsonpatina button-textarea-to-jsonpatina" >textarea-to-jsonpatina</button>
+            <button class="js-draw-jsonpatina button-draw-jsonpatina" >draw-jsonpatina</button>
+        </div>
 
+
+        <div class="treeview">
 
             <div class="family">
                 <div class="parent">
                     <div class="family">
-						<div class="parent">
-							<div class="patina-node">x</div>
-						</div>
-						<div class="parent">
-							<div class="patina-node">x</div>
-						</div>
+                        <div class="parent">
+                            <div class="patina-node">x</div>
+                        </div>
+                        <div class="parent">
+                            <div class="patina-node">x</div>
+                        </div>
                         <div class="parent">
                             <div class="patina-node">x</div>
                         </div>
@@ -142,149 +255,202 @@
                                 <div class="parent">
                                     <div class="patina-node">x</div>
                                 </div>
-								<div class="child">
-									<div class="patina-node">x</div>
-								</div>
+                                <div class="child">
+                                    <div class="patina-node">x</div>
+                                </div>
                             </div>
                         </div>
                         <div class="child">
                             <div class="patina-node">x</div>
                         </div>
-                    </div>        
+                    </div>
                 </div>
                 <div class="parent">
                     <div class="patina-node">x</div>
                 </div>
-				<div class="parent">
-					<div class="patina-node">x</div>
-				</div>
+                <div class="parent">
+                    <div class="patina-node">x</div>
+                </div>
                 <div class="child">
                     <div class="patina-node">x</div>
                 </div>
-            </div>
-        </div>
+            </div><!-- .family -->
+
+        </div><!-- .treeview -->
     </main>
-	
-	<script>
-		let patina = {
-        "width": 256,
-        "patina": {
-            "type"  : "colorChannels",
-            "red"   : 73,
-            "green" : 94,
-            "blue"  : 18,
-            "alpha" : {
-                "type"  :   "combine",
-                "topLayer"    : {
-                    "type"  :   "combine",
-                    "topLayer"    : {
-                        "type"  :   "combine",
-                        "topLayer"      : {
-                            "type"          : "createPattern",
-                            "patternName"   : "noise_plasma"
+
+    <script>
+        let jsonpatina = {
+            "width": 256,
+            "patina": {
+                "type": "colorChannels",
+                "red": 73,
+                "green": 94,
+                "blue": {
+                    "type": "editNode",
+                },
+                "alpha": {
+                    "type": "combine",
+                    "topLayer": {
+                        "type": "combine",
+                        "topLayer": {
+                            "type": "combine",
+                            "topLayer": {
+                                "type": "createPattern",
+                                "patternName": "noise_plasma"
+                            },
+                            "bottomLayer": {
+                                "type": "createPattern",
+                                "patternName": "wave",
+                                "direction": "horizontal",
+                                "frequency": 60
+                            }
                         },
-                        "bottomLayer"   : {
-                            "type"          : "createPattern",
-                            "patternName"   : "wave",
-                            "direction"     : "horizontal",
-                            "frequency"     : 60
+                        "bottomLayer": {
+                            "type": "createPattern",
+                            "patternName": "slope",
+                            "filter": [{ "name": "brightness", "brightness": -2 }]
                         }
                     },
-                    "bottomLayer" : { 
-                        "type"          : "createPattern",
-                        "patternName"   : "slope",
-                        "filter"        : [{ "name": "brightness", "brightness": -2 }]
-                    }
-                },
-                "bottomLayer" : { 
-                    "type"  :   "combine",
-                    "topLayer"    : {
-                        "type"          : "createPattern",
-                        "patternName"   : "noise_white"
+                    "bottomLayer": {
+                        "type": "combine",
+                        "topLayer": {
+                            "type": "createPattern",
+                            "patternName": "noise_white"
+                        },
+                        "bottomLayer": {
+                            "type": "createPattern",
+                            "patternName": "wave",
+                            "direction": "vertical",
+                            "frequency": 67
+                        }
                     },
-                    "bottomLayer"   : {
-                        "type"          : "createPattern",
-                        "patternName"   : "wave",
-                        "direction"     : "vertical",
-                        "frequency"     : 67
-                    }
-                },
-                "filter"        : [
-                    { "name": "invert" },
-                    { "name": "blur", "radius": 1 },
-                    { "name": "contrast", "m": 3, "x": 0.625 }
-                ]
-            }
-        }
-    };
-
-                let spaces = (length) => {
-                    return new Array(length * 4).join(" ");
+                    "filter": [
+                        { "name": "invert" },
+                        { "name": "blur", "radius": 1 },
+                        { "name": "contrast", "m": 3, "x": 0.625 }
+                    ]
                 }
-				
-				let processNode = (node, nestingLevel) => {
-                    nestingLevel += 1;
-                    
-                    if (node.type === "combine") {
-                        let htmlstring = spaces(nestingLevel) + '<div class="family"> \n';
-                        nestingLevel += 1;
+            }
+        };
 
-                        htmlstring += spaces(nestingLevel) + '<div class="parent">\n';    
-                        node.topLayer && ( htmlstring += processNode(node.topLayer, nestingLevel) );
-                        htmlstring += spaces(nestingLevel) + '</div>\n';    
-                        htmlstring += spaces(nestingLevel) + '<div class="parent">\n';    
-                        node.bottomLayer && ( htmlstring += processNode(node.bottomLayer, nestingLevel) );
-                        htmlstring += spaces(nestingLevel) + '</div>\n';    
+        let tabs = (length) => {
+            // include whitespace for readability
+            return new Array(length * 4).join(" ");
+        }
 
-                        htmlstring += spaces(nestingLevel) + '<div class="child"><div class="patina-node">combine</div></div> \n';
-                        nestingLevel -= 1;
+        let patinaNodeHtml = (node, nestingLevel) => {
+            let htmlstring = `${tabs(nestingLevel)}<div class="patina-node js-module" data-module-name="patina" 
+                data-module-data='{ "patina":${JSON.stringify(node)}}'>\n
+                ${tabs(nestingLevel + 1)}<p class="patina-node__type">${node.type}</p>\n`;
 
-                        htmlstring += spaces(nestingLevel) + '</div><!-- .family -->\n';
-                        return htmlstring;
-					}
+            if (node.type === "editNode") {
+                
+            }
+            // print infos inside node rectangle
+            Object.keys(node).forEach((key) => {
+                if (["type", "topLayer", "bottomLayer", "red", "green", "blue", "alpha"].includes(key)) {
+                    return;
+                }
+                if (key === "filter") {
+                    htmlstring += `${tabs(nestingLevel + 1)}<p class="patina-node__filter">Filter: ${node.filter.map((filter) => filter.name).join(' - ')}</p>\n`;
+                    return;
+                }
+                htmlstring += `${tabs(nestingLevel + 1)}<p>${key}: ${node[key]}</p>`;
+            })
+            htmlstring += tabs(nestingLevel) + '</div>\n';
+            //console.log(JSON.stringify(node));
+            return htmlstring;
+        }
 
-					if (node.type === "colorChannels") {
-                        let htmlstring = spaces(nestingLevel) + '<div class="family"> \n';
-                            nestingLevel += 1;
+        let parentHtml = (node, nestingLevel) => {
+            let htmlstring = tabs(nestingLevel) + '<div class="parent">\n';
+            htmlstring += processNode(node, nestingLevel);
+            return htmlstring + tabs(nestingLevel) + '</div>\n';
+        };
 
-                        htmlstring += spaces(nestingLevel) + '<div class="parent">\n';    
+        let childHtml = (node, nestingLevel) => {
+            return tabs(nestingLevel) + `<div class="child">\n${patinaNodeHtml(node, nestingLevel)}\n${tabs(nestingLevel)}</div>\n`;
+        }
 
-                        node.red && ( htmlstring += processNode(node.red, nestingLevel));
+        let processNode = (node, nestingLevel) => {
+            nestingLevel += 1;
 
-                        htmlstring += spaces(nestingLevel) + '</div>\n';    
-                        htmlstring += spaces(nestingLevel) + '<div class="parent">\n';    
+            if (node.type === "combine") {
+                let htmlstring = tabs(nestingLevel) + '<div class="family">\n';
+                nestingLevel += 1;
 
-						node.green && ( htmlstring += processNode(node.green, nestingLevel));
+                htmlstring += parentHtml(node.topLayer, nestingLevel);
+                htmlstring += parentHtml(node.bottomLayer, nestingLevel);
+                htmlstring += childHtml(node, nestingLevel);
 
-                        htmlstring += spaces(nestingLevel) + '</div>\n';    
-                        htmlstring += spaces(nestingLevel) + '<div class="parent">\n';    
+                nestingLevel -= 1;
+                htmlstring += tabs(nestingLevel) + '</div><!-- .family -->\n';
+                return htmlstring;
+            }
 
-						node.blue && ( htmlstring += processNode(node.blue, nestingLevel));
+            if (node.type === "colorChannels") {
+                let htmlstring = tabs(nestingLevel) + '<div class="family">\n';
+                nestingLevel += 1;
 
-                        htmlstring += spaces(nestingLevel) + '</div>\n';    
-                        htmlstring += spaces(nestingLevel) + '<div class="parent">\n';    
+                htmlstring += parentHtml(node.red, nestingLevel);
+                htmlstring += parentHtml(node.green, nestingLevel);
+                htmlstring += parentHtml(node.blue, nestingLevel);
+                htmlstring += parentHtml(node.alpha, nestingLevel);
+                htmlstring += childHtml(node, nestingLevel);
 
-						node.alpha && ( htmlstring += processNode(node.alpha, nestingLevel));
+                nestingLevel -= 1;
+                htmlstring += tabs(nestingLevel) + '</div><!-- .family -->\n';
+                return htmlstring;
+            }
 
-                        htmlstring += spaces(nestingLevel) + '</div>\n';    
+            return patinaNodeHtml(node, nestingLevel);
+        }
 
-                        htmlstring += spaces(nestingLevel) + '<div class="child"><div class="patina-node">colorChannels</div></div>\n';
-                        nestingLevel -= 1;
+        let getJsonFromTextarea = () => {
+            let textarea = document.querySelector('.jsonpatina-textarea');
+            return JSON.parse(textarea.value);
+        }
 
-                        htmlstring += spaces(nestingLevel) + '</div><!-- .family -->\n';
-                        return htmlstring;
-					}
+        let putJsonIntoTextarea = (jsonpatina) => {
+            let textarea = document.querySelector('.jsonpatina-textarea');
+            textarea.value = JSON.stringify(jsonpatina, undefined, 4);
+        }
 
-                    return spaces(nestingLevel) + '<div class="patina-node">' + node.type + '</div>\n';
-				}
-				
-                let htmlstring = processNode(patina.patina, 0);
-                console.log(htmlstring);
-                document.querySelector('.view').innerHTML = htmlstring;
-				
-	</script>
+        let drawJsonpatina = (jsonpatina) => {
+            let htmlstring = processNode(jsonpatina.patina, 0);
+            // console.log(htmlstring);
+            document.querySelector('.treeview').innerHTML = htmlstring;
+        }
+      
+        document.querySelector('.js-jsonpatina-to-textarea').addEventListener('click', () => {
+            putJsonIntoTextarea(jsonpatina);
+        });
 
-    <!--script type="module" src="scripts/main.js"></script-->
+        document.querySelector('.js-draw-jsonpatina').addEventListener('click', () => {
+            jsonpatina = getJsonFromTextarea();
+            drawJsonpatina(jsonpatina);
+            mel.jsTriggers();
+        });
+
+        putJsonIntoTextarea(jsonpatina);
+        drawJsonpatina(jsonpatina);
+
+
+        /////////////////////////////////////////////////////////
+
+        const test = async function () {
+           
+            const {default: createPattern} = await import('./scripts/modules/mel_createPattern.js');
+            console.log(createPattern.prototype);
+        }
+        
+        test();
+
+    </script>
+
+    <script type="module" src="scripts/main.js"></script>
 
 </body>
+
 </html>
