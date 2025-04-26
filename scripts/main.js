@@ -2,7 +2,7 @@
 
 const modulesPath = './modules/mel_';
 const cacheBusterVersion = '6';
-window.consoleVerbose = true;
+window.consoleVerbose = false;
 
 window.mel = {};
 

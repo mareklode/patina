@@ -6,11 +6,6 @@
     <base href="">
     <title>Examples | Patina | mareklode</title>
 
-    <meta property="og:title" content="Examples | Patina | mareklode">
-    <meta property="og:image" content="http://mareklode.de/bilder/page/v3/v3_rost4.png">
-    <meta property="og:description" content="Patina: procedually generated background images in JavaScript. Examples.">
-    <meta name="description" content="Patina: procedually generated background images in JavaScript. Examples.">
-    <meta name="theme-color" content="#28330a">
 
     <link rel="stylesheet" type="text/css" href="css/normalize.min.css">
     <link rel="stylesheet" href="css/main.css">
@@ -19,27 +14,13 @@
 
 <body class="body">
 
-    <header class="header js-module" 
-        data-module-name="patina" 
-        data-module-data="template_header">
-        <div class="header__before js-module"
-            data-module-name="patina" 
-            data-module-data='template_header_logo_before'>
+    <header class="header">
+        <div class="header__logo">
+            Patina
         </div>
-        <div class="header__after js-module"
-            data-module-name="patina" 
-            data-module-data='template_header_logo_after'>
-        </div>
-        <a href="." 
-            class="header__logo js-module" 
-            data-module-name="patina" 
-            data-module-data="template_header_logo_image" 
-            title="Homepage">
-            <img src="images/page/header__logo--PatinaFont-rough_@2x.png" class="header__logo__image" alt="Patina">
-        </a> 
     </header>
-    
-    <nav class="navigation js-module" 
+
+    <nav class="navigation" 
          data-module-name="patina" 
          data-module-data="template_navigation">
         <a class="navigation__link" href="index.html">Home</a>
@@ -54,6 +35,15 @@
     </nav>
 
     <main class="body__block">
+
+        <h1>examples (wait for it...)</h1>
+
+
+<a href="2do.html">2do</a><br />
+<a href="test.html">test</a><br />
+<a href="paintArtpiece.html">paintArtpiece</a><br />
+<a href="rays.html">rays</a><br />
+<a href="showSteps.html">showSteps</a><br />
 
         <div class="pattern__thumbnail--128" style="background-size: contain; float: left;" id="reusableImage_firstBorder"></div>
         <div class="pattern__thumbnail--128" style="background-size: contain; float: left;" id="reusableImage_secondBorder"></div>
@@ -148,7 +138,6 @@
             ></div>
 
         </div>
-
 
         <div class="pattern__thumbnail--128" style="background-size: contain; float: left;" id="reusableImage_firstBorder"></div>
         <div class="pattern__thumbnail--128" style="background-size: contain; float: left;" id="reusableImage_secondBorder"></div>
@@ -511,21 +500,12 @@
                 calculatePatinaFromTextarea();
             </script>
         </div><!-- .pattern -->
-
+        
     </main><!-- .body__block -->
 
-    <footer	class="footer js-module" 
-            data-module-name="patina" 
-            data-module-data="template_footer">
-        &copy; 2025 Marek Lode &nbsp; | &nbsp; 
-        <a href="https://github.com/mareklode/patina">
-            <img class="footer__githublogo" src="images/page/GitHub-Mark-32px.png" alt="GitHub Logo">
-            This Project on GitHub
-        </a>
+    <footer class="footer">
+        &copy; 2025 Marek Lode &nbsp
     </footer>
-    
-    <script type="module" src="scripts/main.js"></script>
-    
+
 </body>
 </html>
-    

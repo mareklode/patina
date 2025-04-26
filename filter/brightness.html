@@ -1,25 +1,26 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <base href="http://localhost/mareklode/patina/">
-    <title>brightness | filter | Patina | mareklode</title>
+    <base href="">
+    <title>Brightness | Filter | Patina | mareklode</title>
 
-    <meta property="og:title" content="brightness | filter | Patina | mareklode" />
-    <meta property="og:image" content="http://mareklode.de/bilder/page/v3/v3_rost4.png" />
-    <meta property="og:description" content="Patina: procedually generated background images in JavaScript. filter : brightness" />
-    <meta name="description" content="Patina: procedually generated background images in JavaScript. filter : brightness">
+    <meta property="og:title" content="Brightness | Filter | Patina | mareklode">
+    <meta property="og:image" content="http://mareklode.de/bilder/page/v3/v3_rost4.png">
+    <meta property="og:description" content="Patina: procedually generated background images in JavaScript. filter : brightness.">
+    <meta name="description" content="Patina: procedually generated background images in JavaScript. filter : brightness.">
     <meta name="theme-color" content="#28330a">
 
-    <link rel="stylesheet" type="text/css" href="css/normalize.min.css">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="../css/normalize.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+
 </head>
 <body class="body">
 
     <header class="header js-module" 
-            data-module-name="patina" 
-            data-module-data="template_header">
+        data-module-name="patina" 
+        data-module-data="template_header">
         <div class="header__before js-module"
             data-module-name="patina" 
             data-module-data='template_header_logo_before'>
@@ -28,41 +29,43 @@
             data-module-name="patina" 
             data-module-data='template_header_logo_after'>
         </div>
-        <a href="." 
+        <a href="../index.html" 
             class="header__logo js-module" 
             data-module-name="patina" 
             data-module-data="template_header_logo_image" 
             title="Homepage">
-            <img src="images/page/header__logo--PatinaFont-rough_@2x.png" class="header__logo__image" alt="Patina" />
-        </a>
+            <img src="../images/page/header__logo--PatinaFont-rough_@2x.png" class="header__logo__image" alt="Patina">
+        </a> 
     </header>
-
+    
     <nav class="navigation js-module" 
          data-module-name="patina" 
-         data-module-data='template_navigation'>
-        <a class="navigation__link" href=".">Home</a>
-        <a class="navigation__link" href="howto.html">HowTo</a>
-        <a class="navigation__link" href="createPattern.html">createPattern</a>
-        <a class="navigation__link" href="filter.html">filter</a>
+         data-module-data="template_navigation">
+        <a class="navigation__link" href="../index.html">Home</a>
+        <a class="navigation__link" href="../howto.html">HowTo</a>
+        <a class="navigation__link" href="../createPattern.html">createPattern</a>
+        <a class="navigation__link" href="../filter.html">filter</a>
         <span class="navigation__nowrap">
-            <a class="navigation__link" href="reusableImages.html">reusableImages</a>
-            <a class="navigation__link" href="examples.html">examples</a>
-            <a class="navigation__link" href="test.html">test</a>
+            <a class="navigation__link" href="../reusableImages.html">reusableImages</a>
+            <a class="navigation__link" href="../examples.html">examples</a>
+            <a class="navigation__link" href="../test.html">test</a>
         </span>
     </nav>
 
     <main class="body__block">
-    
-    
 
         <h1>filter : brightness</h1>
-        <p class="copy">The brightness filter can be positive to brighten the color channel or negative to darken it. The filter keeps black and white and manipulates the color-curve between them.</p>
+
+        <p class="copy">The brightness filter can be positive to brighten the color channel or negative to darken it. The filter keeps black and white and manipulates the color-curve between them.</p> 
+
         <h2>Basic Example</h2>
+
         <pre class="code">"patina" : {
-    "type"          : "filter",
-    "patternName"   : "noise_plasma",
-    "filter"        : [{ "name": "brightness" }]
-}</pre>
+            "type"          : "filter",
+            "patternName"   : "noise_plasma",
+            "filter"        : [{ "name": "brightness" }]
+        }</pre>
+
         <div class="pattern">
             <div class="js-module pattern__thumbnail pattern__thumbnail--256"
                 data-module-name="patina"
@@ -76,7 +79,6 @@
             ></div>
         </div><!-- .pattern -->
 
-    
         <h2>Options / Parameters</h2>
         <p class="copy">The brightness filter takes only one parameter:</p>
         <dl class="copy parameters">
@@ -129,17 +131,21 @@
                 ></div> 8
             </dd>
         </dl>
+
     </main><!-- .body__block -->
 
-    <footer class="footer js-module" 
+    <footer	class="footer js-module" 
             data-module-name="patina" 
             data-module-data="template_footer">
         &copy; 2025 Marek Lode &nbsp; | &nbsp; 
         <a href="https://github.com/mareklode/patina">
-            <img class="footer__githublogo" src="images/page/GitHub-Mark-32px.png" alt="GitHub Logo" />
+            <img class="footer__githublogo" src="../images/page/GitHub-Mark-32px.png" alt="GitHub Logo">
             This Project on GitHub
         </a>
     </footer>
-    <script type="module" src="scripts/main.js"></script>
+
+    <!-- this is the starting point for all the javascript regarding patina -->
+    <script type="module" src="../scripts/main.js"></script>
+
 </body>
 </html>

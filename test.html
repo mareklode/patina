@@ -6,31 +6,138 @@
   
         <style>
             html, body { margin: 0 }
-            .pattern__thumbnail { 
-                float: left; 
-                margin: 0; 
-                line-height: 64px;
-                color: purple; 
-                text-align: center; 
-                background-size: contain;
-            }
-            .output {
-                display: block;
-                position: absolute;
-                top: 0;
-                right: 0;
-                padding: 5px;
-                background-color: white;
-                border: 1px solid black;
+            .pattern__thumbnail { float: left; margin: 0; line-height: 64px; color: purple; text-align: center; }
+            .stepCounter {
+                width: 50%;
+                height: 50vh;
+                display: inline-block;
             }
         </style>
 
         <div class="output"></div>
 
         <div class="pattern">
-            <div class="js-module" 
+            <div class="js-module pattern__thumbnail pattern__thumbnail--512" 
                 style="background-color: #7d9cb1; height: 100vh; width: 100%;"
-                id="js-treeview-goes-here"
+                data-module-name="patina" 
+                data-module-data='{
+                    "__width"          : 512,
+                    "__height"         : 512,
+                    "reusableImages" : [
+                        {
+                            "id"            : "randomWalker",
+                            "type"          : "createPattern",
+                            "patternName"   : "random_walker",
+                            "impact"        : 2
+                        }
+                    ],
+                    "patina": {
+                        "type"  : "combine",
+                        "combineMode" : { 
+                            "name"      : "nachbelichten",
+                            "opacity"   : 1
+                        },
+                        "topLayer"      : {
+                            "type"  : "colorChannels",
+                            "red"   : {
+                                "type"          : "reuseImage",
+                                "reuseId"       : "randomWalker",
+                                "filter"        : [{ "name": "brightness", "brightness": -1 }]
+                            },
+                            "green"   : {
+                                "type"          : "reuseImage",
+                                "reuseId"       : "randomWalker",
+                                "filter"        : [{ "name": "brightness", "brightness": -2 }]
+                            },
+                            "blue"   : {
+                                "type"          : "reuseImage",
+                                "reuseId"       : "randomWalker",
+                                "filter"        : [{ "name": "brightness", "brightness": -6 }]
+                            },
+                            "alpha" : 255
+                            
+                        },
+                        "bottomLayer" : {
+                            "type"  : "combine",
+                            "combineMode" : { 
+                                "name"      : "add",
+                                "opacity"   : 0.075
+                            },
+                            "topLayer"      : {
+                                "type"  : "createPattern",
+                                "patternName": "labyrinth",
+                                "color": 1
+                            },
+                            "bottomLayer" : {
+                                "type"  : "colorChannels",
+                                "red"   : {
+                                    "type"  : "combine",
+                                    "combineMode" : { 
+                                        "name": "add",
+                                        "opacity": 0.15
+                                    },
+                                    "topLayer"      : {
+                                        "type"          : "createPattern",
+                                        "patternName"   : "noise_white"
+                                    },
+                                    "bottomLayer"   : {
+                                        "type"      : "createPattern",
+                                        "pattern"   : {
+                                            "name"      : "slope",
+                                            "direction" : "to bottom",
+                                            "colorBegin": 0,
+                                            "colorEnd"  : 90
+                                        }
+                                    }
+                                },                        
+                                "green" : {
+                                    "type"  : "combine",
+                                    "combineMode" : { 
+                                        "name": "add",
+                                        "opacity": 0.075
+                                    },
+                                    "topLayer"      : {
+                                        "type"          : "createPattern",
+                                        "patternName"   : "noise_white",
+                                        "filter"        : [
+                                            { "name": "contrast", "m": 1, "x": 0.5 }
+                                        ]
+                                    },
+                                    "bottomLayer"   : {
+                                        "type"      : "createPattern",
+                                        "pattern"   : {
+                                            "name"      : "slope",
+                                            "direction" : "to bottom",
+                                            "colorBegin": 25,
+                                            "colorEnd"  : 15
+                                        }
+                                    }
+                                },
+                                "blue"  : {
+                                    "type"  : "combine",
+                                    "combineMode" : { 
+                                        "name": "add",
+                                        "opacity": 0.15
+                                    },
+                                    "topLayer"      : {
+                                        "type"          : "createPattern",
+                                        "patternName"   : "noise_white"
+                                    },
+                                    "bottomLayer"   : {
+                                        "type"      : "createPattern",
+                                        "pattern"   : {
+                                            "name"      : "slope",
+                                            "direction" : "to right",
+                                            "colorBegin": 0,
+                                            "colorEnd"  : 150
+                                        }
+                                    }
+                                },
+                                "alpha" : 255
+                            }
+                        }
+                    }
+                }'
             ></div>
         </div>
 

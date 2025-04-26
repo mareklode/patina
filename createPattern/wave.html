@@ -1,25 +1,26 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <base href="http://localhost/mareklode/patina/">
-    <title>wave | createPattern | Patina | mareklode</title>
+    <base href="">
+    <title>Wave | CreatePattern | Patina | mareklode</title>
 
-    <meta property="og:title" content="wave | createPattern | Patina | mareklode" />
-    <meta property="og:image" content="http://mareklode.de/bilder/page/v3/v3_rost4.png" />
-    <meta property="og:description" content="Patina: procedually generated background images in JavaScript. createPattern : wave" />
-    <meta name="description" content="Patina: procedually generated background images in JavaScript. createPattern : wave">
+    <meta property="og:title" content="Wave | CreatePattern | Patina | mareklode">
+    <meta property="og:image" content="http://mareklode.de/bilder/page/v3/v3_rost4.png">
+    <meta property="og:description" content="Patina: procedually generated background images in JavaScript. createPattern : wave.">
+    <meta name="description" content="Patina: procedually generated background images in JavaScript. createPattern : wave.">
     <meta name="theme-color" content="#28330a">
 
-    <link rel="stylesheet" type="text/css" href="css/normalize.min.css">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="../css/normalize.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+
 </head>
 <body class="body">
 
     <header class="header js-module" 
-            data-module-name="patina" 
-            data-module-data="template_header">
+        data-module-name="patina" 
+        data-module-data="template_header">
         <div class="header__before js-module"
             data-module-name="patina" 
             data-module-data='template_header_logo_before'>
@@ -28,40 +29,42 @@
             data-module-name="patina" 
             data-module-data='template_header_logo_after'>
         </div>
-        <a href="." 
+        <a href="../index.html" 
             class="header__logo js-module" 
             data-module-name="patina" 
             data-module-data="template_header_logo_image" 
             title="Homepage">
-            <img src="images/page/header__logo--PatinaFont-rough_@2x.png" class="header__logo__image" alt="Patina" />
-        </a>
+            <img src="../images/page/header__logo--PatinaFont-rough_@2x.png" class="header__logo__image" alt="Patina">
+        </a> 
     </header>
-
+    
     <nav class="navigation js-module" 
          data-module-name="patina" 
-         data-module-data='template_navigation'>
-        <a class="navigation__link" href=".">Home</a>
-        <a class="navigation__link" href="howto.html">HowTo</a>
-        <a class="navigation__link" href="createPattern.html">createPattern</a>
-        <a class="navigation__link" href="filter.html">filter</a>
+         data-module-data="template_navigation">
+        <a class="navigation__link" href="../index.html">Home</a>
+        <a class="navigation__link" href="../howto.html">HowTo</a>
+        <a class="navigation__link" href="../createPattern.html">createPattern</a>
+        <a class="navigation__link" href="../filter.html">filter</a>
         <span class="navigation__nowrap">
-            <a class="navigation__link" href="reusableImages.html">reusableImages</a>
-            <a class="navigation__link" href="examples.html">examples</a>
-            <a class="navigation__link" href="test.html">test</a>
+            <a class="navigation__link" href="../reusableImages.html">reusableImages</a>
+            <a class="navigation__link" href="../examples.html">examples</a>
+            <a class="navigation__link" href="../test.html">test</a>
         </span>
     </nav>
 
     <main class="body__block">
-    
-    
 
         <h1>createPattern : wave</h1>
-        <p class="copy">The wave patterns are calculated using the sine function. That gives us smooth lines in different directions. This pattern is not random, the same parameters create the exact same image.</p>
+
+        <p class="copy">The wave patterns are calculated using the sine function. That gives us smooth lines in different directions. This pattern is not random, the same parameters create the exact same image.</p>  
+
         <h2>Basic Example</h2>
+
         <pre class="code">"patina" : {
     "type"          : "createPattern",
     "patternName"   : "wave"
 }</pre>
+
         <div class="pattern">
             <div class="js-module pattern__thumbnail pattern__thumbnail--256"
                 data-module-name="patina"
@@ -74,9 +77,7 @@
             ></div>
         </div><!-- .pattern -->
 
-    
         <h2>Options / Parameters</h2>
-        
         <dl class="copy parameters">
             <dt>direction</dt>
             <dd>
@@ -273,28 +274,28 @@
         <p class="copy">Here you can test this pattern. Change the values inside the textarea or rewrite it completely, then hit "apply".</p>
 
         <div class="pattern">
+
             <div id="js_patina_fromTextarea" 
                 class="pattern__thumbnail pattern__thumbnail--256"
-            ></div>
-        
-            <button id="js_patina_CallToAction" style="margin: 3vw 1vw 1vw 1vw; padding: 1vw 2vw; position: relative; bottom: 1vw; background-color: rgb(47, 79, 79); color: white;">apply</button>
-        
-            <textarea id="js_patina_textarea" rows="13" style="font-family:'Courier New', Courier, monospace; width: 100%;">
-{
-    "patina"    : {
-        "type"      : "createPattern",
-        "pattern"   : {
-            "name"      : "wave",
-            "direction" : "rectangles",
-            "frequency" : 2,
-            "offsetX"   : 64,
-            "offsetY"   : 0
+            ></div
+            ><button id="js_patina_CallToAction" class="button button__applyPatinaTextarea">&UpperLeftArrow;<br>apply</button>
+
+            <textarea id="js_patina_textarea" rows="13" class="code" style="margin-top: 0;">
+        {
+            "patina"    : {
+                "type"      : "createPattern",
+                "pattern"   : {
+                    "name"      : "wave",
+                    "direction" : "rectangles",
+                    "frequency" : 2,
+                    "offsetX"   : 64,
+                    "offsetY"   : 0
+                }
+            }
         }
-    }
-}
             </textarea>
         
-            <script type="module" src="scripts/main.js"></script>
+            <script type="module" src="../scripts/main.js"></script>
             <script>
                 const trigger  = document.getElementById('js_patina_CallToAction');
                 const textarea = document.getElementById('js_patina_textarea');
@@ -303,7 +304,7 @@
                 // ich importiere von /patina... weil die dynamische und die statische Version 
                 // der seite unterschiedliche base href haben und der relative Pfad nicht funktioniert hat
                 const calculatePatinaFromTextarea = function () {
-                    import('./scripts/modules/mel_patina.js')
+                    import('/patina/scripts/modules/mel_patina.js')
                         .then((patina) => {
                             new patina.default(target, textarea.value);
                         });
@@ -311,20 +312,23 @@
 
                 trigger.addEventListener('click', calculatePatinaFromTextarea);
                 calculatePatinaFromTextarea();
-            </script>            
+            </script>   
         </div><!-- .pattern -->
-    
+
     </main><!-- .body__block -->
 
-    <footer class="footer js-module" 
+    <footer	class="footer js-module" 
             data-module-name="patina" 
             data-module-data="template_footer">
         &copy; 2025 Marek Lode &nbsp; | &nbsp; 
         <a href="https://github.com/mareklode/patina">
-            <img class="footer__githublogo" src="images/page/GitHub-Mark-32px.png" alt="GitHub Logo" />
+            <img class="footer__githublogo" src="../images/page/GitHub-Mark-32px.png" alt="GitHub Logo">
             This Project on GitHub
         </a>
     </footer>
-    <script type="module" src="scripts/main.js"></script>
+
+    <!-- this is the starting point for all the javascript regarding patina -->
+    <script type="module" src="../scripts/main.js"></script>
+
 </body>
 </html>

@@ -1,12 +1,11 @@
 <!doctype html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <base href="">
+    
     <title>Show Steps | Patina | mareklode</title>
-
 
     <link rel="stylesheet" type="text/css" href="css/normalize.min.css">
     <link rel="stylesheet" href="css/main.css">
@@ -21,7 +20,9 @@
         </div>
     </header>
 
-    <nav class="navigation" data-module-name="patina" data-module-data="template_navigation">
+    <nav class="navigation" 
+         data-module-name="patina" 
+         data-module-data="template_navigation">
         <a class="navigation__link" href="index.html">Home</a>
         <a class="navigation__link" href="howto.html">HowTo</a>
         <a class="navigation__link" href="createPattern.html">createPattern</a>
@@ -442,7 +443,7 @@
         const test = async function () {
            
             const {default: createPattern} = await import('./scripts/modules/mel_createPattern.js');
-            console.log(createPattern.prototype);
+            console.log(Object.getOwnPropertyNames(createPattern.prototype));
         }
         
         test();
