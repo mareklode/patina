@@ -14,7 +14,7 @@
             }
         </style>
 
-        <div class="output"></div>
+        <div class="output" style="height: 100vh;"></div>
 
         <div class="pattern">
             <div class="js-module pattern__thumbnail pattern__thumbnail--512" 
@@ -142,7 +142,7 @@
         </div>
 
         <script>
-            const target = document.getElementById('js-treeview-goes-here');
+            const target = document.querySelector('.output');
             const pixelPaintingInstructions = `{
                 "width": 256,
                 "patina": {
