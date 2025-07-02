@@ -64,13 +64,13 @@
                 text-align: center;
             }
 
-            .treeview {
+            .tree {
                 margin: 0 auto;
                 width: fit-content;
                 background-color: var(--view-background-color);
             }
 
-            .family {
+            .subtree {
                 display: grid;
                 grid-template-columns: auto auto;
                 grid-template-rows: auto auto;
@@ -291,38 +291,9 @@
         </div>
 
 
-        <div class="treeview">
+        <div class="tree">
 
-            <div class="family">
-                <div class="parent">
-                    <div class="family">
-                        <div class="parent">
-                            <div class="patina-node">x</div>
-                        </div>
-                        <div class="parent">
-                            <div class="patina-node">x</div>
-                        </div>
-                        <div class="parent">
-                            <div class="patina-node">x</div>
-                        </div>
-                        <div class="parent">
-                            <div class="family">
-                                <div class="parent">
-                                    <div class="patina-node">x</div>
-                                </div>
-                                <div class="parent">
-                                    <div class="patina-node">x</div>
-                                </div>
-                                <div class="child">
-                                    <div class="patina-node">x</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="child">
-                            <div class="patina-node">x</div>
-                        </div>
-                    </div>
-                </div>
+            <div class="subtree">
                 <div class="parent">
                     <div class="patina-node">x</div>
                 </div>
@@ -332,74 +303,25 @@
                 <div class="child">
                     <div class="patina-node">x</div>
                 </div>
-            </div><!-- .family -->
+            </div><!-- .subtree -->
 
-        </div><!-- .treeview -->
+        </div><!-- .tree -->
     </main>
 
     <script>
-        document.querySelector('.treeview').innerHTML = "";
-        let internalDataStructure = {};
-
-        let tabs = (length) => {
-            // include whitespace for readability
-            return new Array(length * 4).join(" ");
-        }
-
+        // these properties of a patina-node contain other nodes, resulting in a tree
         let branchForks = ["topLayer", "bottomLayer", "red", "green", "blue", "alpha"];
-
-        let patinaNodeHtml = (node, nestingLevel) => {
-            let htmlstring = `${tabs(nestingLevel)}<div class="patina-node js-module" data-module-name="patina"
-                id="${node.nodeName}"
-                data-module-data='{ "patina":${JSON.stringify(reconstructJson(node))}}'>\n`;
-
-            /*
-            if (node.type === "editNode") {
-                return "";
-            }
-            */
-
-            // print infos inside node rectangle
-            Object.keys(node).forEach((key) => {
-                let skipInfos = [...branchForks, "nodeName", "nestingLevel"];
-                if (skipInfos.includes(key)) {
-                    return;
-                }
-                if (key === "combineMode") {
-                    htmlstring += `${tabs(nestingLevel + 1)}<p>combineMode: ${node.combineMode.name}</p>\n`;
-                    return;
-                }
-                if (key === "filter") {
-                    htmlstring += `${tabs(nestingLevel + 1)}<p class="patina-node__filter">Filter: ${node.filter.map((filter) => filter.name).join(' - ')}</p>\n`;
-                    return;
-                }
-                // else
-                htmlstring += `${tabs(nestingLevel + 1)}<p class="patina-node__${key}">${key}: ${node[key]}</p>`;
-            });
-
-            htmlstring += tabs(nestingLevel) + '</div>\n';
-            return htmlstring;
-        }
-
-        let parentHtml = (node, nestingLevel) => {
-            let htmlstring = tabs(nestingLevel) + '<div class="parent">\n';
-            htmlstring += drawNodeFamily(node, nestingLevel);
-            return htmlstring + tabs(nestingLevel) + '</div>\n';
-        };
-
-        let childHtml = (node, nestingLevel) => {
-            return tabs(nestingLevel) + `<div class="child">\n${patinaNodeHtml(node, nestingLevel)}\n${tabs(nestingLevel)}</div>\n`;
-        }
+        
+        let internalDataStructure = {}; // deconstruct the binary tree into a list of linked nodes
 
         let constructInternalDataStructure = (node, nestingLevel) => {
             nestingLevel += 1;
-            let nodeName = `${nestingLevel}-${node.type}-${Math.round(Math.random()*1000)}`;
-            if (nestingLevel === 1) {
-                internalDataStructure.start = nodeName;
-            }
+            let nodeName = (nestingLevel === 1) ? "root" :
+                `${nestingLevel}-${node.type}-${Math.round(Math.random()*1000)}`;
+
             let nodeDefinition = {...node, nodeName: nodeName, nestingLevel: nestingLevel};
 
-            // for color-channels and layers go deeper
+            // for color-channels and layers: go deeper
             branchForks.forEach((property) => {
                 if (node[property]) {
                     nodeDefinition[property] = constructInternalDataStructure(node[property], nestingLevel);
@@ -410,30 +332,61 @@
             return nodeName;
         }
 
-        let reconstructJson = (node) => {
+        let reconstructBinaryTree = (node) => {
             let nodeObject = {...node};
+            delete nodeObject.nodeName;
+            delete nodeObject.nestingLevel;
 
-            // for color-channels and layers go deeper
+            // for color-channels and layers: go deeper
             branchForks.forEach((property) => {
                 if (node[property]) {
-                    nodeObject[property] = reconstructJson(internalDataStructure[node[property]]);
+                    nodeObject[property] = reconstructBinaryTree(internalDataStructure[node[property]]);
                 }
             });
 
-            delete nodeObject.nodeName;
-            delete nodeObject.nestingLevel;
             return nodeObject;
         }
 
-        let drawNodeFamily = (node) => {
+        let subtreeHtml = (node) => {
             let nestingLevel = node.nestingLevel;
 
-            if (node.start) {
-                return drawNodeFamily("start");
+            let tabs = (length) => { // include whitespace for readability
+                return new Array(length * 4).join(" ");
+            }
+
+            let patinaNodeHtml = (node, nestingLevel) => {
+                let htmlstring = `${tabs(nestingLevel)}<div class="patina-node js-module" data-module-name="patina"
+                    id="${node.nodeName}"
+                    data-module-data='{ "patina":${JSON.stringify(reconstructBinaryTree(node))}}'>\n`;
+
+                // print infos inside node rectangle
+                Object.keys(node).forEach((key) => {
+                    let skipInfos = [...branchForks, "nodeName", "nestingLevel"];
+                    if (skipInfos.includes(key)) return;
+                    if (key === "filter") {
+                        htmlstring += `${tabs(nestingLevel + 1)}<p class="patina-node__filter">Filter: ${node.filter.map((filter) => filter.name).join(' - ')}</p>\n`;
+                        return;
+                    }
+                    // else
+                    htmlstring += `${tabs(nestingLevel + 1)}<p class="patina-node__${key}">${key}: ${node[key].name || node[key]}</p>`;
+                });
+
+                htmlstring += tabs(nestingLevel) + '</div>\n';
+                return htmlstring;
+            }
+
+            let parentHtml = (node, nestingLevel) => {
+                let htmlstring = tabs(nestingLevel) + '<div class="parent">\n';
+                htmlstring += subtreeHtml(node, nestingLevel);
+                return htmlstring + tabs(nestingLevel) + '</div>\n';
+            };
+
+            let childHtml = (node, nestingLevel) => {
+                return tabs(nestingLevel) + `<div class="child">\n${patinaNodeHtml(node, nestingLevel)}\n${tabs(nestingLevel)}</div>\n`;
             }
 
             if (node.type === "combine" || node.type === "colorChannels") {
-                let htmlstring = tabs(nestingLevel) + '<div class="family">\n';
+                let htmlstring = tabs(nestingLevel) + '<div class="subtree">\n';
                 nestingLevel += 1;
 
                 branchForks.forEach((property) => {
@@ -444,42 +397,51 @@
                 htmlstring += childHtml(node, nestingLevel);
 
                 nestingLevel -= 1;
-                htmlstring += tabs(nestingLevel) + '</div><!-- .family -->\n';
+                htmlstring += tabs(nestingLevel) + '</div><!-- .subtree -->\n';
                 return htmlstring;
             }
 
+            // else don't draw a subtree, draw a Node
             return patinaNodeHtml(node, nestingLevel);
+        }; // subtreeHtml()
+
+        const textareaToDataStructure = () => {
+            let textarea = document.querySelector('.jsonpatina-textarea');
+            let jsonpatina = JSON.parse(textarea.value);
+            constructInternalDataStructure(jsonpatina.patina, 0);
         }
 
-        let drawJsonpatina = (node) => {
-            let htmlstring = drawNodeFamily(node);
-            document.querySelector('.treeview').innerHTML = htmlstring;
+        const patinaToTextarea = () => {
+            let textarea = document.querySelector('.jsonpatina-textarea');
+            let jsonpatina = {
+                width: 250,
+                patina: reconstructBinaryTree(internalDataStructure["root"])
+            }
+            textarea.value = JSON.stringify(jsonpatina, undefined, 4);
+        }
+        
+        let drawPatinaTree = () => {
+            let htmlstring = subtreeHtml(internalDataStructure["root"]);
+            document.querySelector('.tree').innerHTML = htmlstring;
 
             Object.keys(internalDataStructure).forEach((key) => {
                 document.getElementById(key)?.addEventListener('click', (event) => {
                     console.log(internalDataStructure[event.target.id]);
                 });
             })
+            mel.jsTriggers();
         }
 
         document.querySelector('.js-textarea-to-jsonpatina').addEventListener('click', () => {
-            let textarea = document.querySelector('.jsonpatina-textarea');
-            let jsonpatina = JSON.parse(textarea.value);
-            constructInternalDataStructure(jsonpatina.patina, 0);
+            textareaToDataStructure();
         });
 
         document.querySelector('.js-jsonpatina-to-textarea').addEventListener('click', () => {
-            let textarea = document.querySelector('.jsonpatina-textarea');
-            let jsonpatina = {
-                width: 250,
-                patina: reconstructJson(internalDataStructure[internalDataStructure["start"]])
-            }
-            textarea.value = JSON.stringify(jsonpatina, undefined, 4);
+            patinaToTextarea();
         });
 
         document.querySelector('.js-draw-jsonpatina').addEventListener('click', () => {
-            drawJsonpatina(internalDataStructure[internalDataStructure.start]);
-            mel.jsTriggers();
+            drawPatinaTree();
         });
 
         /////////////////////////////////////////////////////////
