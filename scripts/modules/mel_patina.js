@@ -333,7 +333,9 @@ patina.prototype = {
             }
 
             // for the nodes with IDs in showSteps
-            this._paintCanvasToADifferentDiv(resultingImage, width, height, layer.nodeName);
+            if (layer.nodeName) {
+                this._paintCanvasToADifferentDiv(resultingImage, width, height, layer.nodeName);
+            }
             return resultingImage;
         } else {
             console.log('layer type not recognized ',layer);
@@ -380,7 +382,6 @@ patina.prototype = {
             let myCanvas = this._createCanvas(patinaData, width, height);
             this._paintCanvas( myCanvas, domElement );
         } else {
-            console.log("When is this gonna happen? I forgot to properly write comments.");
             let intermediateSteps = document.querySelector('.intermediateSteps') || document.createElement('div');
             let stepCounter = 0;
             if (!intermediateSteps.classList.contains('intermediateSteps')) {
