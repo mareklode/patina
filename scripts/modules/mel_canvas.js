@@ -13,7 +13,7 @@ const canvas = {
         this.el.context = this.el.getContext('2d');
         this.el.img = this.el.context.createImageData(width, height);
 
-        console.log("init new canvas");
+        // console.log("init new canvas");
         return this;
     },
       

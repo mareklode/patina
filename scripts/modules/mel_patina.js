@@ -164,7 +164,7 @@ patina.prototype = {
             return x + y * width;
         }
         if (combineMode.name === 'distort') {
-            let multiplier = combineMode.radius || 1,
+            let multiplier = combineMode.radius || 64,
                 length = topLayer.length,
                 tll = length,
                 height = length / width,
@@ -201,7 +201,7 @@ patina.prototype = {
             return bottomLayer.map(function (value, index) {
                 return (topLayer[index] * value);
             });
-        } else if (combineMode.name === 'nachbelichten') {
+        } else if (combineMode.name === 'burn') { // todo: dodge
             return bottomLayer.map(function (value, index) {
                 return ((1 + topLayer[index]) * value);
             });

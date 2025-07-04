@@ -44,7 +44,7 @@ const noise = {
 
         // repeating the displacement steps down to pixel level
         while (b >= 2) {
-            console.log(b);
+            // console.log(b);
 
             // diamondStep:
             // take a square (first is the whole area),

@@ -242,7 +242,7 @@
         },
         "alpha": {
             "type": "combine",
-            "combineMode"   : { "name": "multiply" },
+            "combineMode"   : { "name": "overlay" },
             "topLayer": {
                 "type": "combine",
                 "topLayer": {
@@ -321,10 +321,15 @@
         let internalDataStructure = {};
         let constructInternalDataStructure = (node, nestingLevel) => {
             nestingLevel += 1;
+            let nodeType = node.type || "flat";
             let nodeName = (nestingLevel === 1) ? "root" :
-                `${nestingLevel}-${node.type}-${Math.round(Math.random()*1000)}`;
+                `${nestingLevel}-${nodeType}-${Math.round(Math.random()*1000)}`;
 
             let nodeDefinition = {...node, nodeName: nodeName, nestingLevel: nestingLevel};
+            if (nodeType === "flat") {
+                // flat nodes just have an integer for a color value
+                nodeDefinition = { ...nodeDefinition, type: "createPattern", pattern: { name: "flat", color: node } }; 
+            }
 
             // for color-channels and layers: go deeper
             branchForks.forEach((property) => {
@@ -387,9 +392,9 @@
                 }
 
                 if (node.type === "combine") {
-                    let modes = ["overlay", "distort", "subtract", "multiply", "nachbelichten", "add"];
+                    let modes = ["overlay", "distort", "subtract", "multiply", "burn", "add"];
                     htmlstring += `<label for="${node.nodeName}">combineMode:</label>
-                        <select name="combinMode" id="${node.nodeName}">`;
+                        <select name="combineMode" id="${node.nodeName}">`;
                         modes.forEach((mode) => {
                             htmlstring += `<option ${mode === node.combineMode?.name ? "selected": ""} value="${mode}">${mode}</option>`;
                         });
@@ -454,9 +459,9 @@
             Object.keys(internalDataStructure).forEach((key) => {
                 document.getElementById(key)?.querySelectorAll("select").forEach((select) => {
                     select.addEventListener('input', (event) => {
-                        console.log(event.target);
+                        let nodeType = event.target.getAttribute("name");
                         let nodeId = event.target.closest(".patina-node").id;
-                        internalDataStructure[nodeId].pattern.name = event.target.value;
+                        internalDataStructure[nodeId][nodeType] = { ...internalDataStructure[nodeId][nodeType], name: event.target.value };
                         drawPatinaTree();
                         patinaToTextarea();
                     });
