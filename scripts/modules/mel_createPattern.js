@@ -58,7 +58,7 @@ createPattern.prototype = {
 
     // better use the number-Shortcut like { "topLayer" : 256 }
     flat: function ( layerDefinition, width, height ) {
-        const color = layerDefinition?.color || 128;
+        const color = layerDefinition?.color || layerDefinition?.frequency || 128;
         return Array.from( {length: width * height}, () => color / 256 );
     },
 
@@ -66,8 +66,8 @@ createPattern.prototype = {
         const pattern = new Array( width * height );
 
         const frequency = width / layerDefinition?.frequency / 6.2832 || width / 31.4156; // default: 5 waves per width
-        const offsetX = layerDefinition?.offsetX || 0;
-        const offsetY = layerDefinition?.offsetY || 0;
+        const offsetX = layerDefinition?.offsetX || width / 2;
+        const offsetY = layerDefinition?.offsetY || width / 2;
 
         let color = 0;
         for (let x = 0; x < width; x++ ) {
@@ -114,7 +114,7 @@ createPattern.prototype = {
         y = ((colorEnd - colorBegin) / width) * xPos + colorBegin
         */
 
-        if (direction === "to bottom") {
+        if (direction === "to bottom" || direction === "vertical") {
             for (let x = 0; x < width; x++) {
                 for (let y = 0; y < height; y++) {
                     let position = y * width + x ;
@@ -128,7 +128,7 @@ createPattern.prototype = {
                     pattern[position] = ((colorBegin - colorEnd) / height) * y + colorEnd;
                 }
             }
-        } else if (direction === "to right") {
+        } else if (direction === "to right" || direction === "horizontal") {
             for (let x = 0; x < width; x++) {
                 for (let y = 0; y < height; y++) {
                     let position = y * width + x ;
@@ -157,7 +157,7 @@ createPattern.prototype = {
         */
 
         // Labyrinth
-        let punkteAbstand = 4;
+        let punkteAbstand = layerDefinition?.frequency || 4;
         for (let x = 0; x < width / punkteAbstand; x++) {
             for (let y = 0; y < height / punkteAbstand; y++) {
                 let xRichtung = 0;
@@ -240,10 +240,10 @@ createPattern.prototype = {
     rays: function ( layerDefinition, width, height ) {
         const pattern = new Array(width * height);
 
-        const count = layerDefinition?.count || 16;
+        const count = layerDefinition?.count || layerDefinition?.frequency || 16;
         const offsetX = layerDefinition?.offsetX || 0;
         const offsetY = layerDefinition?.offsetY || 0;
-        const sharpen = layerDefinition?.sharpen || false;
+        const sharpen = layerDefinition?.sharpen || 10;
         const rotation = layerDefinition?.rotation || 0;
 
         // https://easings.net/ // with functions

@@ -36,9 +36,6 @@
 
     <main class="body__block">
 
-        <h1>Show Steps</h1>
-
-
         <style>
             :root {
                 --gap-width: 1rem;
@@ -169,21 +166,43 @@
                 box-sizing: border-box;
                 width: 200px;
                 min-height: 200px;
-                border-radius: var(--border-radius);
                 padding: .5rem;
 
                 background: white;
-                border: 1px solid black;
+                box-shadow: 0 0 10px rgba(0,0,0,0.33);
                 background-size: contain;
 
-                & p {
+                position: relative;
+
+                label {
+                    display: inline-block;
+                    width: 30%;
+                }
+
+                select {
+                    width: 70%;
+                }
+
+                input {
+                    width: 100%;
+                }
+
+                p {
                     margin: 0;
                     background-color: rgba(255, 255, 255, .67);
                 }
             }
 
-            .patina-node__type {
+            select.patina-node__type {
                 font-weight: bold;
+                width: 100%;
+            }
+
+            p.patina-node__purpose {
+                position: absolute;
+                bottom: 0rem;
+                left: 0;
+                padding: 0 .5rem;
             }
 
 
@@ -228,9 +247,7 @@
                 left: -200px;
             }
         </style>
-
-        <div class="jsonpatina-container">
-            <textarea class="jsonpatina-textarea jsonpatina-textarea--hidden" spellcheck="false" autocorrect="off" autocapitalize="off">
+<!--
 {
     "width": 256,
     "patina": {
@@ -238,7 +255,7 @@
         "red": 73,
         "green": 94,
         "blue": {
-            "type": "editNode"
+            "type": "select_Type"
         },
         "alpha": {
             "type": "combine",
@@ -289,6 +306,10 @@
         }
     }
 }
+-->
+        <div class="jsonpatina-container">
+            <textarea class="jsonpatina-textarea jsonpatina-textarea--hidden" spellcheck="false" autocorrect="off" autocapitalize="off">
+                {"patina": { "type": "select_Type" }}
             </textarea>
             <button class="js-textarea-to-jsonpatina button-textarea-to-jsonpatina" >textarea-to-jsonpatina</button>
             <button class="js-jsonpatina-to-textarea button-jsonpatina-to-textarea" >jsonpatina-to-textarea</button>
@@ -315,15 +336,19 @@
 
     <script>
         // these properties of a patina-node contain other nodes, resulting in a tree
-        let branchForks = ["topLayer", "bottomLayer", "red", "green", "blue", "alpha"];
+        let branchForks = ["bottomLayer", "topLayer", "red", "green", "blue", "alpha"];
+
+        let createNodeName = (nodeType= "select_Type", nestingLevel= 10) => {
+            return (nestingLevel === 1) ? "root" :
+                `${nestingLevel}-${nodeType}-${Math.round(Math.random()*1000)}`;
+        }
 
          // deconstruct the binary tree into a list of linked nodes
         let internalDataStructure = {};
         let constructInternalDataStructure = (node, nestingLevel) => {
             nestingLevel += 1;
             let nodeType = node.type || "flat";
-            let nodeName = (nestingLevel === 1) ? "root" :
-                `${nestingLevel}-${nodeType}-${Math.round(Math.random()*1000)}`;
+            let nodeName = createNodeName(nodeType, nestingLevel);
 
             let nodeDefinition = {...node, nodeName: nodeName, nestingLevel: nestingLevel};
             if (nodeType === "flat") {
@@ -344,7 +369,7 @@
 
         let reconstructJsonTree = (node) => {
             let nodeObject = {...node};
-            delete nodeObject.nodeName;
+            // delete nodeObject.nodeName;
             delete nodeObject.nestingLevel;
 
             // for color-channels and layers: go deeper
@@ -357,44 +382,63 @@
             return nodeObject;
         }
 
-        let subtreeHtml = (node) => {
+        let subtreeHtml = (node, nodePurpose = false) => {
             let nestingLevel = node.nestingLevel;
 
-            let tabs = (length) => { // include whitespace for readability
+            let tabs = (length= 1) => { // include whitespace for readability
                 return new Array(length * 4).join(" ");
             }
 
             let patinaNodeHtml = (node, nestingLevel) => {
-                let htmlstring = `${tabs(nestingLevel)}<div class="patina-node js-module" data-module-name="patina"
-                    id="${node.nodeName}"
-                    data-module-data='{ "patina":${JSON.stringify(reconstructJsonTree(node))}}'>\n`;
+                let htmlstring = `${tabs(nestingLevel)}<div id="${node.nodeName}" class='patina-node`;
+                if (node.nodeName === "root") {
+                    // root-node gets the patina json and the js-module trigger class, the other nodes are painted in vs
+                    htmlstring += ` js-module' data-module-name='patina' data-module-data='{ "patina":${JSON.stringify(reconstructJsonTree(node))}}`;
+                } 
+                htmlstring += `'>`;
 
+                if (nodePurpose) { htmlstring += `<p class="patina-node__purpose">${nodePurpose}</p>`; }
+
+                let types = ["select_Type", "createPattern", "combine", "colorChannels"];
+                htmlstring += `<select name="type" id="${node.nodeName}" class="patina-node__type">`;
+                    types.forEach((type) => {
+                        htmlstring += `<option ${type === node.type ? "selected": ""} value="${type}">${type}</option>`;
+                    });
+                htmlstring += `</select>`;
+                                    
                 // print infos inside node rectangle
                 Object.keys(node).forEach((key) => {
-                    let skipInfos = [...branchForks, "nodeName", "nestingLevel"];
+                    let skipInfos = [...branchForks, "nodeName", "nestingLevel", "type", "combineMode", "pattern", "direction"];
                     if (skipInfos.includes(key)) return;
                     if (key === "filter") {
                         htmlstring += `${tabs(nestingLevel + 1)}<p class="patina-node__filter">Filter: ${node.filter.map((filter) => filter.name).join(' - ')}</p>\n`;
                         return;
                     }
                     // else
+                    console.log("add this to skipinfos:", key);
                     htmlstring += `${tabs(nestingLevel + 1)}<p class="patina-node__${key}">${key}: ${node[key].name || node[key]}</p>`;
                 });
 
                 if (node.type === "createPattern") {
                     let patterns = ["border", "noise_plasma", "noise_1D", "flat", "wave", "noise_white", "slope", "rays", "random_walker", "labyrinth"];
-                    htmlstring += `<label for="${node.nodeName}">Choose a pattern:</label>
-                        <select name="pattern" id="${node.nodeName}">`;
+                    htmlstring += `<label for="${node.nodeName}">name:</label><!--
+                        --><select name="pattern" id="${node.nodeName}">`;
                         patterns.forEach((pattern) => {
                             htmlstring += `<option ${pattern === node.pattern?.name ? "selected": ""} value="${pattern}">${pattern}</option>`;
                         });
                     htmlstring += `</select>`;
-                }
-
-                if (node.type === "combine") {
+                    directions = ["vertical", "horizontal", "concentric"];
+                    htmlstring += `<label for="${node.nodeName}">direction:</label><!--
+                        --><select name="direction" id="${node.nodeName}">`;
+                        directions.forEach((direction) => {
+                            htmlstring += `<option ${direction === node.pattern?.direction ? "selected": ""} value="${direction}">${direction}</option>`;
+                        });
+                    htmlstring += `</select>`;
+                    htmlstring += `<input type="number" name="frequency" id="${node.nodeName}" value="${node.pattern?.frequency}">`;
+                } else if (node.type === "combine") {
                     let modes = ["overlay", "distort", "subtract", "multiply", "burn", "add"];
-                    htmlstring += `<label for="${node.nodeName}">combineMode:</label>
-                        <select name="combineMode" id="${node.nodeName}">`;
+                    htmlstring += `<label for="${node.nodeName}">mode:</label><!--
+                        --><select name="combineMode" id="${node.nodeName}">`;
                         modes.forEach((mode) => {
                             htmlstring += `<option ${mode === node.combineMode?.name ? "selected": ""} value="${mode}">${mode}</option>`;
                         });
@@ -405,9 +449,9 @@
                 return htmlstring;
             }
 
-            let parentHtml = (node, nestingLevel) => {
+            let parentHtml = (node, nestingLevel, nodePurpose) => {
                 let htmlstring = tabs(nestingLevel) + '<div class="parent">\n';
-                htmlstring += subtreeHtml(node, nestingLevel);
+                htmlstring += subtreeHtml(node, nodePurpose);
                 return htmlstring + tabs(nestingLevel) + '</div>\n';
             };
 
@@ -421,7 +465,7 @@
 
                 branchForks.forEach((property) => {
                     if (node[property]) {
-                        htmlstring += parentHtml(internalDataStructure[node[property]], nestingLevel);
+                        htmlstring += parentHtml(internalDataStructure[node[property]], nestingLevel, property);
                     }
                 });
                 htmlstring += childHtml(node, nestingLevel);
@@ -451,17 +495,63 @@
         }
 
         let drawPatinaTree = () => {
-            let htmlstring = subtreeHtml(internalDataStructure["root"]);
+            let htmlstring = subtreeHtml(internalDataStructure["root"], "root");
             document.querySelector('.tree').innerHTML = htmlstring;
 
-
-
             Object.keys(internalDataStructure).forEach((key) => {
-                document.getElementById(key)?.querySelectorAll("select").forEach((select) => {
+                document.getElementById(key)?.querySelectorAll("select, input").forEach((select) => {
                     select.addEventListener('input', (event) => {
-                        let nodeType = event.target.getAttribute("name");
+                        let selectType = event.target.getAttribute("name");
                         let nodeId = event.target.closest(".patina-node").id;
-                        internalDataStructure[nodeId][nodeType] = { ...internalDataStructure[nodeId][nodeType], name: event.target.value };
+                        if (selectType === "type") {
+                            let type = event.target.value;
+                            switch (type) {
+                                case "combine":
+                                    let topLayer = createNodeName();
+                                    let bottomLayer = createNodeName();
+                                    internalDataStructure[nodeId] = {
+                                        type: type,
+                                        bottomLayer: bottomLayer,
+                                        topLayer: topLayer,
+                                        nodeName: nodeId,
+                                        nestingLevel: 10
+                                    };
+                                    internalDataStructure[bottomLayer] = { type: "select_Type", nodeName: bottomLayer, nestingLevel: 10 }
+                                    internalDataStructure[topLayer] = { type: "select_Type", nodeName: topLayer, nestingLevel: 10 }
+                                    break;
+                                case "colorChannels":
+                                    let red = createNodeName();
+                                    let green = createNodeName();
+                                    let blue = createNodeName();
+                                    let alpha = createNodeName();
+                                    internalDataStructure[nodeId] = {
+                                        type: type,
+                                        red: red,
+                                        green: green,
+                                        blue: blue,
+                                        alpha: alpha,
+                                        nodeName: nodeId,
+                                        nestingLevel: 10
+                                    };
+                                    internalDataStructure[red] = { type: "select_Type", nodeName: red, nestingLevel: 10 };
+                                    internalDataStructure[green] = { type: "select_Type", nodeName: green, nestingLevel: 10 };
+                                    internalDataStructure[blue] = { type: "select_Type", nodeName: blue, nestingLevel: 10 };
+                                    internalDataStructure[alpha] = { type: "select_Type", nodeName: alpha, nestingLevel: 10 };
+                                    break;
+                                case "createPattern":
+                                    internalDataStructure[nodeId] = {
+                                        type: type,
+                                        nodeName: nodeId,
+                                        nestingLevel: 10,
+                                        pattern: { name: "flat", frequency: 10 }
+                                    };
+                                    break;
+                            }  
+                        } else if (selectType === "pattern" || selectType === "combineMode") {
+                            internalDataStructure[nodeId][selectType] = { ...internalDataStructure[nodeId][selectType], name: event.target.value };
+                        } else { // direction || frequency
+                            internalDataStructure[nodeId].pattern[selectType] = event.target.value;
+                        }
                         drawPatinaTree();
                         patinaToTextarea();
                     });
