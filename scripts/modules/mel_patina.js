@@ -9,7 +9,7 @@ import templates from './mel_pageTemplates.js';
 
 function patina (domElement, parameters) {
     let self = this;
-    console.log(parameters);
+    // console.log(parameters);
 
     if (parameters.startsWith('template_')) {
         // todo: dynamisch 2/2
@@ -211,7 +211,7 @@ patina.prototype = {
                 return (value + (topLayer[index] * opacity));
             });
         } else {
-            // half and half
+            // overlay (fifty-fifty)
             return bottomLayer.map(function (value, index) {
                 return (value + topLayer[index]) / 2;
             });

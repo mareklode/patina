@@ -20,8 +20,8 @@
         </div>
     </header>
 
-    <nav class="navigation" 
-         data-module-name="patina" 
+    <nav class="navigation"
+         data-module-name="patina"
          data-module-data="template_navigation">
         <a class="navigation__link" href="index.html">Home</a>
         <a class="navigation__link" href="howto.html">HowTo</a>
@@ -242,24 +242,27 @@
         },
         "alpha": {
             "type": "combine",
+            "combineMode"   : { "name": "multiply" },
             "topLayer": {
                 "type": "combine",
                 "topLayer": {
                     "type": "combine",
                     "topLayer": {
                         "type": "createPattern",
-                        "patternName": "noise_plasma"
+                        "pattern": { "name": "noise_plasma" }
                     },
                     "bottomLayer": {
                         "type": "createPattern",
-                        "patternName": "wave",
-                        "direction": "horizontal",
-                        "frequency": 60
+                        "pattern": { 
+                            "name": "wave",
+                            "direction": "horizontal",
+                            "frequency": 60
+                        }
                     }
                 },
                 "bottomLayer": {
                     "type": "createPattern",
-                    "patternName": "slope",
+                    "pattern": { "name": "slope" },
                     "filter": [{ "name": "brightness", "brightness": -2 }]
                 }
             },
@@ -267,13 +270,15 @@
                 "type": "combine",
                 "topLayer": {
                     "type": "createPattern",
-                    "patternName": "noise_white"
+                    "pattern": { "name": "noise_white" }
                 },
                 "bottomLayer": {
                     "type": "createPattern",
-                    "patternName": "wave",
-                    "direction": "vertical",
-                    "frequency": 67
+                    "pattern": { 
+                        "name": "wave",
+                        "direction": "vertical",
+                        "frequency": 67
+                    }
                 }
             },
             "filter": [
@@ -311,9 +316,9 @@
     <script>
         // these properties of a patina-node contain other nodes, resulting in a tree
         let branchForks = ["topLayer", "bottomLayer", "red", "green", "blue", "alpha"];
-        
-        let internalDataStructure = {}; // deconstruct the binary tree into a list of linked nodes
 
+         // deconstruct the binary tree into a list of linked nodes
+        let internalDataStructure = {};
         let constructInternalDataStructure = (node, nestingLevel) => {
             nestingLevel += 1;
             let nodeName = (nestingLevel === 1) ? "root" :
@@ -332,7 +337,7 @@
             return nodeName;
         }
 
-        let reconstructBinaryTree = (node) => {
+        let reconstructJsonTree = (node) => {
             let nodeObject = {...node};
             delete nodeObject.nodeName;
             delete nodeObject.nestingLevel;
@@ -340,7 +345,7 @@
             // for color-channels and layers: go deeper
             branchForks.forEach((property) => {
                 if (node[property]) {
-                    nodeObject[property] = reconstructBinaryTree(internalDataStructure[node[property]]);
+                    nodeObject[property] = reconstructJsonTree(internalDataStructure[node[property]]);
                 }
             });
 
@@ -357,7 +362,7 @@
             let patinaNodeHtml = (node, nestingLevel) => {
                 let htmlstring = `${tabs(nestingLevel)}<div class="patina-node js-module" data-module-name="patina"
                     id="${node.nodeName}"
-                    data-module-data='{ "patina":${JSON.stringify(reconstructBinaryTree(node))}}'>\n`;
+                    data-module-data='{ "patina":${JSON.stringify(reconstructJsonTree(node))}}'>\n`;
 
                 // print infos inside node rectangle
                 Object.keys(node).forEach((key) => {
@@ -370,6 +375,26 @@
                     // else
                     htmlstring += `${tabs(nestingLevel + 1)}<p class="patina-node__${key}">${key}: ${node[key].name || node[key]}</p>`;
                 });
+
+                if (node.type === "createPattern") {
+                    let patterns = ["border", "noise_plasma", "noise_1D", "flat", "wave", "noise_white", "slope", "rays", "random_walker", "labyrinth"];
+                    htmlstring += `<label for="${node.nodeName}">Choose a pattern:</label>
+                        <select name="pattern" id="${node.nodeName}">`;
+                        patterns.forEach((pattern) => {
+                            htmlstring += `<option ${pattern === node.pattern?.name ? "selected": ""} value="${pattern}">${pattern}</option>`;
+                        });
+                    htmlstring += `</select>`;
+                }
+
+                if (node.type === "combine") {
+                    let modes = ["overlay", "distort", "subtract", "multiply", "nachbelichten", "add"];
+                    htmlstring += `<label for="${node.nodeName}">combineMode:</label>
+                        <select name="combinMode" id="${node.nodeName}">`;
+                        modes.forEach((mode) => {
+                            htmlstring += `<option ${mode === node.combineMode?.name ? "selected": ""} value="${mode}">${mode}</option>`;
+                        });
+                    htmlstring += `</select>`;
+                }
 
                 htmlstring += tabs(nestingLevel) + '</div>\n';
                 return htmlstring;
@@ -415,22 +440,35 @@
             let textarea = document.querySelector('.jsonpatina-textarea');
             let jsonpatina = {
                 width: 250,
-                patina: reconstructBinaryTree(internalDataStructure["root"])
+                patina: reconstructJsonTree(internalDataStructure["root"])
             }
             textarea.value = JSON.stringify(jsonpatina, undefined, 4);
         }
-        
+
         let drawPatinaTree = () => {
             let htmlstring = subtreeHtml(internalDataStructure["root"]);
             document.querySelector('.tree').innerHTML = htmlstring;
 
+
+
             Object.keys(internalDataStructure).forEach((key) => {
-                document.getElementById(key)?.addEventListener('click', (event) => {
-                    console.log(internalDataStructure[event.target.id]);
-                });
+                document.getElementById(key)?.querySelectorAll("select").forEach((select) => {
+                    select.addEventListener('input', (event) => {
+                        console.log(event.target);
+                        let nodeId = event.target.closest(".patina-node").id;
+                        internalDataStructure[nodeId].pattern.name = event.target.value;
+                        drawPatinaTree();
+                        patinaToTextarea();
+                    });
+                })
             })
-            mel.jsTriggers();
+            if (typeof mel !== 'undefined') { 
+                mel.jsTriggers(); 
+            }
         }
+
+        textareaToDataStructure();
+        drawPatinaTree();
 
         document.querySelector('.js-textarea-to-jsonpatina').addEventListener('click', () => {
             textareaToDataStructure();

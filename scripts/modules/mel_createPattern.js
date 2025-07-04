@@ -8,19 +8,15 @@ import noise from './mel_noise.js';
 function createPattern (layerDefinition, width, height, reusableImages) {
     let pattern = {};
 
-    if (layerDefinition.pattern && this[layerDefinition.pattern.name]) {
+    // sometimes instead of pattern: { name: and so on } you can use the shortcut patternName: "name" without parameters
+    let patternName = layerDefinition?.patternName || layerDefinition?.pattern?.name;
+
+    if (this[patternName]) {
         if (window.consoleVerbose) {
-            console.log("createPattern 1: ", layerDefinition.pattern.name);
+            console.log("createPattern", patternName);
         }
-        pattern = this[layerDefinition.pattern.name]( layerDefinition.pattern, width, height );
-    } else if (this[layerDefinition.patternName]) {
-        if (window.consoleVerbose) {
-            console.log("createPattern 2: ", layerDefinition.patternName);
-        }
-        pattern = this[layerDefinition.patternName]( layerDefinition, width, height );
+        pattern = this[patternName]( layerDefinition?.pattern, width, height );
     } else {
-        let patternName = layerDefinition.patternName;
-        if (layerDefinition.pattern) { patternName = layerDefinition.pattern.name }
         console.error("createPattern: \"", patternName, "\" does not exist.", layerDefinition);
         pattern = this["flat"]({color: 0}, width, height);
     }
@@ -56,28 +52,28 @@ createPattern.prototype = {
     }, // border()
 
     noise_plasma: function ( layerDefinition, width, height ) {
-        return noise.noise_plasma(width, layerDefinition.frequency); // frequency defaults to 1
-        //return noise.diamondSquare(layerDefinition.frequency, width, height);
+        return noise.noise_plasma(width, layerDefinition?.frequency); // frequency defaults to 1
+        //return noise.diamondSquare(layerDefinition?.frequency, width, height);
     },
 
     // better use the number-Shortcut like { "topLayer" : 256 }
     flat: function ( layerDefinition, width, height ) {
-        const color = layerDefinition.color || 128;
+        const color = layerDefinition?.color || 128;
         return Array.from( {length: width * height}, () => color / 256 );
     },
 
     wave: function ( layerDefinition, width, height ) {
         const pattern = new Array( width * height );
 
-        const frequency = width / layerDefinition.frequency / 6.2832 || width / 31.4156; // default: 5 waves per width
-        const offsetX = layerDefinition.offsetX || 0;
-        const offsetY = layerDefinition.offsetY || 0;
+        const frequency = width / layerDefinition?.frequency / 6.2832 || width / 31.4156; // default: 5 waves per width
+        const offsetX = layerDefinition?.offsetX || 0;
+        const offsetY = layerDefinition?.offsetY || 0;
 
         let color = 0;
         for (let x = 0; x < width; x++ ) {
             for (let y = 0; y < height; y++ ) {
 
-                switch ( layerDefinition.direction ) {
+                switch ( layerDefinition?.direction ) {
                     case 'concentric':
                         color = Math.sin( Math.sqrt(((x - offsetX) * (x - offsetX)) + ((y - offsetY) * (y - offsetY))) / frequency );
                         break;
@@ -106,9 +102,9 @@ createPattern.prototype = {
     slope: function ( layerDefinition, width, height ) {
         const pattern = new Array(width * height);
 
-        const direction = layerDefinition.direction || "to bottom"; // to bottom, to top, to left, and to right,
-        const colorBegin = this._convertByteToPercent(layerDefinition.colorBegin) || 0;
-        const colorEnd = this._convertByteToPercent(layerDefinition.colorEnd) || 1;
+        const direction = layerDefinition?.direction || "to bottom"; // to bottom, to top, to left, and to right,
+        const colorBegin = this._convertByteToPercent(layerDefinition?.colorBegin) || 0;
+        const colorEnd = this._convertByteToPercent(layerDefinition?.colorEnd) || 1;
 
         /*
         Geradengleichung (Normalform): y = mx + n 
@@ -154,10 +150,10 @@ createPattern.prototype = {
         let pattern = new Array(width * height).fill(0);
 
         /*
-        const direction = layerDefinition.direction || "to bottom";
+        const direction = layerDefinition?.direction || "to bottom";
         // to bottom, to top, to left, and to right,
-        const colorBegin = this._convertByteToPercent(layerDefinition.colorBegin) || 0;
-        layerDefinition.colorEnd = this._convertByteToPercent(layerDefinition.colorEnd) || 1;
+        const colorBegin = this._convertByteToPercent(layerDefinition?.colorBegin) || 0;
+        layerDefinition?.colorEnd = this._convertByteToPercent(layerDefinition?.colorEnd) || 1;
         */
 
         // Labyrinth
@@ -185,7 +181,7 @@ createPattern.prototype = {
     noise_1D: function ( layerDefinition, width, height ) {
         const pattern = new Array();
 
-        const direction = layerDefinition.direction;
+        const direction = layerDefinition?.direction;
 
         if (direction === "horizontal") {
             let noise = Array.from( {length: height}, () => Math.random() );
@@ -209,7 +205,7 @@ createPattern.prototype = {
     random_walker: function ( layerDefinition, width, height ) {
         const pattern = new Array(width * height).fill(0);
 
-        const impact = layerDefinition.impact || 5;
+        const impact = layerDefinition?.impact || 5;
 
         // start at the center
         const walkerPos = {
@@ -244,11 +240,11 @@ createPattern.prototype = {
     rays: function ( layerDefinition, width, height ) {
         const pattern = new Array(width * height);
 
-        const count = layerDefinition.count || 16;
-        const offsetX = layerDefinition.offsetX || 0;
-        const offsetY = layerDefinition.offsetY || 0;
-        const sharpen = layerDefinition.sharpen || false;
-        const rotation = layerDefinition.rotation || 0;
+        const count = layerDefinition?.count || 16;
+        const offsetX = layerDefinition?.offsetX || 0;
+        const offsetY = layerDefinition?.offsetY || 0;
+        const sharpen = layerDefinition?.sharpen || false;
+        const rotation = layerDefinition?.rotation || 0;
 
         // https://easings.net/ // with functions
         function easeInOutExponent(x, exponent) {

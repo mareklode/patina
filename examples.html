@@ -318,15 +318,19 @@
                                 "combineMode"   : { "name": "distort", "radius": 1600 },
                                 "topLayer"      : {
                                     "type"          : "createPattern",
-                                    "patternName"   : "wave",
-                                    "direction"     : "concentric",
-                                    "frequency"     : 6
+                                    "pattern" : { 
+                                        "name"   : "wave",
+                                        "direction"     : "concentric",
+                                        "frequency"     : 6
+                                    }
                                 },
                                 "bottomLayer"   : {
                                     "type"          : "createPattern",
-                                    "patternName"   : "wave",
-                                    "direction"     : "vertical", 
-                                    "frequency"     : 6
+                                    "pattern" : { 
+                                        "name"   : "wave",
+                                        "direction"     : "vertical", 
+                                        "frequency"     : 6
+                                    }
                                 }
                             
                         }

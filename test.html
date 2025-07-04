@@ -27,8 +27,10 @@
                         {
                             "id"            : "randomWalker",
                             "type"          : "createPattern",
-                            "patternName"   : "random_walker",
-                            "impact"        : 2
+                            "pattern" : { 
+                                "name"   : "random_walker",
+                                "impact"        : 2
+                            }
                         }
                     ],
                     "patina": {
@@ -65,8 +67,10 @@
                             },
                             "topLayer"      : {
                                 "type"  : "createPattern",
-                                "patternName": "labyrinth",
-                                "color": 1
+                                "pattern" : { 
+                                    "name": "labyrinth",
+                                    "color": 1
+                                }
                             },
                             "bottomLayer" : {
                                 "type"  : "colorChannels",
@@ -162,9 +166,11 @@
                                 },
                                 "bottomLayer"   : {
                                     "type"          : "createPattern",
-                                    "patternName"   : "wave",
-                                    "direction"     : "horizontal",
-                                    "frequency"     : 60
+                                    "pattern" : { 
+                                        "name"   : "wave",
+                                        "direction"     : "horizontal",
+                                        "frequency"     : 60
+                                    }
                                 }
                             },
                             "bottomLayer" : { 
@@ -181,9 +187,11 @@
                             },
                             "bottomLayer"   : {
                                 "type"          : "createPattern",
-                                "patternName"   : "wave",
-                                "direction"     : "vertical",
-                                "frequency"     : 67
+                                "pattern" : { 
+                                    "name"   : "wave",
+                                    "direction"     : "vertical",
+                                    "frequency"     : 67
+                                }
                             }
                         },
                         "filter"        : [

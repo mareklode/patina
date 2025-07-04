@@ -110,22 +110,28 @@
                     {
                         "id"            : "combine_wave",
                         "type"          : "createPattern",
-                        "patternName"   : "wave",
-                        "direction"     : "rectangles",
-                        "frequency"     : 16,
+                        "pattern" : { 
+                            "name"   : "wave",
+                            "direction"     : "rectangles",
+                            "frequency"     : 16
+                        },
                         "filter"        : [{ "name": "brightness", "brightness": 1 }]
                     },
                     {
                         "id"            : "combine_noise1D_horizontal",
                         "type"          : "createPattern",
-                        "patternName"   : "noise_1D", 
-                        "direction"     : "vertical"
+                        "pattern" : { 
+                            "name"   : "noise_1D", 
+                            "direction"     : "vertical"
+                        }
                     },
                     {
                         "id"            : "combine_noise1D_vertical",
                         "type"          : "createPattern",
-                        "patternName"   : "noise_1D", 
-                        "direction"     : "horizontal"
+                        "pattern" : { 
+                            "name"   : "noise_1D", 
+                            "direction"     : "horizontal"
+                        }
                     },
                     {
                         "id"            : "NoiseBorder",

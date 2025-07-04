@@ -30,8 +30,10 @@ const templates = {
                     "type"          : "combine",
                     "topLayer"      : {
                         "type"          : "createPattern",
-                        "patternName"   : "noise_plasma",
-                        "frequency"     : 10,    
+                        "pattern" : { 
+                            "name"   : "noise_plasma",
+                            "frequency"     : 10
+                        },
                         "filter": [
                             { "name": "contrast", "x": 0.456, "m": 3 }
                         ]
@@ -87,9 +89,11 @@ const templates = {
             "blue"  : 18,
             "alpha" : {
                 "type"          : "createPattern",
-                "patternName"   : "wave",
-                "direction"     : "rectangles",
-                "frequency"     : 4,
+                "pattern" : { 
+                    "name"   : "wave",
+                    "direction"     : "rectangles",
+                    "frequency"     : 4
+                },  
                 "filter"        : [
                     { "name": "threshold", "threshold": 0.5 },
                     { "name": "blur", "radius": 1 },
@@ -133,9 +137,11 @@ const templates = {
                         },
                         "bottomLayer"   : {
                             "type"          : "createPattern",
-                            "patternName"   : "wave",
-                            "direction"     : "horizontal",
-                            "frequency"     : 60
+                            "pattern" : { 
+                                "name"   : "wave",
+                                "direction"     : "horizontal",
+                                "frequency"     : 60
+                            }    
                         }
                     },
                     "bottomLayer" : { 
@@ -152,9 +158,11 @@ const templates = {
                     },
                     "bottomLayer"   : {
                         "type"          : "createPattern",
-                        "patternName"   : "wave",
-                        "direction"     : "vertical",
-                        "frequency"     : 67
+                        "pattern" : { 
+                            "name"   : "wave",
+                            "direction"     : "vertical",
+                            "frequency"     : 67
+                        }
                     }
                 },
                 "filter"        : [
