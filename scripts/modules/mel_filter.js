@@ -16,10 +16,10 @@ filter.prototype = {
     blur: function (sourceImage, filterDefinition, width, height) {
         // copied from http://blog.ivank.net/fastest-gaussian-blur.html 
 
-        let sigma = filterDefinition.radius || 3, // standard deviation
+        let sigma = filterDefinition.radius || filterDefinition.value || 3, // standard deviation
             n = 3, // number of boxes
             targetImage = [];
-            
+
         let wIdeal = Math.sqrt((12*sigma*sigma/n)+1);  // Ideal averaging filter width 
         let wl = Math.floor(wIdeal);  if(wl%2==0) wl--;
         let wu = wl+2;
@@ -100,6 +100,14 @@ filter.prototype = {
         
     }, // brightness()
 
+    brightness_new: function (image, filterDefinition) {
+        let brightness = filterDefinition.value || 0;
+        return image.map(function(value){
+            return value + brightness;
+        });
+
+    }, // brightness()
+
     contrast: function (image, filterDefinition) {
         let y = 0.5, // always
             m = filterDefinition.m || 1, // slope
@@ -110,6 +118,18 @@ filter.prototype = {
             let y = m * value + n; // linear equation
             if ( y < 0 ) { return 0; }
             if ( y > 1 ) { return 1; }
+            return y;
+        });
+    },
+    contrast_new: function (image, filterDefinition) {
+        // https://easings.net/ // with functions
+        function easeInOutExponent(x, exponent) {
+            return x < 0.5 ? Math.pow(2, exponent - 1) * Math.pow(x, exponent) : 1 - Math.pow(-2 * x + 2, exponent) / 2;
+        }
+        let exponent = filterDefinition.value || 2;
+
+        return image.map( function( value ) {
+            let y = easeInOutExponent(value, exponent);
             return y;
         });
     }, // contrast()
@@ -150,7 +170,7 @@ filter.prototype = {
     }, // push()
 
     threshold: function (image, filterDefinition) {
-        let threshold = filterDefinition.threshold || 0.5;
+        let threshold = filterDefinition.threshold || filterDefinition.value || 0.5;
         return image.map(function(value){
             return value > threshold ? 1 : 0;
         })

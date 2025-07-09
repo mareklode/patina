@@ -95,10 +95,10 @@ const templates = {
                     "frequency"     : 4
                 },  
                 "filter"        : [
-                    { "name": "threshold", "threshold": 0.5 },
-                    { "name": "blur", "radius": 1 },
-                    { "name": "threshold", "threshold": 0.66 },
-                    { "name": "contrast", "m": 0.5, "x": 1.5 }
+                    { "name": "threshold", "value": 0.5 },
+                    { "name": "blur", "value": 1 },
+                    { "name": "threshold", "value": 0.67 },
+                    { "name": "brightness_new", "value": -0.7533 }
                 ]
             }
         }

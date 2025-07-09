@@ -229,6 +229,10 @@
                 width: 100%;
                 height: 100%;
                 outline: 1px solid;
+
+                &.error {
+                    background-color: lightcoral;
+                }
             }
 
             .button-jsonpatina-to-textarea {
@@ -306,10 +310,42 @@
         }
     }
 }
+{"patina": { "type": "select_Type" }}
 -->
         <div class="jsonpatina-container">
             <textarea class="jsonpatina-textarea jsonpatina-textarea--hidden" spellcheck="false" autocorrect="off" autocapitalize="off">
-                {"patina": { "type": "select_Type" }}
+                {
+        "width" : 375,
+        "height": 283,
+        "patina": {
+            "type"  : "colorChannels",
+            "red"   : 73,
+            "green" : 94,
+            "blue"  : 18,
+            "alpha" : {
+                "type"          : "createPattern",
+                "pattern" : { 
+                    "name"   : "wave",
+                    "direction"     : "rectangles",
+                    "frequency"     : 4
+                },  
+                "filter"        : [
+                    { "name": "threshold", "value": 0.5 },
+                    { "name": "blur", "value": 0.75 },
+                    { "name": "threshold", "value": 0.567 },
+                    { "name": "brightness_new", "value": -0.7533 }
+                    { "name": "threshold", "value": 0.5 },
+                    { "name": "blur", "value": 0.75 },
+                    { "name": "threshold", "value": 0.567 },
+                    { "name": "brightness_new", "value": -0.7533 }
+                    { "name": "threshold", "value": 0.5 },
+                    { "name": "blur", "value": 0.75 },
+                    { "name": "threshold", "value": 0.567 },
+                    { "name": "brightness_new", "value": -0.7533 }
+                ]
+            }
+        }
+    }
             </textarea>
             <button class="js-textarea-to-jsonpatina button-textarea-to-jsonpatina" >textarea-to-jsonpatina</button>
             <button class="js-jsonpatina-to-textarea button-jsonpatina-to-textarea" >jsonpatina-to-textarea</button>
@@ -337,6 +373,7 @@
     <script>
         // these properties of a patina-node contain other nodes, resulting in a tree
         let branchForks = ["bottomLayer", "topLayer", "red", "green", "blue", "alpha"];
+        let filters = [];
 
         let createNodeName = (nodeType= "select_Type", nestingLevel= 10) => {
             return (nestingLevel === 1) ? "root" :
@@ -405,19 +442,6 @@
                         htmlstring += `<option ${type === node.type ? "selected": ""} value="${type}">${type}</option>`;
                     });
                 htmlstring += `</select>`;
-                                    
-                // print infos inside node rectangle
-                Object.keys(node).forEach((key) => {
-                    let skipInfos = [...branchForks, "nodeName", "nestingLevel", "type", "combineMode", "pattern", "direction"];
-                    if (skipInfos.includes(key)) return;
-                    if (key === "filter") {
-                        htmlstring += `${tabs(nestingLevel + 1)}<p class="patina-node__filter">Filter: ${node.filter.map((filter) => filter.name).join(' - ')}</p>\n`;
-                        return;
-                    }
-                    // else
-                    console.log("add this to skipinfos:", key);
-                    htmlstring += `${tabs(nestingLevel + 1)}<p class="patina-node__${key}">${key}: ${node[key].name || node[key]}</p>`;
-                });
 
                 if (node.type === "createPattern") {
                     let patterns = ["border", "noise_plasma", "noise_1D", "flat", "wave", "noise_white", "slope", "rays", "random_walker", "labyrinth"];
@@ -444,6 +468,19 @@
                         });
                     htmlstring += `</select>`;
                 }
+                                    
+                // print infos inside node rectangle
+                Object.keys(node).forEach((key) => {
+                    let skipInfos = [...branchForks, "nodeName", "nestingLevel", "type", "combineMode", "pattern", "direction"];
+                    if (skipInfos.includes(key)) return;
+                    if (key === "filter") {
+                        htmlstring += `${tabs(nestingLevel + 1)}<button class="patina-node__filter">Filter: ${node.filter.map((filter) => filter.name).join(' - ')}</button>\n`;
+                        return;
+                    }
+                    // else
+                    console.log("add this to skipinfos:", key);
+                    htmlstring += `${tabs(nestingLevel + 1)}<p class="patina-node__${key}">${key}: ${node[key].name || node[key]}</p>`;
+                });
 
                 htmlstring += tabs(nestingLevel) + '</div>\n';
                 return htmlstring;
@@ -481,8 +518,14 @@
 
         const textareaToDataStructure = () => {
             let textarea = document.querySelector('.jsonpatina-textarea');
-            let jsonpatina = JSON.parse(textarea.value);
-            constructInternalDataStructure(jsonpatina.patina, 0);
+            try {
+                let jsonpatina = JSON.parse(textarea.value);
+                document.querySelector(".jsonpatina-textarea").classList.remove("error");
+                constructInternalDataStructure(jsonpatina.patina, 0);
+            } catch (error) {
+                document.querySelector(".jsonpatina-textarea").classList.add("error");
+                console.log(error);
+            }
         }
 
         const patinaToTextarea = () => {
@@ -495,6 +538,8 @@
         }
 
         let drawPatinaTree = () => {
+            if (!Object.keys(internalDataStructure).length) return;
+
             let htmlstring = subtreeHtml(internalDataStructure["root"], "root");
             document.querySelector('.tree').innerHTML = htmlstring;
 
@@ -579,15 +624,16 @@
 
         /////////////////////////////////////////////////////////
 
-        /*
         const test = async function () {
 
-            const {default: createPattern} = await import('./scripts/modules/mel_createPattern.js');
-            console.log(Object.getOwnPropertyNames(createPattern.prototype));
+            const {default: filterFunction} = await import('./scripts/modules/mel_filter.js');
+            Object.getOwnPropertyNames(filterFunction.prototype).map((filterName) => {
+                if (!filterName.startsWith("_")) {filters.push(filterName);}
+            });
+            console.log(filters);            
         }
 
         test();
-        */
 
     </script>
 
