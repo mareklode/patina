@@ -543,72 +543,17 @@
             let htmlstring = subtreeHtml(internalDataStructure["root"], "root");
             document.querySelector('.tree').innerHTML = htmlstring;
 
-            Object.keys(internalDataStructure).forEach((key) => {
-                document.getElementById(key)?.querySelectorAll("select, input").forEach((select) => {
-                    select.addEventListener('input', (event) => {
-                        let selectType = event.target.getAttribute("name");
-                        let nodeId = event.target.closest(".patina-node").id;
-                        if (selectType === "type") {
-                            let type = event.target.value;
-                            switch (type) {
-                                case "combine":
-                                    let topLayer = createNodeName();
-                                    let bottomLayer = createNodeName();
-                                    internalDataStructure[nodeId] = {
-                                        type: type,
-                                        bottomLayer: bottomLayer,
-                                        topLayer: topLayer,
-                                        nodeName: nodeId,
-                                        nestingLevel: 10
-                                    };
-                                    internalDataStructure[bottomLayer] = { type: "select_Type", nodeName: bottomLayer, nestingLevel: 10 }
-                                    internalDataStructure[topLayer] = { type: "select_Type", nodeName: topLayer, nestingLevel: 10 }
-                                    break;
-                                case "colorChannels":
-                                    let red = createNodeName();
-                                    let green = createNodeName();
-                                    let blue = createNodeName();
-                                    let alpha = createNodeName();
-                                    internalDataStructure[nodeId] = {
-                                        type: type,
-                                        red: red,
-                                        green: green,
-                                        blue: blue,
-                                        alpha: alpha,
-                                        nodeName: nodeId,
-                                        nestingLevel: 10
-                                    };
-                                    internalDataStructure[red] = { type: "select_Type", nodeName: red, nestingLevel: 10 };
-                                    internalDataStructure[green] = { type: "select_Type", nodeName: green, nestingLevel: 10 };
-                                    internalDataStructure[blue] = { type: "select_Type", nodeName: blue, nestingLevel: 10 };
-                                    internalDataStructure[alpha] = { type: "select_Type", nodeName: alpha, nestingLevel: 10 };
-                                    break;
-                                case "createPattern":
-                                    internalDataStructure[nodeId] = {
-                                        type: type,
-                                        nodeName: nodeId,
-                                        nestingLevel: 10,
-                                        pattern: { name: "flat", frequency: 10 }
-                                    };
-                                    break;
-                            }  
-                        } else if (selectType === "pattern" || selectType === "combineMode") {
-                            internalDataStructure[nodeId][selectType] = { ...internalDataStructure[nodeId][selectType], name: event.target.value };
-                        } else { // direction || frequency
-                            internalDataStructure[nodeId].pattern[selectType] = event.target.value;
-                        }
-                        drawPatinaTree();
-                        patinaToTextarea();
-                    });
-                })
-            })
             if (typeof mel !== 'undefined') { 
                 mel.jsTriggers(); 
             }
         }
 
-        textareaToDataStructure();
-        drawPatinaTree();
+        let init = () => {
+            textareaToDataStructure();
+            drawPatinaTree();
+        }
+
+        init();
 
         document.querySelector('.js-textarea-to-jsonpatina').addEventListener('click', () => {
             textareaToDataStructure();
@@ -622,6 +567,85 @@
             drawPatinaTree();
         });
 
+        document.querySelector('.tree').addEventListener('input', (event) => {
+            console.log(event);
+            if (event.target.closest('input')) {
+                selectInput(event);
+                return;
+            } 
+            if (event.target.closest('select')) {
+                selectInput(event);
+                return;
+            } 
+        })
+
+        document.querySelector('.tree').addEventListener('click', (event) => {
+            if (event.target.closest('button')) {
+                clickButtonFilters(event);
+                return;
+            } 
+        })
+
+        const clickButtonFilters = (event) => {
+            console.log("button", event);
+        }
+
+        const selectInput = (event) => {
+            let selectType = event.target.getAttribute("name");
+            let nodeId = event.target.closest(".patina-node").id;
+            if (selectType === "type") {
+                let type = event.target.value;
+                switch (type) {
+                    case "combine":
+                        let topLayer = createNodeName();
+                        let bottomLayer = createNodeName();
+                        internalDataStructure[nodeId] = {
+                            type: type,
+                            bottomLayer: bottomLayer,
+                            topLayer: topLayer,
+                            nodeName: nodeId,
+                            nestingLevel: 10
+                        };
+                        internalDataStructure[bottomLayer] = { type: "select_Type", nodeName: bottomLayer, nestingLevel: 10 }
+                        internalDataStructure[topLayer] = { type: "select_Type", nodeName: topLayer, nestingLevel: 10 }
+                        break;
+                    case "colorChannels":
+                        let red = createNodeName();
+                        let green = createNodeName();
+                        let blue = createNodeName();
+                        let alpha = createNodeName();
+                        internalDataStructure[nodeId] = {
+                            type: type,
+                            red: red,
+                            green: green,
+                            blue: blue,
+                            alpha: alpha,
+                            nodeName: nodeId,
+                            nestingLevel: 10
+                        };
+                        internalDataStructure[red] = { type: "select_Type", nodeName: red, nestingLevel: 10 };
+                        internalDataStructure[green] = { type: "select_Type", nodeName: green, nestingLevel: 10 };
+                        internalDataStructure[blue] = { type: "select_Type", nodeName: blue, nestingLevel: 10 };
+                        internalDataStructure[alpha] = { type: "select_Type", nodeName: alpha, nestingLevel: 10 };
+                        break;
+                    case "createPattern":
+                        internalDataStructure[nodeId] = {
+                            type: type,
+                            nodeName: nodeId,
+                            nestingLevel: 10,
+                            pattern: { name: "flat", frequency: 10 }
+                        };
+                        break;
+                }  
+            } else if (selectType === "pattern" || selectType === "combineMode") {
+                internalDataStructure[nodeId][selectType] = { ...internalDataStructure[nodeId][selectType], name: event.target.value };
+            } else { // direction || frequency
+                internalDataStructure[nodeId].pattern[selectType] = event.target.value;
+            }
+            drawPatinaTree();
+            patinaToTextarea();
+
+        }; // selectInput()
         /////////////////////////////////////////////////////////
 
         const test = async function () {
