@@ -191,6 +191,10 @@
                     margin: 0;
                     background-color: rgba(255, 255, 255, .67);
                 }
+
+                button.active {
+                    background-color: green;
+                }
             }
 
             select.patina-node__type {
@@ -249,6 +253,16 @@
                 position: absolute;
                 top: 50px;
                 left: -200px;
+            }
+            .filter-dialog {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                max-width: 80%;
+            }
+            .filter-dialog::backdrop { 
+               background: hsl(201 50% 40% /.5) ;
             }
         </style>
 <!--
@@ -334,14 +348,6 @@
                     { "name": "blur", "value": 0.75 },
                     { "name": "threshold", "value": 0.567 },
                     { "name": "brightness_new", "value": -0.7533 }
-                    { "name": "threshold", "value": 0.5 },
-                    { "name": "blur", "value": 0.75 },
-                    { "name": "threshold", "value": 0.567 },
-                    { "name": "brightness_new", "value": -0.7533 }
-                    { "name": "threshold", "value": 0.5 },
-                    { "name": "blur", "value": 0.75 },
-                    { "name": "threshold", "value": 0.567 },
-                    { "name": "brightness_new", "value": -0.7533 }
                 ]
             }
         }
@@ -368,6 +374,26 @@
             </div><!-- .subtree -->
 
         </div><!-- .tree -->
+
+        <dialog class="js-filter-dialog filter-dialog" closedby="any">
+            <form action="#" method="dialog">
+                <label for="email">Bitte geben Sie Ihre Email-Adresse an: </label>
+                <input id="email" type="email" />
+                <p><button id="Anmeldung">Anmelden</button>
+                <button id="close-dialog">Abbrechen</button>
+                </p>
+                <label for="email">Bitte geben Sie Ihre Email-Adresse an: </label>
+                <input id="email" type="email" />
+                <p><button id="Anmeldung">Anmelden</button>
+                <button id="close-dialog">Abbrechen</button>
+                </p>
+                <label for="email">Bitte geben Sie Ihre Email-Adresse an: </label>
+                <input id="email" type="email" />
+                <p><button id="Anmeldung">Anmelden</button>
+                <button id="close-dialog">Abbrechen</button>
+                </p>
+            </form>        
+        </dialog>
     </main>
 
     <script>
@@ -474,7 +500,7 @@
                     let skipInfos = [...branchForks, "nodeName", "nestingLevel", "type", "combineMode", "pattern", "direction"];
                     if (skipInfos.includes(key)) return;
                     if (key === "filter") {
-                        htmlstring += `${tabs(nestingLevel + 1)}<button class="patina-node__filter">Filter: ${node.filter.map((filter) => filter.name).join(' - ')}</button>\n`;
+                        htmlstring += `${tabs(nestingLevel + 1)}<button class="patina-node__button-filter">Filter: ${node.filter.map((filter) => filter.name).join(' - ')}</button>\n`;
                         return;
                     }
                     // else
@@ -577,17 +603,66 @@
                 selectInput(event);
                 return;
             } 
-        })
+        });
 
         document.querySelector('.tree').addEventListener('click', (event) => {
-            if (event.target.closest('button')) {
+            if (event.target.closest('.patina-node__button-filter')) {
                 clickButtonFilters(event);
                 return;
             } 
-        })
+        });
+
+        const elFilterDialog = document.querySelector('.js-filter-dialog');
+        elFilterDialog.addEventListener('focusout', (event) => {
+            const elInput = event.target.closest('input');
+            if (elInput) {
+                const patinaNodeId = elFilterDialog.getAttribute("data-node-id");
+                console.log(internalDataStructure[patinaNodeId], elInput.id, elInput.value);
+                internalDataStructure[patinaNodeId].filter[elInput.id] = {
+                    "name": elInput.getAttribute("data-filter-name"),
+                    "value": elInput.value
+                }
+                console.log(internalDataStructure);
+            } 
+        });
+
+        elFilterDialog.addEventListener('input', (event) => {
+            if (event.target.closest('select')) {
+                // const patinaNodeId = elFilterDialog.getAttribute("data-node-id");
+                // internalDataStructure[patinaNodeId].filter
+                console.log(event);
+            } 
+        });
 
         const clickButtonFilters = (event) => {
-            console.log("button", event);
+            let unusedFilters = [...filters];
+            let buttonElement = event.target;
+            buttonElement.classList.add("active");
+
+            const patinaNodeId = buttonElement.closest(".patina-node").id;
+            elFilterDialog.setAttribute("data-node-id", patinaNodeId);
+
+            let dialogHtml = `<form method="dialog"><button onclick="elFilterDialog.close()">close</button>`;
+            internalDataStructure[patinaNodeId].filter.forEach((filter, index) => {
+                unusedFilters.splice(unusedFilters.indexOf(filter.name), 1);
+                dialogHtml += `<label for="${filter.name}">${filter.name}</label><input type=text id=${index} data-filter-name=${filter.name} value="${filter.value}" /><br>`;
+            })
+            dialogHtml += "Add: <select><option>select:</option>"
+            unusedFilters.forEach((filter) => {
+                dialogHtml += `<option >${filter}</option>`;
+            })
+            elFilterDialog.innerHTML = dialogHtml + '</select></form>';
+
+            elFilterDialog.show()
+
+            // muss das nicht removed werden?
+            elFilterDialog.addEventListener('close', (event) => {
+                buttonElement.classList.remove("active");
+                console.log(internalDataStructure);
+                drawPatinaTree();
+                patinaToTextarea();
+                console.log(internalDataStructure);
+            });
         }
 
         const selectInput = (event) => {
