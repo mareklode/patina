@@ -328,30 +328,72 @@
 -->
         <div class="jsonpatina-container">
             <textarea class="jsonpatina-textarea jsonpatina-textarea--hidden" spellcheck="false" autocorrect="off" autocapitalize="off">
-                {
-        "width" : 375,
-        "height": 283,
-        "patina": {
-            "type"  : "colorChannels",
-            "red"   : 73,
-            "green" : 94,
-            "blue"  : 18,
-            "alpha" : {
-                "type"          : "createPattern",
-                "pattern" : { 
-                    "name"   : "wave",
-                    "direction"     : "rectangles",
-                    "frequency"     : 4
-                },  
-                "filter"        : [
-                    { "name": "threshold", "value": 0.5 },
-                    { "name": "blur", "value": 0.75 },
-                    { "name": "threshold", "value": 0.567 },
-                    { "name": "brightness_new", "value": -0.7533 }
-                ]
-            }
-        }
-    }
+{
+                    "reusableImages" : [
+                        { 
+                            "id"            : "greyNoise", 
+                                "type"          : "combine",
+                                "combineMode"   : { "name": "distort", "radius": 1600 },
+                                "topLayer"      : {
+                                    "type"          : "createPattern",
+                                    "pattern" : { 
+                                        "name"   : "wave",
+                                        "direction"     : "concentric",
+                                        "frequency"     : 6
+                                    }
+                                },
+                                "bottomLayer"   : {
+                                    "type"          : "createPattern",
+                                    "pattern" : { 
+                                        "name"   : "wave",
+                                        "direction"     : "vertical", 
+                                        "frequency"     : 6
+                                    }
+                                }
+                            
+                        }
+                    ],
+                    "patina": {
+                        "type"  : "colorChannels",
+                        "red"   : {
+                            "type"          : "combine",
+                            "combineMode"   : { "name": "distort", "radius": 64 },
+                            "topLayer"      : {
+                                "type"          : "createPattern",
+                                "patternName"   : "noise_plasma"
+                            },
+                            "bottomLayer"   : {
+                                "type"      :   "reuseImage",
+                                "reuseId"   :   "greyNoise"
+                            }
+                        },
+                        "green" : {
+                            "type"          : "combine",
+                            "combineMode"   : { "name": "distort", "radius": 64 },
+                            "topLayer"      : {
+                                "type"          : "createPattern",
+                                "patternName"   : "noise_plasma"
+                            },
+                            "bottomLayer"   : {
+                                "type"      :   "reuseImage",
+                                "reuseId"   :   "greyNoise"
+                            }
+                        },
+                        "blue"  :  {
+                            "type"          : "combine",
+                            "combineMode"   : { "name": "distort", "radius": 64 },
+                            "topLayer"      : {
+                                "type"          : "createPattern",
+                                "patternName"   : "noise_plasma"
+                            },
+                            "bottomLayer"   : {
+                                "type"      :   "reuseImage",
+                                "reuseId"   :   "greyNoise"
+                            }
+                        },
+                        "alpha" :  256
+                    }
+                }
             </textarea>
             <button class="js-textarea-to-jsonpatina button-textarea-to-jsonpatina" >textarea-to-jsonpatina</button>
             <button class="js-jsonpatina-to-textarea button-jsonpatina-to-textarea" >jsonpatina-to-textarea</button>
@@ -547,7 +589,8 @@
             try {
                 let jsonpatina = JSON.parse(textarea.value);
                 document.querySelector(".jsonpatina-textarea").classList.remove("error");
-                constructInternalDataStructure(jsonpatina.patina, 0);
+                constructInternalDataStructure(jsonpatina.reusableImages[0], 0);
+                // constructInternalDataStructure(jsonpatina.patina, 0);
             } catch (error) {
                 document.querySelector(".jsonpatina-textarea").classList.add("error");
                 console.log(error);
