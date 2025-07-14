@@ -19,7 +19,7 @@ function paintArtpiece () {
     artPiece.height = artPiece.domelement.offsetHeight;
     
 
-    let myCanvas = canvas.init( artPiece.width, artPiece.height );
+    let myCanvas = new canvas( artPiece.width, artPiece.height );
 
     console.log(artPiece.width, artPiece.height);
     artPiece.domelement.appendChild(myCanvas.el);

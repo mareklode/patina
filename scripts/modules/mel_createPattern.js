@@ -5,7 +5,7 @@ import noise from './mel_noise.js';
 // http://codeblog.cz/vanilla/inside.html#set-element-html
 // https://github.com/daneden/animate.css
 
-function createPattern (layerDefinition, width, height, reusableImages) {
+function createPattern (layerDefinition, width, height) {
     let pattern = {};
 
     // sometimes instead of pattern: { name: and so on } you can use the shortcut patternName: "name" without parameters

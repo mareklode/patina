@@ -3,14 +3,13 @@
 const templates = {
 
     header_logo_image:  `{
-        "reusableImages"    : [
-            { 
-                "id"            : "marekkeram_256", 
+        "reusableImages"    : {
+            "marekkeram_256": {
                 "type"          : "preloadImage",
-                "url"           : "./images/page/header__logo--PatinaFont-rough_white.png",
+                "url"           : "/mareklode/patina/images/page/header__logo--PatinaFont-rough_white.png",
                 "colorChannels" : 1
             }
-        ],
+        },
         "patina": {
             "type"  : "colorChannels",
             "red"   : 128,
@@ -96,9 +95,9 @@ const templates = {
                 },  
                 "filter"        : [
                     { "name": "threshold", "value": 0.5 },
-                    { "name": "blur", "value": 1 },
-                    { "name": "threshold", "value": 0.67 },
-                    { "name": "brightness_new", "value": -0.7533 }
+                    { "name": "blur", "value": 0.578 },
+                    { "name": "threshold", "value": 0.575 },
+                    { "name": "brightness_new", "value": -0.75 }
                 ]
             }
         }

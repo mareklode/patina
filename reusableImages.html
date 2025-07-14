@@ -68,9 +68,8 @@
                 data-module-name="patina" 
                 data-module-data='{
                     "width": 256,
-                    "reusableImages" : [
-                        { 
-                            "id"            : "greyNoise", 
+                    "reusableImages" : { 
+                        "greyNoise": {
                             "type"          : "combine",
                             "topLayer"      : {
                                 "type"          : "createPattern",
@@ -81,7 +80,7 @@
                                 "patternName"   : "slope"
                             }
                         }
-                    ],
+                    },
                     "patina": {
                         "type"  : "colorChannels",
                         "red"   : {
@@ -108,18 +107,16 @@
             <pre class="js-module pattern__thumbnail" 
                 data-module-name="patina" 
                 data-module-data='{
-                    "reusableImages"    : [
-                        { 
-                            "id"            : "reetroof", 
+                    "reusableImages": {
+                        "reetroof": {
                             "type"          : "preloadImage",
                             "url"           : "images/reetroof_300.jpg"
                         },
-                        { 
-                            "id"            : "zweiBaeume_300", 
+                        "zweiBaeume_300": {
                             "type"          : "preloadImage",
                             "url"           : "images/zweiBaeume_300.jpg"
                         }
-                    ],
+                    },
                     "patina": {
                         "type"      : "combine",
                         "topLayer"  : {
@@ -142,18 +139,16 @@
                 <div class="js-module pattern__thumbnail" 
                     data-module-name="patina" 
                     data-module-data='{
-                        "reusableImages"    : [
-                            { 
-                                "id"            : "reetroof", 
+                        "reusableImages": {
+                            "reetroof": {
                                 "type"          : "preloadImage",
                                 "url"           : "images/reetroof_300.jpg"
                             },
-                            { 
-                                "id"            : "zweiBaeume_300", 
+                            "zweiBaeume_300": {
                                 "type"          : "preloadImage",
                                 "url"           : "images/zweiBaeume_300.jpg"
                             }
-                        ],
+                        },
                         "patina": {
                             "type"      : "combine",
                             "combineMode"   : { "name": "distort", "radius": 256 },

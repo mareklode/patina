@@ -73,24 +73,24 @@
     <div class="pattern">
 
         <a href="createPattern/border.html" class="pattern__thumbnail pattern__thumbnail--128 pattern__thumbnail--clickable pattern__thumbnail--nomargin" 
-            id="reusableImage_combine_border" style="background-size: contain;">createPattern border</a>
+            id="combine_border" style="background-size: contain;">createPattern border</a>
 
         <span class="pattern__textInbetween">+</span>
 
         <a href="createPattern/wave.html" class="pattern__thumbnail pattern__thumbnail--128 pattern__thumbnail--clickable pattern__thumbnail--nomargin" 
-            id="reusableImage_combine_wave"
+            id="combine_wave"
         >createPattern wave</a>
 
         <span class="pattern__textInbetween">+</span>
 
         <a href="createPattern/noise_1D.html" class="pattern__thumbnail pattern__thumbnail--128 pattern__thumbnail--clickable pattern__thumbnail--nomargin" 
-            id="reusableImage_combine_noise1D_horizontal"
+            id="combine_noise1D_horizontal"
         >createPattern noise_1D</a>
 
         <span class="pattern__textInbetween">+</span>
 
         <a href="createPattern/noise_1D.html" class="pattern__thumbnail pattern__thumbnail--128 pattern__thumbnail--clickable pattern__thumbnail--nomargin" 
-            id="reusableImage_combine_noise1D_vertical"
+            id="combine_noise1D_vertical"
         >createPattern noise_1D</a>
 
         <span class="pattern__textInbetween">=</span>
@@ -100,15 +100,13 @@
             data-module-data='{
                 "width": 256,
                 "height": 256,
-                "reusableImages": [
-                    {
-                        "id"            : "combine_border",
+                "reusableImages": {
+                    "combine_border": {
                         "type"          : "createPattern",
                         "patternName"   : "border",
                         "filter"        : [{ "name": "brightness", "brightness": -1.25 }]
                     },
-                    {
-                        "id"            : "combine_wave",
+                    "combine_wave": {
                         "type"          : "createPattern",
                         "pattern" : { 
                             "name"   : "wave",
@@ -117,24 +115,21 @@
                         },
                         "filter"        : [{ "name": "brightness", "brightness": 1 }]
                     },
-                    {
-                        "id"            : "combine_noise1D_horizontal",
+                    "combine_noise1D_horizontal": {
                         "type"          : "createPattern",
                         "pattern" : { 
                             "name"   : "noise_1D", 
                             "direction"     : "vertical"
                         }
                     },
-                    {
-                        "id"            : "combine_noise1D_vertical",
+                    "combine_noise1D_vertical": {
                         "type"          : "createPattern",
                         "pattern" : { 
                             "name"   : "noise_1D", 
                             "direction"     : "horizontal"
                         }
                     },
-                    {
-                        "id"            : "NoiseBorder",
+                    "NoiseBorder": {
                         "type"          : "combine",
                         "topLayer"      : {
                             "type"          : "reuseImage",
@@ -166,7 +161,7 @@
                             }
                         }
                     }
-                ],
+                },
                 "patina": {
                     "type"      : "reuseImage",
                     "reuseId"   : "NoiseBorder",

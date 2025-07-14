@@ -45,10 +45,10 @@
 <a href="rays.html">rays</a><br />
 <a href="showSteps.html">showSteps</a><br />
 
-        <div class="pattern__thumbnail--128" style="background-size: contain; float: left;" id="reusableImage_firstBorder"></div>
-        <div class="pattern__thumbnail--128" style="background-size: contain; float: left;" id="reusableImage_secondBorder"></div>
-        <div class="pattern__thumbnail--128" style="background-size: contain; float: left;" id="reusableImage_subtractedBorder"></div>
-        <div class="pattern__thumbnail--128" style="background-size: contain; float: left;" id="reusableImage_plasmaNoise"></div>
+        <div class="pattern__thumbnail--128" style="background-size: contain; float: left;" id="firstBorder"></div>
+        <div class="pattern__thumbnail--128" style="background-size: contain; float: left;" id="secondBorder"></div>
+        <div class="pattern__thumbnail--128" style="background-size: contain; float: left;" id="subtractedBorder"></div>
+        <div class="pattern__thumbnail--128" style="background-size: contain; float: left;" id="plasmaNoise"></div>
 
         <div class="pattern">
 
@@ -58,31 +58,27 @@
                 data-module-data='{
                     "__width"          : 512,
                     "__height"         : 256,
-                    "reusableImages" : [
-                        {
-                            "id"            : "firstBorder",
+                    "reusableImages" : {
+                        "firstBorder": {
                             "type"          : "createPattern",
                             "patternName"   : "border",
                             "filter"        : [
                                 { "name": "brightness", "brightness": -1.5 }
                             ]
                         },
-                        { 
-                            "id"            : "secondBorder",
+                        "secondBorder": {
                             "type"          : "createPattern",
                             "patternName"   : "border",
                             "filter"        : [{ "name": "contrast", "x": 0.33, "m": 2 }]
                         },
-                        { 
-                            "id"            : "plasmaNoise",
+                        "plasmaNoise": {
                             "type"          : "createPattern",
                             "pattern"       : {
                                 "name"          : "noise_plasma",
                                 "frequency"     : 2
                             }
                         },
-                        { 
-                            "id"            : "subtractedBorder", 
+                        "subtractedBorder": {
                             "type"          : "combine",
                             "combineMode"   : { "name": "subtract" },
                             "topLayer"      : {
@@ -98,8 +94,7 @@
                                 { "name": "contrast", "x": 0.15, "m": 3 }
                             ]
                         },
-                        { 
-                            "id"            : "multipliedNoise", 
+                        "multipliedNoise": {
                             "type"          : "combine",
                             "combineMode"   : { "name": "subtract" },
                             "topLayer"      : {
@@ -113,7 +108,7 @@
                             },
                             "filter"        : [{ "name": "push" }]
                         }
-                    ],
+                    },
                     "patina": {
                         "type"  : "colorChannels",
                         "red"   : 210,
@@ -139,99 +134,6 @@
 
         </div>
 
-        <div class="pattern__thumbnail--128" style="background-size: contain; float: left;" id="reusableImage_firstBorder"></div>
-        <div class="pattern__thumbnail--128" style="background-size: contain; float: left;" id="reusableImage_secondBorder"></div>
-        <div class="pattern__thumbnail--128" style="background-size: contain; float: left;" id="reusableImage_subtractedBorder"></div>
-        <div class="pattern__thumbnail--128" style="background-size: contain; float: left;" id="reusableImage_plasmaNoise"></div>
-
-        <div class="pattern">
-
-            <div class="js-module pattern__thumbnail pattern__thumbnail--512" 
-                style="background-color: #7d9cb1; height: 256px;"
-                data-module-name="patina" 
-                data-module-data='{
-                    "__width"          : 512,
-                    "__height"         : 256,
-                    "reusableImages" : [
-                        {
-                            "id"            : "firstBorder",
-                            "type"          : "createPattern",
-                            "patternName"   : "border",
-                            "filter"        : [
-                                { "name": "brightness", "brightness": -1.5 }
-                            ]
-                        },
-                        { 
-                            "id"            : "secondBorder",
-                            "type"          : "createPattern",
-                            "patternName"   : "border",
-                            "filter"        : [{ "name": "contrast", "x": 0.33, "m": 2 }]
-                        },
-                        { 
-                            "id"            : "plasmaNoise",
-                            "type"          : "createPattern",
-                            "pattern"       : {
-                                "name"          : "noise_plasma",
-                                "frequency"     : 2
-                            }
-                        },
-                        { 
-                            "id"            : "subtractedBorder", 
-                            "type"          : "combine",
-                            "combineMode"   : { "name": "subtract" },
-                            "topLayer"      : {
-                                "type"          : "reuseImage",
-                                "reuseId"       : "firstBorder"
-                            },
-                            "bottomLayer"   : {
-                                "type"          : "reuseImage",
-                                "reuseId"       : "secondBorder"
-                            },
-                            "filter"        : [
-                                { "name": "brightness", "brightness": 0.5 },
-                                { "name": "contrast", "x": 0.15, "m": 3 }
-                            ]
-                        },
-                        { 
-                            "id"            : "multipliedNoise", 
-                            "type"          : "combine",
-                            "combineMode"   : { "name": "subtract" },
-                            "topLayer"      : {
-                                "type"          : "reuseImage",
-                                "reuseId"       : "subtractedBorder"
-                            },
-                            "bottomLayer"   : {
-                                "type"          : "reuseImage",
-                                "reuseId"       : "plasmaNoise",
-                                "filter"        : [{ "name": "contrast", "m": 1.5, "x": 0.4 }]
-                            },
-                            "filter"        : [{ "name": "push" }]
-                        }
-                    ],
-                    "patina": {
-                        "type"  : "colorChannels",
-                        "red"   : 210,
-                        "green" : 110,
-                        "blue"  : 70,
-                        "alpha" : {
-                            "type"  : "combine",
-                            "combineMode" : { "name": "subtract" },
-                            "topLayer"      : {
-                                "type"          : "reuseImage",
-                                "reuseId"       : "multipliedNoise",
-                                "filter"        : [{ "name": "contrast", "m": 2, "x": 0.33 }]
-                            },
-                            "bottomLayer"   : {
-                                "type"          : "createPattern",
-                                "patternName"   : "noise_white",
-                                "filter"        : [{ "name": "brightness", "brightness": 2 }]
-                            }
-                        }
-                    }
-                }'
-            ></div>
-
-        </div>
 
         <div class="pattern">
 
@@ -268,9 +170,8 @@
                 data-module-name="patina" 
                 data-module-data='{
                     "width": 512,
-                    "reusableImages" : [
-                        { 
-                            "id"            : "greyNoise", 
+                    "reusableImages" : {
+                        "greyNoise": {
                             "type"          : "combine",
                             "topLayer"      : {
                                 "type"          : "createPattern",
@@ -282,13 +183,12 @@
                             }, 
                             "filter"        : [{ "name": "blur"}]
                         },
-                        { 
-                            "id"            : "bottomLayer", 
+                        "bottomLayer": {
                             "type"          : "reuseImage",
                             "reuseId"       : "greyNoise",
                             "filter"        : [{ "name": "threshold", "threshold": 0.5 }]
                         }
-                    ],
+                    },
                     "patina": {
                         "type"  : "colorChannels",
                         "red"   : {
@@ -311,30 +211,28 @@
             <div class="js-module pattern__thumbnail pattern__thumbnail--512" 
                 data-module-name="patina" 
                 data-module-data='{
-                    "reusableImages" : [
-                        { 
-                            "id"            : "greyNoise", 
-                                "type"          : "combine",
-                                "combineMode"   : { "name": "distort", "radius": 1600 },
-                                "topLayer"      : {
-                                    "type"          : "createPattern",
-                                    "pattern" : { 
-                                        "name"   : "wave",
-                                        "direction"     : "concentric",
-                                        "frequency"     : 6
-                                    }
-                                },
-                                "bottomLayer"   : {
-                                    "type"          : "createPattern",
-                                    "pattern" : { 
-                                        "name"   : "wave",
-                                        "direction"     : "vertical", 
-                                        "frequency"     : 6
-                                    }
+                    "reusableImages" : {
+                        "greyNoise": {
+                            "type"          : "combine",
+                            "combineMode"   : { "name": "distort", "radius": 1600 },
+                            "topLayer"      : {
+                                "type"          : "createPattern",
+                                "pattern" : { 
+                                    "name"   : "wave",
+                                    "direction"     : "concentric",
+                                    "frequency"     : 6
                                 }
-                            
+                            },
+                            "bottomLayer"   : {
+                                "type"          : "createPattern",
+                                "pattern" : { 
+                                    "name"   : "wave",
+                                    "direction"     : "vertical", 
+                                    "frequency"     : 6
+                                }
+                            }
                         }
-                    ],
+                    },
                     "patina": {
                         "type"  : "colorChannels",
                         "red"   : {
@@ -387,14 +285,12 @@
                 data-module-data='{
                     "width"          : 128,
                     "height"         : 128,
-                    "reusableImages" : [
-                        {
-                            "id"            : "plasmaNoise",
+                    "reusableImages" : {
+                        "plasmaNoise": {
                             "type"          : "createPattern",
                             "patternName"   : "noise_plasma"
                         },
-                        { 
-                            "id"            : "greyNoise", 
+                        "greyNoise": {
                             "type"          : "combine",
                             "combineMode"   : { "name": "distort", "radius": 1024 },
                             "topLayer"      : {
@@ -407,7 +303,7 @@
                                 "reuseId"       : "plasmaNoise"
                             }
                         }
-                    ],
+                    },
                     "patina": {
                         "type"  : "colorChannels",
                         "blue"  : {
@@ -446,14 +342,13 @@
         
             <textarea id="js_patina_textarea" rows="50" style="width: 100%;">
 {
-    "reusableImages"    : [
-        { 
-            "id"            : "marekkeram_256", 
+    "reusableImages"   : { 
+        "marekkeram_256": {
             "type"          : "preloadImage",
             "url"           : "images/marekkeram_256.png",
             "colorChannels" : 1
         }
-    ],
+    },
     "patina": {
         "type"          : "combine",
         "topLayer"      : {
