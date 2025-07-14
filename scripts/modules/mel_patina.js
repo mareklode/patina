@@ -129,15 +129,18 @@ patina.prototype = {
 
         parameters.reusableImages = parameters.reusableImages || [];
 
-        let pixelRatio = window.devicePixelRatio;
+        /*
+        // I don't want the pixelRatio, it makes it more complicated.
+        // let the browser do its thing and save users with hi-res displays some computing time
+        
+        let pixelRatio = window.devicePixelRatio; 
         // pixelRatio = 2.8125;
-
-        parameters.width = parameters.width || Math.round(domElement.clientWidth * pixelRatio);
-        parameters.height = parameters.height ||  Math.round(domElement.clientHeight * pixelRatio);
-
         const output = document.querySelectorAll('.output');
         if (output.length) output[0].textContent = pixelRatio + "px";
-        // console.log(document.querySelector('.output'));
+        */
+
+        parameters.width = parameters.width || domElement.clientWidth;
+        parameters.height = parameters.height || domElement.clientHeight;
 
         return parameters;
     }, // _completeParameters()
@@ -316,7 +319,6 @@ patina.prototype = {
 
         if (resultingImage) {
             if (layer.filter) {
-
                 const {default: filter} = await import('./mel_filter.js');
 
                 layer.filter.forEach(element => {
@@ -330,6 +332,10 @@ patina.prototype = {
                         //resultingImage.alpha = new filter(resultingImage.alpha, element, width, height);
                     }
                 });
+
+                if (typeof layer.filter === 'object' && !Array.isArray(layer.filter) && layer.filter !== null) {
+                    console.warn("filter is object (showSteps)");
+                }
             }
 
             // for the nodes with IDs in showSteps
