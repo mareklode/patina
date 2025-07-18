@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" type="text/css" href="css/normalize.min.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/showSteps.css">
 
 </head>
 
@@ -36,235 +37,6 @@
 
     <main class="body__block">
 
-        <style>
-            :root {
-                --gap-width: 1rem;
-                --view-background-color: transparent;
-
-                --stroke-width: .5rem;
-                --half-stroke-width: calc(var(--stroke-width) / 2);
-                --stroke-color: gray;
-
-                --border-radius: var(--half-stroke-width);
-            }
-
-            html,
-            body {
-                margin: 0
-            }
-
-            .pattern__thumbnail {
-                float: left;
-                margin: 0;
-                line-height: 64px;
-                color: purple;
-                text-align: center;
-            }
-
-            .tree {
-                margin: 0 auto;
-                width: fit-content;
-                background-color: var(--view-background-color);
-            }
-
-            .subtree {
-                display: grid;
-                grid-template-columns: auto auto;
-                grid-template-rows: auto auto;
-                grid-template-areas:
-                    "parent parent parent parent parent parent"
-                    "child child child child child child"
-                ;
-                gap: calc(2 * var(--gap-width)) 0;
-
-                background-color: transparent;
-            }
-
-            .child {
-                grid-area: child;
-                min-height: 200px;
-                margin: 0 auto;
-
-                position: relative;
-
-                /* to position the marker on top */
-                &::before {
-                    /* marker on top */
-                    display: block;
-                    content: "";
-                    height: var(--gap-width);
-                    width: var(--stroke-width);
-                    position: absolute;
-                    right: 50%;
-                    transform: translate(var(--half-stroke-width), calc(-1 * var(--gap-width)));
-                    background-color: var(--stroke-color);
-                }
-            }
-
-            .parent {
-                min-height: 200px;
-                margin: 0 calc(var(--gap-width) / 2);
-
-                display: grid;
-                align-items: end;
-
-                position: relative;
-                /* to position the bracket below */
-
-                /* bracket below is a rectangle with 1-2 visible borders */
-                &::after {
-                    display: block;
-                    content: "";
-                    height: calc(var(--gap-width) - var(--half-stroke-width));
-                    border: 1px solid var(--stroke-color);
-                    position: absolute;
-                    bottom: calc(-1 * calc(var(--gap-width) + var(--half-stroke-width)));
-                    background-color: transparent;
-
-                    /* right part of the bracket .parent + .parent:after */
-                    left: calc(calc(0px - var(--gap-width)) - var(--half-stroke-width));
-                    width: calc(50% + var(--gap-width));
-
-                    border-width: 0 var(--stroke-width) var(--stroke-width) 0;
-                    border-bottom-right-radius: calc(2 * var(--stroke-width));
-
-                }
-
-                /* middle part of the bracket, if there is one .parent before and another one afterwards */
-                &+.parent:has(+ .parent) {
-                    &::after {
-                        left: calc(-1 * var(--gap-width));
-                        width: calc(var(--gap-width) + 100%);
-                        border-width: 0 0 var(--stroke-width) 0;
-                        border-bottom-right-radius: unset;
-                    }
-
-                    &::before {
-                        display: block;
-                        content: "";
-                        height: var(--gap-width);
-                        border-left: var(--stroke-width) solid var(--stroke-color);
-                        position: absolute;
-                        bottom: calc(-1 * var(--gap-width));
-                        left: calc(50% - var(--half-stroke-width));
-                    }
-                }
-
-                /* left part of the bracket */
-                &:first-child::after {
-                    left: unset;
-                    right: calc(calc(0px - var(--gap-width)) - var(--half-stroke-width));
-                    width: calc(50% + var(--gap-width));
-
-                    border-width: 0 0 var(--stroke-width) var(--stroke-width);
-                    border-bottom-right-radius: unset;
-                    border-bottom-left-radius: calc(2 * var(--stroke-width));
-                }
-            }
-
-            .patina-node {
-                box-sizing: border-box;
-                width: 200px;
-                min-height: 200px;
-                padding: .5rem;
-
-                background: white;
-                box-shadow: 0 0 10px rgba(0,0,0,0.33);
-                background-size: contain;
-
-                position: relative;
-
-                label {
-                    display: inline-block;
-                    width: 30%;
-                }
-
-                select {
-                    width: 70%;
-                }
-
-                input {
-                    width: 100%;
-                }
-
-                p {
-                    margin: 0;
-                    background-color: rgba(255, 255, 255, .67);
-                }
-
-                button.active {
-                    background-color: green;
-                }
-            }
-
-            select.patina-node__type {
-                font-weight: bold;
-                width: 100%;
-            }
-
-            p.patina-node__purpose {
-                position: absolute;
-                bottom: 0rem;
-                left: 0;
-                padding: 0 .5rem;
-            }
-
-
-            .jsonpatina-container {
-                position: fixed;
-                right: 0px;
-                top: 0px;
-                height: 100%;
-                width: 50%;
-                min-width: 750px;
-                max-width: 100vw;
-                z-index: 1;
-
-                transition: transform .2s ease-out;
-                transform: translate(87%, 75%) scale(.75);
-                transform-origin: top left;
-            }
-
-            .jsonpatina-container:focus-within {
-                transform: translate(0, 0) scale(1);
-            }
-
-            .jsonpatina-textarea {
-                width: 100%;
-                height: 100%;
-                outline: 1px solid;
-
-                &.error {
-                    background-color: lightcoral;
-                }
-            }
-
-            .button-jsonpatina-to-textarea {
-                position: absolute;
-                top: 90px;
-                left: -200px;
-            }
-            .button-textarea-to-jsonpatina {
-                position: absolute;
-                top: 10px;
-                left: -200px;
-            }
-            .button-draw-jsonpatina {
-                position: absolute;
-                top: 50px;
-                left: -200px;
-            }
-            .filter-dialog {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                max-width: 80%;
-            }
-            .filter-dialog::backdrop { 
-               background: hsl(201 50% 40% /.5) ;
-            }
-        </style>
 <!--
 {
     "width": 256,
@@ -324,78 +96,102 @@
         }
     }
 }
+
+
 {"patina": { "type": "select_Type" }}
+
+
+{
+                    "reusableImages" : {
+                        "test_id": {
+                            "type"          : "createPattern",
+                            "pattern"       : {
+                                "name"          : "noise_plasma"
+                            }
+                        }
+                    },
+                    "patina": {
+                        "type"          : "reuseImage",
+                        "reuseId"       : "test_id"
+                    }
+                }
 -->
         <div class="jsonpatina-container">
             <textarea class="jsonpatina-textarea jsonpatina-textarea--hidden" spellcheck="false" autocorrect="off" autocapitalize="off">
 {
-                    "reusableImages" : [
-                        { 
-                            "id"            : "greyNoise", 
-                                "type"          : "combine",
-                                "combineMode"   : { "name": "distort", "radius": 1600 },
-                                "topLayer"      : {
-                                    "type"          : "createPattern",
-                                    "pattern" : { 
-                                        "name"   : "wave",
-                                        "direction"     : "concentric",
-                                        "frequency"     : 6
-                                    }
-                                },
-                                "bottomLayer"   : {
-                                    "type"          : "createPattern",
-                                    "pattern" : { 
-                                        "name"   : "wave",
-                                        "direction"     : "vertical", 
-                                        "frequency"     : 6
-                                    }
-                                }
-                            
-                        }
-                    ],
-                    "patina": {
-                        "type"  : "colorChannels",
-                        "red"   : {
-                            "type"          : "combine",
-                            "combineMode"   : { "name": "distort", "radius": 64 },
-                            "topLayer"      : {
-                                "type"          : "createPattern",
-                                "patternName"   : "noise_plasma"
-                            },
-                            "bottomLayer"   : {
-                                "type"      :   "reuseImage",
-                                "reuseId"   :   "greyNoise"
-                            }
-                        },
-                        "green" : {
-                            "type"          : "combine",
-                            "combineMode"   : { "name": "distort", "radius": 64 },
-                            "topLayer"      : {
-                                "type"          : "createPattern",
-                                "patternName"   : "noise_plasma"
-                            },
-                            "bottomLayer"   : {
-                                "type"      :   "reuseImage",
-                                "reuseId"   :   "greyNoise"
-                            }
-                        },
-                        "blue"  :  {
-                            "type"          : "combine",
-                            "combineMode"   : { "name": "distort", "radius": 64 },
-                            "topLayer"      : {
-                                "type"          : "createPattern",
-                                "patternName"   : "noise_plasma"
-                            },
-                            "bottomLayer"   : {
-                                "type"      :   "reuseImage",
-                                "reuseId"   :   "greyNoise"
-                            }
-                        },
-                        "alpha" :  256
+    "width": 250,
+    "patina": {
+        "type": "combine",
+        "topLayer": {
+            "type": "combine",
+            "topLayer": {
+                "type": "combine",
+                "topLayer": {
+                    "type": "createPattern",
+                    "patternName": "noise_plasma",
+                    "nodeName": "4-createPattern-513"
+                },
+                "bottomLayer": {
+                    "type": "createPattern",
+                    "pattern": {
+                        "name": "wave",
+                        "direction": "horizontal",
+                        "frequency": 60
+                    },
+                    "nodeName": "4-createPattern-133"
+                },
+                "nodeName": "3-combine-317"
+            },
+            "bottomLayer": {
+                "type": "createPattern",
+                "patternName": "slope",
+                "filter": [
+                    {
+                        "name": "brightness",
+                        "brightness": -2
                     }
-                }
+                ],
+                "nodeName": "3-createPattern-325"
+            },
+            "nodeName": "2-combine-551"
+        },
+        "bottomLayer": {
+            "type": "combine",
+            "topLayer": {
+                "type": "createPattern",
+                "patternName": "noise_white",
+                "nodeName": "3-createPattern-408"
+            },
+            "bottomLayer": {
+                "type": "createPattern",
+                "pattern": {
+                    "name": "wave",
+                    "direction": "vertical",
+                    "frequency": 67
+                },
+                "nodeName": "3-createPattern-837"
+            },
+            "nodeName": "2-combine-201"
+        },
+        "filter": [
+            {
+                "name": "invert"
+            },
+            {
+                "name": "blur",
+                "radius": 1
+            },
+            {
+                "name": "contrast",
+                "m": 3,
+                "x": 0.625
+            }
+        ],
+        "nodeName": "root"
+    },
+    "reusableImages": []
+}
             </textarea>
-            <button class="js-textarea-to-jsonpatina button-textarea-to-jsonpatina" >textarea-to-jsonpatina</button>
             <button class="js-jsonpatina-to-textarea button-jsonpatina-to-textarea" >jsonpatina-to-textarea</button>
             <button class="js-draw-jsonpatina button-draw-jsonpatina" >draw-jsonpatina</button>
         </div>
@@ -419,41 +215,47 @@
 
         <dialog class="js-filter-dialog filter-dialog" closedby="any">
             <form action="#" method="dialog">
-                <label for="email">Bitte geben Sie Ihre Email-Adresse an: </label>
-                <input id="email" type="email" />
-                <p><button id="Anmeldung">Anmelden</button>
-                <button id="close-dialog">Abbrechen</button>
-                </p>
-                <label for="email">Bitte geben Sie Ihre Email-Adresse an: </label>
-                <input id="email" type="email" />
-                <p><button id="Anmeldung">Anmelden</button>
-                <button id="close-dialog">Abbrechen</button>
-                </p>
-                <label for="email">Bitte geben Sie Ihre Email-Adresse an: </label>
-                <input id="email" type="email" />
-                <p><button id="Anmeldung">Anmelden</button>
-                <button id="close-dialog">Abbrechen</button>
-                </p>
             </form>        
         </dialog>
     </main>
 
     <script>
         // these properties of a patina-node contain other nodes, resulting in a tree
-        let branchForks = ["bottomLayer", "topLayer", "red", "green", "blue", "alpha"];
+        let branchForks = ["bottomLayer", "topLayer", "red", "green", "blue", "alpha", "reuseId"];
+
         let filters = [];
+        const loadFiltersList = async function () {
+            const {default: filterFunction} = await import('./scripts/modules/mel_filter.js');
+            Object.getOwnPropertyNames(filterFunction.prototype).map((filterName) => {
+                if (!filterName.startsWith("_")) {filters.push(filterName);}
+            });
+        }
+        loadFiltersList();
+
+        let patterns = [];
+        const loadPatternList = async function () {
+            const {default: patternFunction} = await import('./scripts/modules/mel_createPattern.js');
+            Object.getOwnPropertyNames(patternFunction.prototype).map((patternName) => {
+                if (!patternName.startsWith("_")) {patterns.push(patternName);}
+            });
+            console.log(patterns);
+        }
+        loadPatternList();
 
         let createNodeName = (nodeType= "select_Type", nestingLevel= 10) => {
             return (nestingLevel === 1) ? "root" :
-                `${nestingLevel}-${nodeType}-${Math.round(Math.random()*1000)}`;
+                Date.now().toString().slice(7) + Math.random().toString(36).substring(2, 8);
         }
 
-         // deconstruct the binary tree into a list of linked nodes
-        let internalDataStructure = {};
-        let constructInternalDataStructure = (node, nestingLevel) => {
+        // deconstruct the json tree into a list of linked nodes
+        // linkedNodeList is main representation of patina data used througout the showSteps / patinaBuilder
+        let linkedNodeList = {};
+        let constructLinkedNodeList = (node, nestingLevel, nodeName = false) => {
+            console.log(node, nestingLevel, nodeName);
+
             nestingLevel += 1;
             let nodeType = node.type || "flat";
-            let nodeName = createNodeName(nodeType, nestingLevel);
+            nodeName = nodeName || createNodeName(nodeType, nestingLevel);
 
             let nodeDefinition = {...node, nodeName: nodeName, nestingLevel: nestingLevel};
             if (nodeType === "flat") {
@@ -464,28 +266,44 @@
             // for color-channels and layers: go deeper
             branchForks.forEach((property) => {
                 if (node[property]) {
-                    nodeDefinition[property] = constructInternalDataStructure(node[property], nestingLevel);
+                    nodeDefinition[property] = constructLinkedNodeList(node[property], nestingLevel, node.reuseId );
                 }
             })
 
-            internalDataStructure[nodeName] = {...nodeDefinition};
+            linkedNodeList[nodeName] = {...nodeDefinition};
             return nodeName;
         }
 
-        let reconstructJsonTree = (node) => {
-            let nodeObject = {...node};
-            // delete nodeObject.nodeName;
-            delete nodeObject.nestingLevel;
+        let reconstructJson = (root) => {
+            let reusableImages = [];
 
-            // for color-channels and layers: go deeper
-            branchForks.forEach((property) => {
-                if (node[property]) {
-                    nodeObject[property] = reconstructJsonTree(internalDataStructure[node[property]]);
-                }
-            });
+            let reconstructJsonSubtree = (node) => {
+                let nodeObject = {...node};
+                delete nodeObject.nestingLevel; // not used anywhere
 
-            return nodeObject;
-        }
+                // for color-channels and layers: go deeper
+                branchForks.forEach((property) => {
+                    if (node[property]) {
+                        console.log("property", property, linkedNodeList[node[property]].type, node);
+
+                        if (linkedNodeList[node.reuseId]) {
+                            console.log(linkedNodeList[node.reuseId]);
+                            reusableImages[node.reuseId] = reconstructJson(linkedNodeList[node.reuseId]);
+                        } else {
+                            // console.log(, linkedNodeList[node[property]]);
+                            nodeObject[property] = reconstructJsonSubtree(linkedNodeList[node[property]]);
+                        }
+                    }
+                });
+
+                return {...nodeObject};
+            }
+
+            let jsonTree = reconstructJsonSubtree(root);
+
+            console.log({patina: jsonTree, reusableImages: reusableImages});
+            return ({patina: jsonTree, reusableImages: reusableImages});
+        } // reconstructJson()
 
         let subtreeHtml = (node, nodePurpose = false) => {
             let nestingLevel = node.nestingLevel;
@@ -498,7 +316,7 @@
                 let htmlstring = `${tabs(nestingLevel)}<div id="${node.nodeName}" class='patina-node`;
                 if (node.nodeName === "root") {
                     // root-node gets the patina json and the js-module trigger class, the other nodes are painted in vs
-                    htmlstring += ` js-module' data-module-name='patina' data-module-data='{ "patina":${JSON.stringify(reconstructJsonTree(node))}}`;
+                    htmlstring += ` js-module' data-module-name='patina' data-module-data='${JSON.stringify(reconstructJson(node))}`;
                 } 
                 htmlstring += `'>`;
 
@@ -512,7 +330,7 @@
                 htmlstring += `</select>`;
 
                 if (node.type === "createPattern") {
-                    let patterns = ["border", "noise_plasma", "noise_1D", "flat", "wave", "noise_white", "slope", "rays", "random_walker", "labyrinth"];
+                    // let patterns = ["border", "noise_plasma", "noise_1D", "flat", "wave", "noise_white", "slope", "rays", "random_walker", "labyrinth"];
                     htmlstring += `<label for="${node.nodeName}">name:</label><!--
                         --><select name="pattern" id="${node.nodeName}">`;
                         patterns.forEach((pattern) => {
@@ -539,7 +357,7 @@
                                     
                 // print infos inside node rectangle
                 Object.keys(node).forEach((key) => {
-                    let skipInfos = [...branchForks, "nodeName", "nestingLevel", "type", "combineMode", "pattern", "direction"];
+                    let skipInfos = [...branchForks, "nodeName", "type", "combineMode", "pattern", "direction"];
                     if (skipInfos.includes(key)) return;
                     if (key === "filter") {
                         htmlstring += `${tabs(nestingLevel + 1)}<button class="patina-node__button-filter">Filter: ${node.filter.map((filter) => filter.name).join(' - ')}</button>\n`;
@@ -570,7 +388,7 @@
 
                 branchForks.forEach((property) => {
                     if (node[property]) {
-                        htmlstring += parentHtml(internalDataStructure[node[property]], nestingLevel, property);
+                        htmlstring += parentHtml(linkedNodeList[node[property]], nestingLevel, property);
                     }
                 });
                 htmlstring += childHtml(node, nestingLevel);
@@ -589,8 +407,17 @@
             try {
                 let jsonpatina = JSON.parse(textarea.value);
                 document.querySelector(".jsonpatina-textarea").classList.remove("error");
-                constructInternalDataStructure(jsonpatina.reusableImages[0], 0);
-                // constructInternalDataStructure(jsonpatina.patina, 0);
+
+                jsonpatina.reusableImages = jsonpatina.reusableImages || {};
+
+                Object.keys(jsonpatina.reusableImages).forEach((reusableImage) => {
+                    constructLinkedNodeList(jsonpatina.reusableImages[reusableImage], 1, reusableImage);
+                });
+
+                console.log(jsonpatina.patina);
+                constructLinkedNodeList(jsonpatina.patina, 0);
+
+                console.log(linkedNodeList);
             } catch (error) {
                 document.querySelector(".jsonpatina-textarea").classList.add("error");
                 console.log(error);
@@ -601,15 +428,15 @@
             let textarea = document.querySelector('.jsonpatina-textarea');
             let jsonpatina = {
                 width: 250,
-                patina: reconstructJsonTree(internalDataStructure["root"])
+                ...reconstructJson(linkedNodeList["root"])
             }
             textarea.value = JSON.stringify(jsonpatina, undefined, 4);
         }
 
-        let drawPatinaTree = () => {
-            if (!Object.keys(internalDataStructure).length) return;
+        let drawJsonPatina = () => {
+            if (!Object.keys(linkedNodeList).length) return;
 
-            let htmlstring = subtreeHtml(internalDataStructure["root"], "root");
+            let htmlstring = subtreeHtml(linkedNodeList["root"], "root");
             document.querySelector('.tree').innerHTML = htmlstring;
 
             if (typeof mel !== 'undefined') { 
@@ -619,21 +446,18 @@
 
         let init = () => {
             textareaToDataStructure();
-            drawPatinaTree();
+            drawJsonPatina();
         }
 
         init();
-
-        document.querySelector('.js-textarea-to-jsonpatina').addEventListener('click', () => {
-            textareaToDataStructure();
-        });
 
         document.querySelector('.js-jsonpatina-to-textarea').addEventListener('click', () => {
             patinaToTextarea();
         });
 
         document.querySelector('.js-draw-jsonpatina').addEventListener('click', () => {
-            drawPatinaTree();
+            textareaToDataStructure();
+            drawJsonPatina();
         });
 
         document.querySelector('.tree').addEventListener('input', (event) => {
@@ -656,55 +480,70 @@
         });
 
         const elFilterDialog = document.querySelector('.js-filter-dialog');
+
         elFilterDialog.addEventListener('focusout', (event) => {
             const elInput = event.target.closest('input');
             if (elInput) {
                 const patinaNodeId = elFilterDialog.getAttribute("data-node-id");
-                console.log(internalDataStructure[patinaNodeId], elInput.id, elInput.value);
-                internalDataStructure[patinaNodeId].filter[elInput.id] = {
-                    "name": elInput.getAttribute("data-filter-name"),
-                    "value": elInput.value
+                let newValue = parseFloat(elInput.value);
+                if (typeof newValue === "number") {
+                    linkedNodeList[patinaNodeId].filter[elInput.id] = {
+                        "name": elInput.getAttribute("data-filter-name"),
+                        "value": newValue
+                    }
                 }
-                console.log(internalDataStructure);
             } 
         });
 
         elFilterDialog.addEventListener('input', (event) => {
             if (event.target.closest('select')) {
                 // const patinaNodeId = elFilterDialog.getAttribute("data-node-id");
-                // internalDataStructure[patinaNodeId].filter
+                // linkedNodeList[patinaNodeId].filter
                 console.log(event);
             } 
         });
 
+        const updateFilterDialog = (patinaNodeId) => {
+            let dialogHtml = `<form method="dialog"><button class="close-button" onclick="elFilterDialog.close()">X</button>`;
+            linkedNodeList[patinaNodeId].filter.forEach((filter, index) => {
+                console.log(filter.name, filter.value);
+                dialogHtml += `<label for="${filter.name}">${filter.name}</label><input type=text id=${index} data-filter-name=${filter.name} value="${filter.value}" /><br>`;
+                // type="number" min="0" max="1000" step="0.01"
+            })
+            dialogHtml += `<select id="add-select-filter"><option>select:</option>`;
+            filters.forEach((filter) => {
+                dialogHtml += `<option >${filter}</option>`;
+            })
+            elFilterDialog.innerHTML = dialogHtml + '</select><button onclick="addFilter(event)">Add</button></form>';
+        }
+
+        const addFilter = (event) => {
+            event.preventDefault(); // preventing closing the dialog
+            const filterName = event.target.parentElement.querySelector("#add-select-filter").value;
+
+            const patinaNodeId = event.target.closest(".js-filter-dialog").getAttribute("data-node-id");
+            linkedNodeList[patinaNodeId].filter.push({name: filterName, value: 0});
+            
+            updateFilterDialog(patinaNodeId);
+        }
+
         const clickButtonFilters = (event) => {
-            let unusedFilters = [...filters];
             let buttonElement = event.target;
             buttonElement.classList.add("active");
 
             const patinaNodeId = buttonElement.closest(".patina-node").id;
+
             elFilterDialog.setAttribute("data-node-id", patinaNodeId);
 
-            let dialogHtml = `<form method="dialog"><button onclick="elFilterDialog.close()">close</button>`;
-            internalDataStructure[patinaNodeId].filter.forEach((filter, index) => {
-                unusedFilters.splice(unusedFilters.indexOf(filter.name), 1);
-                dialogHtml += `<label for="${filter.name}">${filter.name}</label><input type=text id=${index} data-filter-name=${filter.name} value="${filter.value}" /><br>`;
-            })
-            dialogHtml += "Add: <select><option>select:</option>"
-            unusedFilters.forEach((filter) => {
-                dialogHtml += `<option >${filter}</option>`;
-            })
-            elFilterDialog.innerHTML = dialogHtml + '</select></form>';
+            updateFilterDialog(patinaNodeId);
 
             elFilterDialog.show()
 
             // muss das nicht removed werden?
             elFilterDialog.addEventListener('close', (event) => {
                 buttonElement.classList.remove("active");
-                console.log(internalDataStructure);
-                drawPatinaTree();
+                drawJsonPatina();
                 patinaToTextarea();
-                console.log(internalDataStructure);
             });
         }
 
@@ -717,65 +556,54 @@
                     case "combine":
                         let topLayer = createNodeName();
                         let bottomLayer = createNodeName();
-                        internalDataStructure[nodeId] = {
+                        linkedNodeList[nodeId] = {
                             type: type,
                             bottomLayer: bottomLayer,
                             topLayer: topLayer,
-                            nodeName: nodeId,
-                            nestingLevel: 10
+                            nodeName: nodeId
                         };
-                        internalDataStructure[bottomLayer] = { type: "select_Type", nodeName: bottomLayer, nestingLevel: 10 }
-                        internalDataStructure[topLayer] = { type: "select_Type", nodeName: topLayer, nestingLevel: 10 }
+                        linkedNodeList[bottomLayer] = { type: "select_Type", nodeName: bottomLayer }
+                        linkedNodeList[topLayer] = { type: "select_Type", nodeName: topLayer }
                         break;
                     case "colorChannels":
                         let red = createNodeName();
                         let green = createNodeName();
                         let blue = createNodeName();
                         let alpha = createNodeName();
-                        internalDataStructure[nodeId] = {
+                        linkedNodeList[nodeId] = {
                             type: type,
                             red: red,
                             green: green,
                             blue: blue,
                             alpha: alpha,
-                            nodeName: nodeId,
-                            nestingLevel: 10
+                            nodeName: nodeId
                         };
-                        internalDataStructure[red] = { type: "select_Type", nodeName: red, nestingLevel: 10 };
-                        internalDataStructure[green] = { type: "select_Type", nodeName: green, nestingLevel: 10 };
-                        internalDataStructure[blue] = { type: "select_Type", nodeName: blue, nestingLevel: 10 };
-                        internalDataStructure[alpha] = { type: "select_Type", nodeName: alpha, nestingLevel: 10 };
+                        linkedNodeList[red] = { type: "select_Type", nodeName: red };
+                        linkedNodeList[green] = { type: "select_Type", nodeName: green };
+                        linkedNodeList[blue] = { type: "select_Type", nodeName: blue };
+                        linkedNodeList[alpha] = { type: "select_Type", nodeName: alpha };
                         break;
                     case "createPattern":
-                        internalDataStructure[nodeId] = {
+                        linkedNodeList[nodeId] = {
                             type: type,
                             nodeName: nodeId,
-                            nestingLevel: 10,
                             pattern: { name: "flat", frequency: 10 }
                         };
                         break;
+                    case "reuseImage":
+                        // ToDo: create a new reuseImage
+                        break;
                 }  
             } else if (selectType === "pattern" || selectType === "combineMode") {
-                internalDataStructure[nodeId][selectType] = { ...internalDataStructure[nodeId][selectType], name: event.target.value };
+                linkedNodeList[nodeId][selectType] = { ...linkedNodeList[nodeId][selectType], name: event.target.value };
             } else { // direction || frequency
-                internalDataStructure[nodeId].pattern[selectType] = event.target.value;
+                linkedNodeList[nodeId].pattern[selectType] = event.target.value;
             }
-            drawPatinaTree();
+            drawJsonPatina();
             patinaToTextarea();
 
         }; // selectInput()
-        /////////////////////////////////////////////////////////
 
-        const test = async function () {
-
-            const {default: filterFunction} = await import('./scripts/modules/mel_filter.js');
-            Object.getOwnPropertyNames(filterFunction.prototype).map((filterName) => {
-                if (!filterName.startsWith("_")) {filters.push(filterName);}
-            });
-            console.log(filters);            
-        }
-
-        test();
 
     </script>
 

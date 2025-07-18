@@ -376,7 +376,7 @@ patina.prototype = {
         domElementID = domElementID || 'thisIDDoesNotExist';    
         let domElement = document.getElementById(domElementID);
         if (domElement) {
-            console.log('_paintCanvasToADifferentDiv', domElementID);
+            //console.log('_paintCanvasToADifferentDiv', domElementID);
             let myCanvas = await this._createCanvas(patinaData, width, height);
             this._paintCanvas( myCanvas, domElement );
         } else {

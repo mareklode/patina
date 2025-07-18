@@ -1,0 +1,240 @@
+:root {
+    --gap-width: 1rem;
+    --view-background-color: transparent;
+
+    --stroke-width: .5rem;
+    --half-stroke-width: calc(var(--stroke-width) / 2);
+    --stroke-color: gray;
+
+    --border-radius: var(--half-stroke-width);
+}
+
+html,
+body {
+    margin: 0
+}
+
+.pattern__thumbnail {
+    float: left;
+    margin: 0;
+    line-height: 64px;
+    color: purple;
+    text-align: center;
+}
+
+.tree {
+    margin: 0 auto;
+    width: fit-content;
+    background-color: var(--view-background-color);
+}
+
+.subtree {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+        "parent parent parent parent parent parent"
+        "child child child child child child"
+    ;
+    gap: calc(2 * var(--gap-width)) 0;
+
+    background-color: transparent;
+}
+
+.child {
+    grid-area: child;
+    min-height: 200px;
+    margin: 0 auto;
+
+    position: relative;
+
+    /* to position the marker on top */
+    &::before {
+        /* marker on top */
+        display: block;
+        content: "";
+        height: var(--gap-width);
+        width: var(--stroke-width);
+        position: absolute;
+        right: 50%;
+        transform: translate(var(--half-stroke-width), calc(-1 * var(--gap-width)));
+        background-color: var(--stroke-color);
+    }
+}
+
+.parent {
+    min-height: 200px;
+    margin: 0 calc(var(--gap-width) / 2);
+
+    display: grid;
+    align-items: end;
+
+    position: relative;
+    /* to position the bracket below */
+
+    /* bracket below is a rectangle with 1-2 visible borders */
+    &::after {
+        display: block;
+        content: "";
+        height: calc(var(--gap-width) - var(--half-stroke-width));
+        border: 1px solid var(--stroke-color);
+        position: absolute;
+        bottom: calc(-1 * calc(var(--gap-width) + var(--half-stroke-width)));
+        background-color: transparent;
+
+        /* right part of the bracket .parent + .parent:after */
+        left: calc(calc(0px - var(--gap-width)) - var(--half-stroke-width));
+        width: calc(50% + var(--gap-width));
+
+        border-width: 0 var(--stroke-width) var(--stroke-width) 0;
+        border-bottom-right-radius: calc(2 * var(--stroke-width));
+
+    }
+
+    /* middle part of the bracket, if there is one .parent before and another one afterwards */
+    &+.parent:has(+ .parent) {
+        &::after {
+            left: calc(-1 * var(--gap-width));
+            width: calc(var(--gap-width) + 100%);
+            border-width: 0 0 var(--stroke-width) 0;
+            border-bottom-right-radius: unset;
+        }
+
+        &::before {
+            display: block;
+            content: "";
+            height: var(--gap-width);
+            border-left: var(--stroke-width) solid var(--stroke-color);
+            position: absolute;
+            bottom: calc(-1 * var(--gap-width));
+            left: calc(50% - var(--half-stroke-width));
+        }
+    }
+
+    /* left part of the bracket */
+    &:first-child::after {
+        left: unset;
+        right: calc(calc(0px - var(--gap-width)) - var(--half-stroke-width));
+        width: calc(50% + var(--gap-width));
+
+        border-width: 0 0 var(--stroke-width) var(--stroke-width);
+        border-bottom-right-radius: unset;
+        border-bottom-left-radius: calc(2 * var(--stroke-width));
+    }
+}
+
+.patina-node {
+    box-sizing: border-box;
+    width: 200px;
+    min-height: 200px;
+    padding: .5rem;
+
+    background: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.33);
+    background-size: contain;
+
+    position: relative;
+
+    label {
+        display: inline-block;
+        width: 30%;
+    }
+
+    select {
+        width: 70%;
+    }
+
+    input {
+        width: 100%;
+    }
+
+    p {
+        margin: 0;
+        background-color: rgba(255, 255, 255, .67);
+    }
+
+    button.active {
+        background-color: green;
+    }
+}
+
+select.patina-node__type {
+    font-weight: bold;
+    width: 100%;
+}
+
+p.patina-node__purpose {
+    position: absolute;
+    bottom: 0rem;
+    left: 0;
+    padding: 0 .5rem;
+}
+
+
+.jsonpatina-container {
+    position: fixed;
+    right: 0px;
+    top: 0px;
+    height: 100%;
+    width: 50%;
+    min-width: 750px;
+    max-width: 100vw;
+    z-index: 1;
+
+    transition: transform .2s ease-out;
+    transform: translate(87%, 75%) scale(.75);
+    transform-origin: top left;
+}
+
+.jsonpatina-container:focus-within {
+    transform: translate(0, 0) scale(1);
+}
+
+.jsonpatina-textarea {
+    width: 100%;
+    height: 100%;
+    outline: 1px solid;
+
+    &.error {
+        background-color: lightcoral;
+    }
+}
+
+.button-jsonpatina-to-textarea {
+    position: absolute;
+    top: 90px;
+    left: -200px;
+}
+.button-textarea-to-jsonpatina {
+    position: absolute;
+    top: 10px;
+    left: -200px;
+}
+.button-draw-jsonpatina {
+    position: absolute;
+    top: 50px;
+    left: -200px;
+}
+.filter-dialog {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 80%;
+    text-align: left;
+
+    .close-button {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    label {
+        width: 10rem;
+        display: inline-block;
+    }
+}
+
+.filter-dialog::backdrop { 
+    background: hsl(201 50% 40% /.5) ;
+}

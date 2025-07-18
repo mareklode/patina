@@ -1,7 +1,7 @@
 'use strict';
 
 const modulesPath = './modules/mel_';
-const cacheBusterVersion = '6';
+const cacheBusterVersion = '7';
 window.consoleVerbose = false;
 
 window.mel = {};
