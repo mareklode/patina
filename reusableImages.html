@@ -70,32 +70,32 @@
                     "width": 256,
                     "reusableImages" : { 
                         "greyNoise": {
-                            "type"          : "combine",
-                            "topLayer"      : {
+                            "type"          : "layers",
+                            "layerTop"      : {
                                 "type"          : "createPattern",
                                 "patternName"   : "noise_plasma"
                             },
-                            "bottomLayer"   : {
+                            "layerBottom"   : {
                                 "type"          : "createPattern",
                                 "patternName"   : "slope"
                             }
                         }
                     },
                     "patina": {
-                        "type"  : "colorChannels",
-                        "red"   : {
+                        "type"  : "colors",
+                        "colorRed"   : {
                             "type"      :   "reuseImage",
                             "reuseId"   :   "greyNoise"
                         },
-                        "green" : {
+                        "colorGreen" : {
                             "type"      :   "reuseImage",
                             "reuseId"   :   "greyNoise"
                         },
-                        "blue"  :  {
+                        "colorBlue"  :  {
                             "type"      :   "reuseImage",
                             "reuseId"   :   "greyNoise"
                         },
-                        "alpha" :  {
+                        "colorAlpha" :  {
                             "type"      :   "reuseImage",
                             "reuseId"   :   "greyNoise"
                         }
@@ -118,12 +118,12 @@
                         }
                     },
                     "patina": {
-                        "type"      : "combine",
-                        "topLayer"  : {
+                        "type"      : "layers",
+                        "layerTop"  : {
                             "type"          : "reuseImage",
                             "reuseId"       : "reetroof"
                         },
-                        "bottomLayer"  : {
+                        "layerBottom"  : {
                             "type"          : "reuseImage",
                             "reuseId"       : "zweiBaeume_300"
                         }
@@ -132,7 +132,7 @@
             ></pre>
 
             <p class="copy">
-                Load images, distort or combine them, apply <a href="filter.html">filters</a>.
+                Load images, distort or layers them, apply <a href="filter.html">filters</a>.
             </p>
     
             <div class="pattern">
@@ -150,14 +150,14 @@
                             }
                         },
                         "patina": {
-                            "type"      : "combine",
+                            "type"      : "layers",
                             "combineMode"   : { "name": "distort", "radius": 256 },
-                            "topLayer"  : {
+                            "layerTop"  : {
                                 "type"          : "createPattern",
                                 "patternName"   : "noise_plasma",
                                 "filter"        : [{ "name": "blur", "radius": 5 }]
                             },
-                            "bottomLayer"  : {
+                            "layerBottom"  : {
                                 "type"          : "reuseImage",
                                 "reuseId"       : "zweiBaeume_300"
                             }

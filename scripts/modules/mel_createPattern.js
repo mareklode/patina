@@ -9,13 +9,13 @@ function createPattern (layerDefinition, width, height) {
     let pattern = {};
 
     // sometimes instead of pattern: { name: and so on } you can use the shortcut patternName: "name" without parameters
-    let patternName = layerDefinition?.patternName || layerDefinition?.pattern?.name;
+    let patternName = layerDefinition?.patternName || layerDefinition?.patternConfig?.name;
 
     if (this[patternName]) {
         if (window.consoleVerbose) {
             console.log("createPattern", patternName);
         }
-        pattern = this[patternName]( layerDefinition?.pattern, width, height );
+        pattern = this[patternName]( layerDefinition?.patternConfig, width, height );
     } else {
         console.error("createPattern: \"", patternName, "\" does not exist.", layerDefinition);
         pattern = this["flat"]({color: 0}, width, height);
@@ -56,7 +56,7 @@ createPattern.prototype = {
         //return noise.diamondSquare(layerDefinition?.frequency, width, height);
     },
 
-    // better use the number-Shortcut like { "topLayer" : 256 }
+    // better use the number-Shortcut like { "layerTop" : 256 }
     flat: function ( layerDefinition, width, height ) {
         const color = layerDefinition?.color || layerDefinition?.frequency || 128;
         return Array.from( {length: width * height}, () => color / 256 );
@@ -258,10 +258,10 @@ createPattern.prototype = {
             for (let y = 0; y < height; y++) {
                 let vector = [x - centerX, y - centerY];
                 // https://stackoverflow.com/questions/32219051/how-to-convert-cartesian-coordinates-to-polar-coordinates-in-js
-                let alpha = Math.atan2(vector[0], vector[1]) * (180 / Math.PI) + 180 + rotation ; // and convert radians to degrees
+                let colorAlpha = Math.atan2(vector[0], vector[1]) * (180 / Math.PI) + 180 + rotation ; // and convert radians to degrees
                 
                 let rayWidth = 360 / count;
-                let fractionOfRayWidth = (alpha % rayWidth) / rayWidth;
+                let fractionOfRayWidth = (colorAlpha % rayWidth) / rayWidth;
 
                 let position = y * width + x ;
                 if (sharpen) {

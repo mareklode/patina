@@ -45,7 +45,7 @@ patina.prototype = {
                 let data = imgData.data;
                 let resultingArray = null;
 
-                if ( reusableImage.colorChannels === 1 ) {
+                if ( reusableImage.colors === 1 ) {
                     resultingArray = [];
                     for (let i = 0, len = width * height; i < len; i += 1) {
                         resultingArray[i]   = ( data[i*4] + 
@@ -55,16 +55,16 @@ patina.prototype = {
                     }
                 } else {
                     resultingArray = {
-                        red: [],
-                        green: [],
-                        blue: [],
-                        alpha: []
+                        colorRed: [],
+                        colorGreen: [],
+                        colorBlue: [],
+                        colorAlpha: []
                     };  
                     for (let i = 0, len = width * height; i < len; i += 1) {
-                        resultingArray.red[i]   = data[i*4]   / 256;
-                        resultingArray.green[i] = data[i*4+1] / 256;
-                        resultingArray.blue[i]  = data[i*4+2] / 256;
-                        resultingArray.alpha[i] = data[i*4+3] / 256;
+                        resultingArray.colorRed[i]   = data[i*4]   / 256;
+                        resultingArray.colorGreen[i] = data[i*4+1] / 256;
+                        resultingArray.colorBlue[i]  = data[i*4+2] / 256;
+                        resultingArray.colorAlpha[i] = data[i*4+3] / 256;
                     }
                 }
                 resolve(resultingArray);
@@ -150,7 +150,7 @@ patina.prototype = {
         }
     }, // _jsonParse()
 
-    _combineArrays: function (bottomLayer, topLayer, width, combineMode = {} ) {
+    _combineArrays: function (layerBottom, layerTop, width, combineMode = {} ) {
         let modulo = function (divided, m) {
             // modulo(index - 1, tll)
             return ((divided % m) + m) % m;
@@ -160,11 +160,11 @@ patina.prototype = {
         }
         if (combineMode.name === 'distort') {
             let multiplier = combineMode.radius || 32,
-                length = topLayer.length,
+                length = layerTop.length,
                 tll = length,
                 height = length / width,
                 x, y, vectorX, vectorY, xNew, yNew;
-            return bottomLayer.map(function (value, index) {
+            return layerBottom.map(function (value, index) {
                 let x = index % width,
                     y = (index - x) / width,
                     leftPosX   = (x - 1) % width,
@@ -176,78 +176,78 @@ patina.prototype = {
                 }
                 if (topPosY  < 0) { topPosY  = height + topPosY; }
 
-                let left  = topLayer[arrayPos(leftPosX, y, width)],
-                    right = topLayer[arrayPos(rightPosX, y, width)],
-                    top   = topLayer[arrayPos(x, topPosY, width)],
-                    bottom= topLayer[arrayPos(x, bottomPosY, width)],
+                let left  = layerTop[arrayPos(leftPosX, y, width)],
+                    right = layerTop[arrayPos(rightPosX, y, width)],
+                    top   = layerTop[arrayPos(x, topPosY, width)],
+                    bottom= layerTop[arrayPos(x, bottomPosY, width)],
                     vectorX = Math.round((right - left) * multiplier),
                     vectorY = Math.round((bottom - top) * multiplier),
                     vector = index + vectorX + (vectorY * width);
                 if (vectorX < 0) { vectorX = width  + vectorX; }
                 if (vectorY < 0) { vectorY = height + vectorY; }
-                return bottomLayer[ modulo(vector, bottomLayer.length) ];
+                return layerBottom[ modulo(vector, layerBottom.length) ];
             });
         } else if (combineMode.name === 'subtract') {
-            return bottomLayer.map(function (value, index) {
-                const result = topLayer[index] - value;
+            return layerBottom.map(function (value, index) {
+                const result = layerTop[index] - value;
                 return ( result > 0 ? result : 0);
             });
         } else if (combineMode.name === 'multiply') {
-            return bottomLayer.map(function (value, index) {
-                return (topLayer[index] * value);
+            return layerBottom.map(function (value, index) {
+                return (layerTop[index] * value);
             });
         } else if (combineMode.name === 'burn') { // todo: dodge
-            return bottomLayer.map(function (value, index) {
-                return ((1 + topLayer[index]) * value);
+            return layerBottom.map(function (value, index) {
+                return ((1 + layerTop[index]) * value);
             });
         } else if (combineMode.name === 'add') {
             let opacity = combineMode.opacity || 1;
-            return bottomLayer.map(function (value, index) {
-                return (value + (topLayer[index] * opacity));
+            return layerBottom.map(function (value, index) {
+                return (value + (layerTop[index] * opacity));
             });
         } else {
             // overlay (fifty-fifty)
-            return bottomLayer.map(function (value, index) {
-                return (value + topLayer[index]) / 2;
+            return layerBottom.map(function (value, index) {
+                return (value + layerTop[index]) / 2;
             });
         }
     }, // combineArrays()
 
-    _combineLayers: function(bottomLayer, topLayer, width, combineMode) {
+    _combineLayers: function(layerBottom, layerTop, width, combineMode) {
         // could be way more sophisticated. And than deserves an extra file
         let resultingImage,
-            isArrayBottomLayer = Array.isArray(bottomLayer),
-            isArrayTopLayer =  Array.isArray(topLayer);
+            isArrayBottomLayer = Array.isArray(layerBottom),
+            isArrayTopLayer =  Array.isArray(layerTop);
 
         if ( isArrayBottomLayer && isArrayTopLayer ) {
-            resultingImage = this._combineArrays(bottomLayer, topLayer, width, combineMode);
+            resultingImage = this._combineArrays(layerBottom, layerTop, width, combineMode);
         } else {
             // at least one of the images has color channels. the result has color channels.
             let bl = {}, tl = {};
             resultingImage = {};
 
             if (isArrayBottomLayer) {
-                bl.red = bottomLayer;
-                bl.green = bottomLayer;
-                bl.blue = bottomLayer;
-                bl.alpha = bottomLayer;
+                bl.colorRed = layerBottom;
+                bl.colorGreen = layerBottom;
+                bl.colorBlue = layerBottom;
+                bl.colorAlpha = layerBottom;
             } else {
-                bl = bottomLayer;
+                bl = layerBottom;
             }
         
             if (isArrayTopLayer) {
-                tl.red = topLayer;
-                tl.green = topLayer;
-                tl.blue = topLayer;
-                tl.alpha = topLayer;
+                tl.colorRed = layerTop;
+                tl.colorGreen = layerTop;
+                tl.colorBlue = layerTop;
+                tl.colorAlpha = layerTop;
             } else {
-                tl = topLayer;
+                tl = layerTop;
             }
         
-            resultingImage.red   = this._combineArrays(bl.red,   tl.red  , width, combineMode);
-            resultingImage.green = this._combineArrays(bl.green, tl.green, width, combineMode);
-            resultingImage.blue  = this._combineArrays(bl.blue,  tl.blue , width, combineMode);
-            resultingImage.alpha = this._combineArrays(bl.alpha, tl.alpha, width, combineMode);
+            resultingImage.colorRed   = this._combineArrays(bl.colorRed,   tl.colorRed  , width, combineMode);
+            resultingImage.colorGreen = this._combineArrays(bl.colorGreen, tl.colorGreen, width, combineMode);
+            resultingImage.colorBlue  = this._combineArrays(bl.colorBlue,  tl.colorBlue , width, combineMode);
+            resultingImage.colorAlpha = this._combineArrays(bl.colorAlpha, tl.colorAlpha, width, combineMode);
         } // if isArray
             
         return resultingImage;
@@ -272,17 +272,17 @@ patina.prototype = {
         if ( Array.isArray(layer) ) {
             return layer;
         }
-        if (layer?.type === "colorChannels") {
+        if (layer?.type === "colors") {
             resultingImage = {};
-            resultingImage.red   = await this._processPatinaNode(layer.red, width, height);
-            resultingImage.green = await this._processPatinaNode(layer.green, width, height);
-            resultingImage.blue  = await this._processPatinaNode(layer.blue, width, height);
-            resultingImage.alpha = await this._processPatinaNode(layer.alpha, width, height);
+            resultingImage.colorRed   = await this._processPatinaNode(layer.colorRed, width, height);
+            resultingImage.colorGreen = await this._processPatinaNode(layer.colorGreen, width, height);
+            resultingImage.colorBlue  = await this._processPatinaNode(layer.colorBlue, width, height);
+            resultingImage.colorAlpha = await this._processPatinaNode(layer.colorAlpha, width, height);
         }
-        if (layer?.type === "combine") {
+        if (layer?.type === "layers") {
             resultingImage = this._combineLayers( 
-                await this._processPatinaNode(layer.bottomLayer, width, height),
-                await this._processPatinaNode(layer.topLayer, width, height),
+                await this._processPatinaNode(layer.layerBottom, width, height),
+                await this._processPatinaNode(layer.layerTop, width, height),
                 width,
                 layer.combineMode
             );
@@ -317,10 +317,10 @@ patina.prototype = {
                     if (Array.isArray(resultingImage)) {
                         resultingImage = new filter(resultingImage, element, width, height);
                     } else {
-                        resultingImage.red   = new filter(resultingImage.red,   element, width, height);
-                        resultingImage.green = new filter(resultingImage.green, element, width, height);
-                        resultingImage.blue  = new filter(resultingImage.blue,  element, width, height);
-                        //resultingImage.alpha = new filter(resultingImage.alpha, element, width, height);
+                        resultingImage.colorRed   = new filter(resultingImage.colorRed,   element, width, height);
+                        resultingImage.colorGreen = new filter(resultingImage.colorGreen, element, width, height);
+                        resultingImage.colorBlue  = new filter(resultingImage.colorBlue,  element, width, height);
+                        //resultingImage.colorAlpha = new filter(resultingImage.colorAlpha, element, width, height);
                     }
                 });
 
@@ -347,18 +347,18 @@ patina.prototype = {
         if ( Array.isArray(patinaData) ) {
             // ToDo: the pixelPaintingInstructions should specify how the Array is transformed to an 4-channel-image
             for (let i = 0, len = width * height; i < len; i++) {
-                let alpha = Math.floor(patinaData[i] * 256);
+                let colorAlpha = Math.floor(patinaData[i] * 256);
                 myCanvas.el.img.data[i*4] = 0;      // r
                 myCanvas.el.img.data[i*4+1] = 0;    // g
                 myCanvas.el.img.data[i*4+2] = 0;    // b
-                myCanvas.el.img.data[i*4+3] = alpha;  // a
+                myCanvas.el.img.data[i*4+3] = colorAlpha;  // a
             }
         } else {
             for (let i = 0, len = width * height; i < len; i++) {
-                myCanvas.el.img.data[i * 4]     = Math.floor(patinaData.red[i]   * 256);
-                myCanvas.el.img.data[i * 4 + 1] = Math.floor(patinaData.green[i] * 256);
-                myCanvas.el.img.data[i * 4 + 2] = Math.floor(patinaData.blue[i]  * 256);
-                myCanvas.el.img.data[i * 4 + 3] = Math.floor(patinaData.alpha[i] * 256);
+                myCanvas.el.img.data[i * 4]     = Math.floor(patinaData.colorRed[i]   * 256);
+                myCanvas.el.img.data[i * 4 + 1] = Math.floor(patinaData.colorGreen[i] * 256);
+                myCanvas.el.img.data[i * 4 + 2] = Math.floor(patinaData.colorBlue[i]  * 256);
+                myCanvas.el.img.data[i * 4 + 3] = Math.floor(patinaData.colorAlpha[i] * 256);
             }
         }
         myCanvas.el.context.putImageData( myCanvas.el.img, 0, 0 );

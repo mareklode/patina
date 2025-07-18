@@ -26,66 +26,66 @@
                     "reusableImages" : {
                         "randomWalker": {
                             "type"          : "createPattern",
-                            "pattern" : { 
+                            "patternConfig" : { 
                                 "name"   : "random_walker",
                                 "impact"        : 2
                             }
                         }
                     },
                     "patina": {
-                        "type"  : "combine",
+                        "type"  : "layers",
                         "combineMode" : { 
                             "name"      : "burn",
                             "opacity"   : 1
                         },
-                        "topLayer"      : {
-                            "type"  : "colorChannels",
-                            "red"   : {
+                        "layerTop"      : {
+                            "type"  : "colors",
+                            "colorRed"   : {
                                 "type"          : "reuseImage",
                                 "reuseId"       : "randomWalker",
                                 "filter"        : [{ "name": "brightness", "brightness": -1 }]
                             },
-                            "green"   : {
+                            "colorGreen"   : {
                                 "type"          : "reuseImage",
                                 "reuseId"       : "randomWalker",
                                 "filter"        : [{ "name": "brightness", "brightness": -2 }]
                             },
-                            "blue"   : {
+                            "colorBlue"   : {
                                 "type"          : "reuseImage",
                                 "reuseId"       : "randomWalker",
                                 "filter"        : [{ "name": "brightness", "brightness": -6 }]
                             },
-                            "alpha" : 255
+                            "colorAlpha" : 255
                             
                         },
-                        "bottomLayer" : {
-                            "type"  : "combine",
+                        "layerBottom" : {
+                            "type"  : "layers",
                             "combineMode" : { 
                                 "name"      : "add",
                                 "opacity"   : 0.075
                             },
-                            "topLayer"      : {
+                            "layerTop"      : {
                                 "type"  : "createPattern",
-                                "pattern" : { 
+                                "patternConfig" : { 
                                     "name": "labyrinth",
                                     "color": 1
                                 }
                             },
-                            "bottomLayer" : {
-                                "type"  : "colorChannels",
-                                "red"   : {
-                                    "type"  : "combine",
+                            "layerBottom" : {
+                                "type"  : "colors",
+                                "colorRed"   : {
+                                    "type"  : "layers",
                                     "combineMode" : { 
                                         "name": "add",
                                         "opacity": 0.15
                                     },
-                                    "topLayer"      : {
+                                    "layerTop"      : {
                                         "type"          : "createPattern",
                                         "patternName"   : "noise_white"
                                     },
-                                    "bottomLayer"   : {
+                                    "layerBottom"   : {
                                         "type"      : "createPattern",
-                                        "pattern"   : {
+                                        "patternConfig" : {
                                             "name"      : "slope",
                                             "direction" : "to bottom",
                                             "colorBegin": 0,
@@ -93,22 +93,22 @@
                                         }
                                     }
                                 },                        
-                                "green" : {
-                                    "type"  : "combine",
+                                "colorGreen" : {
+                                    "type"  : "layers",
                                     "combineMode" : { 
                                         "name": "add",
                                         "opacity": 0.075
                                     },
-                                    "topLayer"      : {
+                                    "layerTop"      : {
                                         "type"          : "createPattern",
                                         "patternName"   : "noise_white",
                                         "filter"        : [
                                             { "name": "contrast", "m": 1, "x": 0.5 }
                                         ]
                                     },
-                                    "bottomLayer"   : {
+                                    "layerBottom"   : {
                                         "type"      : "createPattern",
-                                        "pattern"   : {
+                                        "patternConfig" : {
                                             "name"      : "slope",
                                             "direction" : "to bottom",
                                             "colorBegin": 25,
@@ -116,19 +116,19 @@
                                         }
                                     }
                                 },
-                                "blue"  : {
-                                    "type"  : "combine",
+                                "colorBlue"  : {
+                                    "type"  : "layers",
                                     "combineMode" : { 
                                         "name": "add",
                                         "opacity": 0.15
                                     },
-                                    "topLayer"      : {
+                                    "layerTop"      : {
                                         "type"          : "createPattern",
                                         "patternName"   : "noise_white"
                                     },
-                                    "bottomLayer"   : {
+                                    "layerBottom"   : {
                                         "type"      : "createPattern",
-                                        "pattern"   : {
+                                        "patternConfig" : {
                                             "name"      : "slope",
                                             "direction" : "to right",
                                             "colorBegin": 0,
@@ -136,7 +136,7 @@
                                         }
                                     }
                                 },
-                                "alpha" : 255
+                                "colorAlpha" : 255
                             }
                         }
                     }
@@ -149,44 +149,44 @@
             const pixelPaintingInstructions = `{
                 "width": 256,
                 "patina": {
-                    "type"  : "colorChannels",
-                    "red"   : 73,
-                    "green" : 94,
-                    "blue"  : 18,
-                    "alpha" : {
-                        "type"  :   "combine",
-                        "topLayer"    : {
-                            "type"  :   "combine",
-                            "topLayer"    : {
-                                "type"  :   "combine",
-                                "topLayer"      : {
+                    "type"  : "colors",
+                    "colorRed"   : 73,
+                    "colorGreen" : 94,
+                    "colorBlue"  : 18,
+                    "colorAlpha" : {
+                        "type"  :   "layers",
+                        "layerTop"    : {
+                            "type"  :   "layers",
+                            "layerTop"    : {
+                                "type"  :   "layers",
+                                "layerTop"      : {
                                     "type"          : "createPattern",
                                     "patternName"   : "noise_plasma"
                                 },
-                                "bottomLayer"   : {
+                                "layerBottom"   : {
                                     "type"          : "createPattern",
-                                    "pattern" : { 
+                                    "patternConfig" : { 
                                         "name"   : "wave",
                                         "direction"     : "horizontal",
                                         "frequency"     : 60
                                     }
                                 }
                             },
-                            "bottomLayer" : { 
+                            "layerBottom" : { 
                                 "type"          : "createPattern",
                                 "patternName"   : "slope",
                                 "filter"        : [{ "name": "brightness", "brightness": -2 }]
                             }
                         },
-                        "bottomLayer" : { 
-                            "type"  :   "combine",
-                            "topLayer"    : {
+                        "layerBottom" : { 
+                            "type"  :   "layers",
+                            "layerTop"    : {
                                 "type"          : "createPattern",
                                 "patternName"   : "noise_white"
                             },
-                            "bottomLayer"   : {
+                            "layerBottom"   : {
                                 "type"          : "createPattern",
-                                "pattern" : { 
+                                "patternConfig" : { 
                                     "name"   : "wave",
                                     "direction"     : "vertical",
                                     "frequency"     : 67

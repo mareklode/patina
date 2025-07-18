@@ -7,17 +7,17 @@ const templates = {
             "marekkeram_256": {
                 "type"          : "preloadImage",
                 "url"           : "/mareklode/patina/images/page/header__logo--PatinaFont-rough_white.png",
-                "colorChannels" : 1
+                "colors" : 1
             }
         },
         "patina": {
-            "type"  : "colorChannels",
-            "red"   : 128,
-            "green" : 64,
-            "blue"  : 32,
-            "alpha" : { 
-                "type"          : "combine",
-                "topLayer"      : {
+            "type"  : "colors",
+            "colorRed"   : 128,
+            "colorGreen" : 64,
+            "colorBlue"  : 32,
+            "colorAlpha" : { 
+                "type"          : "layers",
+                "layerTop"      : {
                     "type"          : "reuseImage",
                     "reuseId"       : "marekkeram_256",
                     "filter"        : [
@@ -25,11 +25,11 @@ const templates = {
                         { "name": "contrast", "x": 0.1125, "m": 1.125 }
                     ]
                 },
-                "bottomLayer"   : {
-                    "type"          : "combine",
-                    "topLayer"      : {
+                "layerBottom"   : {
+                    "type"          : "layers",
+                    "layerTop"      : {
                         "type"          : "createPattern",
-                        "pattern" : { 
+                        "patternConfig" : { 
                             "name"   : "noise_plasma",
                             "frequency"     : 10
                         },
@@ -37,7 +37,7 @@ const templates = {
                             { "name": "contrast", "x": 0.456, "m": 3 }
                         ]
                     },
-                    "bottomLayer"   : { 
+                    "layerBottom"   : { 
                         "type"          : "createPattern",
                         "patternName"   : "border",
                         "filter": [
@@ -54,11 +54,11 @@ const templates = {
     }`,
     header_logo_before: `{
         "patina": {
-            "type"  : "colorChannels",
-            "red"   : 255,
-            "green" : 0,
-            "blue"  : 0,
-            "alpha" : {
+            "type"  : "colors",
+            "colorRed"   : 255,
+            "colorGreen" : 0,
+            "colorBlue"  : 0,
+            "colorAlpha" : {
                 "type"          : "createPattern",
                 "patternName"   : "border",
                 "filter"        : [{ "name": "contrast", "x": 0.33, "m": 2 }]
@@ -67,11 +67,11 @@ const templates = {
     }`,
     header_logo_after: `{
         "patina": {
-            "type"  : "colorChannels",
-            "red"   : 0,
-            "green" : 0,
-            "blue"  : 0,
-            "alpha" : {
+            "type"  : "colors",
+            "colorRed"   : 0,
+            "colorGreen" : 0,
+            "colorBlue"  : 0,
+            "colorAlpha" : {
                 "type"          : "createPattern",
                 "patternName"   : "border",
                 "filter"        : [{ "name": "contrast", "x": 0.4, "m": 1.2 }]
@@ -82,13 +82,13 @@ const templates = {
         "width" : 375,
         "height": 283,
         "patina": {
-            "type"  : "colorChannels",
-            "red"   : 73,
-            "green" : 94,
-            "blue"  : 18,
-            "alpha" : {
+            "type"  : "colors",
+            "colorRed"   : 73,
+            "colorGreen" : 94,
+            "colorBlue"  : 18,
+            "colorAlpha" : {
                 "type"          : "createPattern",
-                "pattern" : { 
+                "patternConfig" : { 
                     "name"   : "wave",
                     "direction"     : "rectangles",
                     "frequency"     : 4
@@ -104,13 +104,13 @@ const templates = {
     }`,
     navigation: `{
         "patina": {
-            "type"          : "combine",
-            "topLayer"      : {
+            "type"          : "layers",
+            "layerTop"      : {
                 "type"          : "createPattern",
                 "patternName"   : "slope",
                 "filter"        : [{ "name": "contrast", "x": 0.75, "m": 1 }]
             },
-            "bottomLayer"   : {
+            "layerBottom"   : {
                 "type"          : "createPattern",
                 "patternName"   : "noise_white",
                 "filter"        : [{ "name": "contrast", "x": 2, "m": 0.25 }]
@@ -120,44 +120,44 @@ const templates = {
     footer: `{
         "width": 256,
         "patina": {
-            "type"  : "colorChannels",
-            "red"   : 73,
-            "green" : 94,
-            "blue"  : 18,
-            "alpha" : {
-                "type"  :   "combine",
-                "topLayer"    : {
-                    "type"  :   "combine",
-                    "topLayer"    : {
-                        "type"  :   "combine",
-                        "topLayer"      : {
+            "type"  : "colors",
+            "colorRed"   : 73,
+            "colorGreen" : 94,
+            "colorBlue"  : 18,
+            "colorAlpha" : {
+                "type"  :   "layers",
+                "layerTop"    : {
+                    "type"  :   "layers",
+                    "layerTop"    : {
+                        "type"  :   "layers",
+                        "layerTop"      : {
                             "type"          : "createPattern",
                             "patternName"   : "noise_plasma"
                         },
-                        "bottomLayer"   : {
+                        "layerBottom"   : {
                             "type"          : "createPattern",
-                            "pattern" : { 
+                            "patternConfig" : { 
                                 "name"   : "wave",
                                 "direction"     : "horizontal",
                                 "frequency"     : 60
                             }    
                         }
                     },
-                    "bottomLayer" : { 
+                    "layerBottom" : { 
                         "type"          : "createPattern",
                         "patternName"   : "slope",
                         "filter"        : [{ "name": "brightness", "brightness": -2 }]
                     }
                 },
-                "bottomLayer" : { 
-                    "type"  :   "combine",
-                    "topLayer"    : {
+                "layerBottom" : { 
+                    "type"  :   "layers",
+                    "layerTop"    : {
                         "type"          : "createPattern",
                         "patternName"   : "noise_white"
                     },
-                    "bottomLayer"   : {
+                    "layerBottom"   : {
                         "type"          : "createPattern",
-                        "pattern" : { 
+                        "patternConfig" : { 
                             "name"   : "wave",
                             "direction"     : "vertical",
                             "frequency"     : 67

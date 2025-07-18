@@ -41,47 +41,47 @@
 {
     "width": 256,
     "patina": {
-        "type": "colorChannels",
-        "red": 73,
-        "green": 94,
-        "blue": {
+        "type": "colors",
+        "colorRed": 73,
+        "colorGreen": 94,
+        "colorBlue": {
             "type": "select_Type"
         },
-        "alpha": {
-            "type": "combine",
+        "colorAlpha": {
+            "type": "layers",
             "combineMode"   : { "name": "overlay" },
-            "topLayer": {
-                "type": "combine",
-                "topLayer": {
-                    "type": "combine",
-                    "topLayer": {
+            "layerTop": {
+                "type": "layers",
+                "layerTop": {
+                    "type": "layers",
+                    "layerTop": {
                         "type": "createPattern",
-                        "pattern": { "name": "noise_plasma" }
+                        "patternConfig" : { "name": "noise_plasma" }
                     },
-                    "bottomLayer": {
+                    "layerBottom": {
                         "type": "createPattern",
-                        "pattern": { 
+                        "patternConfig" : { 
                             "name": "wave",
                             "direction": "horizontal",
                             "frequency": 60
                         }
                     }
                 },
-                "bottomLayer": {
+                "layerBottom": {
                     "type": "createPattern",
-                    "pattern": { "name": "slope" },
+                    "patternConfig" : { "name": "slope" },
                     "filter": [{ "name": "brightness", "brightness": -2 }]
                 }
             },
-            "bottomLayer": {
-                "type": "combine",
-                "topLayer": {
+            "layerBottom": {
+                "type": "layers",
+                "layerTop": {
                     "type": "createPattern",
-                    "pattern": { "name": "noise_white" }
+                    "patternConfig" : { "name": "noise_white" }
                 },
-                "bottomLayer": {
+                "layerBottom": {
                     "type": "createPattern",
-                    "pattern": { 
+                    "patternConfig" : { 
                         "name": "wave",
                         "direction": "vertical",
                         "frequency": 67
@@ -105,7 +105,7 @@
                     "reusableImages" : {
                         "test_id": {
                             "type"          : "createPattern",
-                            "pattern"       : {
+                            "patternConfig" : {
                                 "name"          : "noise_plasma"
                             }
                         }
@@ -121,28 +121,28 @@
 {
     "width": 250,
     "patina": {
-        "type": "combine",
-        "topLayer": {
-            "type": "combine",
-            "topLayer": {
-                "type": "combine",
-                "topLayer": {
+        "type": "layers",
+        "layerTop": {
+            "type": "layers",
+            "layerTop": {
+                "type": "layers",
+                "layerTop": {
                     "type": "createPattern",
                     "patternName": "noise_plasma",
                     "nodeName": "4-createPattern-513"
                 },
-                "bottomLayer": {
+                "layerBottom": {
                     "type": "createPattern",
-                    "pattern": {
+                    "patternConfig" : {
                         "name": "wave",
                         "direction": "horizontal",
                         "frequency": 60
                     },
                     "nodeName": "4-createPattern-133"
                 },
-                "nodeName": "3-combine-317"
+                "nodeName": "3-layers-317"
             },
-            "bottomLayer": {
+            "layerBottom": {
                 "type": "createPattern",
                 "patternName": "slope",
                 "filter": [
@@ -153,25 +153,25 @@
                 ],
                 "nodeName": "3-createPattern-325"
             },
-            "nodeName": "2-combine-551"
+            "nodeName": "2-layers-551"
         },
-        "bottomLayer": {
-            "type": "combine",
-            "topLayer": {
+        "layerBottom": {
+            "type": "layers",
+            "layerTop": {
                 "type": "createPattern",
                 "patternName": "noise_white",
                 "nodeName": "3-createPattern-408"
             },
-            "bottomLayer": {
+            "layerBottom": {
                 "type": "createPattern",
-                "pattern": {
+                "patternConfig" : {
                     "name": "wave",
                     "direction": "vertical",
                     "frequency": 67
                 },
                 "nodeName": "3-createPattern-837"
             },
-            "nodeName": "2-combine-201"
+            "nodeName": "2-layers-201"
         },
         "filter": [
             {
@@ -221,7 +221,7 @@
 
     <script>
         // these properties of a patina-node contain other nodes, resulting in a tree
-        let branchForks = ["bottomLayer", "topLayer", "red", "green", "blue", "alpha", "reuseId"];
+        let branchForks = ["layerBottom", "layerTop", "colorRed", "colorGreen", "colorBlue", "colorAlpha", "reuseId"];
 
         let filters = [];
         const loadFiltersList = async function () {
@@ -260,7 +260,7 @@
             let nodeDefinition = {...node, nodeName: nodeName, nestingLevel: nestingLevel};
             if (nodeType === "flat") {
                 // flat nodes just have an integer for a color value
-                nodeDefinition = { ...nodeDefinition, type: "createPattern", pattern: { name: "flat", color: node } }; 
+                nodeDefinition = { ...nodeDefinition, type: "createPattern", patternConfig: { name: "flat", color: node } }; 
             }
 
             // for color-channels and layers: go deeper
@@ -322,7 +322,7 @@
 
                 if (nodePurpose) { htmlstring += `<p class="patina-node__purpose">${nodePurpose}</p>`; }
 
-                let types = ["select_Type", "createPattern", "combine", "colorChannels"];
+                let types = ["select_Type", "createPattern", "layers", "colors"];
                 htmlstring += `<select name="type" id="${node.nodeName}" class="patina-node__type">`;
                     types.forEach((type) => {
                         htmlstring += `<option ${type === node.type ? "selected": ""} value="${type}">${type}</option>`;
@@ -334,18 +334,18 @@
                     htmlstring += `<label for="${node.nodeName}">name:</label><!--
                         --><select name="pattern" id="${node.nodeName}">`;
                         patterns.forEach((pattern) => {
-                            htmlstring += `<option ${pattern === node.pattern?.name ? "selected": ""} value="${pattern}">${pattern}</option>`;
+                            htmlstring += `<option ${pattern === node.patternConfig?.name ? "selected": ""} value="${pattern}">${pattern}</option>`;
                         });
                     htmlstring += `</select>`;
                     directions = ["vertical", "horizontal", "concentric"];
                     htmlstring += `<label for="${node.nodeName}">direction:</label><!--
                         --><select name="direction" id="${node.nodeName}">`;
                         directions.forEach((direction) => {
-                            htmlstring += `<option ${direction === node.pattern?.direction ? "selected": ""} value="${direction}">${direction}</option>`;
+                            htmlstring += `<option ${direction === node.patternConfig?.direction ? "selected": ""} value="${direction}">${direction}</option>`;
                         });
                     htmlstring += `</select>`;
-                    htmlstring += `<input type="number" name="frequency" id="${node.nodeName}" value="${node.pattern?.frequency}">`;
-                } else if (node.type === "combine") {
+                    htmlstring += `<input type="number" name="frequency" id="${node.nodeName}" value="${node.patternConfig?.frequency}">`;
+                } else if (node.type === "layers") {
                     let modes = ["overlay", "distort", "subtract", "multiply", "burn", "add"];
                     htmlstring += `<label for="${node.nodeName}">mode:</label><!--
                         --><select name="combineMode" id="${node.nodeName}">`;
@@ -357,7 +357,7 @@
                                     
                 // print infos inside node rectangle
                 Object.keys(node).forEach((key) => {
-                    let skipInfos = [...branchForks, "nodeName", "type", "combineMode", "pattern", "direction"];
+                    let skipInfos = [...branchForks, "nodeName", "type", "combineMode", "patternConfig", "direction"];
                     if (skipInfos.includes(key)) return;
                     if (key === "filter") {
                         htmlstring += `${tabs(nestingLevel + 1)}<button class="patina-node__button-filter">Filter: ${node.filter.map((filter) => filter.name).join(' - ')}</button>\n`;
@@ -382,7 +382,7 @@
                 return tabs(nestingLevel) + `<div class="child">\n${patinaNodeHtml(node, nestingLevel)}\n${tabs(nestingLevel)}</div>\n`;
             }
 
-            if (node.type === "combine" || node.type === "colorChannels") {
+            if (node.type === "layers" || node.type === "colors") {
                 let htmlstring = tabs(nestingLevel) + '<div class="subtree">\n';
                 nestingLevel += 1;
 
@@ -553,41 +553,41 @@
             if (selectType === "type") {
                 let type = event.target.value;
                 switch (type) {
-                    case "combine":
-                        let topLayer = createNodeName();
-                        let bottomLayer = createNodeName();
+                    case "layers":
+                        let layerTop = createNodeName();
+                        let layerBottom = createNodeName();
                         linkedNodeList[nodeId] = {
                             type: type,
-                            bottomLayer: bottomLayer,
-                            topLayer: topLayer,
+                            layerBottom: layerBottom,
+                            layerTop: layerTop,
                             nodeName: nodeId
                         };
-                        linkedNodeList[bottomLayer] = { type: "select_Type", nodeName: bottomLayer }
-                        linkedNodeList[topLayer] = { type: "select_Type", nodeName: topLayer }
+                        linkedNodeList[layerBottom] = { type: "select_Type", nodeName: layerBottom }
+                        linkedNodeList[layerTop] = { type: "select_Type", nodeName: layerTop }
                         break;
-                    case "colorChannels":
-                        let red = createNodeName();
-                        let green = createNodeName();
-                        let blue = createNodeName();
-                        let alpha = createNodeName();
+                    case "colors":
+                        let colorRed = createNodeName();
+                        let colorGreen = createNodeName();
+                        let colorBlue = createNodeName();
+                        let colorAlpha = createNodeName();
                         linkedNodeList[nodeId] = {
                             type: type,
-                            red: red,
-                            green: green,
-                            blue: blue,
-                            alpha: alpha,
+                            colorRed: colorRed,
+                            colorGreen: colorGreen,
+                            colorBlue: colorBlue,
+                            colorAlpha: colorAlpha,
                             nodeName: nodeId
                         };
-                        linkedNodeList[red] = { type: "select_Type", nodeName: red };
-                        linkedNodeList[green] = { type: "select_Type", nodeName: green };
-                        linkedNodeList[blue] = { type: "select_Type", nodeName: blue };
-                        linkedNodeList[alpha] = { type: "select_Type", nodeName: alpha };
+                        linkedNodeList[colorRed] = { type: "select_Type", nodeName: colorRed };
+                        linkedNodeList[colorGreen] = { type: "select_Type", nodeName: colorGreen };
+                        linkedNodeList[colorBlue] = { type: "select_Type", nodeName: colorBlue };
+                        linkedNodeList[colorAlpha] = { type: "select_Type", nodeName: colorAlpha };
                         break;
                     case "createPattern":
                         linkedNodeList[nodeId] = {
                             type: type,
                             nodeName: nodeId,
-                            pattern: { name: "flat", frequency: 10 }
+                            patternConfig: { name: "flat", frequency: 10 }
                         };
                         break;
                     case "reuseImage":
@@ -597,7 +597,7 @@
             } else if (selectType === "pattern" || selectType === "combineMode") {
                 linkedNodeList[nodeId][selectType] = { ...linkedNodeList[nodeId][selectType], name: event.target.value };
             } else { // direction || frequency
-                linkedNodeList[nodeId].pattern[selectType] = event.target.value;
+                linkedNodeList[nodeId].patternConfig[selectType] = event.target.value;
             }
             drawJsonPatina();
             patinaToTextarea();

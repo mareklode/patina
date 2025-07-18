@@ -108,7 +108,7 @@
                     },
                     "combine_wave": {
                         "type"          : "createPattern",
-                        "pattern" : { 
+                        "patternConfig" : { 
                             "name"   : "wave",
                             "direction"     : "rectangles",
                             "frequency"     : 16
@@ -117,44 +117,44 @@
                     },
                     "combine_noise1D_horizontal": {
                         "type"          : "createPattern",
-                        "pattern" : { 
+                        "patternConfig" : { 
                             "name"   : "noise_1D", 
                             "direction"     : "vertical"
                         }
                     },
                     "combine_noise1D_vertical": {
                         "type"          : "createPattern",
-                        "pattern" : { 
+                        "patternConfig" : { 
                             "name"   : "noise_1D", 
                             "direction"     : "horizontal"
                         }
                     },
                     "NoiseBorder": {
-                        "type"          : "combine",
-                        "topLayer"      : {
+                        "type"          : "layers",
+                        "layerTop"      : {
                             "type"          : "reuseImage",
                             "reuseId"       : "combine_border"
                         },
-                        "bottomLayer"   : { 
-                            "type"          : "combine",
-                            "topLayer"      : {
-                                "type"          : "combine",
-                                "topLayer"      : {
+                        "layerBottom"   : { 
+                            "type"          : "layers",
+                            "layerTop"      : {
+                                "type"          : "layers",
+                                "layerTop"      : {
                                     "type"          : "reuseImage",
                                     "reuseId"       : "combine_noise1D_horizontal"
                                 },
-                                "bottomLayer"   : { 
+                                "layerBottom"   : { 
                                     "type"          : "reuseImage",
                                     "reuseId"       : "combine_noise1D_vertical"
                                 }
                             },
-                            "bottomLayer"   : { 
-                                "type"          : "combine",
-                                "topLayer"      : {
+                            "layerBottom"   : { 
+                                "type"          : "layers",
+                                "layerTop"      : {
                                     "type"          : "reuseImage",
                                     "reuseId"       : "combine_border"
                                 },
-                                "bottomLayer"   : { 
+                                "layerBottom"   : { 
                                     "type"          : "reuseImage",
                                     "reuseId"       : "combine_wave"
                                 }
