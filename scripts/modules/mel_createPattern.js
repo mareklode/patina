@@ -1,7 +1,6 @@
 import noise from './mel_noise.js';
 // import canvas from './mel_canvas.js';
 
-// http://youmightnotneedjquery.com/
 // http://codeblog.cz/vanilla/inside.html#set-element-html
 // https://github.com/daneden/animate.css
 
