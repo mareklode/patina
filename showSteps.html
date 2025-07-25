@@ -69,11 +69,11 @@
     </main>
 
     <script>
-                ////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////
 
         const loadPatinaExamples = async function () {
             const {footerExample, emptyExample, oneReusableImage, colorsExample} = await import('./scripts/patinaExamples.js');
-            document.querySelector(".jsonpatina-textarea").value = JSON.stringify(colorsExample, undefined, 4);
+            document.querySelector(".jsonpatina-textarea").value = JSON.stringify(footerExample, undefined, 4);
             init();
         }
         loadPatinaExamples();
@@ -210,15 +210,17 @@
                         });
                     htmlstring += `</select>`;
                 }
-                                    
+
+                if (!!node.filter) {
+                    htmlstring += `<button class="patina-node__button-filter">filters: ${node.filter?.map((filter) => filter.name).join(' - ')}</button>\n`;
+                } else {
+                    htmlstring += `<button class="patina-node__button-filter">+ filters</button>\n`;
+                }
+
                 // print infos inside node rectangle
                 Object.keys(node).forEach((key) => {
-                    let skipInfos = [...branchForks, "patternName", "nodeName", "type", "combineMode", "patternConfig", "direction"];
+                    let skipInfos = [...branchForks, "patternName", "filter", "nodeName", "type", "combineMode", "patternConfig", "direction"];
                     if (skipInfos.includes(key)) return;
-                    if (key === "filter") {
-                        htmlstring += `<button class="patina-node__button-filter">Filter: ${node.filter.map((filter) => filter.name).join(' - ')}</button>\n`;
-                        return;
-                    }
                     // else
                     console.log("add this to skipinfos:", key);
                     htmlstring += `<p class="patina-node__${key}">${key}: ${node[key].name || node[key]}</p>`;
@@ -308,8 +310,11 @@
         // Initialize the application
         init();
 
+        const elFilterDialog = document.querySelector('.js-filter-dialog');
+
         // Set up all event listeners
         setupEventListeners();
+
 
         /**
          * Setup all event listeners in a centralized location
@@ -352,8 +357,6 @@
          * Setup filter dialog events
          */
         function setupFilterDialogEvents() {
-            const elFilterDialog = document.querySelector('.js-filter-dialog');
-            
             if (elFilterDialog) {
                 elFilterDialog.addEventListener('focusout', handleFilterDialogFocusOut);
                 elFilterDialog.addEventListener('input', handleFilterDialogInput);
@@ -436,7 +439,7 @@
 
         const updateFilterDialog = (patinaNodeId) => {
             let dialogHtml = `<form method="dialog"><button class="close-button" onclick="elFilterDialog.close()">X</button>`;
-            linkedNodeList[patinaNodeId].filter.forEach((filter, index) => {
+            linkedNodeList[patinaNodeId].filter?.forEach((filter, index) => {
                 dialogHtml += `<label for="${filter.name}">${filter.name}</label><input type=text id=${index} data-filter-name=${filter.name} value="${filter.value}" /><br>`;
                 // type="number" min="0" max="1000" step="0.01"
             })
@@ -452,6 +455,7 @@
             const filterName = event.target.parentElement.querySelector("#add-select-filter").value;
 
             const patinaNodeId = event.target.closest(".js-filter-dialog").getAttribute("data-node-id");
+            linkedNodeList[patinaNodeId].filter = linkedNodeList[patinaNodeId].filter || [];
             linkedNodeList[patinaNodeId].filter.push({name: filterName, value: 0});
             
             updateFilterDialog(patinaNodeId);
