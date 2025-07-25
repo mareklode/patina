@@ -15,6 +15,8 @@ function patina (domElement, parameters) {
         // todo: dynamisch 2/2
         // let {default: templates} = await import('./mel_pageTemplates.js');
         parameters = templates[parameters.substring(9)];
+
+        if (!parameters) { return }
     }
         
     self._parameters = self._completeParameters( parameters, domElement );
@@ -83,6 +85,10 @@ patina.prototype = {
         );
     }, // just to make async possible
 
+    resultingImageHasData: function (resultingImage) {
+        return !!resultingImage.length || !!resultingImage.colorRed;
+    },
+
     createPatina: async function (parameters, domElement) {
         Object.keys(parameters.reusableImages).forEach( async (nodeName) => {
             if (!this.reusableImages[nodeName]) {
@@ -107,16 +113,16 @@ patina.prototype = {
             }
         });
 
-        let patinaData = this._processPatinaNode( 
-            parameters.patina, 
-            parameters.width, 
-            parameters.height
-        )
-        await patinaData;
-        if (patinaData.length) { // why is this empty sometimes?
-            let myCanvas = this._createCanvas( patinaData, parameters.width, parameters.height );
-            this._paintCanvas( myCanvas, domElement );
-        }
+       await this._processPatinaNode( 
+           parameters.patina, 
+           parameters.width, 
+           parameters.height
+        ).then((patinaData) => {
+            if (this.resultingImageHasData(patinaData)) { // why is this empty sometimes?
+                let myCanvas = this._createCanvas( patinaData, parameters.width, parameters.height );
+                this._paintCanvas( myCanvas, domElement );
+            }
+        });
     }, // createPatina()
 
     _completeParameters: function ( parameters, domElement ) {
@@ -230,10 +236,10 @@ patina.prototype = {
             }
 
             // for the nodes with IDs in showSteps and reusableImages 
-            if (layer.nodeName && resultingImage.length) { // why is this array empty, sometimes?!?
+            if (layer.nodeName && this.resultingImageHasData(resultingImage)) { // why is this array empty, sometimes?!?
                 this._paintCanvasToADifferentDiv(resultingImage, width, height, layer.nodeName);
             }
-            
+
             return resultingImage;
         } else {
             console.log('layer type not recognized ',layer);

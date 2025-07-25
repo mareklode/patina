@@ -52,6 +52,7 @@ const templates = {
             }
         }
     }`,
+    /*
     header_logo_before: `{
         "patina": {
             "type"  : "colors",
@@ -65,16 +66,32 @@ const templates = {
             }
         }
     }`,
+    */
     header_logo_after: `{
+        "width" : 750,
+        "height": 100,
+
         "patina": {
-            "type"  : "colors",
-            "colorRed"   : 0,
-            "colorGreen" : 0,
-            "colorBlue"  : 0,
-            "colorAlpha" : {
-                "type"          : "createPattern",
-                "patternName"   : "border",
-                "filter"        : [{ "name": "contrast", "x": 0.4, "m": 1.2 }]
+            "type": "colors",
+            "colorRed": 150,
+            "colorGreen": 90,
+            "colorBlue": 50,
+            "colorAlpha": {
+                "type": "layers",
+                "layerTop": {
+                    "type": "createPattern",
+                    "patternConfig": {
+                        "name": "noise_plasma",
+                        "frequency": 10
+                    }
+                },
+                "layerBottom": {
+                    "type": "createPattern",
+                    "patternName": "border"
+                },
+                "combineMode": {
+                    "name": "burn"
+                }
             }
         }
     }`,
