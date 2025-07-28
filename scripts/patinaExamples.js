@@ -1,19 +1,19 @@
-export const emptyExample = {"patina": { "type": "select_Type" }};
+export const emptyExample = { "patina": { "type": "select_Type" } };
 
 export const oneReusableImage = {
-                    "reusableImages" : {
-                        "test_id": {
-                            "type"          : "createPattern",
-                            "patternConfig" : {
-                                "name"          : "noise_plasma"
-                            }
-                        }
-                    },
-                    "patina": {
-                        "type"          : "reuseImage",
-                        "reuseId"       : "test_id"
-                    }
-                };
+    "reusableImages": {
+        "test_id": {
+            "type": "createPattern",
+            "patternConfig": {
+                "name": "noise_plasma"
+            }
+        }
+    },
+    "patina": {
+        "type": "reuseImage",
+        "reuseId": "test_id"
+    }
+};
 
 export const footerExample = {
     "width": 250,
@@ -32,7 +32,7 @@ export const footerExample = {
                 },
                 "layerBottom": {
                     "type": "createPattern",
-                    "patternConfig" : {
+                    "patternConfig": {
                         "name": "wave",
                         "direction": "horizontal",
                         "frequency": 60
@@ -63,7 +63,7 @@ export const footerExample = {
             },
             "layerBottom": {
                 "type": "createPattern",
-                "patternConfig" : {
+                "patternConfig": {
                     "name": "wave",
                     "direction": "vertical",
                     "frequency": 67

@@ -1,4 +1,4 @@
-function combineArrays (layerBottom, layerTop, width, combineMode = {} ) {
+function combineArrays(layerBottom, layerTop, width, combineMode = {}) {
     let modulo = function (divided, m) {
         // modulo(index - 1, tll)
         return ((divided % m) + m) % m;
@@ -15,30 +15,30 @@ function combineArrays (layerBottom, layerTop, width, combineMode = {} ) {
         return layerBottom.map(function (value, index) {
             let x = index % width,
                 y = (index - x) / width,
-                leftPosX   = (x - 1) % width,
-                rightPosX  = (x + 1) % width,
-                topPosY    = (y - 1) % height,
+                leftPosX = (x - 1) % width,
+                rightPosX = (x + 1) % width,
+                topPosY = (y - 1) % height,
                 bottomPosY = (y + 1) % height;
-            if (leftPosX < 0) { 
-                leftPosX = width + leftPosX; 
+            if (leftPosX < 0) {
+                leftPosX = width + leftPosX;
             }
-            if (topPosY  < 0) { topPosY  = height + topPosY; }
+            if (topPosY < 0) { topPosY = height + topPosY; }
 
-            let left  = layerTop[arrayPos(leftPosX, y, width)],
+            let left = layerTop[arrayPos(leftPosX, y, width)],
                 right = layerTop[arrayPos(rightPosX, y, width)],
-                top   = layerTop[arrayPos(x, topPosY, width)],
-                bottom= layerTop[arrayPos(x, bottomPosY, width)],
+                top = layerTop[arrayPos(x, topPosY, width)],
+                bottom = layerTop[arrayPos(x, bottomPosY, width)],
                 vectorX = Math.round((right - left) * multiplier),
                 vectorY = Math.round((bottom - top) * multiplier),
                 vector = index + vectorX + (vectorY * width);
-            if (vectorX < 0) { vectorX = width  + vectorX; }
+            if (vectorX < 0) { vectorX = width + vectorX; }
             if (vectorY < 0) { vectorY = height + vectorY; }
-            return layerBottom[ modulo(vector, layerBottom.length) ];
+            return layerBottom[modulo(vector, layerBottom.length)];
         });
     } else if (combineMode.name === 'subtract') {
         return layerBottom.map(function (value, index) {
             const result = layerTop[index] - value;
-            return ( result > 0 ? result : 0);
+            return (result > 0 ? result : 0);
         });
     } else if (combineMode.name === 'multiply') {
         return layerBottom.map(function (value, index) {
@@ -61,13 +61,13 @@ function combineArrays (layerBottom, layerTop, width, combineMode = {} ) {
     }
 }; // combineArrays()
 
-function combineLayers (layerBottom, layerTop, width, combineMode) {
+function combineLayers(layerBottom, layerTop, width, combineMode) {
     // could be way more sophisticated. And than deserves an extra file
     let resultingImage,
         isArrayBottomLayer = Array.isArray(layerBottom),
-        isArrayTopLayer =  Array.isArray(layerTop);
+        isArrayTopLayer = Array.isArray(layerTop);
 
-    if ( isArrayBottomLayer && isArrayTopLayer ) {
+    if (isArrayBottomLayer && isArrayTopLayer) {
         resultingImage = combineArrays(layerBottom, layerTop, width, combineMode);
     } else {
         // at least one of the images has color channels. the result has color channels.
@@ -82,7 +82,7 @@ function combineLayers (layerBottom, layerTop, width, combineMode) {
         } else {
             bl = layerBottom;
         }
-    
+
         if (isArrayTopLayer) {
             tl.colorRed = layerTop;
             tl.colorGreen = layerTop;
@@ -91,13 +91,13 @@ function combineLayers (layerBottom, layerTop, width, combineMode) {
         } else {
             tl = layerTop;
         }
-    
-        resultingImage.colorRed   = combineArrays(bl.colorRed,   tl.colorRed  , width, combineMode);
+
+        resultingImage.colorRed = combineArrays(bl.colorRed, tl.colorRed, width, combineMode);
         resultingImage.colorGreen = combineArrays(bl.colorGreen, tl.colorGreen, width, combineMode);
-        resultingImage.colorBlue  = combineArrays(bl.colorBlue,  tl.colorBlue , width, combineMode);
+        resultingImage.colorBlue = combineArrays(bl.colorBlue, tl.colorBlue, width, combineMode);
         resultingImage.colorAlpha = combineArrays(bl.colorAlpha, tl.colorAlpha, width, combineMode);
     } // if isArray
-        
+
     return resultingImage;
 } // combineLayers()
 

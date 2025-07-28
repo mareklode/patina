@@ -2,7 +2,7 @@
 
 const templates = {
 
-    header_logo_image:  `{
+    header_logo_image: `{
         "reusableImages"    : {
             "marekkeram_256": {
                 "type"          : "preloadImage",
@@ -95,7 +95,7 @@ const templates = {
             }
         }
     }`,
-    header:  `{
+    header: `{
         "width" : 375,
         "height": 283,
         "patina": {

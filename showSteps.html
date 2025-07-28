@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
@@ -21,9 +22,7 @@
         </div>
     </header>
 
-    <nav class="navigation"
-         data-module-name="patina"
-         data-module-data="template_navigation">
+    <nav class="navigation" data-module-name="patina" data-module-data="template_navigation">
         <a class="navigation__link" href="index.html">Home</a>
         <a class="navigation__link" href="howto.html">HowTo</a>
         <a class="navigation__link" href="createPattern.html">createPattern</a>
@@ -38,11 +37,12 @@
     <main class="body__block">
 
         <div class="jsonpatina-container">
-            <textarea class="jsonpatina-textarea jsonpatina-textarea--hidden" spellcheck="false" autocorrect="off" autocapitalize="off">
+            <textarea class="jsonpatina-textarea jsonpatina-textarea--hidden" spellcheck="false" autocorrect="off"
+                autocapitalize="off">
                 {"patina": { "type": "select_Type" }}
             </textarea>
-            <button class="js-jsonpatina-to-textarea button-jsonpatina-to-textarea" >jsonpatina-to-textarea</button>
-            <button class="js-draw-jsonpatina button-draw-jsonpatina" >draw-jsonpatina</button>
+            <button class="js-jsonpatina-to-textarea button-jsonpatina-to-textarea">jsonpatina-to-textarea</button>
+            <button class="js-draw-jsonpatina button-draw-jsonpatina">draw-jsonpatina</button>
         </div>
 
 
@@ -64,7 +64,7 @@
 
         <dialog class="js-filter-dialog filter-dialog" closedby="any">
             <form action="#" method="dialog">
-            </form>        
+            </form>
         </dialog>
     </main>
 
@@ -72,8 +72,8 @@
         ////////////////////////////////////////////////////////////////
 
         const loadPatinaExamples = async function () {
-            const {footerExample, emptyExample, oneReusableImage, colorsExample} = await import('./scripts/patinaExamples.js');
-            document.querySelector(".jsonpatina-textarea").value = JSON.stringify(footerExample, undefined, 4);
+            const { footerExample, emptyExample, oneReusableImage, colorsExample } = await import('./scripts/patinaExamples.js');
+            document.querySelector(".jsonpatina-textarea").value = JSON.stringify(oneReusableImage, undefined, 4);
             init();
         }
         loadPatinaExamples();
@@ -84,34 +84,32 @@
 
         let filters = [];
         const loadFiltersList = async function () {
-            const {default: filterFunction} = await import('./scripts/modules/mel_filter.js');
+            const { default: filterFunction } = await import('./scripts/modules/mel_filter.js');
             Object.getOwnPropertyNames(filterFunction.prototype).map((filterName) => {
-                if (!filterName.startsWith("_")) {filters.push(filterName);}
+                if (!filterName.startsWith("_")) { filters.push(filterName); }
             });
         }
         loadFiltersList();
 
         let patterns = [];
         const loadPatternList = async function () {
-            const {default: patternFunction} = await import('./scripts/modules/mel_createPattern.js');
+            const { default: patternFunction } = await import('./scripts/modules/mel_createPattern.js');
             Object.getOwnPropertyNames(patternFunction.prototype).map((patternName) => {
-                if (!patternName.startsWith("_")) {patterns.push(patternName);}
+                if (!patternName.startsWith("_")) { patterns.push(patternName); }
             });
-            console.log(patterns);
         }
         loadPatternList();
 
-        const checkData = new Promise((resolve) => { 
-            let wait = setInterval( function () {
-                console.log("tick");
+        const checkData = new Promise((resolve) => {
+            let wait = setInterval(function () {
                 if (filters.length && patterns.length) {
                     clearInterval(wait);
                     resolve(true);
                 }
             }, 100);
         });
-    
-        let createNodeName = (nodeType= "select_Type") => {
+
+        let createNodeName = () => {
             return Date.now().toString().slice(7) + Math.random().toString(36).substring(2, 8);
         }
 
@@ -120,22 +118,22 @@
         let linkedNodeList = {};
         let constructLinkedNodeList = (node, nodeName = false) => {
             let nodeType = node.type || "flat";
-            nodeName = nodeName || createNodeName(nodeType);
+            nodeName = nodeName || createNodeName();
 
-            let nodeDefinition = {...node, nodeName: nodeName};
+            let nodeDefinition = { ...node, nodeName: nodeName };
             if (nodeType === "flat") {
                 // flat nodes just have an integer for a color value
-                nodeDefinition = { ...nodeDefinition, type: "createPattern", patternConfig: { name: "flat", color: node } }; 
+                nodeDefinition = { ...nodeDefinition, type: "createPattern", patternConfig: { name: "flat", color: node } };
             }
 
             // for color-channels and layers: go deeper
             branchForks.forEach((property) => {
                 if (node[property]) {
-                    nodeDefinition[property] = constructLinkedNodeList(node[property], node.reuseId );
+                    nodeDefinition[property] = constructLinkedNodeList(node[property], node.reuseId);
                 }
             })
 
-            linkedNodeList[nodeName] = {...nodeDefinition};
+            linkedNodeList[nodeName] = { ...nodeDefinition };
             return nodeName;
         }
 
@@ -143,7 +141,7 @@
             let reusableImages = [];
 
             let reconstructJsonSubtree = (node) => {
-                let nodeObject = {...node};
+                let nodeObject = { ...node };
 
                 deleteProperty.forEach((property) => {
                     delete nodeObject[property]; // nodeName
@@ -160,11 +158,11 @@
                     }
                 });
 
-                return {...nodeObject};
+                return { ...nodeObject };
             }
 
             let jsonTree = reconstructJsonSubtree(root);
-            return ({patina: jsonTree, reusableImages: reusableImages});
+            return ({ patina: jsonTree, reusableImages: reusableImages });
         } // reconstructJson()
 
         let subtreeHtml = (node, nodePurpose = false) => {
@@ -173,41 +171,41 @@
                 if (node.nodeName === "root") {
                     // root-node gets the patina json and the js-module trigger class, the other nodes are painted in vs
                     htmlstring += ` js-module' data-module-name='patina' data-module-data='${JSON.stringify(reconstructJson(node))}`;
-                } 
+                }
                 htmlstring += `'>`;
 
                 if (nodePurpose) { htmlstring += `<p class="patina-node__purpose">${nodePurpose}</p>`; }
 
                 let types = ["select_Type", "reuseImage", "createPattern", "layers", "colors"];
                 htmlstring += `<select name="type" id="${node.nodeName}" class="patina-node__type">`;
-                    types.forEach((type) => {
-                        htmlstring += `<option ${type === node.type ? "selected": ""} value="${type}">${type}</option>`;
-                    });
+                types.forEach((type) => {
+                    htmlstring += `<option ${type === node.type ? "selected" : ""} value="${type}">${type}</option>`;
+                });
                 htmlstring += `</select>`;
 
                 if (node.type === "createPattern") {
                     htmlstring += `<label for="${node.nodeName}">name:</label><!--
                         --><select name="patternConfig" id="${node.nodeName}">`;
-                        let patternName = node.patternConfig?.name || node.patternName;
-                        patterns.forEach((pattern) => {
-                            htmlstring += `<option ${pattern === patternName ? "selected": ""} value="${pattern}">${pattern}</option>`;
-                        });
+                    let patternName = node.patternConfig?.name || node.patternName;
+                    patterns.forEach((pattern) => {
+                        htmlstring += `<option ${pattern === patternName ? "selected" : ""} value="${pattern}">${pattern}</option>`;
+                    });
                     htmlstring += `</select>`;
                     directions = ["vertical", "horizontal", "concentric"];
                     htmlstring += `<label for="${node.nodeName}">direction:</label><!--
                         --><select name="direction" id="${node.nodeName}">`;
-                        directions.forEach((direction) => {
-                            htmlstring += `<option ${direction === node.patternConfig?.direction ? "selected": ""} value="${direction}">${direction}</option>`;
-                        });
+                    directions.forEach((direction) => {
+                        htmlstring += `<option ${direction === node.patternConfig?.direction ? "selected" : ""} value="${direction}">${direction}</option>`;
+                    });
                     htmlstring += `</select>`;
                     htmlstring += `<input type="number" name="frequency" id="${node.nodeName}" value="${node.patternConfig?.frequency}">`;
                 } else if (node.type === "layers") {
                     let modes = ["overlay", "distort", "subtract", "multiply", "burn", "add"];
                     htmlstring += `<label for="${node.nodeName}">mode:</label><!--
                         --><select name="combineMode" id="${node.nodeName}">`;
-                        modes.forEach((mode) => {
-                            htmlstring += `<option ${mode === node.combineMode?.name ? "selected": ""} value="${mode}">${mode}</option>`;
-                        });
+                    modes.forEach((mode) => {
+                        htmlstring += `<option ${mode === node.combineMode?.name ? "selected" : ""} value="${mode}">${mode}</option>`;
+                    });
                     htmlstring += `</select>`;
                 }
 
@@ -297,8 +295,8 @@
             let htmlstring = subtreeHtml(linkedNodeList["root"], "root");
             document.querySelector('.tree').innerHTML = htmlstring;
 
-            if (typeof mel !== 'undefined') { 
-                mel.jsTriggers(); 
+            if (typeof mel !== 'undefined') {
+                mel.jsTriggers();
             }
         }
 
@@ -319,7 +317,7 @@
         /**
          * Setup all event listeners in a centralized location
          */
-        function setupEventListeners() {
+        function setupEventListeners () {
             setupButtonEvents();
             setupTreeEvents();
             setupFilterDialogEvents();
@@ -328,7 +326,7 @@
         /**
          * Setup button click events
          */
-        function setupButtonEvents() {
+        function setupButtonEvents () {
             const textareaButton = document.querySelector('.js-jsonpatina-to-textarea');
             const drawButton = document.querySelector('.js-draw-jsonpatina');
 
@@ -344,9 +342,9 @@
         /**
          * Setup tree-related events using event delegation
          */
-        function setupTreeEvents() {
+        function setupTreeEvents () {
             const treeElement = document.querySelector('.tree');
-            
+
             if (treeElement) {
                 treeElement.addEventListener('input', handleTreeInput);
                 treeElement.addEventListener('click', handleTreeClick);
@@ -356,7 +354,7 @@
         /**
          * Setup filter dialog events
          */
-        function setupFilterDialogEvents() {
+        function setupFilterDialogEvents () {
             if (elFilterDialog) {
                 elFilterDialog.addEventListener('focusout', handleFilterDialogFocusOut);
                 elFilterDialog.addEventListener('input', handleFilterDialogInput);
@@ -366,14 +364,14 @@
         /**
          * Handle textarea button click
          */
-        function handleTextareaButtonClick() {
+        function handleTextareaButtonClick () {
             patinaToTextarea();
         }
 
         /**
          * Handle draw button click
          */
-        function handleDrawButtonClick() {
+        function handleDrawButtonClick () {
             textareaToDataStructure();
             drawJsonPatina();
         }
@@ -381,10 +379,10 @@
         /**
          * Handle input events within the tree (input and select elements)
          */
-        function handleTreeInput(event) {
+        function handleTreeInput (event) {
             const inputElement = event.target.closest('input');
             const selectElement = event.target.closest('select');
-            
+
             if (inputElement || selectElement) {
                 selectInput(event);
             }
@@ -393,9 +391,9 @@
         /**
          * Handle click events within the tree
          */
-        function handleTreeClick(event) {
+        function handleTreeClick (event) {
             const filterButton = event.target.closest('.patina-node__button-filter');
-            
+
             if (filterButton) {
                 clickButtonFilters(event);
             }
@@ -404,20 +402,20 @@
         /**
          * Handle focus out events in filter dialog
          */
-        function handleFilterDialogFocusOut(event) {
+        function handleFilterDialogFocusOut (event) {
             const elInput = event.target.closest('input');
-            
+
             if (!elInput) return;
-            
+
             const elFilterDialog = document.querySelector('.js-filter-dialog');
             const patinaNodeId = elFilterDialog.getAttribute("data-node-id");
             const newValue = parseFloat(elInput.value);
-            
+
             if (typeof newValue === "number" && patinaNodeId) {
                 if (!linkedNodeList[patinaNodeId].filter) {
                     linkedNodeList[patinaNodeId].filter = {};
                 }
-                
+
                 linkedNodeList[patinaNodeId].filter[elInput.id] = {
                     "name": elInput.getAttribute("data-filter-name"),
                     "value": newValue
@@ -428,9 +426,9 @@
         /**
          * Handle input events in filter dialog
          */
-        function handleFilterDialogInput(event) {
+        function handleFilterDialogInput (event) {
             const selectElement = event.target.closest('select');
-            
+
             if (selectElement) {
                 // TODO: Implement select handling in filter dialog
                 console.log('Filter dialog select changed:', event);
@@ -456,8 +454,8 @@
 
             const patinaNodeId = event.target.closest(".js-filter-dialog").getAttribute("data-node-id");
             linkedNodeList[patinaNodeId].filter = linkedNodeList[patinaNodeId].filter || [];
-            linkedNodeList[patinaNodeId].filter.push({name: filterName, value: 0});
-            
+            linkedNodeList[patinaNodeId].filter.push({ name: filterName, value: 0 });
+
             updateFilterDialog(patinaNodeId);
         }
 
@@ -527,7 +525,7 @@
                     case "reuseImage":
                         // ToDo: create a new reuseImage
                         break;
-                }  
+                }
             } else if (selectType === "patternConfig" || selectType === "combineMode") {
                 linkedNodeList[nodeId][selectType] = { ...linkedNodeList[nodeId][selectType], name: event.target.value };
             } else { // direction || frequency

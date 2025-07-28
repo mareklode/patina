@@ -1,14 +1,14 @@
 'use strict';
 
 class canvas {
-    
+
     constructor(width, height) {
         this.el = document.createElement('canvas');
 
         this.el.width = width;
         this.el.height = height;
 
-        this.el.setAttribute('role','img');
+        this.el.setAttribute('role', 'img');
 
         this.el.context = this.el.getContext('2d');
         this.el.img = this.el.context.createImageData(width, height);
@@ -19,12 +19,12 @@ class canvas {
 
         if (x < 0) { x = this.el.width + x; }
         if (y < 0) { y = this.el.height + y; }
-        if (x >= this.el.width ) {
-                x = x % this.el.width; 
-                // und deshalb y + 1 oder so
+        if (x >= this.el.width) {
+            x = x % this.el.width;
+            // und deshalb y + 1 oder so
         }
-        if (y >= this.el.height) { 
-            y = y % this.el.height; 
+        if (y >= this.el.height) {
+            y = y % this.el.height;
             // und hier x -+ 1 oder so
         }
 

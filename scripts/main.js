@@ -38,10 +38,10 @@ mel.setupPage = function () {
         console.log('Konami');
     }
 
-    document.addEventListener('keydown', function(e) {
-        mel.kkeys.push( e.key.toLowerCase() );
-        if ( mel.kkeys.toString().indexOf( mel.konami ) >= 0 ) {
-            mel.kkeys = [];        
+    document.addEventListener('keydown', function (e) {
+        mel.kkeys.push(e.key.toLowerCase());
+        if (mel.kkeys.toString().indexOf(mel.konami) >= 0) {
+            mel.kkeys = [];
             mel.easteregg();
         }
     });

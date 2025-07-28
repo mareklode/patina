@@ -14,10 +14,10 @@ function createPattern (layerDefinition, width, height) {
         if (window.consoleVerbose) {
             console.log("createPattern", patternName);
         }
-        pattern = this[patternName]( layerDefinition?.patternConfig, width, height );
+        pattern = this[patternName](layerDefinition?.patternConfig, width, height);
     } else {
         console.error("createPattern: \"", patternName, "\" does not exist.", layerDefinition);
-        pattern = this["flat"]({color: 0}, width, height);
+        pattern = this["flat"]({ color: 0 }, width, height);
     }
 
     return pattern;
@@ -29,13 +29,13 @@ createPattern.prototype = {
         return integer / 255;
     },
 
-    border: function ( layerDefinition, width, height ) {
-        let pattern = new Array( width * height );
-        for (let i = 0; i < width; i++ ) {
-            for (let j = 0; j < height; j++ ) {
-                const linearX = i / ( width  - 1 );
-                const linearY = j / ( height - 1 );
-                
+    border: function (layerDefinition, width, height) {
+        let pattern = new Array(width * height);
+        for (let i = 0; i < width; i++) {
+            for (let j = 0; j < height; j++) {
+                const linearX = i / (width - 1);
+                const linearY = j / (height - 1);
+
                 // https://www.wolframalpha.com/ <-- plot (2*x)^2 - 4x + 1
                 const circularX = Math.pow(2 * linearX, 2) - (4 * linearX) + 1;
                 const circularY = Math.pow(2 * linearY, 2) - (4 * linearY) + 1;
@@ -43,38 +43,38 @@ createPattern.prototype = {
                 // https://easings.net/#easeInCirc
                 pattern[j * width + i] = (
                     1 - Math.sqrt(1 - Math.pow(circularX, 2)) +
-                    1 - Math.sqrt(1 - Math.pow(circularY, 2)) 
+                    1 - Math.sqrt(1 - Math.pow(circularY, 2))
                 ) / 2;
             }
         }
         return pattern;
     }, // border()
 
-    noise_plasma: function ( layerDefinition, width, height ) {
+    noise_plasma: function (layerDefinition, width, height) {
         return noise.noise_plasma(width, layerDefinition?.frequency); // frequency defaults to 1
         //return noise.diamondSquare(layerDefinition?.frequency, width, height);
     },
 
     // better use the number-Shortcut like { "layerTop" : 256 }
-    flat: function ( layerDefinition, width, height ) {
+    flat: function (layerDefinition, width, height) {
         const color = layerDefinition?.color || layerDefinition?.frequency || 128;
-        return Array.from( {length: width * height}, () => color / 256 );
+        return Array.from({ length: width * height }, () => color / 256);
     },
 
-    wave: function ( layerDefinition, width, height ) {
-        const pattern = new Array( width * height );
+    wave: function (layerDefinition, width, height) {
+        const pattern = new Array(width * height);
 
         const frequency = width / layerDefinition?.frequency / 6.2832 || width / 31.4156; // default: 5 waves per width
         const offsetX = layerDefinition?.offsetX || width / 2;
         const offsetY = layerDefinition?.offsetY || width / 2;
 
         let color = 0;
-        for (let x = 0; x < width; x++ ) {
-            for (let y = 0; y < height; y++ ) {
+        for (let x = 0; x < width; x++) {
+            for (let y = 0; y < height; y++) {
 
-                switch ( layerDefinition?.direction ) {
+                switch (layerDefinition?.direction) {
                     case 'concentric':
-                        color = Math.sin( Math.sqrt(((x - offsetX) * (x - offsetX)) + ((y - offsetY) * (y - offsetY))) / frequency );
+                        color = Math.sin(Math.sqrt(((x - offsetX) * (x - offsetX)) + ((y - offsetY) * (y - offsetY))) / frequency);
                         break;
                     case 'horizontal':
                         color = Math.sin((y - offsetY) / frequency);
@@ -84,7 +84,7 @@ createPattern.prototype = {
                         break;
                     case 'diagonalUp':
                         color = Math.sin(((y - offsetY) + (x - offsetX)) / frequency);
-                        break; 
+                        break;
                     case 'diagonalDown':
                         color = Math.sin((y - offsetY - x - offsetX) / frequency);
                         break;
@@ -95,10 +95,10 @@ createPattern.prototype = {
             }
         }
         return pattern
-        
+
     }, // wave()
 
-    slope: function ( layerDefinition, width, height ) {
+    slope: function (layerDefinition, width, height) {
         const pattern = new Array(width * height);
 
         const direction = layerDefinition?.direction || "to bottom"; // to bottom, to top, to left, and to right,
@@ -116,28 +116,28 @@ createPattern.prototype = {
         if (direction === "to bottom" || direction === "vertical") {
             for (let x = 0; x < width; x++) {
                 for (let y = 0; y < height; y++) {
-                    let position = y * width + x ;
+                    let position = y * width + x;
                     pattern[position] = ((colorEnd - colorBegin) / height) * y + colorBegin;
                 }
             }
         } else if (direction === "to top") {
             for (let x = 0; x < width; x++) {
                 for (let y = 0; y < height; y++) {
-                    let position = y * width + x ;
+                    let position = y * width + x;
                     pattern[position] = ((colorBegin - colorEnd) / height) * y + colorEnd;
                 }
             }
         } else if (direction === "to right" || direction === "horizontal") {
             for (let x = 0; x < width; x++) {
                 for (let y = 0; y < height; y++) {
-                    let position = y * width + x ;
+                    let position = y * width + x;
                     pattern[position] = ((colorEnd - colorBegin) / width) * x + colorBegin;
                 }
             }
         } else if (direction === "to left") {
             for (let x = 0; x < width; x++) {
                 for (let y = 0; y < height; y++) {
-                    let position = y * width + x ;
+                    let position = y * width + x;
                     pattern[position] = ((colorBegin - colorEnd) / width) * x + colorEnd;
                 }
             }
@@ -145,7 +145,7 @@ createPattern.prototype = {
         return pattern;
     }, // slope()
 
-    labyrinth: function ( layerDefinition, width, height ) {
+    labyrinth: function (layerDefinition, width, height) {
         let pattern = new Array(width * height).fill(0);
 
         /*
@@ -177,18 +177,18 @@ createPattern.prototype = {
         return pattern;
     }, // labyrinth()
 
-    noise_1D: function ( layerDefinition, width, height ) {
+    noise_1D: function (layerDefinition, width, height) {
         const pattern = new Array();
 
         const direction = layerDefinition?.direction;
 
         if (direction === "horizontal") {
-            let noise = Array.from( {length: height}, () => Math.random() );
+            let noise = Array.from({ length: height }, () => Math.random());
             for (let i = 0; i < width; i++) {
-                pattern.push(Array.from( {length: width}, () => noise[i] ));
+                pattern.push(Array.from({ length: width }, () => noise[i]));
             }
         } else { // vertical
-            let noise = Array.from( {length: width}, () => Math.random() );
+            let noise = Array.from({ length: width }, () => Math.random());
             for (let i = 0; i < height; i++) {
                 pattern.push(noise);
             }
@@ -197,25 +197,25 @@ createPattern.prototype = {
         return flattenedArray;
     }, // noise_1D()
 
-    noise_white: function ( layerDefinition, width, height ) {
-        return Array.from( {length: width * height}, () => Math.random() );
+    noise_white: function (layerDefinition, width, height) {
+        return Array.from({ length: width * height }, () => Math.random());
     }, // noise_white()
-    
-    random_walker: function ( layerDefinition, width, height ) {
+
+    random_walker: function (layerDefinition, width, height) {
         const pattern = new Array(width * height).fill(0);
 
         const impact = layerDefinition?.impact || 5;
 
         // start at the center
         const walkerPos = {
-            x: Math.floor(width/2),
-            y: Math.floor(height/2)
+            x: Math.floor(width / 2),
+            y: Math.floor(height / 2)
         };
 
         let walkerColor = 0;
         function walker (colour) {
-            walkerPos.x = (walkerPos.x + Math.round(Math.random()*2 - 1 ) + width) % width; // wraps around at the edges
-            walkerPos.y = (walkerPos.y + Math.round(Math.random()*2 - 1 ) + height) % height; // wraps around at the edges
+            walkerPos.x = (walkerPos.x + Math.round(Math.random() * 2 - 1) + width) % width; // wraps around at the edges
+            walkerPos.y = (walkerPos.y + Math.round(Math.random() * 2 - 1) + height) % height; // wraps around at the edges
             /*         
             let farbe = myCanvas.getImgData(walkerPos.x, walkerPos.y);
             //console.log(farbe);
@@ -227,7 +227,7 @@ createPattern.prototype = {
             pattern[walkerPos.y * width + walkerPos.x] += (impact * colour);
 
         }
-        
+
         const numberOfSteps = 1 * height * width;
         for (let i = 0; i < numberOfSteps; i++) {
             walkerColor += .0125 / numberOfSteps;
@@ -235,8 +235,8 @@ createPattern.prototype = {
         }
         return pattern;
     }, // random_walker()
-    
-    rays: function ( layerDefinition, width, height ) {
+
+    rays: function (layerDefinition, width, height) {
         const pattern = new Array(width * height);
 
         const count = layerDefinition?.count || layerDefinition?.frequency || 16;
@@ -246,7 +246,7 @@ createPattern.prototype = {
         const rotation = layerDefinition?.rotation || 0;
 
         // https://easings.net/ // with functions
-        function easeInOutExponent(x, exponent) {
+        function easeInOutExponent (x, exponent) {
             return x < 0.5 ? Math.pow(2, exponent - 1) * Math.pow(x, exponent) : 1 - Math.pow(-2 * x + 2, exponent) / 2;
         }
 
@@ -257,12 +257,12 @@ createPattern.prototype = {
             for (let y = 0; y < height; y++) {
                 let vector = [x - centerX, y - centerY];
                 // https://stackoverflow.com/questions/32219051/how-to-convert-cartesian-coordinates-to-polar-coordinates-in-js
-                let colorAlpha = Math.atan2(vector[0], vector[1]) * (180 / Math.PI) + 180 + rotation ; // and convert radians to degrees
-                
+                let colorAlpha = Math.atan2(vector[0], vector[1]) * (180 / Math.PI) + 180 + rotation; // and convert radians to degrees
+
                 let rayWidth = 360 / count;
                 let fractionOfRayWidth = (colorAlpha % rayWidth) / rayWidth;
 
-                let position = y * width + x ;
+                let position = y * width + x;
                 if (sharpen) {
                     pattern[position] = easeInOutExponent(Math.abs(fractionOfRayWidth - .5) * 2, sharpen);
                 } else {
@@ -273,7 +273,7 @@ createPattern.prototype = {
         }
         return pattern;
     }, // rays() 
-        
+
 }; // createPattern.prototype
-        
+
 export default createPattern;
