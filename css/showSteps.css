@@ -123,6 +123,12 @@ body {
     }
 }
 
+/* reuseImage is an only child, so it doesnt need the curly brace on the bottom */
+.subtree.reuseImage>.parent:after {
+    border-bottom: none;
+    border-radius: 0;
+}
+
 .patina-node {
     box-sizing: border-box;
     width: 200px;
@@ -130,7 +136,7 @@ body {
     padding: .5rem;
 
     background: white;
-    box-shadow: 0 0 10px rgba(0,0,0,0.33);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.33);
     background-size: contain;
 
     position: relative;
@@ -205,16 +211,19 @@ p.patina-node__purpose {
     top: 90px;
     left: -200px;
 }
+
 .button-textarea-to-jsonpatina {
     position: absolute;
     top: 10px;
     left: -200px;
 }
+
 .button-draw-jsonpatina {
     position: absolute;
     top: 50px;
     left: -200px;
 }
+
 .filter-dialog {
     position: absolute;
     top: 50%;
@@ -235,6 +244,6 @@ p.patina-node__purpose {
     }
 }
 
-.filter-dialog::backdrop { 
-    background: hsl(201 50% 40% /.5) ;
+.filter-dialog::backdrop {
+    background: hsl(201 50% 40% /.5);
 }

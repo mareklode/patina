@@ -91,6 +91,82 @@ export const footerExample = {
     "reusableImages": []
 };
 
+export const reusableImagesExample = {
+    "__width": 512,
+    "__height": 256,
+    "reusableImages": {
+        "firstBorder": {
+            "type": "createPattern",
+            "patternName": "border",
+            "filter": [
+                { "name": "brightness", "brightness": -1.5 }
+            ]
+        },
+        "secondBorder": {
+            "type": "createPattern",
+            "patternName": "border",
+            "filter": [{ "name": "contrast", "x": 0.33, "m": 2 }]
+        },
+        "plasmaNoise": {
+            "type": "createPattern",
+            "patternConfig": {
+                "name": "noise_plasma",
+                "frequency": 2
+            }
+        },
+        "subtractedBorder": {
+            "type": "layers",
+            "combineMode": { "name": "subtract" },
+            "layerTop": {
+                "type": "reuseImage",
+                "reuseId": "firstBorder"
+            },
+            "layerBottom": {
+                "type": "reuseImage",
+                "reuseId": "secondBorder"
+            },
+            "filter": [
+                { "name": "brightness", "brightness": 0.5 },
+                { "name": "contrast", "x": 0.15, "m": 3 }
+            ]
+        },
+        "multipliedNoise": {
+            "type": "layers",
+            "combineMode": { "name": "subtract" },
+            "layerTop": {
+                "type": "reuseImage",
+                "reuseId": "subtractedBorder"
+            },
+            "layerBottom": {
+                "type": "reuseImage",
+                "reuseId": "plasmaNoise",
+                "filter": [{ "name": "contrast", "m": 1.5, "x": 0.4 }]
+            },
+            "filter": [{ "name": "push" }]
+        }
+    },
+    "patina": {
+        "type": "colors",
+        "colorRed": 210,
+        "colorGreen": 110,
+        "colorBlue": 70,
+        "colorAlpha": {
+            "type": "layers",
+            "combineMode": { "name": "subtract" },
+            "layerTop": {
+                "type": "reuseImage",
+                "reuseId": "multipliedNoise",
+                "filter": [{ "name": "contrast", "m": 2, "x": 0.33 }]
+            },
+            "layerBottom": {
+                "type": "createPattern",
+                "patternName": "noise_white",
+                "filter": [{ "name": "brightness", "brightness": 2 }]
+            }
+        }
+    }
+};
+
 export const colorsExample = {
     "width": 250,
     "patina": {

@@ -72,8 +72,8 @@
         ////////////////////////////////////////////////////////////////
 
         const loadPatinaExamples = async function () {
-            const { footerExample, emptyExample, oneReusableImage, colorsExample } = await import('./scripts/patinaExamples.js');
-            document.querySelector(".jsonpatina-textarea").value = JSON.stringify(oneReusableImage, undefined, 4);
+            const { footerExample, emptyExample, oneReusableImage, colorsExample, reusableImagesExample } = await import('./scripts/patinaExamples.js');
+            document.querySelector(".jsonpatina-textarea").value = JSON.stringify(reusableImagesExample, undefined, 4);
             init();
         }
         loadPatinaExamples();
@@ -128,7 +128,7 @@
 
             // for color-channels and layers: go deeper
             branchForks.forEach((property) => {
-                if (node[property]) {
+                if (property !== "reuseId" && node[property]) {
                     nodeDefinition[property] = constructLinkedNodeList(node[property], node.reuseId);
                 }
             })
@@ -138,7 +138,7 @@
         }
 
         let reconstructJson = (root, deleteProperty = []) => {
-            let reusableImages = [];
+            let reusableImages = {};
 
             let reconstructJsonSubtree = (node) => {
                 let nodeObject = { ...node };
@@ -151,7 +151,7 @@
                 branchForks.forEach((property) => {
                     if (node[property]) {
                         if (linkedNodeList[node.reuseId]) {
-                            reusableImages[node.reuseId] = reconstructJson(linkedNodeList[node.reuseId]);
+                            reusableImages[node.reuseId] = reconstructJsonSubtree(linkedNodeList[node.reuseId]);
                         } else {
                             nodeObject[property] = reconstructJsonSubtree(linkedNodeList[node[property]]);
                         }
@@ -238,8 +238,8 @@
                 return `<div class="child">\n${patinaNodeHtml(node)}\n</div>\n`;
             }
 
-            if (node.type === "layers" || node.type === "colors") {
-                let htmlstring = '<div class="subtree">\n';
+            if (node.type === "layers" || node.type === "colors" || node.type === "reuseImage") {
+                let htmlstring = `<div class="subtree ${node.type}">\n`;
 
                 branchForks.forEach((property) => {
                     if (node[property]) {
@@ -320,7 +320,7 @@
         function setupEventListeners () {
             setupButtonEvents();
             setupTreeEvents();
-            setupFilterDialogEvents();
+            // setupFilterDialogEvents();
         }
 
         /**
