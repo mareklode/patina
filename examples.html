@@ -1,47 +1,27 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <base href="">
     <title>Examples | Patina | mareklode</title>
 
-    <meta property="og:title" content="Examples | Patina | mareklode">
-    <meta property="og:image" content="http://mareklode.de/bilder/page/v3/v3_rost4.png">
-    <meta property="og:description" content="Patina: procedually generated background images in JavaScript. Examples.">
-    <meta name="description" content="Patina: procedually generated background images in JavaScript. Examples.">
-    <meta name="theme-color" content="#28330a">
 
     <link rel="stylesheet" type="text/css" href="css/normalize.min.css">
     <link rel="stylesheet" href="css/main.css">
 
 </head>
 
-<body class="content">
+<body class="body">
 
-    <header class="header js-module" 
-        data-module-name="patina" 
-        data-module-data="template_header">
-        <div class="header__before js-module"
-            data-module-name="patina" 
-            data-module-data='template_header_logo_before'>
+    <header class="header">
+        <div class="header__logo">
+            Patina
         </div>
-        <div class="header__after js-module"
-            data-module-name="patina" 
-            data-module-data='template_header_logo_after'>
-        </div>
-        <a href="." 
-            class="header__logo js-module" 
-            data-module-name="patina" 
-            data-module-data="template_header_logo_image" 
-            title="Homepage">
-            <img src="images/page/header__logo--PatinaFont-rough_@2x.png" class="header__logo__image" alt="Patina">
-        </a> 
     </header>
-    
-    <nav class="navigation js-module" 
-         data-module-name="patina" 
-         data-module-data="template_navigation">
+
+    <nav class="navigation" data-module-name="patina" data-module-data="template_navigation">
         <a class="navigation__link" href="index.html">Home</a>
         <a class="navigation__link" href="howto.html">HowTo</a>
         <a class="navigation__link" href="createPattern.html">createPattern</a>
@@ -53,19 +33,122 @@
         </span>
     </nav>
 
-    <main class="content__block">
+    <main class="body__block">
 
-        <div class="pattern__thumbnail--128" style="background-size: contain; float: left;" id="reusableImage_firstBorder"></div>
-        <div class="pattern__thumbnail--128" style="background-size: contain; float: left;" id="reusableImage_secondBorder"></div>
-        <div class="pattern__thumbnail--128" style="background-size: contain; float: left;" id="reusableImage_subtractedBorder"></div>
-        <div class="pattern__thumbnail--128" style="background-size: contain; float: left;" id="reusableImage_plasmaNoise"></div>
+        <h1>examples (wait for it...)</h1>
+
+
+        <a href="2do.html">2do</a><br />
+        <a href="test.html">test</a><br />
+        <a href="paintArtpiece.html">paintArtpiece</a><br />
+        <a href="rays.html">rays</a><br />
+        <a href="showSteps.html">showSteps</a><br />
+
+        <div class="pattern__thumbnail--128" style="background-size: contain; float: left;"
+            id="reusableImage_firstBorder"></div>
+        <div class="pattern__thumbnail--128" style="background-size: contain; float: left;"
+            id="reusableImage_secondBorder"></div>
+        <div class="pattern__thumbnail--128" style="background-size: contain; float: left;"
+            id="reusableImage_subtractedBorder"></div>
+        <div class="pattern__thumbnail--128" style="background-size: contain; float: left;"
+            id="reusableImage_plasmaNoise"></div>
 
         <div class="pattern">
 
-            <div class="js-module pattern__thumbnail pattern__thumbnail--512" 
-                style="background-color: #7d9cb1; height: 256px;"
-                data-module-name="patina" 
-                data-module-data='{
+            <div class="js-module pattern__thumbnail pattern__thumbnail--512" <div
+                class="js-module pattern__thumbnail pattern__thumbnail--512"
+                style="background-color: #7d9cb1; height: 256px;" data-module-name="patina" data-module-data='{
+                    "__width"          : 512,
+                    "__height"         : 256,
+                    "reusableImages" : {
+                        "firstBorder": {
+                            "type"          : "createPattern",
+                            "patternName"   : "border",
+                            "filter"        : [
+                                { "name": "brightness", "brightness": -1.5 }
+                            ]
+                        },
+                        "secondBorder": {
+                            "type"          : "createPattern",
+                            "patternName"   : "border",
+                            "filter"        : [{ "name": "contrast", "x": 0.33, "m": 2 }]
+                        },
+                        "plasmaNoise": {
+                            "type"          : "createPattern",
+                            "patternConfig" : {
+                                "name"          : "noise_plasma",
+                                "frequency"     : 2
+                            }
+                        },
+                        "subtractedBorder": {
+                            "type"          : "layers",
+                            "combineMode"   : { "name": "subtract" },
+                            "layerTop"      : {
+                                "type"          : "reuseImage",
+                                "reuseId"       : "firstBorder"
+                            },
+                            "layerBottom"   : {
+                                "type"          : "reuseImage",
+                                "reuseId"       : "secondBorder"
+                            },
+                            "filter"        : [
+                                { "name": "brightness", "brightness": 0.5 },
+                                { "name": "contrast", "x": 0.15, "m": 3 }
+                            ]
+                        },
+                        "multipliedNoise": {
+                            "type"          : "layers",
+                            "combineMode"   : { "name": "subtract" },
+                            "layerTop"      : {
+                                "type"          : "reuseImage",
+                                "reuseId"       : "subtractedBorder"
+                            },
+                            "layerBottom"   : {
+                                "type"          : "reuseImage",
+                                "reuseId"       : "plasmaNoise",
+                                "filter"        : [{ "name": "contrast", "m": 1.5, "x": 0.4 }]
+                            },
+                            "filter"        : [{ "name": "push" }]
+                        }
+                    },
+                    "patina": {
+                        "type"  : "colors",
+                        "colorRed"   : 210,
+                        "colorGreen" : 110,
+                        "colorBlue"  : 70,
+                        "colorAlpha" : {
+                            "type"  : "layers",
+                            "combineMode" : { "name": "subtract" },
+                            "layerTop"      : {
+                                "type"          : "reuseImage",
+                                "reuseId"       : "multipliedNoise",
+                                "filter"        : [{ "name": "contrast", "m": 2, "x": 0.33 }]
+                            },
+                            "layerBottom"   : {
+                                "type"          : "createPattern",
+                                "patternName"   : "noise_white",
+                                "filter"        : [{ "name": "brightness", "brightness": 2 }]
+                            }
+                        }
+                    }
+                }'></div>
+
+        </div>
+
+
+        <div class="pattern__thumbnail--128" style="background-size: contain; float: left;"
+            id="reusableImage_firstBorder"></div>
+        <div class="pattern__thumbnail--128" style="background-size: contain; float: left;"
+            id="reusableImage_secondBorder"></div>
+        <div class="pattern__thumbnail--128" style="background-size: contain; float: left;"
+            id="reusableImage_subtractedBorder"></div>
+        <div class="pattern__thumbnail--128" style="background-size: contain; float: left;"
+            id="reusableImage_plasmaNoise"></div>
+
+        <div class="pattern">
+
+            <div class="js-module pattern__thumbnail pattern__thumbnail--512"
+                style="background-color: #7d9cb1; height: 256px;" data-module-name="patina" data-module-data='{
                     "__width"          : 512,
                     "__height"         : 256,
                     "reusableImages" : [
@@ -144,340 +227,230 @@
                             }
                         }
                     }
-                }'
-            ></div>
-
-        </div>
-
-
-        <div class="pattern__thumbnail--128" style="background-size: contain; float: left;" id="reusableImage_firstBorder"></div>
-        <div class="pattern__thumbnail--128" style="background-size: contain; float: left;" id="reusableImage_secondBorder"></div>
-        <div class="pattern__thumbnail--128" style="background-size: contain; float: left;" id="reusableImage_subtractedBorder"></div>
-        <div class="pattern__thumbnail--128" style="background-size: contain; float: left;" id="reusableImage_plasmaNoise"></div>
-
-        <div class="pattern">
-
-            <div class="js-module pattern__thumbnail pattern__thumbnail--512" 
-                style="background-color: #7d9cb1; height: 256px;"
-                data-module-name="patina" 
-                data-module-data='{
-                    "__width"          : 512,
-                    "__height"         : 256,
-                    "reusableImages" : [
-                        {
-                            "id"            : "firstBorder",
-                            "type"          : "createPattern",
-                            "patternName"   : "border",
-                            "filter"        : [
-                                { "name": "brightness", "brightness": -1.5 }
-                            ]
-                        },
-                        { 
-                            "id"            : "secondBorder",
-                            "type"          : "createPattern",
-                            "patternName"   : "border",
-                            "filter"        : [{ "name": "contrast", "x": 0.33, "m": 2 }]
-                        },
-                        { 
-                            "id"            : "plasmaNoise",
-                            "type"          : "createPattern",
-                            "pattern"       : {
-                                "name"          : "noise_plasma",
-                                "frequency"     : 2
-                            }
-                        },
-                        { 
-                            "id"            : "subtractedBorder", 
-                            "type"          : "combine",
-                            "combineMode"   : { "name": "subtract" },
-                            "topLayer"      : {
-                                "type"          : "reuseImage",
-                                "reuseId"       : "firstBorder"
-                            },
-                            "bottomLayer"   : {
-                                "type"          : "reuseImage",
-                                "reuseId"       : "secondBorder"
-                            },
-                            "filter"        : [
-                                { "name": "brightness", "brightness": 0.5 },
-                                { "name": "contrast", "x": 0.15, "m": 3 }
-                            ]
-                        },
-                        { 
-                            "id"            : "multipliedNoise", 
-                            "type"          : "combine",
-                            "combineMode"   : { "name": "subtract" },
-                            "topLayer"      : {
-                                "type"          : "reuseImage",
-                                "reuseId"       : "subtractedBorder"
-                            },
-                            "bottomLayer"   : {
-                                "type"          : "reuseImage",
-                                "reuseId"       : "plasmaNoise",
-                                "filter"        : [{ "name": "contrast", "m": 1.5, "x": 0.4 }]
-                            },
-                            "filter"        : [{ "name": "push" }]
-                        }
-                    ],
-                    "patina": {
-                        "type"  : "colorChannels",
-                        "red"   : 210,
-                        "green" : 110,
-                        "blue"  : 70,
-                        "alpha" : {
-                            "type"  : "combine",
-                            "combineMode" : { "name": "subtract" },
-                            "topLayer"      : {
-                                "type"          : "reuseImage",
-                                "reuseId"       : "multipliedNoise",
-                                "filter"        : [{ "name": "contrast", "m": 2, "x": 0.33 }]
-                            },
-                            "bottomLayer"   : {
-                                "type"          : "createPattern",
-                                "patternName"   : "noise_white",
-                                "filter"        : [{ "name": "brightness", "brightness": 2 }]
-                            }
-                        }
-                    }
-                }'
-            ></div>
+                }'></div>
 
         </div>
 
         <div class="pattern">
 
-            <div style="width: 512px;"
-                class="js-module  pattern__thumbnail" 
-                data-module-name="patina" 
-                data-module-data='{
+            <div style="width: 512px;" class="js-module  pattern__thumbnail" class="js-module  pattern__thumbnail"
+                data-module-name="patina" data-module-data='{
                     "width"     : 256,
                     "height"    : 256,
                     "patina"    : {
-                        "type"          : "combine",
-                        "topLayer"      : {
+                        "type"          : "layers",
+                        "layerTop"      : {
                             "type"          : "createPattern",
                             "patternName"   : "border"
                         },
-                        "bottomLayer"      : {
-                            "type"          : "combine",
-                            "topLayer"      : {
+                        "layerBottom"      : {
+                            "type"          : "layers",
+                            "layerTop"      : {
                                 "type"          : "createPattern",
                                 "patternName"   : "noise_plasma"
                                 },
-                            "bottomLayer"      : {
+                            "layerBottom"      : {
                                 "type"          : "createPattern",
                                 "patternName"   : "noise_white"
                             }
                         },
                         "filter"        : [{ "name": "contrast" }]
                     }
-                }'
-            ></div><!-- patina -->
-    
-            <div style="background: orangered; width: 512px; height: 512px; margin: 1vw;"
-                class="js-module" 
-                data-module-name="patina" 
-                data-module-data='{
+                }'></div><!-- patina -->
+
+            <div style="background: orangered; width: 512px; height: 512px; margin: 1vw;" class="js-module"
+                data-module-name="patina" data-module-data='{
                     "width": 512,
-                    "reusableImages" : [
-                        { 
-                            "id"            : "greyNoise", 
-                            "type"          : "combine",
-                            "topLayer"      : {
+                    "reusableImages" : {
+                        "greyNoise": {
+                            "type"          : "layers",
+                            "layerTop"      : {
                                 "type"          : "createPattern",
                                 "patternName"   : "noise_plasma"
                             },
-                            "bottomLayer"   : {
+                            "layerBottom"   : {
                                 "type"          : "createPattern",
                                 "patternName"   : "noise_white"
                             }, 
                             "filter"        : [{ "name": "blur"}]
                         },
-                        { 
-                            "id"            : "bottomLayer", 
+                        "layerBottom": {
                             "type"          : "reuseImage",
                             "reuseId"       : "greyNoise",
                             "filter"        : [{ "name": "threshold", "threshold": 0.5 }]
                         }
-                    ],
+                    },
                     "patina": {
-                        "type"  : "colorChannels",
-                        "red"   : {
+                        "type"  : "colors",
+                        "colorRed"   : {
                             "type"      : "reuseImage",
-                            "reuseId"   : "bottomLayer"
+                            "reuseId"   : "layerBottom"
                         },
-                        "green" : {
+                        "colorGreen" : {
                             "type"      : "reuseImage",
-                            "reuseId"   : "bottomLayer"
+                            "reuseId"   : "layerBottom"
                         },
-                        "blue"  : {
+                        "colorBlue"  : {
                             "type"      : "reuseImage",
                             "reuseId"   : "greyNoise"
                         },
-                        "alpha"     : 255
+                        "colorAlpha"     : 255
                     }
-                }'
-            ></div><!-- patina -->
-            
-            <div class="js-module pattern__thumbnail pattern__thumbnail--512" 
-                data-module-name="patina" 
-                data-module-data='{
-                    "reusableImages" : [
-                        { 
-                            "id"            : "greyNoise", 
-                                "type"          : "combine",
-                                "combineMode"   : { "name": "distort", "radius": 1600 },
-                                "topLayer"      : {
-                                    "type"          : "createPattern",
-                                    "patternName"   : "wave",
+                }'></div><!-- patina -->
+
+            <div class="js-module pattern__thumbnail pattern__thumbnail--512" <div
+                class="js-module pattern__thumbnail pattern__thumbnail--512" data-module-name="patina" data-module-data='{
+                    "reusableImages" : {
+                        "greyNoise": {
+                            "type"          : "layers",
+                            "combineMode"   : { "name": "distort", "radius": 1600 },
+                            "layerTop"      : {
+                                "type"          : "createPattern",
+                                "patternConfig" : { 
+                                    "name"   : "wave",
                                     "direction"     : "concentric",
                                     "frequency"     : 6
-                                },
-                                "bottomLayer"   : {
-                                    "type"          : "createPattern",
-                                    "patternName"   : "wave",
+                                }
+                            },
+                            "layerBottom"   : {
+                                "type"          : "createPattern",
+                                "patternConfig" : { 
+                                    "name"   : "wave",
                                     "direction"     : "vertical", 
                                     "frequency"     : 6
                                 }
-                            
+                            }
                         }
-                    ],
+                    },
                     "patina": {
-                        "type"  : "colorChannels",
-                        "red"   : {
-                            "type"          : "combine",
+                        "type"  : "colors",
+                        "colorRed"   : {
+                            "type"          : "layers",
                             "combineMode"   : { "name": "distort", "radius": 64 },
-                            "topLayer"      : {
+                            "layerTop"      : {
                                 "type"          : "createPattern",
                                 "patternName"   : "noise_plasma"
                             },
-                            "bottomLayer"   : {
+                            "layerBottom"   : {
                                 "type"      :   "reuseImage",
                                 "reuseId"   :   "greyNoise"
                             }
                         },
-                        "green" : {
-                            "type"          : "combine",
+                        "colorGreen" : {
+                            "type"          : "layers",
                             "combineMode"   : { "name": "distort", "radius": 64 },
-                            "topLayer"      : {
+                            "layerTop"      : {
                                 "type"          : "createPattern",
                                 "patternName"   : "noise_plasma"
                             },
-                            "bottomLayer"   : {
+                            "layerBottom"   : {
                                 "type"      :   "reuseImage",
                                 "reuseId"   :   "greyNoise"
                             }
                         },
-                        "blue"  :  {
-                            "type"          : "combine",
+                        "colorBlue"  :  {
+                            "type"          : "layers",
                             "combineMode"   : { "name": "distort", "radius": 64 },
-                            "topLayer"      : {
+                            "layerTop"      : {
                                 "type"          : "createPattern",
                                 "patternName"   : "noise_plasma"
                             },
-                            "bottomLayer"   : {
+                            "layerBottom"   : {
                                 "type"      :   "reuseImage",
                                 "reuseId"   :   "greyNoise"
                             }
                         },
-                        "alpha" :  256
+                        "colorAlpha" :  256
                     }
-                }'
-            ></div>
+                }'></div>
 
         </div><!-- pattern -->
 
         <div class="pattern">
 
-            <div class="js-module pattern__thumbnail pattern__thumbnail--512" 
-                data-module-name="patina" 
-                data-module-data='{
+            <div class="js-module pattern__thumbnail pattern__thumbnail--512" <div
+                class="js-module pattern__thumbnail pattern__thumbnail--512" data-module-name="patina" data-module-data='{
                     "width"          : 128,
                     "height"         : 128,
-                    "reusableImages" : [
-                        {
-                            "id"            : "plasmaNoise",
+                    "reusableImages" : {
+                        "plasmaNoise": {
                             "type"          : "createPattern",
                             "patternName"   : "noise_plasma"
                         },
-                        { 
-                            "id"            : "greyNoise", 
-                            "type"          : "combine",
+                        "greyNoise": {
+                            "type"          : "layers",
                             "combineMode"   : { "name": "distort", "radius": 1024 },
-                            "topLayer"      : {
+                            "layerTop"      : {
                                 "type"          : "createPattern",
                                 "patternName"   : "noise_plasma",
                                 "filter"        : [{ "name": "blur", "radius": 8 }]
                             },
-                            "bottomLayer"   : {
+                            "layerBottom"   : {
                                 "type"          : "reuseImage",
                                 "reuseId"       : "plasmaNoise"
                             }
                         }
-                    ],
+                    },
                     "patina": {
-                        "type"  : "colorChannels",
-                        "blue"  : {
-                            "type"          : "combine",
+                        "type"  : "colors",
+                        "colorBlue"  : {
+                            "type"          : "layers",
                             "combineMode"   : { "name": "distort", "radius": 1024 },
-                            "topLayer"      : {
+                            "layerTop"      : {
                                 "type"          :   "reuseImage",
                                 "reuseId"       :   "greyNoise"
                             },
-                            "bottomLayer"   : {
+                            "layerBottom"   : {
                                 "type"          : "reuseImage",
                                 "reuseId"       : "plasmaNoise"
                             }
                         },
-                        "red"   : {
+                        "colorRed"   : {
                             "type"          : "reuseImage",
                             "reuseId"       : "greyNoise"
                         },
-                        "green" :  {
+                        "colorGreen" :  {
                             "type"          : "reuseImage",
                             "reuseId"       : "greyNoise"
                         },
-                        "alpha" :  256
+                        "colorAlpha" :  256
                     }
-                }'
-            ></div>
+                }'></div>
         </div>
 
         <div class="pattern">
-            <div id="js_patina_fromTextarea" 
-                class="pattern__thumbnail pattern__thumbnail--256"
-                style="padding: 0;">
+            <div id="js_patina_fromTextarea" class="pattern__thumbnail pattern__thumbnail--256"
+                class="pattern__thumbnail pattern__thumbnail--256" style="padding: 0;">
                 <img src="images/marekkeram_256.png" />
-            </div
-            ><button id="js_patina_CallToAction" class="button button__applyPatinaTextarea">&UpperLeftArrow;<br>Calculate Patina from textarea</button>
-        
+            </div><button id="js_patina_CallToAction"
+                class="button button__applyPatinaTextarea">&UpperLeftArrow;<br>Calculate Patina from textarea</button>
+
             <textarea id="js_patina_textarea" rows="50" style="width: 100%;">
 {
-    "reusableImages"    : [
-        { 
-            "id"            : "marekkeram_256", 
+    "reusableImages"   : { 
+        "marekkeram_256": {
             "type"          : "preloadImage",
             "url"           : "images/marekkeram_256.png",
-            "colorChannels" : 1
+            "colors" : 1
         }
-    ],
+    },
     "patina": {
-        "type"          : "combine",
-        "topLayer"      : {
+        "type"          : "layers",
+        "layerTop"      : {
             "type"          : "createPattern",
-            "pattern"   : {
+            "patternConfig" : {
                 "name"      : "noise_plasma",
                 "frequency" : 6
             }
         },
-        "bottomLayer"   : { 
-            "type"          : "combine",
-            "topLayer"      : {
+        "layerBottom"   : { 
+            "type"          : "layers",
+            "layerTop"      : {
                 "type"          : "createPattern",
                 "patternName"   : "border",
                 "filter": [{"name": "contrast"}]
             },
-            "bottomLayer"   : { 
+            "layerBottom"   : { 
                 "type"          : "reuseImage",
                 "reuseId"       : "marekkeram_256",
                 "filter"        : [
@@ -493,39 +466,31 @@
     }
 }
             </textarea>
-        
+
             <script type="module" src="scripts/main.js"></script>
             <script>
-                const trigger  = document.getElementById('js_patina_CallToAction');
+                const trigger = document.getElementById('js_patina_CallToAction');
                 const textarea = document.getElementById('js_patina_textarea');
-                const target   = document.getElementById('js_patina_fromTextarea');
-    
+                const target = document.getElementById('js_patina_fromTextarea');
+
                 const calculatePatinaFromTextarea = function () {
                     import('./scripts/modules/mel_patina.js')
-                    .then((patina) => {
-                        new patina.default(target, textarea.value);
-                    });
+                        .then((patina) => {
+                            new patina.default(target, textarea.value);
+                        });
                 };
-    
+
                 trigger.addEventListener('click', calculatePatinaFromTextarea);
                 calculatePatinaFromTextarea();
             </script>
         </div><!-- .pattern -->
 
-    </main><!-- .content__block -->
+    </main><!-- .body__block -->
 
-    <footer	class="footer js-module" 
-            data-module-name="patina" 
-            data-module-data="template_footer">
-        &copy; 2025 Marek Lode &nbsp; | &nbsp; 
-        <a href="https://github.com/mareklode/patina">
-            <img class="footer__githublogo" src="images/page/GitHub-Mark-32px.png" alt="GitHub Logo">
-            This Project on GitHub
-        </a>
+    <footer class="footer">
+        &copy; 2025 Marek Lode &nbsp
     </footer>
-    
-    <script type="module" src="scripts/main.js"></script>
-    
+
 </body>
+
 </html>
-    

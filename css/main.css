@@ -393,25 +393,24 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
   }
 }
 /*
-#   #####
-#  #     #  ####  #    # ##### ###### #    # #####
-#  #       #    # ##   #   #   #      ##   #   #
-#  #       #    # # #  #   #   #####  # #  #   #
-#  #       #    # #  # #   #   #      #  # #   #
-#  #     # #    # #   ##   #   #      #   ##   #
-#   #####   ####  #    #   #   ###### #    #   #
-http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=Content
+#  #####   ####  #####  #   # 
+#  #    # #    # #    #  # #  
+#  #####  #    # #    #   #   
+#  #    # #    # #    #   #   
+#  #    # #    # #    #   #   
+#  #####   ####  #####    #   
+http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=body
 */
-.content {
+.body {
   text-align: center;
   display: block;
 }
 @media screen and (min-width: 600px) {
-  .content {
+  .body {
     margin-top: 0;
   }
 }
-.content__block {
+.body__block {
   padding-top: 2rem;
   padding-bottom: 2rem;
   text-align: center;
@@ -419,7 +418,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=Content
   background: #f9f8f8;
   border-top: 1px solid white;
 }
-.content__block--dark {
+.body__block--dark {
   background-color: #cde;
 }
 /*
@@ -560,6 +559,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   display: block;
   text-align: left;
   position: relative;
+  padding: 4vw;
 }
 @media screen and (max-width: 599px) {
   .button__nextPage {
@@ -645,6 +645,9 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
 }
 .pattern__thumbnail {
   background-color: #ffe687;
+  /*
+        background-size: contain;
+        */
   margin: 1vw;
   display: inline-block;
   vertical-align: top;
@@ -703,54 +706,6 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
     line-height: 48px;
   }
 }
-.pixelPaintingInstructions {
-  font-size: 4vw;
-  line-height: 1.5;
-}
-.PPI-branch {
-  width: 50%;
-  font-size: 75%;
-  float: left;
-}
-.PPI-branch--fourChildren > .PPI-branch {
-  width: 25%;
-  font-size: 40%;
-}
-.PPI-branch--fourChildren > .PPI-branch--left,
-.PPI-branch--fourChildren > .PPI-branch--right {
-  width: 20%;
-  margin: 0 2.5%;
-}
-.PPI-branch--left,
-.PPI-branch--right {
-  width: 45%;
-  margin: 0 2.25%;
-}
-.PPI-root,
-.PPI-node {
-  width: 80%;
-  margin-left: 20%;
-  margin-bottom: 20px;
-  background: #ffe687;
-  display: inline-block;
-  position: relative;
-  border: 1px solid gray;
-}
-.PPI-node::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: -22px;
-  height: 22px;
-  width: 2px;
-  background-color: gray;
-}
-.PPI-root {
-  width: 60%;
-  margin-right: 20%;
-  margin-left: 20%;
-}
-.PPI-branch--right .PPI-node {
-  margin-right: 20%;
-  margin-left: 0;
-}
+/*
+@import "import/pixelPaintingInstructions.less";
+*/

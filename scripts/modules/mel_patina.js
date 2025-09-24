@@ -1,6 +1,7 @@
 'use strict';
 
 import canvas from './mel_canvas.js';
+import combineLayers from './mel_combineLayers.js';
 
 // import createPattern from './mel_createPattern.js';
 // import filter from './mel_filter.js';
@@ -12,67 +13,68 @@ function patina (domElement, parameters) {
 
     if (parameters.startsWith('template_')) {
         // todo: dynamisch 2/2
-        //let {default: templates} = await import('./mel_pageTemplates.js');
+        // let {default: templates} = await import('./mel_pageTemplates.js');
         parameters = templates[parameters.substring(9)];
+
+        if (!parameters) { return }
     }
-        
-    self._parameters = self._completeParameters( parameters, domElement );
+
+    self._parameters = self._completeParameters(parameters, domElement);
     self.reusableImages = {};
 
-    if (window.consoleVerbose) {
+    window.consoleVerbose &&
         console.log('###### - Patina - ######', self._parameters);
-    }
-    
+
     self.createPatina(self._parameters, domElement);
-        
 } // patina()
 
 patina.prototype = {
+    preloadImage: function (reusableImage, width, height, reusableImages) {
+        reusableImages[reusableImage.nodeName] = new Promise((resolve) => {
+            // fetch image from URL and convert it to an Array
+            let myCanvas = new canvas(width, height);
+            this.imageObj = new Image();
 
-    preloadImage: function ( reusableImage, width, height, reusableImages) {
-        
-        // fetch image from URL and convert it to an Array
-        let myCanvas = canvas.newCanvas(width, height);
-        this.imageObj = new Image();
+            this.imageObj.addEventListener("load", function () {
+                let imgData;
 
-        this.imageObj.addEventListener("load", function() {
-            let imgData;
+                myCanvas.el.context.drawImage(this, 0, 0, width, height);
+                imgData = myCanvas.el.context.getImageData(
+                    0, 0,
+                    myCanvas.el.width,
+                    myCanvas.el.height
+                );
 
-            myCanvas.context.drawImage(this, 0, 0, width, height);
-            imgData = myCanvas.context.getImageData(
-                0, 0,
-                myCanvas.width,
-                myCanvas.height
-            );
+                let data = imgData.data;
+                let resultingArray = null;
 
-            let data = imgData.data;
-
-            if ( reusableImage.colorChannels === 1 ) {
-                reusableImages[reusableImage.id] = [];
-                for (let i = 0, len = width * height; i < len; i += 1) {
-                    reusableImages[reusableImage.id][i]   = ( data[i*4] + 
-                                                                data[i*4+1] +
-                                                                data[i*4+2] +
-                                                                data[i*4+3] ) / ( 256 * 4 );
+                if (reusableImage.colors === 1) {
+                    resultingArray = [];
+                    for (let i = 0, len = width * height; i < len; i += 1) {
+                        resultingArray[i] = (data[i * 4] +
+                            data[i * 4 + 1] +
+                            data[i * 4 + 2] +
+                            data[i * 4 + 3]) / (256 * 4);
+                    }
+                } else {
+                    resultingArray = {
+                        colorRed: [],
+                        colorGreen: [],
+                        colorBlue: [],
+                        colorAlpha: []
+                    };
+                    for (let i = 0, len = width * height; i < len; i += 1) {
+                        resultingArray.colorRed[i] = data[i * 4] / 256;
+                        resultingArray.colorGreen[i] = data[i * 4 + 1] / 256;
+                        resultingArray.colorBlue[i] = data[i * 4 + 2] / 256;
+                        resultingArray.colorAlpha[i] = data[i * 4 + 3] / 256;
+                    }
                 }
-            } else {
-                reusableImages[reusableImage.id] = {
-                    red: [],
-                    green: [],
-                    blue: [],
-                    alpha: []
-                };  
-                for (let i = 0, len = width * height; i < len; i += 1) {
-                    reusableImages[reusableImage.id].red[i]   = data[i*4]   / 256;
-                    reusableImages[reusableImage.id].green[i] = data[i*4+1] / 256;
-                    reusableImages[reusableImage.id].blue[i]  = data[i*4+2] / 256;
-                    reusableImages[reusableImage.id].alpha[i] = data[i*4+3] / 256;
-                }
-            }
+                resolve(resultingArray);
+            });
+
+            this.imageObj.src = reusableImage.url;
         });
-
-        this.imageObj.src = reusableImage.url;
-
     }, // preloadImage()
 
     calculateReusablePattern: async function (value, width, height) {
@@ -83,60 +85,63 @@ patina.prototype = {
         );
     }, // just to make async possible
 
+    resultingImageHasData: function (resultingImage) {
+        return !!resultingImage.length || !!resultingImage.colorRed;
+    },
+
     createPatina: async function (parameters, domElement) {
-
-        if ( parameters.reusableImages.length > 0 ) {
-            let self = this;
-
-            for (let index = 0; index < parameters.reusableImages.length; index++) {
-                let imageDefinition = parameters.reusableImages[index];
+        Object.keys(parameters.reusableImages).forEach(async (nodeName) => {
+            if (!this.reusableImages[nodeName]) {
+                let imageDefinition = { ...parameters.reusableImages[nodeName], nodeName: nodeName };
                 if (imageDefinition.type === "preloadImage") {
-                    self.preloadImage(
+                    this.preloadImage(
                         imageDefinition,
                         parameters.width,
                         parameters.height,
-                        self.reusableImages
+                        this.reusableImages
                     );
-                } else {
-                    self.reusableImages[imageDefinition.id] = await self._processPatinaNode(
+                    return;
+                }
+                // else
+                this.reusableImages[nodeName] = new Promise((resolve) => {
+                    resolve(this._processPatinaNode(
                         imageDefinition,
                         parameters.width,
                         parameters.height
-                    );
-                }
+                    ));
+                });
             }
-        }
+        });
 
-        let patinaData = await this._processPatinaNode( 
-            parameters.patina, 
-            parameters.width, 
+        await this._processPatinaNode(
+            parameters.patina,
+            parameters.width,
             parameters.height
-        );
-
-        // draw every reusableImage to a DIV with the correct ID ("reusableImage_" + reuseId) if it exists
-        Object.keys( this.reusableImages ).forEach( function( reuseId ) {
-                if ( reuseId !== 'count' && reuseId !== 'countdown' ) {
-                    this._paintCanvasToADifferentDiv(
-                        this.reusableImages[reuseId],
-                        parameters.width,
-                        parameters.height, 
-                        "reusableImage_" + reuseId
-                    );
-                }
-            }, this );
-            
-        let myCanvas = this._createCanvas( patinaData, parameters.width, parameters.height );
-        this._paintCanvas( myCanvas, domElement );
-
+        ).then((patinaData) => {
+            if (this.resultingImageHasData(patinaData)) { // why is this empty sometimes?
+                let myCanvas = this._createCanvas(patinaData, parameters.width, parameters.height);
+                this._paintCanvas(myCanvas, domElement);
+            }
+        });
     }, // createPatina()
 
-    _completeParameters: function ( parameters, element ) {
-        parameters = this._jsonParse( parameters );
+    _completeParameters: function (parameters, domElement) {
+        parameters = this._jsonParse(parameters);
 
-        parameters.reusableImages = parameters.reusableImages || [];
+        parameters.reusableImages = parameters.reusableImages || {};
 
-        parameters.width = parameters.width || element.clientWidth;
-        parameters.height = parameters.height || element.clientHeight;
+        /*
+        // I don't want the pixelRatio, it makes it more complicated.
+        // let the browser do its thing and save users with hi-res displays some computing time
+        
+        let pixelRatio = window.devicePixelRatio; 
+        // pixelRatio = 2.8125;
+        const output = document.querySelectorAll('.output');
+        if (output.length) output[0].textContent = pixelRatio + "px";
+        */
+
+        parameters.width = parameters.width || domElement.clientWidth;
+        parameters.height = parameters.height || domElement.clientHeight;
 
         return parameters;
     }, // _completeParameters()
@@ -147,116 +152,12 @@ patina.prototype = {
             parsed = JSON.parse(pixelPaintingInstructions);
         }
         catch (e) {
-            console.error("Error in pixelPaintingInstructions:",     pixelPaintingInstructions, e);
+            console.error("Error in pixelPaintingInstructions:", pixelPaintingInstructions, e);
         }
         finally {
             return parsed || {};
         }
     }, // _jsonParse()
-
-    _combineArrays: function (bottomLayer, topLayer, width, combineMode = {} ) {
-        let modulo = function (divided, m) {
-            // modulo(index - 1, tll)
-            return ((divided % m) + m) % m;
-        }
-        let arrayPos = function (x, y, width) {
-            return x + y * width;
-        }
-        if (combineMode.name === 'distort') {
-            let multiplier = combineMode.radius || 1,
-                length = topLayer.length,
-                tll = length,
-                height = length / width,
-                x, y, vectorX, vectorY, xNew, yNew;
-            return bottomLayer.map(function (value, index) {
-                let x = index % width,
-                    y = (index - x) / width,
-                    leftPosX   = (x - 1) % width,
-                    rightPosX  = (x + 1) % width,
-                    topPosY    = (y - 1) % height,
-                    bottomPosY = (y + 1) % height;
-                if (leftPosX < 0) { 
-                    leftPosX = width + leftPosX; 
-                }
-                if (topPosY  < 0) { topPosY  = height + topPosY; }
-
-                let left  = topLayer[arrayPos(leftPosX, y, width)],
-                    right = topLayer[arrayPos(rightPosX, y, width)],
-                    top   = topLayer[arrayPos(x, topPosY, width)],
-                    bottom= topLayer[arrayPos(x, bottomPosY, width)],
-                    vectorX = Math.round((right - left) * multiplier),
-                    vectorY = Math.round((bottom - top) * multiplier),
-                    vector = index + vectorX + (vectorY * width);
-                if (vectorX < 0) { vectorX = width  + vectorX; }
-                if (vectorY < 0) { vectorY = height + vectorY; }
-                return bottomLayer[ modulo(vector, bottomLayer.length) ];
-            });
-        } else if (combineMode.name === 'subtract') {
-            return bottomLayer.map(function (value, index) {
-                const result = topLayer[index] - value;
-                return ( result > 0 ? result : 0);
-            });
-        } else if (combineMode.name === 'multiply') {
-            return bottomLayer.map(function (value, index) {
-                return (topLayer[index] * value);
-            });
-        } else if (combineMode.name === 'nachbelichten') {
-            return bottomLayer.map(function (value, index) {
-                return ((1 + topLayer[index]) * value);
-            });
-        } else if (combineMode.name === 'add') {
-            let opacity = combineMode.opacity || 1;
-            return bottomLayer.map(function (value, index) {
-                return (value + (topLayer[index] * opacity));
-            });
-        } else {
-            // half and half
-            return bottomLayer.map(function (value, index) {
-                return (value + topLayer[index]) / 2;
-            });
-        }
-        
-    }, // combineArrays()
-
-    _combineLayers: function(bottomLayer, topLayer, width, combineMode) {
-        // could be way more sophisticated. And than deserves an extra file
-        let resultingImage,
-            isArrayBottomLayer = Array.isArray(bottomLayer),
-            isArrayTopLayer =  Array.isArray(topLayer);
-
-        if ( isArrayBottomLayer && isArrayTopLayer ) {
-            resultingImage = this._combineArrays(bottomLayer, topLayer, width, combineMode);
-        } else {
-            // at least one of the images has color channels. the result has color channels.
-            let bl = {}, tl = {};
-            resultingImage = {};
-
-            if (isArrayBottomLayer) {
-                bl.red = bottomLayer;
-                bl.green = bottomLayer;
-                bl.blue = bottomLayer;
-                bl.alpha = bottomLayer;
-            } else {
-                bl = bottomLayer;
-            }
-        
-            if (isArrayTopLayer) {
-                tl.red = topLayer;
-                tl.green = topLayer;
-                tl.blue = topLayer;
-                tl.alpha = topLayer;
-            } else {
-                tl = topLayer;
-            }
-        
-            resultingImage.red   = this._combineArrays(bl.red,   tl.red  , width, combineMode);
-            resultingImage.green = this._combineArrays(bl.green, tl.green, width, combineMode);
-            resultingImage.blue  = this._combineArrays(bl.blue,  tl.blue , width, combineMode);
-            resultingImage.alpha = this._combineArrays(bl.alpha, tl.alpha, width, combineMode);
-        } // if isArray
-            
-        return resultingImage;
-    }, // _combineLayers()
 
     waitMilliseconds: function (delay) {
         return new Promise(resolve => {
@@ -265,117 +166,124 @@ patina.prototype = {
             }, delay);
         });
     },
-    
-    _processPatinaNode: async function ( layer, width, height ) {
+
+    _processPatinaNode: async function (layer, width, height) {
         let resultingImage = false;
 
         if (typeof layer === "number") {
             let color = layer / 256;
-            return Array.from( {length: width * height}, () => color );
+            return Array.from({ length: width * height }, () => color);
         }
 
-        if ( Array.isArray(layer) ) {
+        if (Array.isArray(layer)) {
             return layer;
         }
-        if (layer?.type === "colorChannels") {
+        if (layer?.type === "colors") {
             resultingImage = {};
-            resultingImage.red   = await this._processPatinaNode(layer.red, width, height);
-            resultingImage.green = await this._processPatinaNode(layer.green, width, height);
-            resultingImage.blue  = await this._processPatinaNode(layer.blue, width, height);
-            resultingImage.alpha = await this._processPatinaNode(layer.alpha, width, height);
+            resultingImage.colorRed = await this._processPatinaNode(layer.colorRed, width, height);
+            resultingImage.colorGreen = await this._processPatinaNode(layer.colorGreen, width, height);
+            resultingImage.colorBlue = await this._processPatinaNode(layer.colorBlue, width, height);
+            resultingImage.colorAlpha = await this._processPatinaNode(layer.colorAlpha, width, height);
         }
-        if (layer?.type === "combine") {
-            resultingImage = this._combineLayers( 
-                await this._processPatinaNode(layer.bottomLayer, width, height),
-                await this._processPatinaNode(layer.topLayer, width, height),
+        if (layer?.type === "layers") {
+            resultingImage = combineLayers(
+                await this._processPatinaNode(layer.layerBottom, width, height),
+                await this._processPatinaNode(layer.layerTop, width, height),
                 width,
                 layer.combineMode
             );
         }
 
-        
-        await this.waitMilliseconds(50);
-        
-        
+        await this.waitMilliseconds(50); // So the Page stays responsive while calculating patinas
+
         if (layer?.type === "createPattern") {
 
-            const {default: createPattern} = await import('./mel_createPattern.js');
-            if (window.consoleVerbose) {
+            const { default: createPattern } = await import('./mel_createPattern.js');
+
+            window.consoleVerbose &&
                 console.log(createPattern);
-            }
-            resultingImage = new createPattern( layer, width, height );
+
+            resultingImage = new createPattern(layer, width, height);
 
         } else if (layer?.type === "reuseImage") {
             if (this.reusableImages[layer.reuseId]) {
                 resultingImage = await this.reusableImages[layer.reuseId];
             } else {
                 console.error("ReusableImage", layer.reuseId, "was not found.");
-                resultingImage = await this._createEmptyImage( width, height );
+                resultingImage = await this._createEmptyImage(width, height);
             }
         }
 
         if (resultingImage) {
             if (layer.filter) {
-
-                const {default: filter} = await import('./mel_filter.js');
+                const { default: filter } = await import('./mel_filter.js');
 
                 layer.filter.forEach(element => {
                     // todo: check wether this is done sequentially or are there chances for race conditions
                     if (Array.isArray(resultingImage)) {
                         resultingImage = new filter(resultingImage, element, width, height);
                     } else {
-                        resultingImage.red   = new filter(resultingImage.red,   element, width, height);
-                        resultingImage.green = new filter(resultingImage.green, element, width, height);
-                        resultingImage.blue  = new filter(resultingImage.blue,  element, width, height);
-                        //resultingImage.alpha = new filter(resultingImage.alpha, element, width, height);
+                        resultingImage.colorRed = new filter(resultingImage.colorRed, element, width, height);
+                        resultingImage.colorGreen = new filter(resultingImage.colorGreen, element, width, height);
+                        resultingImage.colorBlue = new filter(resultingImage.colorBlue, element, width, height);
+                        //resultingImage.colorAlpha = new filter(resultingImage.colorAlpha, element, width, height);
                     }
                 });
+
+                if (typeof layer.filter === 'object' && !Array.isArray(layer.filter) && layer.filter !== null) {
+                    console.warn("filter is object (showSteps)");
+                }
             }
-            this._paintCanvasToADifferentDiv(resultingImage, width, height);
+
+            // for the nodes with IDs in showSteps and reusableImages 
+            if (layer.nodeName && this.resultingImageHasData(resultingImage)) { // why is this array empty, sometimes?!?
+                this._paintCanvasToADifferentDiv(resultingImage, width, height, layer.nodeName);
+            }
+
             return resultingImage;
         } else {
-            console.log('layer type not recognized ',layer);
-            return this._createEmptyImage( width, height );
+            console.log('layer type not recognized ', layer);
+            return this._createEmptyImage(width, height);
         }
     }, // _processPatinaNode()
 
     _createCanvas: function (patinaData, width, height) {
-        let myCanvas = canvas.newCanvas( width, height );
+        let myCanvas = new canvas(width, height);
 
-        if ( Array.isArray(patinaData) ) {
+        if (Array.isArray(patinaData)) {
             // ToDo: the pixelPaintingInstructions should specify how the Array is transformed to an 4-channel-image
             for (let i = 0, len = width * height; i < len; i++) {
-                let alpha = Math.floor(patinaData[i] * 256);
-                myCanvas.img.data[i*4] = 0;      // r
-                myCanvas.img.data[i*4+1] = 0;    // g
-                myCanvas.img.data[i*4+2] = 0;    // b
-                myCanvas.img.data[i*4+3] = alpha;  // a
+                let colorAlpha = Math.floor(patinaData[i] * 256);
+                myCanvas.el.img.data[i * 4] = 0;      // r
+                myCanvas.el.img.data[i * 4 + 1] = 0;    // g
+                myCanvas.el.img.data[i * 4 + 2] = 0;    // b
+                myCanvas.el.img.data[i * 4 + 3] = colorAlpha;  // a
             }
         } else {
             for (let i = 0, len = width * height; i < len; i++) {
-                myCanvas.img.data[i * 4]     = Math.floor(patinaData.red[i]   * 256);
-                myCanvas.img.data[i * 4 + 1] = Math.floor(patinaData.green[i] * 256);
-                myCanvas.img.data[i * 4 + 2] = Math.floor(patinaData.blue[i]  * 256);
-                myCanvas.img.data[i * 4 + 3] = Math.floor(patinaData.alpha[i] * 256);
+                myCanvas.el.img.data[i * 4] = Math.floor(patinaData.colorRed[i] * 256);
+                myCanvas.el.img.data[i * 4 + 1] = Math.floor(patinaData.colorGreen[i] * 256);
+                myCanvas.el.img.data[i * 4 + 2] = Math.floor(patinaData.colorBlue[i] * 256);
+                myCanvas.el.img.data[i * 4 + 3] = Math.floor(patinaData.colorAlpha[i] * 256);
             }
         }
-        myCanvas.context.putImageData( myCanvas.img, 0, 0 );
+        myCanvas.el.context.putImageData(myCanvas.el.img, 0, 0);
         return myCanvas;
     }, // _createCanvas()
 
-    _paintCanvas: function ( myCanvas, element ) {
+    _paintCanvas: function (myCanvas, element) {
         if (element) {
-            element.style.backgroundImage = 'url(' + myCanvas.toDataURL('image/png') + ')';
+            element.style.backgroundImage = 'url(' + myCanvas.el.toDataURL('image/png') + ')';
         }
     }, // _paintCanvas()
 
-    _paintCanvasToADifferentDiv: function ( patinaData, width, height, domElementID ) {
-        domElementID = domElementID || 'thisIDDoesNotExist';    
+    // for reusable images and the nodes in showSteps
+    _paintCanvasToADifferentDiv: async function (patinaData, width, height, domElementID) {
+        domElementID = domElementID || 'thisIDDoesNotExist';
         let domElement = document.getElementById(domElementID);
         if (domElement) {
-            console.log('_paintCanvasToADifferentDiv', domElementID);
-            let myCanvas = this._createCanvas(patinaData, width, height);
-            this._paintCanvas( myCanvas, domElement );
+            let myCanvas = await this._createCanvas(patinaData, width, height);
+            this._paintCanvas(myCanvas, domElement);
         } else {
             let intermediateSteps = document.querySelector('.intermediateSteps') || document.createElement('div');
             let stepCounter = 0;
@@ -392,16 +300,14 @@ patina.prototype = {
 
             intermediateSteps.insertAdjacentHTML('beforeend', '<div class=stepCounter id=stepCounter' + stepCounter + '></div>');
 
-            let domElement = document.getElementById('stepCounter' + stepCounter );
-            let myCanvas = this._createCanvas(patinaData, width, height);
-            this._paintCanvas( myCanvas, domElement );
-
-            // console.log('_paintCanvasToADifferentDiv ', domElementID, ' dom element not found.');
+            let domElement = document.getElementById('stepCounter' + stepCounter);
+            let myCanvas = await this._createCanvas(patinaData, width, height);
+            this._paintCanvas(myCanvas, domElement);
         }
     }, // _paintCanvasToADifferentDiv()
 
-    _createEmptyImage: async function ( width, height ) {
-        return Array.from( {length: width * height}, () => 0 );
+    _createEmptyImage: async function (width, height) {
+        return Array.from({ length: width * height }, () => 0);
     }
 
 } // patina.prototype

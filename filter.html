@@ -6,7 +6,7 @@
     <base href="">
     <title>Filter | Patina | mareklode</title>
 
-    <meta property="og:title" content="filter | Patina | mareklode">
+    <meta property="og:title" content="Filter | Patina | mareklode">
     <meta property="og:image" content="http://mareklode.de/bilder/page/v3/v3_rost4.png">
     <meta property="og:description" content="Patina: procedually generated background images in JavaScript. filter.">
     <meta name="description" content="Patina: procedually generated background images in JavaScript. filter.">
@@ -17,7 +17,7 @@
 
 </head>
 
-<body class="content">
+<body class="body">
 
     <header class="header js-module" 
         data-module-name="patina" 
@@ -53,10 +53,10 @@
         </span>
     </nav>
 
-    <main class="content__block">
+    <main class="body__block">
 
         <h1>filter</h1>
-        <p class="copy">todo: description.</p>
+
 
         <div class="pattern">
 
@@ -66,13 +66,12 @@
                 data-module-data='{
                     "width": 256,
                     "height": 256,
-                    "reusableImages"    : [
-                        { 
-                            "id"            : "reetroof_300", 
+                    "reusableImages"    : {
+                        "reetroof_300":{
                             "type"          : "preloadImage",
                             "url"           : "images/reetroof_300.jpg"
                         }
-                    ],
+                    },
                     "patina": {
                         "type"          : "reuseImage",
                         "reuseId"       : "reetroof_300",
@@ -87,13 +86,12 @@
                 data-module-data='{
                     "width": 256,
                     "height": 256,
-                    "reusableImages"    : [
-                        { 
-                            "id"            : "reetroof_300", 
+                    "reusableImages"    : {
+                        "reetroof_300": {
                             "type"          : "preloadImage",
                             "url"           : "images/reetroof_300.jpg"
                         }
-                    ],
+                    },
                     "patina": {
                         "type"          : "reuseImage",
                         "reuseId"       : "reetroof_300",
@@ -108,13 +106,12 @@
                 data-module-data='{
                     "width": 256,
                     "height": 256,
-                    "reusableImages"    : [
-                        { 
-                            "id"            : "reetroof_300", 
+                    "reusableImages"    : {
+                        "reetroof_300": {
                             "type"          : "preloadImage",
                             "url"           : "images/reetroof_300.jpg"
                         }
-                    ],
+                    },
                     "patina": {
                         "type"          : "reuseImage",
                         "reuseId"       : "reetroof_300",
@@ -127,13 +124,12 @@
                 class="js-module pattern__thumbnail pattern__thumbnail--clickable" 
                 data-module-name="patina" 
                 data-module-data='{
-                    "reusableImages"    : [
-                        { 
-                            "id"            : "reetroof_300", 
+                    "reusableImages"    : {
+                        "reetroof_300": {
                             "type"          : "preloadImage",
                             "url"           : "images/reetroof_300.jpg"
                         }
-                    ],
+                    },
                     "patina": {
                         "type"          : "reuseImage",
                         "reuseId"       : "reetroof_300",
@@ -148,13 +144,12 @@
                 data-module-data='{
                     "width": 256,
                     "height": 256,
-                    "reusableImages"    : [
-                        { 
-                            "id"            : "reetroof_300", 
+                    "reusableImages"    : {
+                        "reetroof_300": { 
                             "type"          : "preloadImage",
                             "url"           : "images/reetroof_300.jpg"
                         }
-                    ],
+                    },
                     "patina": {
                         "type"          : "reuseImage",
                         "reuseId"       : "reetroof_300",
@@ -165,7 +160,7 @@
 
         </div><!-- .pattern -->
 
-    </main><!-- .content__block -->
+    </main><!-- .body__block -->
 
     <footer	class="footer js-module" 
             data-module-name="patina" 
@@ -177,6 +172,7 @@
         </a>
     </footer>
 
+    <!-- this is the starting point for all the javascript regarding patina -->
     <script type="module" src="scripts/main.js"></script>
 
 </body>

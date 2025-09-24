@@ -1,0 +1,53 @@
+<!--?php
+    $h1 = 'test';
+    $headerSimple = true;
+    include '_header.php' 
+?-->
+  
+        <style>
+            html, body { margin: 0 }
+            .pattern__thumbnail { 
+                float: left; 
+                margin: 0; 
+                line-height: 64px;
+                color: purple; 
+                text-align: center; 
+                background-size: contain;
+            }
+            .output {
+                display: block;
+                position: absolute;
+                top: 0;
+                right: 0;
+                padding: 5px;
+                background-color: white;
+                border: 1px solid black;
+            }
+        </style>
+
+        <!--div class="output"></div-->
+        <div class="pattern">
+            <div class="js-module pattern__thumbnail pattern__thumbnail--512" 
+                style="background-color: #7d9cb1; height: 100vh; width: 100%;"
+                data-module-name="patina" 
+                data-module-data='{
+                    "patina": {
+                        "type"  : "createPattern",
+                        "patternConfig" : { 
+                            "name": "rays",
+                            "count": 4096,
+                            "offsetX"   : 0,
+                            "offsetY"   : 0,
+                            "sharpen"   : 4,
+                            "rotation"  : 1
+                        }
+                    }
+                }'
+            ></div>
+        </div>
+    </main>
+
+    <script type="module" src="scripts/main.js"></script>
+
+</body>
+</html>

@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <base href="">
-    <title>Reusable Images | Patina | mareklode</title>
+    <title>ReusableImages | Patina | mareklode</title>
 
-    <meta property="og:title" content="Reusable Images | Patina | mareklode">
+    <meta property="og:title" content="ReusableImages | Patina | mareklode">
     <meta property="og:image" content="http://mareklode.de/bilder/page/v3/v3_rost4.png">
-    <meta property="og:description" content="Patina: procedually generated background images in JavaScript. Reusable Images.">
-    <meta name="description" content="Patina: procedually generated background images in JavaScript. Reusable Images.">
+    <meta property="og:description" content="Patina: procedually generated background images in JavaScript. reusableImages.">
+    <meta name="description" content="Patina: procedually generated background images in JavaScript. reusableImages.">
     <meta name="theme-color" content="#28330a">
 
     <link rel="stylesheet" type="text/css" href="css/normalize.min.css">
@@ -17,7 +17,7 @@
 
 </head>
 
-<body class="content">
+<body class="body">
 
     <header class="header js-module" 
         data-module-name="patina" 
@@ -30,7 +30,7 @@
             data-module-name="patina" 
             data-module-data='template_header_logo_after'>
         </div>
-        <a href="." 
+        <a href="index.html" 
             class="header__logo js-module" 
             data-module-name="patina" 
             data-module-data="template_header_logo_image" 
@@ -53,9 +53,10 @@
         </span>
     </nav>
 
-    <main class="content__block">
+    <main class="body__block">
 
-        <h1>Reusable Images</h1>
+        <h1>reusableImages</h1>
+
 
         <p class="copy">The only way to use a pixel array at two different points inside the data structure (two different color channels for example) is to use "reusableImages". Better Explanation follows.</p>
 
@@ -67,35 +68,34 @@
                 data-module-name="patina" 
                 data-module-data='{
                     "width": 256,
-                    "reusableImages" : [
-                        { 
-                            "id"            : "greyNoise", 
-                            "type"          : "combine",
-                            "topLayer"      : {
+                    "reusableImages" : { 
+                        "greyNoise": {
+                            "type"          : "layers",
+                            "layerTop"      : {
                                 "type"          : "createPattern",
                                 "patternName"   : "noise_plasma"
                             },
-                            "bottomLayer"   : {
+                            "layerBottom"   : {
                                 "type"          : "createPattern",
                                 "patternName"   : "slope"
                             }
                         }
-                    ],
+                    },
                     "patina": {
-                        "type"  : "colorChannels",
-                        "red"   : {
+                        "type"  : "colors",
+                        "colorRed"   : {
                             "type"      :   "reuseImage",
                             "reuseId"   :   "greyNoise"
                         },
-                        "green" : {
+                        "colorGreen" : {
                             "type"      :   "reuseImage",
                             "reuseId"   :   "greyNoise"
                         },
-                        "blue"  :  {
+                        "colorBlue"  :  {
                             "type"      :   "reuseImage",
                             "reuseId"   :   "greyNoise"
                         },
-                        "alpha" :  {
+                        "colorAlpha" :  {
                             "type"      :   "reuseImage",
                             "reuseId"   :   "greyNoise"
                         }
@@ -107,25 +107,23 @@
             <pre class="js-module pattern__thumbnail" 
                 data-module-name="patina" 
                 data-module-data='{
-                    "reusableImages"    : [
-                        { 
-                            "id"            : "reetroof", 
+                    "reusableImages": {
+                        "reetroof": {
                             "type"          : "preloadImage",
                             "url"           : "images/reetroof_300.jpg"
                         },
-                        { 
-                            "id"            : "zweiBaeume_300", 
+                        "zweiBaeume_300": {
                             "type"          : "preloadImage",
                             "url"           : "images/zweiBaeume_300.jpg"
                         }
-                    ],
+                    },
                     "patina": {
-                        "type"      : "combine",
-                        "topLayer"  : {
+                        "type"      : "layers",
+                        "layerTop"  : {
                             "type"          : "reuseImage",
                             "reuseId"       : "reetroof"
                         },
-                        "bottomLayer"  : {
+                        "layerBottom"  : {
                             "type"          : "reuseImage",
                             "reuseId"       : "zweiBaeume_300"
                         }
@@ -134,34 +132,32 @@
             ></pre>
 
             <p class="copy">
-                Load images, distort or combine them, apply <a href="filter.html">filters</a>.
+                Load images, distort or layers them, apply <a href="filter.html">filters</a>.
             </p>
     
             <div class="pattern">
                 <div class="js-module pattern__thumbnail" 
                     data-module-name="patina" 
                     data-module-data='{
-                        "reusableImages"    : [
-                            { 
-                                "id"            : "reetroof", 
+                        "reusableImages": {
+                            "reetroof": {
                                 "type"          : "preloadImage",
                                 "url"           : "images/reetroof_300.jpg"
                             },
-                            { 
-                                "id"            : "zweiBaeume_300", 
+                            "zweiBaeume_300": {
                                 "type"          : "preloadImage",
                                 "url"           : "images/zweiBaeume_300.jpg"
                             }
-                        ],
+                        },
                         "patina": {
-                            "type"      : "combine",
+                            "type"      : "layers",
                             "combineMode"   : { "name": "distort", "radius": 256 },
-                            "topLayer"  : {
+                            "layerTop"  : {
                                 "type"          : "createPattern",
                                 "patternName"   : "noise_plasma",
                                 "filter"        : [{ "name": "blur", "radius": 5 }]
                             },
-                            "bottomLayer"  : {
+                            "layerBottom"  : {
                                 "type"          : "reuseImage",
                                 "reuseId"       : "zweiBaeume_300"
                             }
@@ -171,7 +167,8 @@
             </div>
         </div>
 
-    </main><!-- .content__block -->
+
+    </main><!-- .body__block -->
 
     <footer	class="footer js-module" 
             data-module-name="patina" 
@@ -183,6 +180,7 @@
         </a>
     </footer>
 
+    <!-- this is the starting point for all the javascript regarding patina -->
     <script type="module" src="scripts/main.js"></script>
 
 </body>
