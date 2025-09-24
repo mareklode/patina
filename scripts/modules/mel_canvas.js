@@ -14,7 +14,7 @@ class canvas {
         this.el.img = this.el.context.createImageData(width, height);
     }
 
-    getImgData(x, y) {
+    getImgData (x, y) {
         let position, r, g, b, a;
 
         if (x < 0) { x = this.el.width + x; }
@@ -43,7 +43,7 @@ class canvas {
         return [r, g, b, a];
     }
 
-    setImgData(x, y, r, g, b, a) {
+    setImgData (x, y, r, g, b, a) {
         let position = (y * this.el.width + x) * 4;
         this.el.img.data[position + 0] = r;
         this.el.img.data[position + 1] = g;
@@ -51,11 +51,11 @@ class canvas {
         if (a || a === 0) this.el.img.data[position + 3] = a;
     }
 
-    setImgDataGray(x, y, c) {
+    setImgDataGray (x, y, c) {
         this.el.setImgData(x, y, c, c, c, 255);
     }
 
-    setImgDataAlpha(x, y, a) {
+    setImgDataAlpha (x, y, a) {
         let position = (y * this.el.width + x) * 4;
         this.el.img.data[position + 3] = this.el.img.data[position + 3] * a;
     }

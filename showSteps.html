@@ -72,7 +72,7 @@
         ////////////////////////////////////////////////////////////////
 
         const loadPatinaExamples = async function () {
-            const { föööooterExample, emptyExample, oneReusableImage, colorsExample, reusableImagesExample } = await import('./scripts/patinaExamples.js');
+            const { footerExample, emptyExample, oneReusableImage, colorsExample, reusableImagesExample } = await import('./scripts/patinaExamples.js');
             document.querySelector(".jsonpatina-textarea").value = JSON.stringify(reusableImagesExample, undefined, 4);
             init();
         }

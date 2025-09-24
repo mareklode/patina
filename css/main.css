@@ -293,7 +293,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
   position: absolute;
   inset: 0;
   background-size: 100% 100%;
-  opacity: 0.5;
+  opacity: 0.8;
 }
 .header__logo {
   position: absolute;
@@ -657,7 +657,11 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   max-width: 100%;
   color: white;
   text-shadow: 0 0 1px black, 0 0 2px black, 0 0 3px black;
-  background-size: contain;
+  /*
+        &--256 {
+            width: 256px;
+            height: 256px;
+        }*/
 }
 @media screen and (max-width: 299px) {
   .pattern__thumbnail {

@@ -92,8 +92,8 @@ export const footerExample = {
 };
 
 export const reusableImagesExample = {
-    "__width": 512,
-    "__height": 256,
+    "width": 512,
+    "height": 256,
     "reusableImages": {
         "firstBorder": {
             "type": "createPattern",
