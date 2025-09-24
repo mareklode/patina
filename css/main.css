@@ -643,7 +643,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
     line-height: 2rem;
   }
 }
-.pattern__thumbnails {
+.pattern__thumbnail {
   background-color: #ffe687;
   margin: 1vw;
   display: inline-block;
@@ -654,47 +654,43 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   max-width: 100%;
   color: white;
   text-shadow: 0 0 1px black, 0 0 2px black, 0 0 3px black;
-  /*
-        &--256 {
-            width: 256px;
-            height: 256px;
-        }*/
+  background-size: contain;
 }
 @media screen and (max-width: 299px) {
-  .pattern__thumbnails {
+  .pattern__thumbnail {
     width: 88vw;
     height: 88vw;
   }
 }
-.pattern__thumbnails--lineHeight {
+.pattern__thumbnail--lineHeight {
   width: 128px;
   height: 1.8rem;
   margin: 0 1vw 0 0;
   outline: 1px solid white;
 }
-.pattern__thumbnails--128 {
+.pattern__thumbnail--128 {
   width: 128px;
   height: 128px;
   padding: 5px;
   font-size: 1.15rem;
   line-height: 1.5rem;
 }
-.pattern__thumbnails--512 {
+.pattern__thumbnail--512 {
   width: 512px;
   height: 512px;
 }
-.pattern__thumbnails--clickable {
+.pattern__thumbnail--clickable {
   background-color: #445c19;
 }
-.pattern__thumbnails--clickable:hover,
-.pattern__thumbnails--clickable:active,
-.pattern__thumbnails--clickable:focus {
+.pattern__thumbnail--clickable:hover,
+.pattern__thumbnail--clickable:active,
+.pattern__thumbnail--clickable:focus {
   transform: scale(1.033);
   background-color: #668800;
   text-decoration: none;
   color: white;
 }
-.pattern__thumbnails--nomargin {
+.pattern__thumbnail--nomargin {
   margin: 0 0 2vw 0;
 }
 .pattern__textInbetween {
