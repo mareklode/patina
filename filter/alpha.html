@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
     <base href="https://mareklode.de/patina/">
-    <title>rays | createPattern | Patina | mareklode</title>
+    <title>alpha | filter | Patina | mareklode</title>
 
-    <meta property="og:title" content="rays | createPattern | Patina | mareklode" />
+    <meta property="og:title" content="alpha | filter | Patina | mareklode" />
     <meta property="og:image" content="http://mareklode.de/bilder/page/v3/v3_rost4.png" />
-    <meta property="og:description" content="Patina: procedually generated background images in JavaScript. createPattern : rays" />
-    <meta name="description" content="Patina: procedually generated background images in JavaScript. createPattern : rays">
+    <meta property="og:description" content="Patina: procedually generated background images in JavaScript. filter : alpha" />
+    <meta name="description" content="Patina: procedually generated background images in JavaScript. filter : alpha">
     <meta name="theme-color" content="#28330a">
 
     <link rel="stylesheet" type="text/css" href="css/normalize.min.css">
@@ -55,15 +55,16 @@
 
     <main class="body__block">    
     
-        <h1>createPattern : rays</h1>
-        
+        <h1>filter : alpha</h1>
+
         <p class="copy">ToDo: add a description</p>
-        
+
         <h2>Basic Example</h2>
 
         <pre class="code">"patina" : {
-    "type"          : "createPattern",
-    "patternName"   : "rays"
+    "type"          : "filter",
+    "patternName"   : "noise_plasma",
+    "filter"        : [{ "name": "alpha" }]
 }</pre>
 
         <div class="pattern">
@@ -72,7 +73,8 @@
                 data-module-data='{
                     "patina": {
                         "type"          : "createPattern",
-                        "patternName"   : "rays"
+                        "patternName"   : "noise_plasma",
+                        "filter"        : [{ "name": "alpha" }]
                     }
                 }'
             ></div>

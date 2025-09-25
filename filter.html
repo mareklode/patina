@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
@@ -19,29 +20,18 @@
 
 <body class="body">
 
-    <header class="header js-module" 
-        data-module-name="patina" 
-        data-module-data="template_header">
-        <div class="header__before js-module"
-            data-module-name="patina" 
-            data-module-data='template_header_logo_before'>
+    <header class="header js-module" data-module-name="patina" data-module-data="template_header">
+        <div class="header__before js-module" data-module-name="patina" data-module-data='template_header_logo_before'>
         </div>
-        <div class="header__after js-module"
-            data-module-name="patina" 
-            data-module-data='template_header_logo_after'>
+        <div class="header__after js-module" data-module-name="patina" data-module-data='template_header_logo_after'>
         </div>
-        <a href="index.html" 
-            class="header__logo js-module" 
-            data-module-name="patina" 
-            data-module-data="template_header_logo_image" 
-            title="Homepage">
+        <a href="index.html" class="header__logo js-module" data-module-name="patina"
+            data-module-data="template_header_logo_image" title="Homepage">
             <img src="images/page/header__logo--PatinaFont-rough_@2x.png" class="header__logo__image" alt="Patina">
-        </a> 
+        </a>
     </header>
-    
-    <nav class="navigation js-module" 
-         data-module-name="patina" 
-         data-module-data="template_navigation">
+
+    <nav class="navigation js-module" data-module-name="patina" data-module-data="template_navigation">
         <a class="navigation__link" href="index.html">Home</a>
         <a class="navigation__link" href="howto.html">HowTo</a>
         <a class="navigation__link" href="createPattern.html">createPattern</a>
@@ -60,10 +50,8 @@
 
         <div class="pattern">
 
-            <a href="filter/blur.html"
-                class="js-module pattern__thumbnail pattern__thumbnail--clickable" 
-                data-module-name="patina" 
-                data-module-data='{
+            <a href="filter/blur.html" class="js-module pattern__thumbnail pattern__thumbnail--clickable"
+                data-module-name="patina" data-module-data='{
                     "width": 256,
                     "height": 256,
                     "reusableImages"    : {
@@ -77,13 +65,10 @@
                         "reuseId"       : "reetroof_300",
                         "filter"        : [{ "name": "blur", "radius": 5 }]
                     }
-                }'
-            >filter : blur</a>
+                }'>filter : blur</a>
 
-            <a href="filter/brightness.html"
-                class="js-module pattern__thumbnail pattern__thumbnail--clickable" 
-                data-module-name="patina" 
-                data-module-data='{
+            <a href="filter/brightness.html" class="js-module pattern__thumbnail pattern__thumbnail--clickable"
+                data-module-name="patina" data-module-data='{
                     "width": 256,
                     "height": 256,
                     "reusableImages"    : {
@@ -97,13 +82,10 @@
                         "reuseId"       : "reetroof_300",
                         "filter"        : [{ "name": "brightness", "brightness": 3 }]
                     }
-                }'
-            >filter : brightness</a>
+                }'>filter : brightness</a>
 
-            <a href="filter/contrast.html"
-                class="js-module pattern__thumbnail pattern__thumbnail--clickable" 
-                data-module-name="patina" 
-                data-module-data='{
+            <a href="filter/contrast.html" class="js-module pattern__thumbnail pattern__thumbnail--clickable"
+                data-module-name="patina" data-module-data='{
                     "width": 256,
                     "height": 256,
                     "reusableImages"    : {
@@ -117,13 +99,10 @@
                         "reuseId"       : "reetroof_300",
                         "filter"        : [{ "name": "contrast", "m": 4, "x": 0.33 }]
                     }
-                }'
-            >filter : contrast</a>
+                }'>filter : contrast</a>
 
-            <a href="filter/invert.html"
-                class="js-module pattern__thumbnail pattern__thumbnail--clickable" 
-                data-module-name="patina" 
-                data-module-data='{
+            <a href="filter/invert.html" class="js-module pattern__thumbnail pattern__thumbnail--clickable"
+                data-module-name="patina" data-module-data='{
                     "reusableImages"    : {
                         "reetroof_300": {
                             "type"          : "preloadImage",
@@ -135,13 +114,10 @@
                         "reuseId"       : "reetroof_300",
                         "filter"        : [{ "name": "invert" }]
                     }
-                }'
-            >filter : invert</a>
+                }'>filter : invert</a>
 
-            <a href="filter/threshold.html"
-                class="js-module pattern__thumbnail pattern__thumbnail--clickable" 
-                data-module-name="patina" 
-                data-module-data='{
+            <a href="filter/threshold.html" class="js-module pattern__thumbnail pattern__thumbnail--clickable"
+                data-module-name="patina" data-module-data='{
                     "width": 256,
                     "height": 256,
                     "reusableImages"    : {
@@ -155,17 +131,92 @@
                         "reuseId"       : "reetroof_300",
                         "filter"        : [{ "name": "threshold", "threshold": 0.5 }]
                     }
-                }'
-            >filter : threshold</a>
+                }'>
+                filter : threshold
+            </a>
+
+            <a href="filter/alpha.html" class="js-module pattern__thumbnail pattern__thumbnail--clickable"
+                data-module-name="patina" data-module-data='{
+                    "width": 256,
+                    "height": 256,
+                    "reusableImages"    : {
+                        "reetroof_300": { 
+                            "type"          : "preloadImage",
+                            "url"           : "images/reetroof_300.jpg"
+                        }
+                    },
+                    "patina": {
+                        "type"          : "reuseImage",
+                        "reuseId"       : "reetroof_300",
+                        "filter"        : [{ "name": "alpha", "opacity": 0.5 }]
+                    }
+                }'>
+                filter : alpha
+            </a>
+
+            <a href="filter/brightness_new.html" class="js-module pattern__thumbnail pattern__thumbnail--clickable"
+                data-module-name="patina" data-module-data='{
+                                "width": 256,
+                                "height": 256,
+                                "reusableImages"    : {
+                                    "reetroof_300": { 
+                                        "type"          : "preloadImage",
+                                        "url"           : "images/reetroof_300.jpg"
+                                    }
+                                },
+                                "patina": {
+                                    "type"          : "reuseImage",
+                                    "reuseId"       : "reetroof_300",
+                                    "filter"        : [{ "name": "brightness_new", "value": 0.5 }]
+                                }
+                            }'>
+                filter : brightness_new
+            </a>
+
+            <a href="filter/contrast_new.html" class="js-module pattern__thumbnail pattern__thumbnail--clickable"
+                data-module-name="patina" data-module-data='{
+                                "width": 256,
+                                "height": 256,
+                                "reusableImages"    : {
+                                    "reetroof_300": { 
+                                        "type"          : "preloadImage",
+                                        "url"           : "images/reetroof_300.jpg"
+                                    }
+                                },
+                                "patina": {
+                                    "type"          : "reuseImage",
+                                    "reuseId"       : "reetroof_300",
+                                    "filter"        : [{ "name": "contrast_new", "value": 0.5 }]
+                                }
+                            }'>
+                filter : contrast_new
+            </a>
+
+            <a href="filter/push.html" class="js-module pattern__thumbnail pattern__thumbnail--clickable"
+                data-module-name="patina" data-module-data='{
+                                "width": 256,
+                                "height": 256,
+                                "reusableImages"    : {
+                                    "reetroof_300": { 
+                                        "type"          : "preloadImage",
+                                        "url"           : "images/reetroof_300.jpg"
+                                    }
+                                },
+                                "patina": {
+                                    "type"          : "reuseImage",
+                                    "reuseId"       : "reetroof_300",
+                                    "filter"        : [{ "name": "push"}]
+                                }
+                            }'>
+                filter : push
+            </a>
 
         </div><!-- .pattern -->
 
     </main><!-- .body__block -->
 
-    <footer	class="footer js-module" 
-            data-module-name="patina" 
-            data-module-data="template_footer">
-        &copy; 2025 Marek Lode &nbsp; | &nbsp; 
+    <footer class="footer js-module" data-module-name="patina" data-module-data="template_footer">
+        &copy; 2025 Marek Lode &nbsp; | &nbsp;
         <a href="https://github.com/mareklode/patina">
             <img class="footer__githublogo" src="images/page/GitHub-Mark-32px.png" alt="GitHub Logo">
             This Project on GitHub
@@ -176,4 +227,5 @@
     <script type="module" src="scripts/main.js"></script>
 
 </body>
+
 </html>
