@@ -92,12 +92,12 @@
                 "width": 256,
                 "height": 256,
                 "reusableImages": {
-                    "combine_border": {
+                    "reusableImage_combine_border": {
                         "type"          : "createPattern",
                         "patternName"   : "border",
                         "filter"        : [{ "name": "brightness", "brightness": -1.25 }]
                     },
-                    "combine_wave": {
+                    "reusableImage_combine_wave": {
                         "type"          : "createPattern",
                         "patternConfig" : { 
                             "name"   : "wave",
@@ -106,14 +106,14 @@
                         },
                         "filter"        : [{ "name": "brightness", "brightness": 1 }]
                     },
-                    "combine_noise1D_horizontal": {
+                    "reusableImage_combine_noise1D_horizontal": {
                         "type"          : "createPattern",
                         "patternConfig" : { 
                             "name"   : "noise_1D", 
                             "direction"     : "vertical"
                         }
                     },
-                    "combine_noise1D_vertical": {
+                    "reusableImage_combine_noise1D_vertical": {
                         "type"          : "createPattern",
                         "patternConfig" : { 
                             "name"   : "noise_1D", 
@@ -124,7 +124,7 @@
                         "type"          : "layers",
                         "layerTop"      : {
                             "type"          : "reuseImage",
-                            "reuseId"       : "combine_border"
+                            "reuseId"       : "reusableImage_combine_border"
                         },
                         "layerBottom"   : { 
                             "type"          : "layers",
@@ -132,22 +132,22 @@
                                 "type"          : "layers",
                                 "layerTop"      : {
                                     "type"          : "reuseImage",
-                                    "reuseId"       : "combine_noise1D_horizontal"
+                                    "reuseId"       : "reusableImage_combine_noise1D_horizontal"
                                 },
                                 "layerBottom"   : { 
                                     "type"          : "reuseImage",
-                                    "reuseId"       : "combine_noise1D_vertical"
+                                    "reuseId"       : "reusableImage_combine_noise1D_vertical"
                                 }
                             },
                             "layerBottom"   : { 
                                 "type"          : "layers",
                                 "layerTop"      : {
                                     "type"          : "reuseImage",
-                                    "reuseId"       : "combine_border"
+                                    "reuseId"       : "reusableImage_combine_border"
                                 },
                                 "layerBottom"   : { 
                                     "type"          : "reuseImage",
-                                    "reuseId"       : "combine_wave"
+                                    "reuseId"       : "reusableImage_combine_wave"
                                 }
                             }
                         }
