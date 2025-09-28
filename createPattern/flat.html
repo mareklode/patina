@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
-    <base href="https://mareklode.de/patina/">
+    <base href="http://localhost/mareklode/patina/">
     <title>flat | createPattern | Patina | mareklode</title>
 
     <meta property="og:title" content="flat | createPattern | Patina | mareklode" />
@@ -77,7 +77,29 @@
                 }'
             ></div>
         </div><!-- .pattern -->
+
+    <h2>Playground</h2>
+
+    <p class="copy">Here you can test this pattern. Change the values inside the textarea or rewrite it completely, then hit "apply".</p>
+
+    <div class="pattern js-module" data-module-name="playground">
+        <div id="js_patina_fromTextarea" 
+            class="pattern__thumbnail pattern__thumbnail--256"
+        ></div
+        ><button id="js_patina_CallToAction" class="button button__applyPatinaTextarea">&UpperLeftArrow;<br>apply</button>
     
+        <textarea id="js_patina_textarea" rows="13" class="code" style="margin-top: 0;">
+{
+    "patina"    : {
+        "type"      : "createPattern",
+        "patternConfig" : {
+            "name"      : "flat","value": 4
+        }
+    }
+}
+        </textarea>
+    </div><!-- .pattern -->
+
     </main><!-- .body__block -->
 
     <footer class="footer js-module" 
@@ -91,7 +113,7 @@
     </footer>
 
     <!-- this is the starting point for all the javascript regarding patina -->
-    <script type="module" src="scripts/main.js"></script>
+<script type="module" src="scripts/main.js"></script>
 
 </body>
 </html>

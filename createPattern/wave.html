@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
-    <base href="https://mareklode.de/patina/">
+    <base href="http://localhost/mareklode/patina/">
     <title>wave | createPattern | Patina | mareklode</title>
 
     <meta property="og:title" content="wave | createPattern | Patina | mareklode" />
@@ -77,7 +77,7 @@
                 }'
             ></div>
         </div><!-- .pattern -->
-    
+
         <h2>Options / Parameters</h2>
         
         <dl class="copy parameters">
@@ -270,19 +270,18 @@
                 ></div> 100 | 5
             </dd>
         </dl>
+    
+    <h2>Playground</h2>
 
-        <h2>Playground</h2>
+    <p class="copy">Here you can test this pattern. Change the values inside the textarea or rewrite it completely, then hit "apply".</p>
 
-        <p class="copy">Here you can test this pattern. Change the values inside the textarea or rewrite it completely, then hit "apply".</p>
-
-        <div class="pattern">
-            <div id="js_patina_fromTextarea" 
-                class="pattern__thumbnail pattern__thumbnail--256"
-            ></div>
-        
-            <button id="js_patina_CallToAction" style="margin: 3vw 1vw 1vw 1vw; padding: 1vw 2vw; position: relative; bottom: 1vw; background-color: rgb(47, 79, 79); color: white;">apply</button>
-        
-            <textarea id="js_patina_textarea" rows="13" style="font-family:'Courier New', Courier, monospace; width: 100%;">
+    <div class="pattern js-module" data-module-name="playground">
+        <div id="js_patina_fromTextarea" 
+            class="pattern__thumbnail pattern__thumbnail--256"
+        ></div
+        ><button id="js_patina_CallToAction" class="button button__applyPatinaTextarea">&UpperLeftArrow;<br>apply</button>
+    
+        <textarea id="js_patina_textarea" rows="13" class="code" style="margin-top: 0;">
 {
     "patina"    : {
         "type"      : "createPattern",
@@ -292,30 +291,13 @@
             "frequency" : 2,
             "offsetX"   : 64,
             "offsetY"   : 0
+    
         }
     }
 }
-            </textarea>
-        
-            <script type="module" src="scripts/main.js"></script>
-            <script>
-                const trigger  = document.getElementById('js_patina_CallToAction');
-                const textarea = document.getElementById('js_patina_textarea');
-                const target   = document.getElementById('js_patina_fromTextarea');
+        </textarea>
+    </div><!-- .pattern -->
 
-                const calculatePatinaFromTextarea = function () {
-                    // ich importiere relativ zum base href
-                    import('./scripts/modules/mel_patina.js')
-                        .then((patina) => {
-                            new patina.default(target, textarea.value);
-                        });
-                };
-
-                trigger.addEventListener('click', calculatePatinaFromTextarea);
-                calculatePatinaFromTextarea();
-            </script>            
-        </div><!-- .pattern -->
-    
     </main><!-- .body__block -->
 
     <footer class="footer js-module" 
@@ -329,7 +311,7 @@
     </footer>
 
     <!-- this is the starting point for all the javascript regarding patina -->
-    <script type="module" src="scripts/main.js"></script>
+<script type="module" src="scripts/main.js"></script>
 
 </body>
 </html>
