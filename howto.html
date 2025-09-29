@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
@@ -8,7 +9,8 @@
 
     <meta property="og:title" content="Howto | Patina | mareklode">
     <meta property="og:image" content="http://mareklode.de/bilder/page/v3/v3_rost4.png">
-    <meta property="og:description" content="Patina: procedually generated background images in JavaScript. How to use it.">
+    <meta property="og:description"
+        content="Patina: procedually generated background images in JavaScript. How to use it.">
     <meta name="description" content="Patina: procedually generated background images in JavaScript. How to use it.">
     <meta name="theme-color" content="#28330a">
 
@@ -19,29 +21,18 @@
 
 <body class="body">
 
-    <header class="header js-module" 
-        data-module-name="patina" 
-        data-module-data="template_header">
-        <div class="header__before js-module"
-            data-module-name="patina" 
-            data-module-data='template_header_logo_before'>
+    <header class="header js-module" data-module-name="patina" data-module-data="template_header">
+        <div class="header__before js-module" data-module-name="patina" data-module-data='template_header_logo_before'>
         </div>
-        <div class="header__after js-module"
-            data-module-name="patina" 
-            data-module-data='template_header_logo_after'>
+        <div class="header__after js-module" data-module-name="patina" data-module-data='template_header_logo_after'>
         </div>
-        <a href="index.html" 
-            class="header__logo js-module" 
-            data-module-name="patina" 
-            data-module-data="template_header_logo_image" 
-            title="Homepage">
+        <a href="index.html" class="header__logo js-module" data-module-name="patina"
+            data-module-data="template_header_logo_image" title="Homepage">
             <img src="images/page/header__logo--PatinaFont-rough_@2x.png" class="header__logo__image" alt="Patina">
-        </a> 
+        </a>
     </header>
-    
-    <nav class="navigation js-module" 
-         data-module-name="patina" 
-         data-module-data="template_navigation">
+
+    <nav class="navigation js-module" data-module-name="patina" data-module-data="template_navigation">
         <a class="navigation__link" href="index.html">Home</a>
         <a class="navigation__link" href="howto.html">HowTo</a>
         <a class="navigation__link" href="createPattern.html">createPattern</a>
@@ -58,22 +49,14 @@
         <h1>How to use it</h1>
 
 
-        <p class="copy alert">
-            This HowTo is outdated since i updated the way the JavaScript modules are getting loaded.
-            I threw out require.js and  now use native <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules">JavaScript modules</a>
-            that are supported by all the modern browsers.
+        <p class="copy">
+            In its current state this project is too complicated to use and it has a long way to go to before being
+            useful for anybody, including me. But if you're curious here is how it works.
         </p>
 
         <p class="copy">
-            In its current state this project is too complicated to use and it has a long way to go to before being useful for anybody, including me.
-            But if you're curious here is how it works.
-        </p>
-
-        <h2>The minimalistic example</h2>
-
-        <p class="copy">
-            "Patina" runs inside the browser, so you need a HTML-file. 
-            Copy the following code and save it in your root folder as "minimalistic_example.html".
+            "Patina" runs inside the browser, so you need a HTML-file.
+            Have a look at the <a href="minimalistic_example.html">minimalistic example</a> in action.
         </p>
 
         <!--p class="copy code">
@@ -106,82 +89,47 @@
     &lt;/script>
 &lt;/html></pre>
 
-        <p class="copy">Have a look at the <a href="minimalistic_example.html">minimalistic example</a> in action.</p>
+        <p class="copy">These three things are neccessary to create a Patina:</p>
 
         <h2>The JavaScript</h2>
 
         <p class="copy">
-            For the patina to work you need two JavaScript files. First download patina.js and save it in a folder called "scripts".
-            <br>
-            <a href="https://mareklode.de/patina/scripts/patina.js" class="button" style="display: inline-block; margin-top: 0.5em" data-info="patina/build_patina_js.html">download patina.js</a>
-        </p>
-
-        <p class="copy">
-        </p>
-
-        <p class="copy">
-            <!-- get rid of this with https://github.com/requirejs/almond -->
-            Within the "scripts"-folder create a subfolder named "vendor".
-            Download the latest requireJs and save it under "scripts/vendor".
-            <br>
-            <a href="https://requirejs.org/docs/download.html" class="button" style="display: inline-block; margin-top: 0.5em;">latest require.js</a>
-        </p>
-
-        <p class="copy">
-            Your file structure should look something like this now.
+            For now, you have to download the package from <a>GitHub</a> and use the JavaScript files from within this
+            folder: "scripts/modules".
         </p>
 
         <pre class="code">
-WWW
+root
 ├── scripts
-│   ├── vendor
-│   │   └── require.js
-│   └── patina.js
-└── patina_test.html</pre>
-
-        <h2>Explanation</h2>
+│   ├── mel_patina.js
+│   └── mel_the_other_files.js
+└── patina.html</pre>
 
         <p class="copy">
-            Open patina_test.html in a text editor and include
-            the following line at the bottom of your html-file. 
-            (data-main="scripts/patina" is the path to patina.js without the file extension)
-        </p>
-        <pre class="code">
-&lt;script data-main="scripts/patina" src="scripts/vendor/require.js">&lt;/script></pre>
-            
-        <p class="copy">
-            You also need a &lt;div> or any other HTML-element that you want to decorate with patina.
+            After importing mel_patina.js (see the minimalistic example above) into your website you can create a
+            background image for a dom element.
+            <!-- 
+                <a href="https://mareklode.de/patina/scripts/patina.js" class="button" style="display: inline-block; margin-top: 0.5em" data-info="patina/build_patina_js.html">download patina.js</a>
+            -->
         </p>
 
-        <pre class="code">
-&lt;div id="js-patina-goes-here" style="width: 64px; height: 64px;" >&lt;/div></pre>
+        <h2>The Dom Element</h2>
 
         <p class="copy">
-            Now you can call the patina-function and apply a randomly generated background image to your &lt;div> like this:
+            In the example, the dom element (div#js-patina-goes-here) is assigned to the variable "target". It needs to
+            have a height and width. The JavaScript will create a background image for this dom element.
         </p>
 
-        <pre class="code">
-&lt;script>
-    require(['patina'], function( patina ) {
-        const target = document.getElementById('js-patina-goes-here');
-        const pixelPaintingInstructions =
-	    `{"patina" : {
-                "type"          : "createPattern",
-                "patternName"   : "noise_1D"
-            } }`;
-        new patina(target, pixelPaintingInstructions);
-    });
-&lt;/script></pre>
-
-        <h2>Pixel Painting Instructions</h2>
+        <h2>The Pixel Painting Instructions</h2>
 
         <p class="copy">
-            The "pixelPaintingInstructions" in the example above is the data structure, that defines how the patina is being created. 
-            This is a very basic example and the Pixel Painting Instructions can get very unmanageable.
+            The JSON string "pixelPaintingInstructions" defines how the Patina is being constructed. It is a binary
+            tree, where the end nodes are images or patterns that are then combined, two at a time, to create the
+            patina.
         </p>
 
-        <a class="button button__nextPage" href="pixelPaintingInstructions.html">
-            Next: What are the Pixel Painting Instructions.
+        <a class="button button__nextPage" href="showSteps.html">
+            Next: Play with the Pixel Painting Instructions.
         </a>
 
         <a href="2do.html">.</a>
@@ -191,10 +139,8 @@ WWW
 
     </main><!-- .body__block -->
 
-    <footer	class="footer js-module" 
-            data-module-name="patina" 
-            data-module-data="template_footer">
-        &copy; 2025 Marek Lode &nbsp; | &nbsp; 
+    <footer class="footer js-module" data-module-name="patina" data-module-data="template_footer">
+        &copy; 2025 Marek Lode &nbsp; | &nbsp;
         <a href="https://github.com/mareklode/patina">
             <img class="footer__githublogo" src="images/page/GitHub-Mark-32px.png" alt="GitHub Logo">
             This Project on GitHub
@@ -205,4 +151,5 @@ WWW
     <script type="module" src="scripts/main.js"></script>
 
 </body>
+
 </html>
