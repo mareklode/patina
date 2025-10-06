@@ -1,0 +1,149 @@
+<style>
+    html,
+    body {
+        margin: 0
+    }
+
+    .pattern__thumbnail {
+        float: left;
+        margin: 0;
+        line-height: 64px;
+        color: purple;
+        text-align: center;
+        background-size: contain;
+    }
+
+    .output {
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 5px;
+        background-color: white;
+        border: 1px solid black;
+    }
+</style>
+<div class="js-module pattern__thumbnails pattern__thumbnails--512" id="artPiece"
+    style="background-color: #7d9cb1; height: 100vh; width: 100%;" data-module-name="patina" data-module-data='{
+    "patina": {
+        "type": "layers",
+        "combineMode": {
+            "name": "add",
+            "opacity": 0.5
+        },
+        "layerTop": {
+            "type": "createPattern",
+            "patternName": "random_walker",
+            "impact": 0.1
+        },
+        "layerBottom": {
+            "type": "layers",
+            "combineMode": {
+                "name": "add",
+                "opacity": 0.075
+            },
+            "layerTop": {
+                "type": "createPattern",
+                "patternName": "labyrinth",
+                "color": 1
+            },
+            "layerBottom": {
+                "type": "colors",
+                "colorRed": {
+                    "type": "layers",
+                    "combineMode": {
+                        "name": "add",
+                        "opacity": 0.15
+                    },
+                    "layerTop": {
+                        "type": "createPattern",
+                        "patternName": "noise_white"
+                    },
+                    "layerBottom": {
+                        "type": "createPattern",
+                        "patternConfig": {
+                            "name": "slope",
+                            "direction": "to bottom",
+                            "colorBegin": 90,
+                            "colorEnd": 0
+                        }
+                    }
+                },
+                "colorGreen": {
+                    "type": "layers",
+                    "combineMode": {
+                        "name": "add",
+                        "opacity": 0.075
+                    },
+                    "layerTop": {
+                        "type": "createPattern",
+                        "patternName": "noise_white",
+                        "filter": [
+                            {
+                                "name": "contrast",
+                                "m": 1,
+                                "x": 0.5
+                            }
+                        ]
+                    },
+                    "layerBottom": {
+                        "type": "layers",
+                        "layerBottom": {
+                            "type": "createPattern",
+                            "patternConfig": {
+                                "name": "slope",
+                                "colorBegin": 250,
+                                "colorEnd": 210
+                            }
+                        },
+                        "layerTop": {
+                            "type": "createPattern",
+                            "patternConfig": {
+                                "name": "slope",
+                                "direction": "horizontal",
+                                "colorBegin": 250,
+                                "colorEnd": 210
+                            }
+                        }
+                    }
+                },
+                "colorBlue": {
+                    "type": "layers",
+                    "combineMode": {
+                        "name": "overlay",
+                        "opacity": 0.15
+                    },
+                    "layerBottom": {
+                        "type": "createPattern",
+                        "patternName": "noise_white"
+                    },
+                    "layerTop": {
+                        "type": "createPattern",
+                        "patternConfig": {
+                            "name": "slope",
+                            "direction": "to right",
+                            "colorBegin": 250,
+                            "colorEnd": 220
+                        }
+                    }
+                },
+                "colorAlpha": {
+                    "type": "createPattern",
+                    "patternConfig": {
+                        "name": "flat",
+                        "color": 255
+                    }
+                }
+            }
+        }
+    },
+    "reusableImages": {}
+}'></div>
+
+</main>
+
+<script type="module" src="scripts/main.js"></script>
+
+</body>
+
+</html>

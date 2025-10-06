@@ -11,21 +11,27 @@ import templates from './mel_pageTemplates.js';
 function patina (domElement, parameters) {
     let self = this;
 
-    if (parameters.startsWith('template_')) {
-        // todo: dynamisch 2/2
-        // let {default: templates} = await import('./mel_pageTemplates.js');
-        parameters = templates[parameters.substring(9)];
+    if (domElement) {
+        mel.printTime(`patina ${domElement.id}`);
 
-        if (!parameters) { return }
+        if (parameters.startsWith('template_')) {
+            // todo: dynamisch 2/2
+            // let {default: templates} = await import('./mel_pageTemplates.js');
+            parameters = templates[parameters.substring(9)];
+
+            if (!parameters) { return }
+        }
+
+        self._parameters = self._completeParameters(parameters, domElement);
+        self.reusableImages = {};
+
+        window.consoleVerbose &&
+            console.log('###### - Patina - ######', self._parameters);
+
+        self.createPatina(self._parameters, domElement);
+    } else {
+        console.log("domElement not found");
     }
-
-    self._parameters = self._completeParameters(parameters, domElement);
-    self.reusableImages = {};
-
-    window.consoleVerbose &&
-        console.log('###### - Patina - ######', self._parameters);
-
-    self.createPatina(self._parameters, domElement);
 } // patina()
 
 patina.prototype = {
@@ -93,6 +99,8 @@ patina.prototype = {
         Object.keys(parameters.reusableImages).forEach(async (nodeName) => {
             if (!this.reusableImages[nodeName]) {
                 let imageDefinition = { ...parameters.reusableImages[nodeName], nodeName: nodeName };
+
+                // image is a file that has to be loaded asynchronously
                 if (imageDefinition.type === "preloadImage") {
                     this.preloadImage(
                         imageDefinition,
@@ -102,7 +110,7 @@ patina.prototype = {
                     );
                     return;
                 }
-                // else
+                // else, create a patina-branch, that can be used multiple times
                 this.reusableImages[nodeName] = new Promise((resolve) => {
                     resolve(this._processPatinaNode(
                         imageDefinition,
@@ -170,6 +178,9 @@ patina.prototype = {
     _processPatinaNode: async function (layer, width, height) {
         let resultingImage = false;
 
+        // console.log("processPaninaNode", layer);
+        mel.printTime("patina: processPatinaNode");
+
         if (typeof layer === "number") {
             let color = layer / 256;
             return Array.from({ length: width * height }, () => color);
@@ -198,12 +209,14 @@ patina.prototype = {
 
         if (layer?.type === "createPattern") {
 
-            const { default: createPattern } = await import('./mel_createPattern.js');
+            const { default: createPatternAsync } = await import('./mel_createPatternAsync.js');
 
+            /*
             window.consoleVerbose &&
                 console.log(createPattern);
+            */
 
-            resultingImage = new createPattern(layer, width, height);
+            resultingImage = await createPatternAsync(layer, width, height);
 
         } else if (layer?.type === "reuseImage") {
             if (this.reusableImages[layer.reuseId]) {
@@ -273,6 +286,7 @@ patina.prototype = {
 
     _paintCanvas: function (myCanvas, element) {
         if (element) {
+            window.mel.printTime("patina: paintCanvas");
             element.style.backgroundImage = 'url(' + myCanvas.el.toDataURL('image/png') + ')';
         }
     }, // _paintCanvas()

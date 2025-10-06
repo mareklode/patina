@@ -1,45 +1,50 @@
 import noise from './mel_noise.js';
-// import canvas from './mel_canvas.js';
 
-// http://codeblog.cz/vanilla/inside.html#set-element-html
-// https://github.com/daneden/animate.css
-
-function createPattern (layerDefinition, width, height) {
+// Asynchrone Version der Funktion
+async function createPatternAsync (layerDefinition, width, height) {
     let pattern = {};
 
 
-    // sometimes instead of pattern: { name: and so on } you can use the shortcut patternName: "name" without parameters
+    let waitMilliseconds = function (delay) {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve();
+            }, delay);
+        });
+    };
+
     let patternName = layerDefinition?.patternName || layerDefinition?.patternConfig?.name;
 
-    if (this[patternName]) {
-        mel.printTime(`createPattern: ${patternName}`);
-        pattern = this[patternName](layerDefinition?.patternConfig, width, height);
+    if (patternName in createPatternAsync.prototype) {
+        if (window.consoleVerbose) {
+            mel.printTime(`createPatternAsync: ${patternName}`);
+        }
+        // Warten, falls die Methode asynchron ist
+        await waitMilliseconds(50); // So the Page stays responsive while calculating patinas
+
+        pattern = await createPatternAsync.prototype[patternName](layerDefinition?.patternConfig, width, height);
     } else {
-        console.error("createPattern: \"", patternName, "\" does not exist.", layerDefinition);
-        pattern = this["flat"]({ color: 0 }, width, height);
+        console.error(`createPatternAsync: "${patternName}" does not exist.`, layerDefinition);
+        pattern = await createPatternAsync.prototype["flat"]({ color: 0 }, width, height);
     }
 
     return pattern;
-}; // createPattern()
+}
 
-createPattern.prototype = {
-
+createPatternAsync.prototype = {
     _convertByteToFractionOfOne: function (integer) {
         return integer / 256;
     },
 
-    border: function (layerDefinition, width, height) {
-        let pattern = new Array(width * height);
+    async border (layerDefinition, width, height) {
+        const pattern = new Array(width * height);
         for (let i = 0; i < width; i++) {
             for (let j = 0; j < height; j++) {
                 const linearX = i / (width - 1);
                 const linearY = j / (height - 1);
-
-                // https://www.wolframalpha.com/ <-- plot (2*x)^2 - 4x + 1
                 const circularX = Math.pow(2 * linearX, 2) - (4 * linearX) + 1;
                 const circularY = Math.pow(2 * linearY, 2) - (4 * linearY) + 1;
 
-                // https://easings.net/#easeInCirc
                 pattern[j * width + i] = (
                     1 - Math.sqrt(1 - Math.pow(circularX, 2)) +
                     1 - Math.sqrt(1 - Math.pow(circularY, 2))
@@ -47,33 +52,30 @@ createPattern.prototype = {
             }
         }
         return pattern;
-    }, // border()
-
-    noise_plasma: function (layerDefinition, width, height) {
-        return noise.noise_plasma(width, layerDefinition?.frequency); // frequency defaults to 1
-        //return noise.diamondSquare(layerDefinition?.frequency, width, height);
     },
 
-    // better use the number-Shortcut like { "layerTop" : 256 }
-    flat: function (layerDefinition, width, height) {
+    async noise_plasma (layerDefinition, width, height) {
+        return noise.noise_plasma(width, layerDefinition?.frequency);
+    },
+
+    async flat (layerDefinition, width, height) {
         const color = layerDefinition?.color || layerDefinition?.frequency || 128;
         return Array.from({ length: width * height }, () => color / 256);
     },
 
-    wave: function (layerDefinition, width, height) {
+    async wave (layerDefinition, width, height) {
         const pattern = new Array(width * height);
 
-        const frequency = width / layerDefinition?.frequency / 6.2832 || width / 31.4156; // default: 5 waves per width
+        const frequency = width / layerDefinition?.frequency / 6.2832 || width / 31.4156;
         const offsetX = layerDefinition?.offsetX || width / 2;
         const offsetY = layerDefinition?.offsetY || width / 2;
 
         let color = 0;
         for (let x = 0; x < width; x++) {
             for (let y = 0; y < height; y++) {
-
                 switch (layerDefinition?.direction) {
                     case 'concentric':
-                        color = Math.sin(Math.sqrt(((x - offsetX) * (x - offsetX)) + ((y - offsetY) * (y - offsetY))) / frequency);
+                        color = Math.sin(Math.sqrt(((x - offsetX) ** 2) + ((y - offsetY) ** 2)) / frequency);
                         break;
                     case 'horizontal':
                         color = Math.sin((y - offsetY) / frequency);
@@ -87,64 +89,44 @@ createPattern.prototype = {
                     case 'diagonalDown':
                         color = Math.sin((y - offsetY - x - offsetX) / frequency);
                         break;
-                    default: /* vertical */
+                    default:
                         color = Math.sin((x - offsetX) / frequency);
                 }
                 pattern[y * width + x] = (-color / 2) + 0.5;
             }
         }
-        return pattern
+        return pattern;
+    },
 
-    }, // wave()
-
-    slope: function (layerDefinition, width, height) {
+    async slope (layerDefinition, width, height) {
         const pattern = new Array(width * height);
-
-        const direction = layerDefinition?.direction || "to bottom"; // to bottom, to top, to left, and to right,
+        const direction = layerDefinition?.direction || "to bottom";
         const colorBegin = this._convertByteToFractionOfOne(layerDefinition?.colorBegin) || 1;
         const colorEnd = this._convertByteToFractionOfOne(layerDefinition?.colorEnd) || 0;
 
-        /*
-        Geradengleichung (Normalform): y = mx + n 
-        m = (y2 - y1) / (x2 - x1) = (colorEnd - colorBegin) / (width - 0)
-        n = colorBegin
-            =>
-        y = ((colorEnd - colorBegin) / width) * xPos + colorBegin
-        */
-
-        if (direction === "to bottom" || direction === "vertical") {
-            for (let x = 0; x < width; x++) {
-                for (let y = 0; y < height; y++) {
-                    let position = y * width + x;
-                    pattern[position] = ((colorEnd - colorBegin) / height) * y + colorBegin;
-                }
-            }
-        } else if (direction === "to top") {
-            for (let x = 0; x < width; x++) {
-                for (let y = 0; y < height; y++) {
-                    let position = y * width + x;
-                    pattern[position] = ((colorBegin - colorEnd) / height) * y + colorEnd;
-                }
-            }
-        } else if (direction === "to right" || direction === "horizontal") {
-            for (let x = 0; x < width; x++) {
-                for (let y = 0; y < height; y++) {
-                    let position = y * width + x;
-                    pattern[position] = ((colorEnd - colorBegin) / width) * x + colorBegin;
-                }
-            }
-        } else if (direction === "to left") {
-            for (let x = 0; x < width; x++) {
-                for (let y = 0; y < height; y++) {
-                    let position = y * width + x;
-                    pattern[position] = ((colorBegin - colorEnd) / width) * x + colorEnd;
+        for (let x = 0; x < width; x++) {
+            for (let y = 0; y < height; y++) {
+                let pos = y * width + x;
+                switch (direction) {
+                    case "to top":
+                        pattern[pos] = ((colorBegin - colorEnd) / height) * y + colorEnd;
+                        break;
+                    case "to right":
+                    case "horizontal":
+                        pattern[pos] = ((colorEnd - colorBegin) / width) * x + colorBegin;
+                        break;
+                    case "to left":
+                        pattern[pos] = ((colorBegin - colorEnd) / width) * x + colorEnd;
+                        break;
+                    default: // to bottom / vertical
+                        pattern[pos] = ((colorEnd - colorBegin) / height) * y + colorBegin;
                 }
             }
         }
         return pattern;
-    }, // slope()
+    },
 
-    labyrinth: function (layerDefinition, width, height) {
+    async labyrinth (layerDefinition, width, height) {
         let pattern = new Array(width * height).fill(0);
 
         /*
@@ -169,65 +151,55 @@ createPattern.prototype = {
                 for (let linie = 0; linie < punkteAbstand; linie++) {
                     let xPos = x * punkteAbstand + linie * xRichtung;
                     let yPos = y * punkteAbstand + linie * yRichtung;
-                    pattern[yPos * width + xPos] = 1;
+                    if (xPos >= 0 && xPos < width && yPos >= 0 && yPos < height) {
+                        pattern[yPos * width + xPos] = 1;
+                    }
                 }
             }
         }
         return pattern;
     }, // labyrinth()
 
-    noise_1D: function (layerDefinition, width, height) {
-        const pattern = new Array();
-
+    async noise_1D (layerDefinition, width, height) {
+        const pattern = [];
         const direction = layerDefinition?.direction;
 
         if (direction === "horizontal") {
-            let noise = Array.from({ length: height }, () => Math.random());
+            let noiseRow = Array.from({ length: height }, () => Math.random());
             for (let i = 0; i < width; i++) {
-                pattern.push(Array.from({ length: width }, () => noise[i]));
+                pattern.push(...noiseRow);
             }
-        } else { // vertical
-            let noise = Array.from({ length: width }, () => Math.random());
+        } else {
+            let noiseCol = Array.from({ length: width }, () => Math.random());
             for (let i = 0; i < height; i++) {
-                pattern.push(noise);
+                pattern.push(...noiseCol);
             }
         }
-        let flattenedArray = [].concat.apply([], pattern);
-        return flattenedArray;
-    }, // noise_1D()
+        return pattern;
+    },
 
-    noise_white: function (layerDefinition, width, height) {
+    async noise_white (layerDefinition, width, height) {
         return Array.from({ length: width * height }, () => Math.random());
-    }, // noise_white()
+    },
 
-    random_walker: function (layerDefinition, width, height) {
+    async random_walker (layerDefinition, width, height) {
         const pattern = new Array(width * height).fill(0);
-
         const impact = layerDefinition?.impact || 5;
 
-        // start at the center
         const walkerPos = {
             x: Math.floor(width / 2),
             y: Math.floor(height / 2)
         };
 
         let walkerColor = 0;
-        function walker (colour) {
-            walkerPos.x = (walkerPos.x + Math.round(Math.random() * 2 - 1) + width) % width; // wraps around at the edges
-            walkerPos.y = (walkerPos.y + Math.round(Math.random() * 2 - 1) + height) % height; // wraps around at the edges
-            /*         
-            let farbe = myCanvas.getImgData(walkerPos.x, walkerPos.y);
-            //console.log(farbe);
-            if (farbe[0] > 2 || true) { farbe[0] *= 1 + (impact * .1  ); } else { farbe[0] = 0; }
-            if (farbe[1] > 2 || true) { farbe[1] *= 1 + (impact * .125);  } else { farbe[1] = 0; }
-            if (farbe[2] > 2 || true) { farbe[2] *= 1 + (impact * colour); } else { farbe[2] = 0; }
-            myCanvas.setImgData(walkerPos.x, walkerPos.y, ...farbe);
-            */
-            pattern[walkerPos.y * width + walkerPos.x] += (impact * colour);
 
+        function walker (colour) {
+            walkerPos.x = (walkerPos.x + Math.round(Math.random() * 2 - 1) + width) % width;
+            walkerPos.y = (walkerPos.y + Math.round(Math.random() * 2 - 1) + height) % height;
+            pattern[walkerPos.y * width + walkerPos.x] += (impact * colour);
         }
 
-        const numberOfSteps = 1 * height * width;
+        const numberOfSteps = height * width;
         for (let i = 0; i < numberOfSteps; i++) {
             walkerColor += .0125 / numberOfSteps;
             walker(walkerColor);
@@ -235,7 +207,7 @@ createPattern.prototype = {
         return pattern;
     }, // random_walker()
 
-    rays: function (layerDefinition, width, height) {
+    async rays (layerDefinition, width, height) {
         const pattern = new Array(width * height);
 
         const count = layerDefinition?.count || layerDefinition?.frequency || 16;
@@ -271,8 +243,8 @@ createPattern.prototype = {
             }
         }
         return pattern;
-    }, // rays() 
+    } // rays() 
 
 }; // createPattern.prototype
 
-export default createPattern;
+export default createPatternAsync;

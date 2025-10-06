@@ -2,9 +2,14 @@
 
 const modulesPath = './modules/mel_';
 const cacheBusterVersion = '7';
-window.consoleVerbose = false;
+window.consoleVerbose = true;
 
-window.mel = {};
+window.mel = {
+    startTime: performance.now(),
+    printTime: function (string) {
+        console.log(performance.now() - window.mel.startTime, string);
+    }
+};
 
 mel.jsTriggers = () => {
     /* find and execute JavaScript-triggers in HTML-tags */
