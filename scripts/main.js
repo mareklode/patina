@@ -2,12 +2,14 @@
 
 const modulesPath = './modules/mel_';
 const cacheBusterVersion = '7';
-window.consoleVerbose = true;
+window.consoleVerbose = false;
 
 window.mel = {
     startTime: performance.now(),
     printTime: function (string) {
-        console.log(performance.now() - window.mel.startTime, string);
+        if (window.consoleVerbose) {
+            console.log(performance.now() - window.mel.startTime, string);
+        }
     }
 };
 

@@ -13,6 +13,7 @@ async function createPatternAsync (layerDefinition, width, height) {
         });
     };
 
+    // sometimes instead of pattern: { name: and so on } you can use the shortcut patternName: "name" without parameters
     let patternName = layerDefinition?.patternName || layerDefinition?.patternConfig?.name;
 
     if (patternName in createPatternAsync.prototype) {
@@ -29,7 +30,7 @@ async function createPatternAsync (layerDefinition, width, height) {
     }
 
     return pattern;
-}
+} // createPattern()
 
 createPatternAsync.prototype = {
     _convertByteToFractionOfOne: function (integer) {
@@ -37,14 +38,17 @@ createPatternAsync.prototype = {
     },
 
     async border (layerDefinition, width, height) {
-        const pattern = new Array(width * height);
+        let pattern = new Array(width * height);
         for (let i = 0; i < width; i++) {
             for (let j = 0; j < height; j++) {
                 const linearX = i / (width - 1);
                 const linearY = j / (height - 1);
+
+                // https://www.wolframalpha.com/ <-- plot (2*x)^2 - 4x + 1
                 const circularX = Math.pow(2 * linearX, 2) - (4 * linearX) + 1;
                 const circularY = Math.pow(2 * linearY, 2) - (4 * linearY) + 1;
 
+                // https://easings.net/#easeInCirc
                 pattern[j * width + i] = (
                     1 - Math.sqrt(1 - Math.pow(circularX, 2)) +
                     1 - Math.sqrt(1 - Math.pow(circularY, 2))
@@ -52,12 +56,14 @@ createPatternAsync.prototype = {
             }
         }
         return pattern;
-    },
+    }, // border()
 
     async noise_plasma (layerDefinition, width, height) {
-        return noise.noise_plasma(width, layerDefinition?.frequency);
+        return noise.noise_plasma(width, layerDefinition?.frequency); // frequency defaults to 1
+        //return noise.diamondSquare(layerDefinition?.frequency, width, height);
     },
 
+    // better use the number-Shortcut like { "layerTop" : 256 }
     async flat (layerDefinition, width, height) {
         const color = layerDefinition?.color || layerDefinition?.frequency || 128;
         return Array.from({ length: width * height }, () => color / 256);
@@ -66,7 +72,7 @@ createPatternAsync.prototype = {
     async wave (layerDefinition, width, height) {
         const pattern = new Array(width * height);
 
-        const frequency = width / layerDefinition?.frequency / 6.2832 || width / 31.4156;
+        const frequency = width / layerDefinition?.frequency / 6.2832 || width / 31.4156; // default: 5 waves per width
         const offsetX = layerDefinition?.offsetX || width / 2;
         const offsetY = layerDefinition?.offsetY || width / 2;
 
@@ -89,20 +95,30 @@ createPatternAsync.prototype = {
                     case 'diagonalDown':
                         color = Math.sin((y - offsetY - x - offsetX) / frequency);
                         break;
-                    default:
+                    default: /* vertical */
                         color = Math.sin((x - offsetX) / frequency);
                 }
                 pattern[y * width + x] = (-color / 2) + 0.5;
             }
         }
         return pattern;
-    },
+
+    }, // wave()
 
     async slope (layerDefinition, width, height) {
         const pattern = new Array(width * height);
-        const direction = layerDefinition?.direction || "to bottom";
+
+        const direction = layerDefinition?.direction || "to bottom"; // to bottom, to top, to left, and to right,
         const colorBegin = this._convertByteToFractionOfOne(layerDefinition?.colorBegin) || 1;
         const colorEnd = this._convertByteToFractionOfOne(layerDefinition?.colorEnd) || 0;
+
+        /*
+        Geradengleichung (Normalform): y = mx + n 
+        m = (y2 - y1) / (x2 - x1) = (colorEnd - colorBegin) / (width - 0)
+        n = colorBegin
+            =>
+        y = ((colorEnd - colorBegin) / width) * xPos + colorBegin
+        */
 
         for (let x = 0; x < width; x++) {
             for (let y = 0; y < height; y++) {
@@ -124,7 +140,7 @@ createPatternAsync.prototype = {
             }
         }
         return pattern;
-    },
+    }, // slope()
 
     async labyrinth (layerDefinition, width, height) {
         let pattern = new Array(width * height).fill(0);
@@ -169,7 +185,7 @@ createPatternAsync.prototype = {
             for (let i = 0; i < width; i++) {
                 pattern.push(...noiseRow);
             }
-        } else {
+        } else { // vertical
             let noiseCol = Array.from({ length: width }, () => Math.random());
             for (let i = 0; i < height; i++) {
                 pattern.push(...noiseCol);
@@ -180,12 +196,14 @@ createPatternAsync.prototype = {
 
     async noise_white (layerDefinition, width, height) {
         return Array.from({ length: width * height }, () => Math.random());
-    },
+    }, // noise_white()
 
     async random_walker (layerDefinition, width, height) {
         const pattern = new Array(width * height).fill(0);
+
         const impact = layerDefinition?.impact || 5;
 
+        // start at the center
         const walkerPos = {
             x: Math.floor(width / 2),
             y: Math.floor(height / 2)
@@ -194,12 +212,21 @@ createPatternAsync.prototype = {
         let walkerColor = 0;
 
         function walker (colour) {
-            walkerPos.x = (walkerPos.x + Math.round(Math.random() * 2 - 1) + width) % width;
-            walkerPos.y = (walkerPos.y + Math.round(Math.random() * 2 - 1) + height) % height;
+            walkerPos.x = (walkerPos.x + Math.round(Math.random() * 2 - 1) + width) % width; // wraps around at the edges
+            walkerPos.y = (walkerPos.y + Math.round(Math.random() * 2 - 1) + height) % height; // wraps around at the edges
+            /*         
+            let farbe = myCanvas.getImgData(walkerPos.x, walkerPos.y);
+            //console.log(farbe);
+            if (farbe[0] > 2 || true) { farbe[0] *= 1 + (impact * .1  ); } else { farbe[0] = 0; }
+            if (farbe[1] > 2 || true) { farbe[1] *= 1 + (impact * .125);  } else { farbe[1] = 0; }
+            if (farbe[2] > 2 || true) { farbe[2] *= 1 + (impact * colour); } else { farbe[2] = 0; }
+            myCanvas.setImgData(walkerPos.x, walkerPos.y, ...farbe);
+            */
             pattern[walkerPos.y * width + walkerPos.x] += (impact * colour);
+
         }
 
-        const numberOfSteps = height * width;
+        const numberOfSteps = 1 * height * width;
         for (let i = 0; i < numberOfSteps; i++) {
             walkerColor += .0125 / numberOfSteps;
             walker(walkerColor);
