@@ -145,15 +145,8 @@ createPatternAsync.prototype = {
     async labyrinth (layerDefinition, width, height) {
         let pattern = new Array(width * height).fill(0);
 
-        /*
-        const direction = layerDefinition?.direction || "to bottom";
-        // to bottom, to top, to left, and to right,
-        const colorBegin = this._convertByteToFractionOfOne(layerDefinition?.colorBegin) || 0;
-        layerDefinition?.colorEnd = this._convertByteToFractionOfOne(layerDefinition?.colorEnd) || 1;
-        */
-
         // Labyrinth
-        let punkteAbstand = layerDefinition?.frequency || 4;
+        let punkteAbstand = layerDefinition?.spacing || 4;
         for (let x = 0; x < width / punkteAbstand; x++) {
             for (let y = 0; y < height / punkteAbstand; y++) {
                 let xRichtung = 0;

@@ -199,7 +199,7 @@ export const colorsExample = {
                 "type": "createPattern",
                 "patternConfig": {
                     "name": "flat",
-                    "frequency": "110"
+                    "color": 110
                 }
             },
             "colorAlpha": {
