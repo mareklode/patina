@@ -6,7 +6,6 @@ import noise from './mel_noise.js';
 async function createPattern (layerDefinition, width, height) {
     let pattern = {};
 
-
     let waitMilliseconds = function (delay) {
         return new Promise(resolve => {
             setTimeout(() => {
@@ -121,14 +120,7 @@ createPattern.prototype = {
         y = ((colorEnd - colorBegin) / width) * xPos + colorBegin
         */
 
-        if (direction === "to bottom" || direction === "vertical") {
-            for (let x = 0; x < width; x++) {
-                for (let y = 0; y < height; y++) {
-                    let position = y * width + x;
-                    pattern[position] = ((colorEnd - colorBegin) / height) * y + colorBegin;
-                }
-            }
-        } else if (direction === "to top") {
+        if (direction === "to top") {
             for (let x = 0; x < width; x++) {
                 for (let y = 0; y < height; y++) {
                     let position = y * width + x;
@@ -147,6 +139,13 @@ createPattern.prototype = {
                 for (let y = 0; y < height; y++) {
                     let position = y * width + x;
                     pattern[position] = ((colorBegin - colorEnd) / width) * x + colorEnd;
+                }
+            }
+        } else { // default: direction === "to bottom" || direction === "vertical") 
+            for (let x = 0; x < width; x++) {
+                for (let y = 0; y < height; y++) {
+                    let position = y * width + x;
+                    pattern[position] = ((colorEnd - colorBegin) / height) * y + colorBegin;
                 }
             }
         }
