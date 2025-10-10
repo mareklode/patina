@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
@@ -8,7 +9,8 @@
 
     <meta property="og:title" content="ReusableImages | Patina | mareklode">
     <meta property="og:image" content="http://mareklode.de/bilder/page/v3/v3_rost4.png">
-    <meta property="og:description" content="Patina: procedually generated background images in JavaScript. reusableImages.">
+    <meta property="og:description"
+        content="Patina: procedually generated background images in JavaScript. reusableImages.">
     <meta name="description" content="Patina: procedually generated background images in JavaScript. reusableImages.">
     <meta name="theme-color" content="#28330a">
 
@@ -19,29 +21,18 @@
 
 <body class="body">
 
-    <header class="header js-module" 
-        data-module-name="patina" 
-        data-module-data="template_header">
-        <div class="header__before js-module"
-            data-module-name="patina" 
-            data-module-data='template_header_logo_before'>
+    <header class="header js-module" data-module-name="patina" data-module-data="template_header">
+        <div class="header__before js-module" data-module-name="patina" data-module-data='template_header_logo_before'>
         </div>
-        <div class="header__after js-module"
-            data-module-name="patina" 
-            data-module-data='template_header_logo_after'>
+        <div class="header__after js-module" data-module-name="patina" data-module-data='template_header_logo_after'>
         </div>
-        <a href="index.html" 
-            class="header__logo js-module" 
-            data-module-name="patina" 
-            data-module-data="template_header_logo_image" 
-            title="Homepage">
+        <a href="index.html" class="header__logo js-module" data-module-name="patina"
+            data-module-data="template_header_logo_image" title="Homepage">
             <img src="images/page/header__logo--PatinaFont-rough_@2x.png" class="header__logo__image" alt="Patina">
-        </a> 
+        </a>
     </header>
-    
-    <nav class="navigation js-module" 
-         data-module-name="patina" 
-         data-module-data="template_navigation">
+
+    <nav class="navigation js-module" data-module-name="patina" data-module-data="template_navigation">
         <a class="navigation__link" href="index.html">Home</a>
         <a class="navigation__link" href="howto.html">HowTo</a>
         <a class="navigation__link" href="createPattern.html">createPattern</a>
@@ -58,14 +49,13 @@
         <h1>reusableImages</h1>
 
 
-        <p class="copy">The only way to use a pixel array at two different points inside the data structure (two different color channels for example) is to use "reusableImages". Better Explanation follows.</p>
+        <p class="copy">The only way to use a pixel array at two different points inside the data structure (two
+            different color channels for example) is to use "reusableImages". Better Explanation follows.</p>
 
         <div class="pattern">
 
             <h2>noise_plasma</h2>
-            <pre style="width: 512px;max-width: 90%;"
-                class="js-module pattern__thumbnail" 
-                data-module-name="patina" 
+            <pre style="width: 512px;max-width: 90%;" class="js-module pattern__thumbnail" data-module-name="patina"
                 data-module-data='{
                     "width": 256,
                     "reusableImages" : { 
@@ -100,13 +90,10 @@
                             "reuseId"   :   "greyNoise"
                         }
                     }
-                }'
-            ></pre>      
-            
+                }'></pre>
+
             <h2>combining two images</h2>
-            <pre class="js-module pattern__thumbnail" 
-                data-module-name="patina" 
-                data-module-data='{
+            <pre class="js-module pattern__thumbnail" data-module-name="patina" data-module-data='{
                     "reusableImages": {
                         "reetroof": {
                             "type"          : "preloadImage",
@@ -128,17 +115,14 @@
                             "reuseId"       : "zweiBaeume_300"
                         }
                     }
-                }'
-            ></pre>
+                }'></pre>
 
             <p class="copy">
                 Load images, distort or layers them, apply <a href="filter.html">filters</a>.
             </p>
-    
+
             <div class="pattern">
-                <div class="js-module pattern__thumbnail" 
-                    data-module-name="patina" 
-                    data-module-data='{
+                <div class="js-module pattern__thumbnail" data-module-name="patina" data-module-data='{
                         "reusableImages": {
                             "reetroof": {
                                 "type"          : "preloadImage",
@@ -162,18 +146,15 @@
                                 "reuseId"       : "zweiBaeume_300"
                             }
                         }
-                    }'
-                ></div>
+                    }'></div>
             </div>
         </div>
 
 
     </main><!-- .body__block -->
 
-    <footer	class="footer js-module" 
-            data-module-name="patina" 
-            data-module-data="template_footer">
-        &copy; 2025 Marek Lode &nbsp; | &nbsp; 
+    <footer class="footer js-module" data-module-name="patina" data-module-data="template_footer">
+        &copy; 2025 <a href="https://mareklode.de">Marek Lode</a> &nbsp; | &nbsp;
         <a href="https://github.com/mareklode/patina">
             <img class="footer__githublogo" src="images/page/GitHub-Mark-32px.png" alt="GitHub Logo">
             This Project on GitHub
@@ -184,4 +165,5 @@
     <script type="module" src="scripts/main.js"></script>
 
 </body>
+
 </html>

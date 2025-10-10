@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
-    <base href="http://localhost/mareklode/patina/">
+    <base href="https://mareklode.de/patina/">
     <title>slope | createPattern | Patina | mareklode</title>
 
     <meta property="og:title" content="slope | createPattern | Patina | mareklode" />
@@ -57,7 +57,7 @@
     
         <h1>createPattern : slope</h1>
         
-        <p class="copy">ToDo: changing directions has to be possible. For now, the slope pattern has no options and creates the same thing everytime. I will expand this when i need another slope. This pattern is not random, the same parameters create the exact same image.</p>
+        <p class="copy">Creates a linear gradient from one side of the patina to the other. This pattern is not random, the same parameters create the exact same image.</p>
         
         <h2>Basic Example</h2>
 
@@ -93,7 +93,10 @@
     "patina"    : {
         "type"      : "createPattern",
         "patternConfig" : {
-            "name"      : "slope","value": 4
+            "name"      : "slope",
+            "direction": "horizontal", 
+            "colorBegin": 32, 
+            "colorEnd": 128
         }
     }
 }
@@ -105,7 +108,7 @@
     <footer class="footer js-module" 
             data-module-name="patina" 
             data-module-data="template_footer">
-        &copy; 2025 Marek Lode &nbsp; | &nbsp; 
+        &copy; 2025 <a href="https://mareklode.de">Marek Lode</a> &nbsp; | &nbsp; 
         <a href="https://github.com/mareklode/patina">
             <img class="footer__githublogo" src="images/page/GitHub-Mark-32px.png" alt="GitHub Logo" />
             This Project on GitHub

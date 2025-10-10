@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
-    <base href="http://localhost/mareklode/patina/">
+    <base href="https://mareklode.de/patina/">
     <title>flat | createPattern | Patina | mareklode</title>
 
     <meta property="og:title" content="flat | createPattern | Patina | mareklode" />
@@ -57,7 +57,7 @@
     
         <h1>createPattern : flat</h1>
         
-        <p class="copy">This 'Pattern' assigns the same value to all the pixels in this color channel. So we can also generate monochrome background images with no patterns. This pattern is not random, the same parameters create the exact same image.</p>
+        <p class="copy">This 'Pattern' assigns the same value to all the pixels in this pattern. It can be used as a color channel, for example. The footer has 3 flat color channels that combine to green, the pattern is only in the alpha channel. This pattern is not random, the same parameter creates the exact same image.</p>
         
         <h2>Basic Example</h2>
 
@@ -93,7 +93,8 @@
     "patina"    : {
         "type"      : "createPattern",
         "patternConfig" : {
-            "name"      : "flat","value": 4
+            "name"      : "flat",
+            "color": 128
         }
     }
 }
@@ -105,7 +106,7 @@
     <footer class="footer js-module" 
             data-module-name="patina" 
             data-module-data="template_footer">
-        &copy; 2025 Marek Lode &nbsp; | &nbsp; 
+        &copy; 2025 <a href="https://mareklode.de">Marek Lode</a> &nbsp; | &nbsp; 
         <a href="https://github.com/mareklode/patina">
             <img class="footer__githublogo" src="images/page/GitHub-Mark-32px.png" alt="GitHub Logo" />
             This Project on GitHub
