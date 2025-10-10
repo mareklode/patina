@@ -5,7 +5,7 @@ import canvas from './modules/mel_canvas.js';
 const randomSeed = 30 || Math.random() * 1000000 | 0; // 
 console.log(randomSeed, Math.random());
 
-function paintArtpiece() {
+function paintArtpiece () {
 
     if (Math.seedrandom) {
         Math.seedrandom(randomSeed);
@@ -25,7 +25,7 @@ function paintArtpiece() {
     artPiece.domelement.appendChild(myCanvas.el);
 
     let minimum, maximum;
-    function minimumMaximum(value) {
+    function minimumMaximum (value) {
         if (typeof minimum === "undefined" || value < minimum) {
             minimum = value;
         }
@@ -95,7 +95,7 @@ function paintArtpiece() {
     };
 
     let walkerColor = 0;
-    function walker(colour) {
+    function walker (colour) {
         const impact = 0.5;
 
         walkerPos.x = (walkerPos.x + Math.round(Math.random() * 2 - 1) + artPiece.width) % artPiece.width;
@@ -109,7 +109,7 @@ function paintArtpiece() {
 
     }
 
-    function animateWalker(handler) {
+    function animateWalker (handler) {
         walker();
         myCanvas.context.putImageData(myCanvas.img, 0, 0);
         window.requestAnimationFrame(animateWalker);
