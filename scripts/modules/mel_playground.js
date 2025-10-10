@@ -7,7 +7,7 @@ function playground (domElement, parameters) {
 
     const calculatePatinaFromTextarea = function () {
         // ich importiere relativ zum base href
-        import('/patina/scripts/modules/mel_patina.js')
+        import('./mel_patina.js')
             .then((patina) => {
                 new patina.default(target, textarea.value);
             });

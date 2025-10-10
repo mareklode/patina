@@ -209,14 +209,14 @@ patina.prototype = {
 
         if (layer?.type === "createPattern") {
 
-            const { default: createPatternAsync } = await import('./mel_createPatternAsync.js');
+            const { default: createPattern } = await import('./mel_createPattern.js');
 
             /*
             window.consoleVerbose &&
                 console.log(createPattern);
             */
 
-            resultingImage = await createPatternAsync(layer, width, height);
+            resultingImage = await createPattern(layer, width, height);
 
         } else if (layer?.type === "reuseImage") {
             if (this.reusableImages[layer.reuseId]) {

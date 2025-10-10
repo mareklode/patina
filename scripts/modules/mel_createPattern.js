@@ -1,34 +1,43 @@
 import noise from './mel_noise.js';
-// import canvas from './mel_canvas.js';
 
 // http://codeblog.cz/vanilla/inside.html#set-element-html
 // https://github.com/daneden/animate.css
 
-function createPattern (layerDefinition, width, height) {
+async function createPattern (layerDefinition, width, height) {
     let pattern = {};
 
+
+    let waitMilliseconds = function (delay) {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve();
+            }, delay);
+        });
+    };
 
     // sometimes instead of pattern: { name: and so on } you can use the shortcut patternName: "name" without parameters
     let patternName = layerDefinition?.patternName || layerDefinition?.patternConfig?.name;
 
-    if (this[patternName]) {
+    if (patternName in createPattern.prototype) {
         mel.printTime(`createPattern: ${patternName}`);
-        pattern = this[patternName](layerDefinition?.patternConfig, width, height);
+        // Warten, falls die Methode asynchron ist
+        await waitMilliseconds(50); // So the Page stays responsive while calculating patinas
+
+        pattern = await createPattern.prototype[patternName](layerDefinition?.patternConfig, width, height);
     } else {
-        console.error("createPattern: \"", patternName, "\" does not exist.", layerDefinition);
-        pattern = this["flat"]({ color: 0 }, width, height);
+        console.error(`createPattern: "${patternName}" does not exist.`, layerDefinition);
+        pattern = await createPattern.prototype["flat"]({ color: 0 }, width, height);
     }
 
     return pattern;
 }; // createPattern()
 
 createPattern.prototype = {
-
     _convertByteToFractionOfOne: function (integer) {
         return integer / 256;
     },
 
-    border: function (layerDefinition, width, height) {
+    async border (layerDefinition, width, height) {
         let pattern = new Array(width * height);
         for (let i = 0; i < width; i++) {
             for (let j = 0; j < height; j++) {
@@ -49,18 +58,18 @@ createPattern.prototype = {
         return pattern;
     }, // border()
 
-    noise_plasma: function (layerDefinition, width, height) {
+    async noise_plasma (layerDefinition, width, height) {
         return noise.noise_plasma(width, layerDefinition?.frequency); // frequency defaults to 1
         //return noise.diamondSquare(layerDefinition?.frequency, width, height);
     },
 
     // better use the number-Shortcut like { "layerTop" : 256 }
-    flat: function (layerDefinition, width, height) {
+    async flat (layerDefinition, width, height) {
         const color = layerDefinition?.color || layerDefinition?.frequency || 128;
         return Array.from({ length: width * height }, () => color / 256);
     },
 
-    wave: function (layerDefinition, width, height) {
+    async wave (layerDefinition, width, height) {
         const pattern = new Array(width * height);
 
         const frequency = width / layerDefinition?.frequency / 6.2832 || width / 31.4156; // default: 5 waves per width
@@ -93,11 +102,11 @@ createPattern.prototype = {
                 pattern[y * width + x] = (-color / 2) + 0.5;
             }
         }
-        return pattern
+        return pattern;
 
     }, // wave()
 
-    slope: function (layerDefinition, width, height) {
+    async slope (layerDefinition, width, height) {
         const pattern = new Array(width * height);
 
         const direction = layerDefinition?.direction || "to bottom"; // to bottom, to top, to left, and to right,
@@ -144,7 +153,7 @@ createPattern.prototype = {
         return pattern;
     }, // slope()
 
-    labyrinth: function (layerDefinition, width, height) {
+    async labyrinth (layerDefinition, width, height) {
         let pattern = new Array(width * height).fill(0);
 
         // Labyrinth
@@ -162,15 +171,17 @@ createPattern.prototype = {
                 for (let linie = 0; linie < punkteAbstand; linie++) {
                     let xPos = x * punkteAbstand + linie * xRichtung;
                     let yPos = y * punkteAbstand + linie * yRichtung;
-                    pattern[yPos * width + xPos] = 1;
+                    if (xPos >= 0 && xPos < width && yPos >= 0 && yPos < height) {
+                        pattern[yPos * width + xPos] = 1;
+                    }
                 }
             }
         }
         return pattern;
     }, // labyrinth()
 
-    noise_1D: function (layerDefinition, width, height) {
-        const pattern = new Array();
+    async noise_1D (layerDefinition, width, height) {
+        const pattern = [];
 
         const direction = layerDefinition?.direction;
 
@@ -189,11 +200,11 @@ createPattern.prototype = {
         return flattenedArray;
     }, // noise_1D()
 
-    noise_white: function (layerDefinition, width, height) {
+    async noise_white (layerDefinition, width, height) {
         return Array.from({ length: width * height }, () => Math.random());
     }, // noise_white()
 
-    random_walker: function (layerDefinition, width, height) {
+    async random_walker (layerDefinition, width, height) {
         const pattern = new Array(width * height).fill(0);
 
         const impact = layerDefinition?.impact || 5;
@@ -228,7 +239,7 @@ createPattern.prototype = {
         return pattern;
     }, // random_walker()
 
-    rays: function (layerDefinition, width, height) {
+    async rays (layerDefinition, width, height) {
         const pattern = new Array(width * height);
 
         const count = layerDefinition?.count || layerDefinition?.frequency || 16;
