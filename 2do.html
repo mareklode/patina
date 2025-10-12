@@ -59,18 +59,74 @@ meld ./localhost/patina/ ../mareklode/patina/
         </pre>
 
         <ul class="copy">
-            <li>reusable images are not always fully loaded, resulting in error message and faulty patina
-            <li>rewrite the howto for JavaScript modules</li>
-            <li>build_patina_js.html is still using require </li>
             <li>upper size boundary for images, when page is zoomed out</li>
             <li>animations</li>
             <li>http://html2canvas.hertzen.com/ && https://github.com/eligrey/FileSaver.js</li>
             <li>compare noise algorithm names:
                 https://www.gamedeveloper.com/programming/a-real-time-procedural-universe-part-one-generating-planetary-bodies
             </li>
+
+            <li>draw reusableImages elsewhere
+            <li>make filterDialog independent module
+            <li>wave direction: 0,45,90,135,180... + rectangles + concentric
+            <li>slope needs an angle/direction variable as number (maybe 0, 90, 180, 270)
+            <li>noise_1D direction wie slope
+            <li>move 1D and white noises to mel_noise.js
+            <li>
+                <pre>sort out plasma and diamond square noise
+              + is colorBegin and colorEnd useful/scalable?
+              + either stretch to desired size (tilable)
+              + or cut to dimensions (not tilable, more random)
+              + or both?</pre>
+            <li>place additional information in filter, pattern and mel_combine.js files (possible parameters for each
+                function);
+            <li>cacheing of already calculated Patinas
+            <li>make this cacheing configurable
+
         </ul>
 
+        <pre class="copy">
+    ########################################################
+        
+    for developers:
+    how to use
+    how to contribute
+    
+    for designers:
+    don't use
+    but if you do, heres how
+    
+    for me:
+    how it works
+    why i developed it
+        </pre>
 
+        <pre class="copy">
+Neue Sektion: Examples
+
+Footer
+distort filter
+paintArtpiece
+https://mareklode.de/patina/paintArtpiece.html requesting insecure script seedrandom.min.js <- have to use https or host
+    it myself Neue Sektion: combineLayers / combineMode distort subtract multiply burn add overlay
+    (fifty/fifty)==default 
+    
+    Neue Sektion: roadmap / toDo split image into channels animation showSteps (disconnect
+    reusable images from tree) do we even need a default: value, frequency, ??? Legende: Canvas: Dom element, background
+    image, the thing that is rendered inside the browser (here i can link to a little explanation for mel_canvas.js ->
+    canvas.html)
+    Patina: Array with pixel values (monochrome or color channels) that can be painted onto the Canvas.
+    Pixel Painting Instructions: the JSON tree, that dictates how the pixels are manipulated to create the Patina.
+
+
+    ich brauche ein neues Headerbild
+    höhere werte sind hellere Farben (nur 1 channel/ schwarzweiß?) was passiert beim übergang zu farbe?
+
+
+
+
+    mel_patina.js Zeile 95: was passiert hier, wenn der wert für rot === 0 ist?
+        </pre>
     </main><!-- .body__block -->
 
     <footer class="footer">

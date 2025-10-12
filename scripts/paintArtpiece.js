@@ -41,7 +41,7 @@ function paintArtpiece () {
             myCanvas.el.img.data[position] = (y / artPiece.height) * 90; // Math.floor(Math.random() * 32) + 100;
             myCanvas.el.img.data[position + 1] = ((artPiece.width - y) / artPiece.height) * 20; // Math.floor(Math.random() * 32) + 100;
             myCanvas.el.img.data[position + 2] = (x / (artPiece.width + artPiece.height)) * 150; // Math.floor(Math.random() * 32) + 100;
-            //minimumMaximum(myCanvas.img.data[position + 2]);
+            // minimumMaximum(myCanvas.el.img.data[position + 2]);
             myCanvas.el.img.data[position + 3] = 255;
         }
     }

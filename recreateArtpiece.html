@@ -24,117 +24,133 @@
     }
 </style>
 <div class="js-module pattern__thumbnails pattern__thumbnails--512" id="artPiece"
-    style="background-color: #7d9cb1; height: 100vh; width: 100%;" data-module-name="patina" data-module-data='{
+    style="background-color: #7d9cb1; height: 100vh; width: 100%;" data-module-name="patina" data-module-data='{    
     "patina": {
         "type": "layers",
         "combineMode": {
-            "name": "add",
-            "opacity": 0.5
-        },
-        "layerTop": {
-            "type": "createPattern",
-            "patternName": "random_walker",
-            "impact": 0.1
+            "name": "burn",
+            "value": 1.5
         },
         "layerBottom": {
             "type": "layers",
             "combineMode": {
-                "name": "add",
-                "opacity": 0.075
+                "name": "burn"
             },
             "layerTop": {
                 "type": "createPattern",
-                "patternName": "labyrinth"
+                "patternConfig": {
+                    "name": "random_walker",
+                    "impact": 8,
+                    "steps": 4
+                }
             },
             "layerBottom": {
-                "type": "colors",
-                "colorRed": {
+                "type": "layers",
+                "combineMode": {
+                    "name": "burn",
+                    "opacity": 0.075
+                },
+                "layerTop": {
                     "type": "layers",
-                    "combineMode": {
-                        "name": "add",
-                        "opacity": 0.15
-                    },
-                    "layerTop": {
-                        "type": "createPattern",
-                        "patternName": "noise_white"
-                    },
                     "layerBottom": {
                         "type": "createPattern",
                         "patternConfig": {
-                            "name": "slope",
-                            "direction": "to bottom",
-                            "colorBegin": 90,
-                            "colorEnd": 0
+                            "name": "flat",
+                            "frequency": "0"
                         }
-                    }
-                },
-                "colorGreen": {
-                    "type": "layers",
-                    "combineMode": {
-                        "name": "add",
-                        "opacity": 0.075
                     },
                     "layerTop": {
                         "type": "createPattern",
-                        "patternName": "noise_white",
+                        "patternConfig": {
+                            "name": "labyrinth",
+                            "frequency": 10
+                        }
+                    },
+                    "combineMode": {
+                        "name": "overlay"
+                    }
+                },
+                "layerBottom": {
+                    "type": "colors",
+                    "colorRed": {
+                        "type": "createPattern",
+                        "patternConfig": {
+                            "name": "slope",
+                            "colorBegin": 0,
+                            "colorEnd": 164
+                        }
+                    },
+                    "colorGreen": {
+                        "type": "createPattern",
+                        "patternConfig": {
+                            "name": "noise_white"
+                        },
                         "filter": [
                             {
-                                "name": "contrast",
-                                "m": 1,
-                                "x": 0.5
+                                "name": "contrast_new",
+                                "value": 0.025
+                            },
+                            {
+                                "name": "brightness_new",
+                                "value": -0.3
                             }
                         ]
                     },
-                    "layerBottom": {
+                    "colorBlue": {
                         "type": "layers",
-                        "layerBottom": {
-                            "type": "createPattern",
-                            "patternConfig": {
-                                "name": "slope",
-                                "colorBegin": 250,
-                                "colorEnd": 210
-                            }
+                        "combineMode": {
+                            "name": "burn",
+                            "radius": 64
                         },
                         "layerTop": {
                             "type": "createPattern",
                             "patternConfig": {
+                                "name": "noise_white",
+                                "direction": "rectangles",
+                                "frequency": 10
+                            }
+                        },
+                        "layerBottom": {
+                            "type": "createPattern",
+                            "patternConfig": {
                                 "name": "slope",
-                                "direction": "horizontal",
-                                "colorBegin": 250,
-                                "colorEnd": 210
+                                "colorBegin": 0,
+                                "colorEnd": 70,
+                                "direction": "horizontal"
                             }
                         }
-                    }
-                },
-                "colorBlue": {
-                    "type": "layers",
-                    "combineMode": {
-                        "name": "overlay",
-                        "opacity": 0.15
                     },
-                    "layerBottom": {
-                        "type": "createPattern",
-                        "patternName": "noise_white"
-                    },
-                    "layerTop": {
+                    "colorAlpha": {
                         "type": "createPattern",
                         "patternConfig": {
-                            "name": "slope",
-                            "direction": "to right",
-                            "colorBegin": 250,
-                            "colorEnd": 220
+                            "name": "flat",
+                            "color": 255
                         }
-                    }
-                },
-                "colorAlpha": {
-                    "type": "createPattern",
-                    "patternConfig": {
-                        "name": "flat",
-                        "color": 255
                     }
                 }
             }
-        }
+        },
+        "layerTop": {
+            "type": "createPattern",
+            "patternConfig": {
+                "name": "border",
+                "frequency": 10
+            },
+            "filter": [
+                {
+                    "name": "invert"
+                },
+                {
+                    "name": "brightness_new",
+                    "value": -0.85
+                }
+            ]
+        },
+        "filter": [
+            {
+                "name": "alpha"
+            }
+        ]
     },
     "reusableImages": {}
 }'></div>
