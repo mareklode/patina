@@ -66,7 +66,7 @@ filter.prototype = {
     }, // blur()
 
     alpha: function (image, filterDefinition) {
-        let opacity = filterDefinition.opacity || 1;
+        let opacity = filterDefinition?.opacity || 1;
         /*
         for (let i = 0; i< image.length/4; i++) {
             image[i*5] = opacity;

@@ -11,7 +11,7 @@ import templates from './mel_pageTemplates.js';
 function patina (domElement, parameters) {
     let self = this;
 
-    if (domElement) {
+    if (domElement && domElement.getBoundingClientRect().width && domElement.getBoundingClientRect().height) {
         mel.printTime(`patina ${domElement.id}`);
 
         if (parameters.startsWith('template_')) {
@@ -82,14 +82,6 @@ patina.prototype = {
             this.imageObj.src = reusableImage.url;
         });
     }, // preloadImage()
-
-    calculateReusablePattern: async function (value, width, height) {
-        return await this._processPatinaNode(
-            value,
-            width,
-            height
-        );
-    }, // just to make async possible
 
     resultingImageHasData: function (resultingImage) {
         return !!resultingImage.length || !!resultingImage.colorRed;
@@ -236,10 +228,13 @@ patina.prototype = {
                     if (Array.isArray(resultingImage)) {
                         resultingImage = new filter(resultingImage, element, width, height);
                     } else {
-                        resultingImage.colorRed = new filter(resultingImage.colorRed, element, width, height);
-                        resultingImage.colorGreen = new filter(resultingImage.colorGreen, element, width, height);
-                        resultingImage.colorBlue = new filter(resultingImage.colorBlue, element, width, height);
-                        //resultingImage.colorAlpha = new filter(resultingImage.colorAlpha, element, width, height);
+                        if (element.name === 'alpha') {
+                            resultingImage.colorAlpha = new filter(resultingImage.colorAlpha, element, width, height);
+                        } else {
+                            resultingImage.colorRed = new filter(resultingImage.colorRed, element, width, height);
+                            resultingImage.colorGreen = new filter(resultingImage.colorGreen, element, width, height);
+                            resultingImage.colorBlue = new filter(resultingImage.colorBlue, element, width, height);
+                        }
                     }
                 });
 
@@ -267,9 +262,9 @@ patina.prototype = {
             // ToDo: the pixelPaintingInstructions should specify how the Array is transformed to an 4-channel-image
             for (let i = 0, len = width * height; i < len; i++) {
                 let colorAlpha = Math.floor(patinaData[i] * 256);
-                myCanvas.el.img.data[i * 4] = 0;      // r
-                myCanvas.el.img.data[i * 4 + 1] = 0;    // g
-                myCanvas.el.img.data[i * 4 + 2] = 0;    // b
+                myCanvas.el.img.data[i * 4] = 255;      // r
+                myCanvas.el.img.data[i * 4 + 1] = 255;    // g
+                myCanvas.el.img.data[i * 4 + 2] = 255;    // b
                 myCanvas.el.img.data[i * 4 + 3] = colorAlpha;  // a
             }
         } else {

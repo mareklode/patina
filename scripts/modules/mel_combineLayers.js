@@ -1,4 +1,4 @@
-function combineArrays(layerBottom, layerTop, width, combineMode = {}) {
+function combineArrays (layerBottom, layerTop, width, combineMode = {}) {
     let modulo = function (divided, m) {
         // modulo(index - 1, tll)
         return ((divided % m) + m) % m;
@@ -45,8 +45,9 @@ function combineArrays(layerBottom, layerTop, width, combineMode = {}) {
             return (layerTop[index] * value);
         });
     } else if (combineMode.name === 'burn') { // todo: dodge
-        return layerBottom.map(function (value, index) {
-            return ((1 + layerTop[index]) * value);
+        const value = combineMode.value || 1;
+        return layerBottom.map(function (color, index) {
+            return ((1 + layerTop[index]) * color * value);
         });
     } else if (combineMode.name === 'add') {
         let opacity = combineMode.opacity || 1;
@@ -61,7 +62,7 @@ function combineArrays(layerBottom, layerTop, width, combineMode = {}) {
     }
 }; // combineArrays()
 
-function combineLayers(layerBottom, layerTop, width, combineMode) {
+function combineLayers (layerBottom, layerTop, width, combineMode) {
     // could be way more sophisticated. And than deserves an extra file
     let resultingImage,
         isArrayBottomLayer = Array.isArray(layerBottom),

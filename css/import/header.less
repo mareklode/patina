@@ -13,7 +13,12 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
   height: 128px;
   background-color: @headerBackgroundColor;
   background-position: center;
+  background-size: cover;
   position: relative;
+
+  /* background-image: conic-gradient(teal 5%, blue 22%, purple 28%, red 50%, orange 72%, green 78%, teal 95%); */
+  background-image: conic-gradient(#00808080 5%, #0000ff82 22%, #80008082 28%, #ff000082 50%, #ffa5007d 72%, #00800078 78%, #00808080 95%);
+
   .pagemode_homepage & {
     height: 330px; // fallback für altes Motorola
     max-height: 330px;
@@ -22,19 +27,19 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
   }
 
   &__before {
-    position:absolute; 
-    inset: 0; 
-    background-size: 100% 100%; 
+    position: absolute;
+    inset: 0;
+    background-size: 100% 100%;
     opacity: .2;
   }
 
   &__after {
-    position:absolute; 
-    inset: 0; 
-    background-size: 100% 100%; 
+    position: absolute;
+    inset: 0;
+    background-size: 100% 100%;
     opacity: .8;
   }
-  
+
   &__logo {
     position: absolute;
     top: 50%;
@@ -43,48 +48,62 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
     color: black;
     padding: 0;
     font-size: 400%;
-    font-weight: bold; 
+    font-weight: bold;
     text-shadow: 0 0 1px black;
     text-decoration: none;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center bottom;
+
+    mix-blend-mode: multiply;
+
     &:hover,
     &:focus,
     &:active {
       color: black;
-      background-color: @headerLinkBackgroundColor;
+      background-color: transparent;
+
+      mix-blend-mode: luminosity;
     }
+
     &__image {
       width: 350px;
       max-width: 80vw;
       font-size: 5rem;
       line-height: 96px;
+
+      mix-blend-mode: color-burn;
+
       .pagemode_homepage & {
         font-size: 10vw;
         line-height: 12vw;
+
         @media @desktop {
           width: 10 * @unitX;
         }
       }
     }
   }
+
   &__claim {
     .fontText;
     position: absolute;
     bottom: 12%;
     right: 12%;
     margin: 0;
+
     @media @mobile {
       display: none;
     }
   }
 }
+
 .navigation {
   background-color: @buttonBackgroundColor;
   background-size: 100% 100%;
   background-position: center;
   border-top: 1px solid rgba(255, 255, 255, 0.4);
+
   &__link {
     display: inline-block;
     padding: 1vw 2vw;
@@ -92,20 +111,24 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
     opacity: 0.85;
     font-weight: bold;
     text-decoration: none;
+
     &:hover,
     &:active,
     &:focus {
-        color: white;
-        background-color: rgba(0, 0, 0, 0.4);
-        opacity: 1;
+      color: white;
+      background-color: rgba(0, 0, 0, 0.4);
+      opacity: 1;
     }
+
     @media @desktop {
       font-size: 150%;
       padding: 15px 2vw;
     }
   }
+
   &__nowrap {
     white-space: nowrap;
+
     @media @submobile {
       white-space: unset;
     }

@@ -66,11 +66,10 @@ const templates = {
             }
         }
     }`,
-    */
     header_logo_after: `{
         "width" : 750,
         "height": 100,
-
+        
         "patina": {
             "type": "colors",
             "colorRed": 150,
@@ -95,28 +94,134 @@ const templates = {
             }
         }
     }`,
-    header: `{
-        "width" : 375,
-        "height": 283,
+    */
+    header: `{    
         "patina": {
-            "type"  : "colors",
-            "colorRed"   : 73,
-            "colorGreen" : 94,
-            "colorBlue"  : 18,
-            "colorAlpha" : {
-                "type"          : "createPattern",
-                "patternConfig" : { 
-                    "name"   : "wave",
-                    "direction"     : "rectangles",
-                    "frequency"     : 4
-                },  
-                "filter"        : [
-                    { "name": "threshold", "value": 0.5 },
-                    { "name": "blur", "value": 0.578 },
-                    { "name": "threshold", "value": 0.575 },
-                    { "name": "brightness_new", "value": -0.75 }
+            "type": "layers",
+            "combineMode": {
+                "name": "burn",
+                "value": 1.5
+            },
+            "layerBottom": {
+                "type": "layers",
+                "combineMode": {
+                    "name": "burn"
+                },
+                "layerTop": {
+                    "type": "createPattern",
+                    "patternConfig": {
+                        "name": "random_walker",
+                        "impact": 8,
+                        "steps": 4
+                    }
+                },
+                "layerBottom": {
+                    "type": "layers",
+                    "combineMode": {
+                        "name": "burn",
+                        "opacity": 0.075
+                    },
+                    "layerTop": {
+                        "type": "layers",
+                        "layerBottom": {
+                            "type": "createPattern",
+                            "patternConfig": {
+                                "name": "flat",
+                                "frequency": "0"
+                            }
+                        },
+                        "layerTop": {
+                            "type": "createPattern",
+                            "patternConfig": {
+                                "name": "labyrinth",
+                                "frequency": 10
+                            }
+                        },
+                        "combineMode": {
+                            "name": "overlay"
+                        }
+                    },
+                    "layerBottom": {
+                        "type": "colors",
+                        "colorRed": {
+                            "type": "createPattern",
+                            "patternConfig": {
+                                "name": "slope",
+                                "colorBegin": 0,
+                                "colorEnd": 164
+                            }
+                        },
+                        "colorGreen": {
+                            "type": "createPattern",
+                            "patternConfig": {
+                                "name": "noise_white"
+                            },
+                            "filter": [
+                                {
+                                    "name": "contrast_new",
+                                    "value": 0.025
+                                },
+                                {
+                                    "name": "brightness_new",
+                                    "value": -0.3
+                                }
+                            ]
+                        },
+                        "colorBlue": {
+                            "type": "layers",
+                            "combineMode": {
+                                "name": "burn",
+                                "radius": 64
+                            },
+                            "layerTop": {
+                                "type": "createPattern",
+                                "patternConfig": {
+                                    "name": "noise_white",
+                                    "direction": "rectangles",
+                                    "frequency": 10
+                                }
+                            },
+                            "layerBottom": {
+                                "type": "createPattern",
+                                "patternConfig": {
+                                    "name": "slope",
+                                    "colorBegin": 0,
+                                    "colorEnd": 70,
+                                    "direction": "horizontal"
+                                }
+                            }
+                        },
+                        "colorAlpha": {
+                            "type": "createPattern",
+                            "patternConfig": {
+                                "name": "flat",
+                                "color": 255
+                            }
+                        }
+                    }
+                }
+            },
+            "layerTop": {
+                "type": "createPattern",
+                "patternConfig": {
+                    "name": "border",
+                    "frequency": 10
+                },
+                "filter": [
+                    {
+                        "name": "invert"
+                    },
+                    {
+                        "name": "brightness_new",
+                        "value": -0.85
+                    }
                 ]
-            }
+            },
+            "filter": [
+                {
+                    "name": "alpha"
+                }
+            ]
         }
     }`,
     navigation: `{

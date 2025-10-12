@@ -109,8 +109,14 @@ createPattern.prototype = {
         const pattern = new Array(width * height);
 
         const direction = layerDefinition?.direction || "to bottom"; // to bottom, to top, to left, and to right,
-        const colorBegin = this._convertByteToFractionOfOne(layerDefinition?.colorBegin) || 1;
-        const colorEnd = this._convertByteToFractionOfOne(layerDefinition?.colorEnd) || 0;
+        const colorBegin = this._convertByteToFractionOfOne(layerDefinition?.colorBegin);
+        if (!colorBegin && colorBegin !== 0) {
+            colorBegin = 1;
+        }
+        const colorEnd = this._convertByteToFractionOfOne(layerDefinition?.colorEnd);
+        if (!colorEnd && colorEnd !== 0) {
+            colorEnd = 0;
+        }
 
         /*
         Geradengleichung (Normalform): y = mx + n 
@@ -207,11 +213,12 @@ createPattern.prototype = {
         const pattern = new Array(width * height).fill(0);
 
         const impact = layerDefinition?.impact || 5;
+        const steps = layerDefinition?.steps || 1; // this times the nuber of pixels in the patina
 
-        // start at the center
+        // start at the center (no, start )
         const walkerPos = {
-            x: Math.floor(width / 2),
-            y: Math.floor(height / 2)
+            x: Math.floor(Math.min(height, width) / 2),
+            y: Math.floor(Math.min(height, width) / 2)
         };
 
         let walkerColor = 0;
@@ -230,7 +237,7 @@ createPattern.prototype = {
 
         }
 
-        const numberOfSteps = 1 * height * width;
+        const numberOfSteps = steps * height * width;
         for (let i = 0; i < numberOfSteps; i++) {
             walkerColor += .0125 / numberOfSteps;
             walker(walkerColor);
