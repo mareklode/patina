@@ -73,7 +73,9 @@
 
         const loadPatinaExamples = async function () {
             const { footerExample, emptyExample, oneReusableImage, colorsExample, reusableImagesExample } = await import('./scripts/patinaExamples.js');
-            document.querySelector(".jsonpatina-textarea").value = JSON.stringify(reusableImagesExample, undefined, 4);
+            const templates = await import('./scripts/modules/mel_pageTemplates.js');
+            //document.querySelector(".jsonpatina-textarea").value = JSON.stringify(reusableImagesExample, undefined, 4);
+            document.querySelector(".jsonpatina-textarea").value = templates.default.header;
             init();
         }
         loadPatinaExamples();

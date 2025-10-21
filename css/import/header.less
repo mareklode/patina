@@ -17,7 +17,9 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
   position: relative;
 
   /* background-image: conic-gradient(teal 5%, blue 22%, purple 28%, red 50%, orange 72%, green 78%, teal 95%); */
-  background-image: conic-gradient(#00808080 5%, #0000ff82 22%, #80008082 28%, #ff000082 50%, #ffa5007d 72%, #00800078 78%, #00808080 95%);
+  background-image:
+    radial-gradient(#706060, transparent),
+    conic-gradient(#234246 0%, #244160 15%, #254184 20%, #2541b3 23%, #5540b3 25%, #8641b3 27%, #8b4281 30%, #894155 35%, #8b4248 50%, #8c4220 65%, #894102 70%, #8a4101 73%, #5b4100 75%, #234205 77%, #234106 80%, #264129 85%, #234246 100%);
 
   .pagemode_homepage & {
     height: 330px; // fallback für altes Motorola
@@ -51,10 +53,10 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
     font-weight: bold;
     text-shadow: 0 0 1px black;
     text-decoration: none;
-    background-size: contain;
     background-repeat: no-repeat;
     background-position: center bottom;
 
+    background-size: 100% 100%;
     mix-blend-mode: multiply;
 
     &:hover,
@@ -92,6 +94,9 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
     right: 12%;
     margin: 0;
 
+    font-weight: bold;
+    text-shadow: 0 0 10px lightgray;
+
     @media @mobile {
       display: none;
     }
@@ -116,8 +121,11 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
     &:active,
     &:focus {
       color: white;
-      background-color: rgba(0, 0, 0, 0.4);
+      background-color: @buttonHoverBackgroundColor;
       opacity: 1;
+      transform: scale(1.033);
+      border-top: 1px solid rgba(255, 255, 255, 0.33);
+      margin-top: -1px;
     }
 
     @media @desktop {

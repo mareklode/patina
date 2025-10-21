@@ -64,7 +64,10 @@ createPattern.prototype = {
 
     // better use the number-Shortcut like { "layerTop" : 256 }
     async flat (layerDefinition, width, height) {
-        const color = layerDefinition?.color || layerDefinition?.frequency || 128;
+        let color = layerDefinition?.color || layerDefinition?.frequency || 128;
+        if (!isNaN(layerDefinition)) {
+            color = layerDefinition;
+        }
         return Array.from({ length: width * height }, () => color / 256);
     },
 
@@ -109,11 +112,11 @@ createPattern.prototype = {
         const pattern = new Array(width * height);
 
         const direction = layerDefinition?.direction || "to bottom"; // to bottom, to top, to left, and to right,
-        const colorBegin = this._convertByteToFractionOfOne(layerDefinition?.colorBegin);
+        let colorBegin = this._convertByteToFractionOfOne(layerDefinition?.colorBegin);
         if (!colorBegin && colorBegin !== 0) {
             colorBegin = 1;
         }
-        const colorEnd = this._convertByteToFractionOfOne(layerDefinition?.colorEnd);
+        let colorEnd = this._convertByteToFractionOfOne(layerDefinition?.colorEnd);
         if (!colorEnd && colorEnd !== 0) {
             colorEnd = 0;
         }

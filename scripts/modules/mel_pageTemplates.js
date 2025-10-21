@@ -10,6 +10,7 @@ const templates = {
                 "colors" : 1
             }
         },
+        "width": 512,
         "patina": {
             "type"  : "colors",
             "colorRed"   : 128,
@@ -95,7 +96,7 @@ const templates = {
         }
     }`,
     */
-    header: `{    
+    header: `{
         "patina": {
             "type": "layers",
             "combineMode": {
@@ -105,14 +106,47 @@ const templates = {
             "layerBottom": {
                 "type": "layers",
                 "combineMode": {
-                    "name": "burn"
+                    "name": "add",
+                    "opacity": 0.33
                 },
                 "layerTop": {
-                    "type": "createPattern",
-                    "patternConfig": {
-                        "name": "random_walker",
-                        "impact": 8,
-                        "steps": 4
+                    "type": "colors",
+                    "colorRed": {
+                        "type": "reuseImage",
+                        "reuseId": "randomWalker",
+                        "filter": [
+                            {
+                                "name": "brightness_new",
+                                "value": 0
+                            }
+                        ]
+                    },
+                    "colorGreen": {
+                        "type": "reuseImage",
+                        "reuseId": "randomWalker",
+                        "filter": [
+                            {
+                                "name": "brightness_new",
+                                "value": -0.25
+                            }
+                        ]
+                    },
+                    "colorBlue": {
+                        "type": "reuseImage",
+                        "reuseId": "randomWalker",
+                        "filter": [
+                            {
+                                "name": "brightness_new",
+                                "value": -1
+                            }
+                        ]
+                    },
+                    "colorAlpha": {
+                        "type": "createPattern",
+                        "patternConfig": {
+                            "name": "flat",
+                            "color": "255"
+                        }
                     }
                 },
                 "layerBottom": {
@@ -147,8 +181,8 @@ const templates = {
                             "type": "createPattern",
                             "patternConfig": {
                                 "name": "slope",
-                                "colorBegin": 0,
-                                "colorEnd": 164
+                                "colorBegin": 20,
+                                "colorEnd": 120
                             }
                         },
                         "colorGreen": {
@@ -163,7 +197,7 @@ const templates = {
                                 },
                                 {
                                     "name": "brightness_new",
-                                    "value": -0.3
+                                    "value": -0.225
                                 }
                             ]
                         },
@@ -185,8 +219,8 @@ const templates = {
                                 "type": "createPattern",
                                 "patternConfig": {
                                     "name": "slope",
-                                    "colorBegin": 0,
-                                    "colorEnd": 70,
+                                    "colorBegin": 20,
+                                    "colorEnd": 140,
                                     "direction": "horizontal"
                                 }
                             }
@@ -222,20 +256,69 @@ const templates = {
                     "name": "alpha"
                 }
             ]
+        },
+        "reusableImages": {
+            "randomWalker": {
+                "type": "createPattern",
+                "patternConfig": {
+                    "name": "random_walker",
+                    "steps": 3
+                }
+            }
         }
     }`,
     navigation: `{
         "patina": {
-            "type"          : "layers",
-            "layerTop"      : {
-                "type"          : "createPattern",
-                "patternName"   : "slope",
-                "filter"        : [{ "name": "contrast", "x": 0.75, "m": 1 }]
-            },
-            "layerBottom"   : {
-                "type"          : "createPattern",
-                "patternName"   : "noise_white",
-                "filter"        : [{ "name": "contrast", "x": 2, "m": 0.25 }]
+            "type": "colors",
+            "colorRed": 0,
+            "colorGreen": 0,
+            "colorBlue": 0,
+            "colorAlpha": {
+                "type": "layers",
+                "layerTop": {
+                    "type": "layers",
+                    "layerBottom": {
+                        "type": "createPattern",
+                        "patternConfig": {
+                            "name": "noise_white",
+                            "frequency": 10
+                        }
+                    },
+                    "layerTop": {
+                        "type": "createPattern",
+                        "patternConfig": {
+                            "name": "slope",
+                            "direction": "to top"
+                        }
+                    }
+                },
+                "layerBottom": {
+                    "type": "createPattern",
+                    "patternName": "noise_white",
+                    "filter": [
+                        {
+                            "name": "blur",
+                            "value": 0.75
+                        },
+                        {
+                            "name": "contrast_new",
+                            "value": 1
+                        }
+                    ]
+                },
+                "combineMode": {
+                    "name": "overlay"
+                },
+                "filter": [
+                    {
+                        "name": "contrast_new",
+                        "value": 3
+                    },
+                    {
+                        "name": "brightness_new",
+                        "value": -0.5
+                    }
+                ]
             }
         }
     }`,
@@ -243,9 +326,9 @@ const templates = {
         "width": 256,
         "patina": {
             "type"  : "colors",
-            "colorRed"   : 73,
-            "colorGreen" : 94,
-            "colorBlue"  : 18,
+            "colorRed"   : 7,
+            "colorGreen" : 9,
+            "colorBlue"  : 1,
             "colorAlpha" : {
                 "type"  :   "layers",
                 "layerTop"    : {
@@ -267,7 +350,10 @@ const templates = {
                     },
                     "layerBottom" : { 
                         "type"          : "createPattern",
-                        "patternName"   : "slope",
+                        "patternConfig" : {
+                            "name":    "slope",
+                            "direction": "to top"
+                        },
                         "filter"        : [{ "name": "brightness", "brightness": -2 }]
                     }
                 },

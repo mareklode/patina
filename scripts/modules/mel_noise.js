@@ -26,7 +26,8 @@ const noise = {
                 // This was the 1s holdup on the homepage! 
                 // calculating the dirt behind the logo using noise wider than 1024 px!
                 if (powerOfTwo > 1000) {
-                    return 512;
+                    // return 512;
+                    console.log(powerOfTwo);
                 }
 
                 return powerOfTwo;
