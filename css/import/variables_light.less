@@ -9,6 +9,12 @@
 http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Variables
 */
 
+:root {
+    --background-color: #ffe687; // #fee689; // #f4ae28; // #e84000;
+    --button-hover-backgroundcolor: rgba(102, 136, 0, 1); // #495e12;
+    --button-background-color: #445c19; // rgba(102, 136, 0, 1);
+}
+
 @submobile:    ~"screen and (max-width: 299px)";
 @mobile:    ~"screen and (max-width: 599px)";
 @desktop:    ~"screen and (min-width: 600px)";
@@ -19,18 +25,14 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Variables
 
 @textColor: black;
 @white: white;
-@backgroundColor: #ffe687; // #fee689; // #f4ae28; // #e84000;
-@headerBackgroundColor: @backgroundColor;
+@headerBackgroundColor: var(--background-color);
 @headerLinkBackgroundColor: rgba(32, 0, 0, 0.25);
 @linkColor: #445c19; // #495e12; //678
 @linkBackgroundColor: rgba(102, 136, 0, 0.5);
-@buttonBackgroundColor: #445c19; // rgba(102, 136, 0, 1);
-@buttonHoverBackgroundColor: rgba(102, 136, 0, 1); // #495e12;
 
-@codeBackgroundColor: @backgroundColor;
+@codeBackgroundColor: var(--background-color);
 
 @borderColor: gray;
 
 @alertBackgroundColor: pink;
 @alertBorderColor: red;
-

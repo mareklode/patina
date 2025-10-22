@@ -8,6 +8,11 @@
 #      #    #    # #    # # #    # #####  ###### ######  ####
 http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Variables
 */
+:root {
+  --background-color: #3c3834;
+  --button-background-color: #3c3834;
+  --button-hover-background-color: black;
+}
 /*
 #   #     #
 #   ##   ## # #    # # #    #  ####
@@ -18,31 +23,6 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Variables
 #   #     # # #    # # #    #  ####
 http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Mixins
 */
-.centerX {
-  display: -ms-flexbox;
-  -ms-flex-pack: center;
-  display: flex;
-  justify-content: center;
-}
-.centerXY {
-  display: -ms-flexbox;
-  -ms-flex-pack: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.marginLeftRightAuto {
-  margin-left: auto;
-  margin-right: auto;
-}
-.beforeAfter {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
 .fontTextMobile {
   font-size: 1rem;
   line-height: 1.5rem;
@@ -54,14 +34,6 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Mixins
 .fontTextWidescreen {
   font-size: 1.3rem;
   line-height: 2rem;
-}
-.fontHeadingMobile {
-  font-size: 2.5rem;
-  line-height: 2.5rem;
-}
-.fontHeadingDesktop {
-  font-size: 2.5rem;
-  line-height: 2.5rem;
 }
 .fontText {
   font-weight: normal;
@@ -80,20 +52,6 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Mixins
     line-height: 2rem;
   }
 }
-.fontHeading {
-  font-size: 2.5rem;
-  line-height: 2.5rem;
-}
-@media screen and (min-width: 600px) {
-  .fontHeading {
-    font-size: 2.5rem;
-    line-height: 2.5rem;
-  }
-}
-.fontSubHeading {
-  font-size: 2rem;
-  line-height: 2.5rem;
-}
 .contentContainer {
   display: block;
   text-align: left;
@@ -110,22 +68,6 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Mixins
     width: 80vw;
     max-width: 1024px;
   }
-}
-.buttonColors {
-  background-color: #3c3834;
-  border: 1px solid black;
-  border-radius: 2px;
-}
-.buttonColors:hover,
-.buttonColors:active,
-.buttonColors:focus {
-  background-color: black;
-  box-shadow: 2px 2px 8px lightgray;
-  color: white;
-  transform: scale(1.025);
-}
-.buttonColors:active {
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.25);
 }
 /*
 #   ######
@@ -152,7 +94,7 @@ a {
 a:active,
 a:focus,
 a:hover {
-  background-color: black;
+  background-color: var(--button-hover-background-color);
   color: black;
 }
 a.link-disabled.link-disabled {
@@ -217,8 +159,8 @@ h2 {
   }
 }
 .button {
-  background-color: #3c3834;
-  border: 1px solid black;
+  background-color: var(--button-background-color);
+  border: 1px solid var(--button-hover-background-color);
   font-weight: normal;
   font-size: 1rem;
   line-height: 1.5rem;
@@ -229,7 +171,7 @@ h2 {
 .button:hover,
 .button:active,
 .button:focus {
-  background-color: black;
+  background-color: var(--button-hover-background-color);
   box-shadow: 2px 2px 8px lightgray;
   color: white;
   transform: scale(1.025);
@@ -251,7 +193,7 @@ h2 {
 }
 .button--disabled {
   opacity: 0.5;
-  background-color: #3c3834;
+  background-color: var(--button-background-color);
 }
 .button--big {
   padding: 1rem;
@@ -366,7 +308,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
   }
 }
 .navigation {
-  background-color: #3c3834;
+  background-color: var(--button-background-color);
   background-size: 100% 100%;
   background-position: center;
   border-top: 1px solid rgba(255, 255, 255, 0.4);
@@ -383,7 +325,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
 .navigation__link:active,
 .navigation__link:focus {
   color: white;
-  background-color: black;
+  background-color: var(--button-hover-background-color);
   opacity: 1;
   transform: scale(1.033);
   border-top: 1px solid rgba(255, 255, 255, 0.33);
@@ -445,7 +387,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=footer
 */
 .footer {
   padding: 5rem 0;
-  background-color: #3c3834;
+  background-color: var(--background-color);
   background-repeat: repeat-x;
   color: black;
   font-weight: normal;
@@ -657,7 +599,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   }
 }
 .pattern__thumbnail {
-  background-color: #3c3834;
+  background-color: var(--background-color);
   /*
         background-size: contain;
         */
@@ -700,13 +642,13 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   height: 512px;
 }
 .pattern__thumbnail--clickable {
-  background-color: #3c3834;
+  background-color: var(--button-background-color);
 }
 .pattern__thumbnail--clickable:hover,
 .pattern__thumbnail--clickable:active,
 .pattern__thumbnail--clickable:focus {
   transform: scale(1.033);
-  background-color: black;
+  background-color: var(--button-hover-background-color);
   text-decoration: none;
   color: white;
 }

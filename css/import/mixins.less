@@ -9,31 +9,6 @@
 http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Mixins
 */
 
-.centerX {
-  display: -ms-flexbox;
-  -ms-flex-pack: center;
-  display: flex;
-  justify-content: center;
-}
-.centerXY {
-  .centerX;
-  align-items: center;
-}
-
-.marginLeftRightAuto {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.beforeAfter {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
 .fontTextMobile {
   font-size: 1rem;
   line-height: 1.5rem;
@@ -46,14 +21,6 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Mixins
   font-size: 1.3rem;
   line-height: 2rem;
 }
-.fontHeadingMobile {
-  font-size: 2.5rem;
-  line-height: 2.5rem;
-}
-.fontHeadingDesktop {
-  font-size: 2.5rem;
-  line-height: 2.5rem;
-}
 
 .fontText {
   font-weight: normal;
@@ -64,16 +31,6 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Mixins
   @media @widescreen {
       .fontTextWidescreen;
   }
-}
-.fontHeading {
-  .fontHeadingMobile;
-  @media @desktop {
-      .fontHeadingDesktop;
-  }
-}
-.fontSubHeading {
-  font-size: 2rem;
-  line-height: 2.5rem;
 }
 
 .contentContainer {
@@ -91,19 +48,3 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Mixins
 
 }
 
-.buttonColors {
-  background-color: @buttonBackgroundColor;
-  border: 1px solid @buttonHoverBackgroundColor;
-  border-radius: 2px;
-  &:hover,
-  &:active,
-  &:focus {
-      background-color: @buttonHoverBackgroundColor;
-      box-shadow: 2px 2px 8px lightgray;
-      color: white;
-      transform: scale(1.025);
-  }
-  &:active {
-      box-shadow: inset 0 0 5px rgba(0,0,0,0.25);
-  }
-}

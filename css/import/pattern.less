@@ -3,7 +3,7 @@
     .fontText;
 
     &__thumbnail {
-        background-color: @backgroundColor;
+        background-color: var(--background-color);
         /*
         background-size: contain;
         */
@@ -35,7 +35,9 @@
             width: 128px;
             height: 128px;
             padding: 5px;
-            .fontTextDesktop; // so it is not too big in widescreen mode
+            
+            font-size: 1.15rem;
+            line-height: 1.5rem;; // so it is not too big in widescreen mode
         }
 
         /*
@@ -49,13 +51,13 @@
         }
 
         &--clickable {
-            background-color: @buttonBackgroundColor;
+            background-color: var(--button-background-color);
 
             &:hover,
             &:active,
             &:focus {
                 transform: scale(1.033);
-                background-color: @buttonHoverBackgroundColor;
+                background-color: var(--button-hover-background-color);
                 text-decoration: none;
                 color: white;
             }
