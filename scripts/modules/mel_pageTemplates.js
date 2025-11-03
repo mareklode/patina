@@ -326,9 +326,9 @@ const templates = {
         "width": 256,
         "patina": {
             "type"  : "colors",
-            "colorRed"   : 7,
-            "colorGreen" : 9,
-            "colorBlue"  : 1,
+            "colorRed"   : 73,
+            "colorGreen" : 94,
+            "colorBlue"  : 18,
             "colorAlpha" : {
                 "type"  :   "layers",
                 "layerTop"    : {
