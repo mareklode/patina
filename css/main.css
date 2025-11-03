@@ -13,7 +13,6 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Variables
   --button-background-color: #3c3834;
   --button-hover-background-color: black;
 }
-
 /*
 #   #     #
 #   ##   ## # #    # # #    #  ####
@@ -28,49 +27,41 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Mixins
   font-size: 1rem;
   line-height: 1.5rem;
 }
-
 .fontTextDesktop {
   font-size: 1.15rem;
   line-height: 1.5rem;
 }
-
 .fontTextWidescreen {
   font-size: 1.3rem;
   line-height: 2rem;
 }
-
 .fontText {
   font-weight: normal;
   font-size: 1rem;
   line-height: 1.5rem;
 }
-
 @media screen and (min-width: 600px) {
   .fontText {
     font-size: 1.15rem;
     line-height: 1.5rem;
   }
 }
-
 @media screen and (min-width: 1200px) {
   .fontText {
     font-size: 1.3rem;
     line-height: 2rem;
   }
 }
-
 .contentContainer {
   display: block;
   text-align: left;
 }
-
 @media screen and (max-width: 599px) {
   .contentContainer {
     margin: 3rem auto 1rem auto;
     width: 90vw;
   }
 }
-
 @media screen and (min-width: 600px) {
   .contentContainer {
     margin: 3rem auto 1rem auto;
@@ -78,26 +69,6 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Mixins
     max-width: 1024px;
   }
 }
-
-.buttonColors {
-  background-color: #445c19;
-  border: 1px solid #668800;
-  border-radius: 2px;
-}
-
-.buttonColors:hover,
-.buttonColors:active,
-.buttonColors:focus {
-  background-color: #668800;
-  box-shadow: 2px 2px 8px lightgray;
-  color: white;
-  transform: scale(1.025);
-}
-
-.buttonColors:active {
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.25);
-}
-
 /*
 #   ######
 #   #     #   ##    ####  ######
@@ -111,60 +82,50 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Base
 * {
   box-sizing: border-box;
 }
-
 body {
   margin: 0;
   font-family: "Ubuntu", "DejaVu Sans Condensed", "Calibri", sans-serif;
   line-height: 1.4em;
 }
-
 a {
   color: #445c19;
   padding: 5px;
 }
-
 a:active,
 a:focus,
 a:hover {
-  background-color: #668800;
+  background-color: var(--button-hover-background-color);
   color: black;
 }
-
 a.link-disabled.link-disabled {
   background-color: black;
   opacity: 0.25;
   cursor: default;
   pointer-events: none;
 }
-
 ul {
   padding: 0;
 }
-
 img {
   max-width: 100vw;
 }
-
 h1,
 h2,
 h3 {
   font-weight: normal;
 }
-
 h1 {
   display: block;
   text-align: left;
   font-size: 2.5rem;
   line-height: 2.5rem;
 }
-
 @media screen and (max-width: 599px) {
   h1 {
     margin: 3rem auto 1rem auto;
     width: 90vw;
   }
 }
-
 @media screen and (min-width: 600px) {
   h1 {
     margin: 3rem auto 1rem auto;
@@ -172,28 +133,24 @@ h1 {
     max-width: 1024px;
   }
 }
-
 @media screen and (min-width: 600px) {
   h1 {
     font-size: 2.5rem;
     line-height: 2.5rem;
   }
 }
-
 h2 {
   display: block;
   text-align: left;
   font-size: 2rem;
   line-height: 2.5rem;
 }
-
 @media screen and (max-width: 599px) {
   h2 {
     margin: 3rem auto 1rem auto;
     width: 90vw;
   }
 }
-
 @media screen and (min-width: 600px) {
   h2 {
     margin: 3rem auto 1rem auto;
@@ -201,10 +158,9 @@ h2 {
     max-width: 1024px;
   }
 }
-
 .button {
-  background-color: #445c19;
-  border: 1px solid #668800;
+  background-color: var(--button-background-color);
+  border: 1px solid var(--button-hover-background-color);
   font-weight: normal;
   font-size: 1rem;
   line-height: 1.5rem;
@@ -212,49 +168,41 @@ h2 {
   border-radius: 2px;
   text-decoration: none;
 }
-
 .button:hover,
 .button:active,
 .button:focus {
-  background-color: #668800;
+  background-color: var(--button-hover-background-color);
   box-shadow: 2px 2px 8px lightgray;
   color: white;
   transform: scale(1.025);
 }
-
 .button:active {
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.25);
 }
-
 @media screen and (min-width: 600px) {
   .button {
     font-size: 1.15rem;
     line-height: 1.5rem;
   }
 }
-
 @media screen and (min-width: 1200px) {
   .button {
     font-size: 1.3rem;
     line-height: 2rem;
   }
 }
-
 .button--disabled {
   opacity: 0.5;
-  background-color: #445c19;
+  background-color: var(--button-background-color);
 }
-
 .button--big {
   padding: 1rem;
   margin: 1rem 0;
   display: inline-block;
 }
-
 .enable_per_JS {
   display: none;
 }
-
 /*
 #   #     #
 #   #     # ######   ##   #####  ###### #####
@@ -267,35 +215,31 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
 */
 .header {
   height: 128px;
-  background-color: #ffe687;
+  background-color: #aebf7b;
   background-position: center;
   background-size: cover;
   position: relative;
   /* background-image: conic-gradient(teal 5%, blue 22%, purple 28%, red 50%, orange 72%, green 78%, teal 95%); */
   background-image: radial-gradient(#706060, transparent), conic-gradient(#234246 0%, #244160 15%, #254184 20%, #2541b3 23%, #5540b3 25%, #8641b3 27%, #8b4281 30%, #894155 35%, #8b4248 50%, #8c4220 65%, #894102 70%, #8a4101 73%, #5b4100 75%, #234205 77%, #234106 80%, #264129 85%, #234246 100%);
 }
-
 .pagemode_homepage .header {
   height: 330px;
   max-height: 330px;
   height: 25vw;
   min-height: 128px;
 }
-
 .header__before {
   position: absolute;
   inset: 0;
   background-size: 100% 100%;
   opacity: 0.2;
 }
-
 .header__after {
   position: absolute;
   inset: 0;
   background-size: 100% 100%;
   opacity: 0.8;
 }
-
 .header__logo {
   position: absolute;
   top: 50%;
@@ -312,7 +256,6 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
   background-size: 100% 100%;
   mix-blend-mode: multiply;
 }
-
 .header__logo:hover,
 .header__logo:focus,
 .header__logo:active {
@@ -320,7 +263,6 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
   background-color: transparent;
   mix-blend-mode: luminosity;
 }
-
 .header__logo__image {
   width: 350px;
   max-width: 80vw;
@@ -328,18 +270,15 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
   line-height: 96px;
   mix-blend-mode: color-burn;
 }
-
 .pagemode_homepage .header__logo__image {
   font-size: 10vw;
   line-height: 12vw;
 }
-
 @media screen and (min-width: 600px) {
   .pagemode_homepage .header__logo__image {
     width: 40vw;
   }
 }
-
 .header__claim {
   font-weight: normal;
   font-size: 1rem;
@@ -351,34 +290,29 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
   font-weight: bold;
   text-shadow: 0 0 10px lightgray;
 }
-
 @media screen and (min-width: 600px) {
   .header__claim {
     font-size: 1.15rem;
     line-height: 1.5rem;
   }
 }
-
 @media screen and (min-width: 1200px) {
   .header__claim {
     font-size: 1.3rem;
     line-height: 2rem;
   }
 }
-
 @media screen and (max-width: 599px) {
   .header__claim {
     display: none;
   }
 }
-
 .navigation {
-  background-color: #445c19;
+  background-color: var(--button-background-color);
   background-size: 100% 100%;
   background-position: center;
   border-top: 1px solid rgba(255, 255, 255, 0.4);
 }
-
 .navigation__link {
   display: inline-block;
   padding: 1vw 2vw;
@@ -387,35 +321,30 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
   font-weight: bold;
   text-decoration: none;
 }
-
 .navigation__link:hover,
 .navigation__link:active,
 .navigation__link:focus {
   color: white;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: var(--button-hover-background-color);
   opacity: 1;
   transform: scale(1.033);
   border-top: 1px solid rgba(255, 255, 255, 0.33);
   margin-top: -1px;
 }
-
 @media screen and (min-width: 600px) {
   .navigation__link {
     font-size: 150%;
     padding: 15px 2vw;
   }
 }
-
 .navigation__nowrap {
   white-space: nowrap;
 }
-
 @media screen and (max-width: 299px) {
   .navigation__nowrap {
     white-space: unset;
   }
 }
-
 /*
 #  #####   ####  #####  #   # 
 #  #    # #    # #    #  # #  
@@ -429,25 +358,24 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=body
   text-align: center;
   display: block;
 }
-
 @media screen and (min-width: 600px) {
   .body {
     margin-top: 0;
   }
 }
-
 .body__block {
   padding-top: 2rem;
   padding-bottom: 2rem;
   text-align: center;
   list-style-type: none;
   border-top: 1px solid white;
+  background: var(--bodyBackgroundColor);
+  position: relative;
+  /* for it to be above the navigation */
 }
-
 .body__block--dark {
   background-color: #cde;
 }
-
 /*
 #  ######  ####   ####  ##### ###### #####
 #  #      #    # #    #   #   #      #    #
@@ -459,7 +387,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=footer
 */
 .footer {
   padding: 5rem 0;
-  background-color: #ffe687;
+  background-color: var(--background-color);
   background-repeat: repeat-x;
   color: black;
   font-weight: normal;
@@ -467,38 +395,32 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=footer
   line-height: 1.5rem;
   text-align: center;
 }
-
 @media screen and (min-width: 600px) {
   .footer {
     font-size: 1.15rem;
     line-height: 1.5rem;
   }
 }
-
 @media screen and (min-width: 1200px) {
   .footer {
     font-size: 1.3rem;
     line-height: 2rem;
   }
 }
-
 .footer__githublogo {
   height: 1.5rem;
   vertical-align: text-bottom;
 }
-
 .footer a:not(.button) {
   padding: 5px 10px;
   margin: -5px;
 }
-
 .footer a:not(.button):hover,
 .footer a:not(.button):active,
 .footer a:not(.button):focus {
   background-color: #aebf7b;
   text-decoration: none;
 }
-
 /*
 #    ####   ####  #####  #   #
 #   #    # #    # #    #  # #
@@ -515,28 +437,24 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   display: block;
   text-align: left;
 }
-
 @media screen and (min-width: 600px) {
   .copy {
     font-size: 1.15rem;
     line-height: 1.5rem;
   }
 }
-
 @media screen and (min-width: 1200px) {
   .copy {
     font-size: 1.3rem;
     line-height: 2rem;
   }
 }
-
 @media screen and (max-width: 599px) {
   .copy {
     margin: 3rem auto 1rem auto;
     width: 90vw;
   }
 }
-
 @media screen and (min-width: 600px) {
   .copy {
     margin: 3rem auto 1rem auto;
@@ -544,25 +462,21 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
     max-width: 1024px;
   }
 }
-
 .copy a:not(.button) {
   padding: 5px 10px;
   margin: -5px;
 }
-
 .copy a:not(.button):hover,
 .copy a:not(.button):active,
 .copy a:not(.button):focus {
   background-color: #aebf7b;
   text-decoration: none;
 }
-
 .alert {
   background-color: pink;
   border: 1px solid red;
   padding: 1rem 4vw;
 }
-
 .code {
   display: block;
   text-align: left;
@@ -570,19 +484,17 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   /* from GitHub */
   font-size: 1rem;
   padding: 1rem;
-  background-color: #ffe687;
+  background-color: #aebf7b;
   border: 1px solid gray;
   overflow: auto;
   white-space: pre;
 }
-
 @media screen and (max-width: 599px) {
   .code {
     margin: 3rem auto 1rem auto;
     width: 90vw;
   }
 }
-
 @media screen and (min-width: 600px) {
   .code {
     margin: 3rem auto 1rem auto;
@@ -590,31 +502,26 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
     max-width: 1024px;
   }
 }
-
 .button {
   padding: 1vw 2vw;
 }
-
 .button__applyPatinaTextarea {
   vertical-align: bottom;
   border-bottom: none;
   text-align: left;
 }
-
 .button__nextPage {
   display: block;
   text-align: left;
   position: relative;
   padding: 4vw;
 }
-
 @media screen and (max-width: 599px) {
   .button__nextPage {
     margin: 3rem auto 1rem auto;
     width: 90vw;
   }
 }
-
 @media screen and (min-width: 600px) {
   .button__nextPage {
     margin: 3rem auto 1rem auto;
@@ -622,7 +529,6 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
     max-width: 1024px;
   }
 }
-
 .button__nextPage::after {
   position: absolute;
   content: '';
@@ -634,39 +540,32 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   border-color: transparent rgba(255, 255, 255, 0.2);
   border-width: 3vw 0 3vw 3vw;
 }
-
 .parameters dt::after {
   content: ' :';
 }
-
 @media screen and (max-width: 599px) {
   .parameters dd {
     margin-bottom: 1.5rem;
   }
 }
-
 @media screen and (min-width: 600px) {
   .parameters dt {
     width: 185px;
   }
-
   .parameters dt::after {
     float: right;
   }
-
   .parameters dd {
     margin-left: 210px;
     position: relative;
     top: -1.5rem;
   }
 }
-
 @media screen and (min-width: 1200px) {
   .parameters dd {
     top: -2rem;
   }
 }
-
 .pattern {
   display: block;
   text-align: left;
@@ -674,14 +573,12 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   font-size: 1rem;
   line-height: 1.5rem;
 }
-
 @media screen and (max-width: 599px) {
   .pattern {
     margin: 3rem auto 1rem auto;
     width: 90vw;
   }
 }
-
 @media screen and (min-width: 600px) {
   .pattern {
     margin: 3rem auto 1rem auto;
@@ -689,23 +586,23 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
     max-width: 1024px;
   }
 }
-
 @media screen and (min-width: 600px) {
   .pattern {
     font-size: 1.15rem;
     line-height: 1.5rem;
   }
 }
-
 @media screen and (min-width: 1200px) {
   .pattern {
     font-size: 1.3rem;
     line-height: 2rem;
   }
 }
-
-.pattern__thumbnails {
-  background-color: #ffe687;
+.pattern__thumbnail {
+  background-color: var(--background-color);
+  /*
+        background-size: contain;
+        */
   margin: 1vw;
   display: inline-block;
   vertical-align: top;
@@ -721,21 +618,18 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
             height: 256px;
         }*/
 }
-
 @media screen and (max-width: 299px) {
   .pattern__thumbnail {
     width: 88vw;
     height: 88vw;
   }
 }
-
 .pattern__thumbnail--lineHeight {
   width: 128px;
   height: 1.8rem;
   margin: 0 1vw 0 0;
   outline: 1px solid white;
 }
-
 .pattern__thumbnail--128 {
   width: 128px;
   height: 128px;
@@ -743,41 +637,34 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   font-size: 1.15rem;
   line-height: 1.5rem;
 }
-
 .pattern__thumbnail--512 {
   width: 512px;
   height: 512px;
 }
-
-.pattern__thumbnails--clickable {
-  background-color: #445c19;
+.pattern__thumbnail--clickable {
+  background-color: var(--button-background-color);
 }
-
 .pattern__thumbnail--clickable:hover,
 .pattern__thumbnail--clickable:active,
 .pattern__thumbnail--clickable:focus {
   transform: scale(1.033);
-  background-color: #668800;
+  background-color: var(--button-hover-background-color);
   text-decoration: none;
   color: white;
 }
-
 .pattern__thumbnail--nomargin {
   margin: 0 0 2vw 0;
 }
-
 .pattern__textInbetween {
   font-size: 2.5rem;
   line-height: 130px;
   vertical-align: middle;
 }
-
 @media screen and (max-width: 299px) {
   .pattern__textInbetween {
     line-height: 48px;
   }
 }
-
 /*
 @import "import/pixelPaintingInstructions.less";
 */
