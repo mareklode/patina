@@ -11,30 +11,33 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
 .copy {
     .fontText;
     .contentContainer;
-    a:not(.button){
+
+    a:not(.button) {
         padding: 5px 10px;
         margin: -5px;
+
         &:hover,
         &:active,
         &:focus {
-            background-color: @linkBackgroundColor;
+            background-color: var(--link-background-color);
             text-decoration: none;
         }
     }
 }
 
 .alert {
-	background-color: @alertBackgroundColor;
-	border: 1px solid @alertBorderColor;
+    background-color: @alertBackgroundColor;
+    border: 1px solid @alertBorderColor;
     padding: @unitY @unitX;
 }
 
 .code {
     .contentContainer;
-    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; /* from GitHub */
+    font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+    /* from GitHub */
     font-size: 1rem;
     padding: 1rem;
-    background-color: @codeBackgroundColor;
+    background-color: var(--code-background-color);
     border: 1px solid gray;
     overflow: auto;
     white-space: pre;
@@ -42,15 +45,18 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
 
 .button {
     padding: 1vw 2vw;
+
     &__applyPatinaTextarea {
         vertical-align: bottom;
         border-bottom: none;
         text-align: left;
     }
+
     &__nextPage {
         .contentContainer;
         position: relative;
         padding: 4vw;
+
         &::after {
             position: absolute;
             content: '';
@@ -59,7 +65,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
             transform: translateY(-50%);
             height: 0;
             border-style: solid;
-            border-color: transparent rgba( 255, 255, 255, 0.2 );
+            border-color: transparent rgba(255, 255, 255, 0.2);
             border-width: 3vw 0 3vw 3vw;
         }
     }
@@ -67,31 +73,36 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
 
 
 .parameters {
-    dt::after { 
+    dt::after {
         content: ' :';
     }
+
     @media @mobile {
         dd {
             margin-bottom: 1.5rem;
         }
     }
+
     @media @desktop {
         dt {
             width: 185px;
         }
-        dt::after { 
+
+        dt::after {
             float: right;
         }
+
         dd {
             margin-left: 210px;
             position: relative;
             top: -1.5rem;
         }
     }
+
     @media @widescreen {
         dd {
             top: -2rem;
-        }                
+        }
     }
 
 }

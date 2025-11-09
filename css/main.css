@@ -9,9 +9,40 @@
 http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Variables
 */
 :root {
-  --background-color: #3c3834;
-  --button-background-color: #3c3834;
-  --button-hover-background-color: black;
+  --background-color: #f2ffc1;
+  --header-background-color: var(--background-color);
+  --navigation-background-color: var(--background-color);
+  --body-background-color: #eee;
+  --text-color: black;
+  --button-background-color: #4f5a25;
+  --button-hover-backgroundcolor: #668800;
+  --link-color: #445c19;
+  --link-background-color: rgba(102, 136, 0, 0.5);
+  --code-background-color: var(--navigation-background-color);
+}
+/*
+#   #     #
+#   #     #   ##   #####  #   ##   #####  #      ######  ####
+#   #     #  #  #  #    # #  #  #  #    # #      #      #
+#   #     # #    # #    # # #    # #####  #      #####   ####
+#    #   #  ###### #####  # ###### #    # #      #           #
+#     # #   #    # #   #  # #    # #    # #      #      #    #
+#      #    #    # #    # # #    # #####  ###### ######  ####
+http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Variables
+*/
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #383020;
+    --header-background-color: var(--background-color);
+    --navigation-background-color: var(--background-color);
+    --body-background-color: #181818;
+    --text-color: hsl(0, 0%, 80%);
+    --button-background-color: var(--navigation-background-color);
+    --button-hover-background-color: black;
+    --link-color: orange;
+    --link-background-color: darkorange;
+    --code-background-color: var(--navigation-background-color);
+  }
 }
 /*
 #   #     #
@@ -88,7 +119,7 @@ body {
   line-height: 1.4em;
 }
 a {
-  color: #445c19;
+  color: var(--link-color);
   padding: 5px;
 }
 a:active,
@@ -215,7 +246,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
 */
 .header {
   height: 128px;
-  background-color: #aebf7b;
+  background-color: var(--header-background-color);
   background-position: center;
   background-size: cover;
   position: relative;
@@ -308,7 +339,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
   }
 }
 .navigation {
-  background-color: var(--button-background-color);
+  background-color: var(--navigation-background-color);
   background-size: 100% 100%;
   background-position: center;
   border-top: 1px solid rgba(255, 255, 255, 0.4);
@@ -316,7 +347,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
 .navigation__link {
   display: inline-block;
   padding: 1vw 2vw;
-  color: white;
+  color: var(--text-color);
   opacity: 0.85;
   font-weight: bold;
   text-decoration: none;
@@ -324,7 +355,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
 .navigation__link:hover,
 .navigation__link:active,
 .navigation__link:focus {
-  color: white;
+  color: var(--text-color);
   background-color: var(--button-hover-background-color);
   opacity: 1;
   transform: scale(1.033);
@@ -368,8 +399,9 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=body
   padding-bottom: 2rem;
   text-align: center;
   list-style-type: none;
-  border-top: 1px solid white;
-  background: var(--bodyBackgroundColor);
+  border-top: 1px solid var(--button-background-color);
+  background: var(--body-background-color);
+  color: var(--text-color);
   position: relative;
   /* for it to be above the navigation */
 }
@@ -387,7 +419,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=footer
 */
 .footer {
   padding: 5rem 0;
-  background-color: var(--background-color);
+  background-color: var(--navigation-background-color);
   background-repeat: repeat-x;
   color: black;
   font-weight: normal;
@@ -418,7 +450,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=footer
 .footer a:not(.button):hover,
 .footer a:not(.button):active,
 .footer a:not(.button):focus {
-  background-color: #aebf7b;
+  background-color: var(--link-background-color);
   text-decoration: none;
 }
 /*
@@ -469,7 +501,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
 .copy a:not(.button):hover,
 .copy a:not(.button):active,
 .copy a:not(.button):focus {
-  background-color: #aebf7b;
+  background-color: var(--link-background-color);
   text-decoration: none;
 }
 .alert {
@@ -484,7 +516,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
   /* from GitHub */
   font-size: 1rem;
   padding: 1rem;
-  background-color: #aebf7b;
+  background-color: var(--code-background-color);
   border: 1px solid gray;
   overflow: auto;
   white-space: pre;

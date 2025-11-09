@@ -9,15 +9,20 @@
 http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Base
 */
 
-* { box-sizing: border-box; }
-body {
-    margin: 0;
-    font-family: "Ubuntu", "DejaVu Sans Condensed", "Calibri", sans-serif;
-    line-height: 1.4em;
+* {
+  box-sizing: border-box;
 }
+
+body {
+  margin: 0;
+  font-family: "Ubuntu", "DejaVu Sans Condensed", "Calibri", sans-serif;
+  line-height: 1.4em;
+}
+
 a {
-  color: @linkColor;
+  color: var(--link-color);
   padding: 5px;
+
   &:active,
   &:focus,
   &:hover {
@@ -25,65 +30,80 @@ a {
     color: black;
   }
 }
+
 a.link-disabled.link-disabled {
-    background-color: black;
-    opacity: .25;
-    cursor: default;
-    pointer-events: none;
+  background-color: black;
+  opacity: .25;
+  cursor: default;
+  pointer-events: none;
 }
-ul { padding: 0; }
+
+ul {
+  padding: 0;
+}
 
 img {
   max-width: 100vw;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-weight: normal;
 }
+
 h1 {
   .contentContainer;
   font-size: 2.5rem;
   line-height: 2.5rem;
+
   @media @desktop {
     font-size: 2.5rem;
     line-height: 2.5rem;
   }
 }
+
 h2 {
   .contentContainer;
   font-size: 2rem;
   line-height: 2.5rem;
 }
-.button {
-    background-color: var(--button-background-color);
-    border: 1px solid var(--button-hover-background-color);
-    border-radius: 2px;
-    &:hover,
-    &:active,
-    &:focus {
-        background-color: var(--button-hover-background-color);
-        box-shadow: 2px 2px 8px lightgray;
-        color: white;
-        transform: scale(1.025);
-    }
-    &:active {
-        box-shadow: inset 0 0 5px rgba(0,0,0,0.25);
-    }
 
-    .fontText;
+.button {
+  background-color: var(--button-background-color);
+  border: 1px solid var(--button-hover-background-color);
+  border-radius: 2px;
+
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: var(--button-hover-background-color);
+    box-shadow: 2px 2px 8px lightgray;
     color: white;
-    border-radius: 2px;
-    text-decoration: none;
-    &--disabled {
-        opacity: 0.5;
-        background-color: var(--button-background-color);
-    }
-    &--big {
-        padding: 1rem; 
-        margin: 1rem 0; 
-        display: inline-block;
-    }
+    transform: scale(1.025);
+  }
+
+  &:active {
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.25);
+  }
+
+  .fontText;
+  color: white;
+  border-radius: 2px;
+  text-decoration: none;
+
+  &--disabled {
+    opacity: 0.5;
+    background-color: var(--button-background-color);
+  }
+
+  &--big {
+    padding: 1rem;
+    margin: 1rem 0;
+    display: inline-block;
+  }
 }
+
 .enable_per_JS {
-    display: none;
+  display: none;
 }

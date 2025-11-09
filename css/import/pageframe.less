@@ -21,8 +21,9 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=body
     padding-bottom: 2 * @unitY;
     text-align: center;
     list-style-type: none;
-    border-top: 1px solid white;
-    background: var(--bodyBackgroundColor);
+    border-top: 1px solid var(--button-background-color);
+    background: var(--body-background-color);
+    color: var(--text-color);
     position: relative;
     /* for it to be above the navigation */
 
@@ -48,7 +49,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=footer
 
 .footer {
   padding: 5 * @unitY 0;
-  background-color: @footerBackgroundColor;
+  background-color: var(--navigation-background-color);
   background-repeat: repeat-x;
   color: black;
   .fontText;
@@ -66,7 +67,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=footer
     &:hover,
     &:active,
     &:focus {
-      background-color: @linkBackgroundColor;
+      background-color: var(--link-background-color);
       text-decoration: none;
     }
   }
