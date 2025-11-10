@@ -10,28 +10,24 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Variables
 */
 
 :root {
-    --background-color: #f2ffc1; // #fee689; // #f4ae28; // #e84000;
-
-    --header-background-color: var(--background-color);
-    --navigation-background-color: var(--background-color);
+    --background-color: #e8c08d; // #f2ffc1; // #fee689; // #f4ae28; // #e84000;
 
     --body-background-color: #eee; // mozilla
     --text-color: black;
-    --button-background-color: #4f5a25; // rgba(102, 136, 0, 1);
-    --button-hover-backgroundcolor: rgba(102, 136, 0, 1); // #495e12;
-    --link-color: #445c19;
-    --link-background-color: rgba(102, 136, 0, 0.5);
 
+    --button-background-color: #2f1404; // rgba(102, 136, 0, 1);
+    --button-hover-background-color: black; // rgba(102, 136, 0, 1); // #495e12;
+    --link-color: #481b00; // #445c19;
+    --link-background-color: #481b003d; // rgba(102, 136, 0, 0.5);
+
+    /* this will not get overwritten by dark theme */
     --code-background-color: var(--navigation-background-color);
+    --alert-border-color: red;
+    --alert-background-color: rgb(from var(--alert-border-color) r g b / 0.2);
+
+    --header-background-color: var(--background-color);
+    --navigation-background-color: var(--background-color);
 }
-
-@headerLinkBackgroundColor: rgba(32, 0, 0, 0.25);
-
-
-@borderColor: gray;
-
-@alertBackgroundColor: pink;
-@alertBorderColor: red;
 
 @submobile: ~"screen and (max-width: 299px)";
 @mobile: ~"screen and (max-width: 599px)";
