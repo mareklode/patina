@@ -9,8 +9,8 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
 */
 
 .copy {
-    .fontText;
-    .contentContainer;
+    /* .fontText; */
+    /* .contentContainer; */
 
     a:not(.button) {
         padding: 5px 10px;
@@ -28,14 +28,15 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
 .alert {
     background-color: var(--alert-background-color);
     border: 1px solid var(--alert-border-color);
-    padding: @unitY @unitX;
+    padding: var(--unitY) var(--unitX);
 }
 
 .code {
-    .contentContainer;
+    /* .contentContainer; */
     font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
     /* from GitHub */
     font-size: 1rem;
+    line-height: 1.4em;
     padding: 1rem;
     background-color: var(--code-background-color);
     border: 1px solid gray;
@@ -46,28 +47,29 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
 .button {
     padding: 1vw 2vw;
 
-    &__applyPatinaTextarea {
-        vertical-align: bottom;
-        border-bottom: none;
-        text-align: left;
-    }
+}
 
-    &__nextPage {
-        .contentContainer;
-        position: relative;
-        padding: 4vw;
+.button__applyPatinaTextarea {
+    vertical-align: bottom;
+    border-bottom: none;
+    text-align: left;
+}
 
-        &::after {
-            position: absolute;
-            content: '';
-            right: 2vw;
-            top: 50%;
-            transform: translateY(-50%);
-            height: 0;
-            border-style: solid;
-            border-color: transparent rgba(255, 255, 255, 0.2);
-            border-width: 3vw 0 3vw 3vw;
-        }
+.button__nextPage {
+    /* .contentContainer; */
+    position: relative;
+    padding: 4vw;
+
+    &::after {
+        position: absolute;
+        content: '';
+        right: 2vw;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 0;
+        border-style: solid;
+        border-color: transparent rgba(255, 255, 255, 0.2);
+        border-width: 3vw 0 3vw 3vw;
     }
 }
 
@@ -77,13 +79,13 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
         content: ' :';
     }
 
-    @media @mobile {
+    @media screen and (max-width: 599px) {
         dd {
             margin-bottom: 1.5rem;
         }
     }
 
-    @media @desktop {
+    @media screen and (min-width: 600px) {
         dt {
             width: 185px;
         }
@@ -99,7 +101,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=copy
         }
     }
 
-    @media @widescreen {
+    @media screen and (min-width: 1200px) {
         dd {
             top: -2rem;
         }

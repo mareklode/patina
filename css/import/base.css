@@ -16,7 +16,20 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Base
 body {
   margin: 0;
   font-family: "Ubuntu", "DejaVu Sans Condensed", "Calibri", sans-serif;
-  line-height: 1.4em;
+
+  font-weight: normal;
+  font-size: 1rem;
+  line-height: 1.4rem;
+
+  @media screen and (min-width: 600px) {
+    font-size: 1.15rem;
+    line-height: 1.5rem;
+  }
+
+  @media screen and (min-width: 1200px) {
+    font-size: 1.3rem;
+    line-height: 2rem;
+  }
 }
 
 a {
@@ -53,18 +66,18 @@ h3 {
 }
 
 h1 {
-  .contentContainer;
+  /* .contentContainer; */
   font-size: 2.5rem;
   line-height: 2.5rem;
 
-  @media @desktop {
+  @media screen and (min-width: 600px) {
     font-size: 2.5rem;
     line-height: 2.5rem;
   }
 }
 
 h2 {
-  .contentContainer;
+  /* .contentContainer; */
   font-size: 2rem;
   line-height: 2.5rem;
 }
@@ -87,21 +100,22 @@ h2 {
     box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.25);
   }
 
-  .fontText;
+  /* .fontText; */
   color: white;
   border-radius: 2px;
   text-decoration: none;
 
-  &--disabled {
-    opacity: 0.5;
-    background-color: var(--button-background-color);
-  }
+}
 
-  &--big {
-    padding: 1rem;
-    margin: 1rem 0;
-    display: inline-block;
-  }
+.button--disabled {
+  opacity: 0.5;
+  background-color: var(--button-background-color);
+}
+
+.button--big {
+  padding: 1rem;
+  margin: 1rem 0;
+  display: inline-block;
 }
 
 .enable_per_JS {

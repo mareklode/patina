@@ -10,15 +10,21 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Variables
 */
 
 :root {
-    --background-color: #e8c08d; // #f2ffc1; // #fee689; // #f4ae28; // #e84000;
+    --background-color: #e8c08d;
+    /*/ #f2ffc1; // #fee689; // #f4ae28; // #e84000;*/
 
-    --body-background-color: #eee; // mozilla
+    --body-background-color: #eee;
+    /*/ mozilla */
     --text-color: black;
 
-    --button-background-color: #2f1404; // rgba(102, 136, 0, 1);
-    --button-hover-background-color: black; // rgba(102, 136, 0, 1); // #495e12;
-    --link-color: #481b00; // #445c19;
-    --link-background-color: #481b003d; // rgba(102, 136, 0, 0.5);
+    --button-background-color: #2f1404;
+    /*/ rgba(102, 136, 0, 1); */
+    --button-hover-background-color: black;
+    /*/ rgba(102, 136, 0, 1); // #495e12; */
+    --link-color: #481b00;
+    /*/ #445c19;*/
+    --link-background-color: #481b003d;
+    /*/ rgba(102, 136, 0, 0.5);*/
 
     /* this will not get overwritten by dark theme */
     --code-background-color: var(--navigation-background-color);
@@ -27,12 +33,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Variables
 
     --header-background-color: var(--background-color);
     --navigation-background-color: var(--background-color);
+
+    --unitX: 4vw;
+    --unitY: 1rem;
 }
-
-@submobile: ~"screen and (max-width: 299px)";
-@mobile: ~"screen and (max-width: 599px)";
-@desktop: ~"screen and (min-width: 600px)";
-@widescreen: ~"screen and (min-width: 1200px)";
-
-@unitX: 4vw;
-@unitY: 1rem;
