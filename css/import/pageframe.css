@@ -32,7 +32,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Old%20Banner&t=body
   text-align: center;
   list-style-type: none;
   border-top: 1px solid var(--button-background-color);
-  background: var(--body-background-color);
+  /* background: var(--body-background-color); */
   color: var(--text-color);
   position: relative;
   /* for it to be above the navigation */

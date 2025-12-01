@@ -11,16 +11,20 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Variables
 
 @media (prefers-color-scheme: dark) {
     :root {
+        --background-color: #26374d;
+        /*
         --background-color: #383020;
-        /*/ #fee689; // #f4ae28; // #e84000;*/
+        / #fee689; // #f4ae28; // #e84000;*/
 
+        --body-background-color: #141920;
+        /*
         --body-background-color: #181818;
-        /*/ duckduckgo*/
-        --text-color: hsl(0 0% 80%);
+        / duckduckgo*/
+        --text-color: hsl(0 0% 90%);
 
         --button-background-color: var(--navigation-background-color);
         /*/ rgba(102, 136, 0, 1);*/
-        --button-hover-background-color: black;
+        --button-hover-background-color: var(--button-background-color);
         --link-color: orange;
         --link-background-color: rgb(from var(--link-color) r g b / 0.2);
     }

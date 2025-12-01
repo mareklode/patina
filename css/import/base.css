@@ -13,6 +13,12 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Base
   box-sizing: border-box;
 }
 
+html,
+body {
+  min-height: 100vh;
+  background: var(--body-background-color);
+}
+
 body {
   margin: 0;
   font-family: "Ubuntu", "DejaVu Sans Condensed", "Calibri", sans-serif;
@@ -40,7 +46,7 @@ a {
   &:focus,
   &:hover {
     background-color: var(--button-hover-background-color);
-    color: var(--text-color);
+    /* color: var(--text-color); */
   }
 }
 
@@ -90,9 +96,8 @@ h2 {
   &:hover,
   &:active,
   &:focus {
-    background-color: var(--button-hover-background-color);
-    box-shadow: 2px 2px 8px lightgray;
-    color: white;
+    box-shadow: 1px 1px 16px rgb(0, 0, 0, 0.2);
+    color: var(--link-color);
     transform: scale(1.025);
   }
 

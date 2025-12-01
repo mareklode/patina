@@ -108,8 +108,8 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
 
 .navigation {
   background-color: var(--navigation-background-color);
-  background-size: 100% 100%;
-  background-position: center;
+  /* background-size: 100% 100%; */
+  background-position: bottom;
   border-top: 1px solid rgba(255, 255, 255, 0.4);
 
 }
@@ -125,7 +125,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
   &:hover,
   &:active,
   &:focus {
-    color: var(--text-color);
+    color: var(--link-color);
     background-color: var(--link-background-color);
     opacity: 1;
     transform: scale(1.033);

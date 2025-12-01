@@ -268,6 +268,83 @@ const templates = {
         }
     }`,
     navigation: `{
+        "width": 250,
+        "patina": {
+            "type": "colors",
+            "colorRed": 0,
+            "colorGreen": 0,
+            "colorBlue": 0,
+            "colorAlpha": {
+
+                "type": "layers",
+                "layerTop": {
+                    "type": "layers",
+                    "layerTop": {
+                        "type": "layers",
+                        "layerTop": {
+                            "type": "createPattern",
+                            "patternName": "noise_plasma"
+                        },
+                        "layerBottom": {
+                            "type": "createPattern",
+                            "patternConfig": {
+                                "name": "wave",
+                                "direction": "horizontal",
+                                "frequency": 60
+                            }
+                        }
+                    },
+                    "layerBottom": {
+                        "type": "createPattern",
+                        "patternConfig": {
+                            "name": "slope",
+                            "direction": "to bottom"
+                        }
+                    },
+                    "combineMode": {
+                        "name": "burn"
+                    }
+                },
+                "layerBottom": {
+                    "type": "layers",
+                    "layerTop": {
+                        "type": "createPattern",
+                        "patternName": "noise_white"
+                    },
+                    "layerBottom": {
+                        "type": "createPattern",
+                        "patternConfig": {
+                            "name": "wave",
+                            "direction": "vertical",
+                            "frequency": 67
+                        }
+                    }
+                },
+                "filter": [
+                    {
+                        "name": "blur",
+                        "radius": 1
+                    },
+                    {
+                        "name": "contrast_new",
+                        "value": 0.75
+                    },
+                    {
+                        "name": "brightness_new",
+                        "value": 0.3
+                    },
+                    {
+                        "name": "invert"
+                    }
+                ],
+                "combineMode": {
+                    "name": "overlay"
+                }
+            }
+        }
+    }`,
+    footer: `{
+        "width": 250,
         "patina": {
             "type": "colors",
             "colorRed": 0,
@@ -277,109 +354,73 @@ const templates = {
                 "type": "layers",
                 "layerTop": {
                     "type": "layers",
-                    "layerBottom": {
-                        "type": "createPattern",
-                        "patternConfig": {
-                            "name": "noise_white",
-                            "frequency": 10
+                    "layerTop": {
+                        "type": "layers",
+                        "layerTop": {
+                            "type": "createPattern",
+                            "patternName": "noise_plasma"
+                        },
+                        "layerBottom": {
+                            "type": "createPattern",
+                            "patternConfig": {
+                                "name": "wave",
+                                "direction": "horizontal",
+                                "frequency": 60
+                            }
                         }
                     },
-                    "layerTop": {
+                    "layerBottom": {
                         "type": "createPattern",
                         "patternConfig": {
                             "name": "slope",
                             "direction": "to top"
-                        }
+                        },
+                        "filter": [
+                            {
+                                "name": "brightness",
+                                "brightness": -2
+                            }
+                        ]
                     }
                 },
                 "layerBottom": {
-                    "type": "createPattern",
-                    "patternName": "noise_white",
-                    "filter": [
-                        {
-                            "name": "blur",
-                            "value": 0.75
-                        },
-                        {
-                            "name": "contrast_new",
-                            "value": 1
+                    "type": "layers",
+                    "layerTop": {
+                        "type": "createPattern",
+                        "patternName": "noise_white"
+                    },
+                    "layerBottom": {
+                        "type": "createPattern",
+                        "patternConfig": {
+                            "name": "wave",
+                            "direction": "vertical",
+                            "frequency": 67
                         }
-                    ]
-                },
-                "combineMode": {
-                    "name": "overlay"
+                    }
                 },
                 "filter": [
                     {
+                        "name": "blur",
+                        "radius": 1
+                    },
+                    {
                         "name": "contrast_new",
-                        "value": 3
+                        "value": 4
                     },
                     {
                         "name": "brightness_new",
-                        "value": -0.5
+                        "value": 0.5
+                    },
+                    {
+                        "name": "invert"
                     }
-                ]
+                ],
+                "combineMode": {
+                    "name": "overlay"
+                }
             }
         }
     }`,
-    footer: `{
-        "width": 256,
-        "patina": {
-            "type"  : "colors",
-            "colorRed"   : 73,
-            "colorGreen" : 94,
-            "colorBlue"  : 18,
-            "colorAlpha" : {
-                "type"  :   "layers",
-                "layerTop"    : {
-                    "type"  :   "layers",
-                    "layerTop"    : {
-                        "type"  :   "layers",
-                        "layerTop"      : {
-                            "type"          : "createPattern",
-                            "patternName"   : "noise_plasma"
-                        },
-                        "layerBottom"   : {
-                            "type"          : "createPattern",
-                            "patternConfig" : { 
-                                "name"   : "wave",
-                                "direction"     : "horizontal",
-                                "frequency"     : 60
-                            }    
-                        }
-                    },
-                    "layerBottom" : { 
-                        "type"          : "createPattern",
-                        "patternConfig" : {
-                            "name":    "slope",
-                            "direction": "to top"
-                        },
-                        "filter"        : [{ "name": "brightness", "brightness": -2 }]
-                    }
-                },
-                "layerBottom" : { 
-                    "type"  :   "layers",
-                    "layerTop"    : {
-                        "type"          : "createPattern",
-                        "patternName"   : "noise_white"
-                    },
-                    "layerBottom"   : {
-                        "type"          : "createPattern",
-                        "patternConfig" : { 
-                            "name"   : "wave",
-                            "direction"     : "vertical",
-                            "frequency"     : 67
-                        }
-                    }
-                },
-                "filter"        : [
-                    { "name": "invert" },
-                    { "name": "blur", "radius": 1 },
-                    { "name": "contrast", "m": 3, "x": 0.625 }
-                ]
-            }
-        }
-    }`
 };
 
 export default templates;
