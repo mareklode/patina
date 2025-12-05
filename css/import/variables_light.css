@@ -24,15 +24,13 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Banner&t=Variables
     --link-color: #481b00;
     --link-background-color: #481b003d;
 
-    --background-color: #cde0e1;
+    --background-color: #fff2ad;
     --body-background-color: #eee;
     --text-color: black;
-    --button-background-color: #042f33;
-    --button-hover-background-color: #042f33;
-    --link-color: #054c53;
-    --link-background-color: #00707b2e;
-
-    --link-color: rgb(21, 128, 0);
+    --button-background-color: #001837;
+    --button-hover-background-color: var(--link-color);
+    --button-hover-color: #ffd700;
+    --link-color: #00367b;
     --link-background-color: rgb(from var(--link-color) r g b / 0.2);
 
     /* this will not get overwritten by dark theme */

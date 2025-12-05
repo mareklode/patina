@@ -97,7 +97,7 @@ h2 {
   &:active,
   &:focus {
     box-shadow: 1px 1px 16px rgb(0, 0, 0, 0.2);
-    color: var(--link-color);
+    color: var(--button-hover-color);
     transform: scale(1.025);
   }
 

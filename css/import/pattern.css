@@ -14,7 +14,9 @@
     max-width: 100%;
 
     color: white;
-    text-shadow: 0 0 1px black, 0 0 2px black, 0 0 3px black;
+    text-shadow: 0 0 1px black, 0 0 2px black,
+        0 0 4px black,
+        0 0 8px black;
 
     @media screen and (max-width: 299px) {
         width: 88vw;
@@ -60,7 +62,7 @@
         transform: scale(1.033);
         background-color: var(--button-hover-background-color);
         text-decoration: none;
-        color: var(--link-color);
+        color: var(--button-hover-color);
     }
 }
 
