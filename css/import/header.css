@@ -18,7 +18,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
 
   /* background-image: conic-gradient(teal 5%, blue 22%, purple 28%, red 50%, orange 72%, green 78%, teal 95%); */
   background-image:
-    radial-gradient(#706060, transparent),
+    radial-gradient(#706060, transparent, rgba(0, 0, 0, 0.25)),
     conic-gradient(#234246 0%, #244160 15%, #254184 20%, #2541b3 23%, #5540b3 25%, #8641b3 27%, #8b4281 30%, #894155 35%, #8b4248 50%, #8c4220 65%, #894102 70%, #8a4101 73%, #5b4100 75%, #234205 77%, #234106 80%, #264129 85%, #234246 100%);
 
   .pagemode_homepage & {
@@ -111,7 +111,11 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
   /* background-size: 100% 100%; */
   background-position: bottom;
   border-top: 1px solid rgba(255, 255, 255, 0.4);
+}
 
+.navigation:not(.patina-is-applied) {
+  /* background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0) 100%); */
+  background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 25%, rgba(0, 0, 0, 0) 67%);
 }
 
 .navigation__link {

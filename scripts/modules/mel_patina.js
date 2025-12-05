@@ -283,6 +283,7 @@ patina.prototype = {
         if (element) {
             window.mel.printTime("patina: paintCanvas");
             element.style.backgroundImage = 'url(' + myCanvas.el.toDataURL('image/png') + ')';
+            element.classList.add('patina-is-applied')
         }
     }, // _paintCanvas()
 
