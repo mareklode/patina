@@ -41,9 +41,22 @@ export function htmlTree (node, branchForks, linkedNodeList, patterns, nodePurpo
             let patternName = node.patternConfig?.name || node.patternName;
             htmlstring += getSelectHtml("patternConfig", node.nodeName, patterns, patternName);
 
-            const directions = ["vertical", "horizontal", "concentric"];
-            htmlstring += getSelectHtml("direction", node.nodeName, directions, node.patternConfig?.direction, "patina-node__direction");
+            htmlstring += `<div class="patina-node__patternConfig">`;
+            Object.keys(node.patternConfig).forEach(key => {
+                const value = node.patternConfig[key];
+                if (!["name", "direction"].includes(key)) {
+                    htmlstring += `<p>${key}: 
+                            <input type="number" name="${key}" id="${node.nodeName}" value="${value}">
+                        </p>`;
+                }
+                if (key === "direction") {
+                    const directions = ["vertical", "horizontal", "concentric"];
+                    htmlstring += getSelectHtml("direction", node.nodeName, directions, node.patternConfig?.direction, "patina-node__direction");
+                }
+            });
+            htmlstring += `</div>`;
 
+            // console.log(node.patternConfig)
             // htmlstring += `<input type="number" name="frequency" id="${node.nodeName}" value="${node.patternConfig?.frequency}">`;
         }
 

@@ -199,6 +199,23 @@ select.patina-node__type {
     bottom: 1px;
 }
 
+.patina-node__patternConfig {
+    background-color: rgba(255, 255, 255, .67);
+    width: 85%;
+    border-radius: 3px;
+    position: absolute;
+    left: 0;
+    margin-top: .5rem;
+
+    p {
+        white-space: nowrap;
+
+        input {
+            width: 4rem;
+        }
+    }
+}
+
 p.patina-node__purpose {
     position: absolute;
     top: 100%;
@@ -268,7 +285,7 @@ p.patina-node__purpose {
 
 .patina-node__button-filter {
     position: absolute;
-    right: -80%;
+    right: -90%;
     width: 100%;
     top: 5rem;
     text-align: left;
