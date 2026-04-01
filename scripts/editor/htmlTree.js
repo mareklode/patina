@@ -5,6 +5,18 @@
 
 import { getJsonFromLinkedNodeList } from "./utils.js";
 
+const getSelectHtml = (name, nodeName, options, selectedValue, className = "") => {
+    let html = `<label for="${nodeName}">name:</label><!--
+        --><select name="${name}" id="${nodeName}" class="${className}">`;
+
+    options.forEach((option) => {
+        html += `<option ${option === selectedValue ? "selected" : ""} value="${option}">${option}</option>`;
+    });
+
+    html += `</select>`;
+    return html;
+};
+
 // this function builds the html for the "root" node and then recursively for its children
 export function htmlTree (node, branchForks, linkedNodeList, patterns, nodePurpose = false) {
 
@@ -23,36 +35,21 @@ export function htmlTree (node, branchForks, linkedNodeList, patterns, nodePurpo
         htmlstring += `'>`;
 
         let types = ["select_Type", "reuseImage", "createPattern", "layers", "colors"];
-        htmlstring += `<select name="type" id="${node.nodeName}" class="patina-node__type">`;
-        types.forEach((type) => {
-            htmlstring += `<option ${type === node.type ? "selected" : ""} value="${type}">${type}</option>`;
-        });
-        htmlstring += `</select>`;
+        htmlstring += getSelectHtml("type", node.nodeName, types, node.type, "patina-node__type");
 
         if (node.type === "createPattern") {
-            htmlstring += `<label for="${node.nodeName}">name:</label><!--
-                        --><select name="patternConfig" id="${node.nodeName}">`;
             let patternName = node.patternConfig?.name || node.patternName;
-            patterns.forEach((pattern) => {
-                htmlstring += `<option ${pattern === patternName ? "selected" : ""} value="${pattern}">${pattern}</option>`;
-            });
-            htmlstring += `</select>`;
+            htmlstring += getSelectHtml("patternConfig", node.nodeName, patterns, patternName);
+
             const directions = ["vertical", "horizontal", "concentric"];
-            htmlstring += `<label for="${node.nodeName}">direction:</label><!--
-                        --><select name="direction" id="${node.nodeName}">`;
-            directions.forEach((direction) => {
-                htmlstring += `<option ${direction === node.patternConfig?.direction ? "selected" : ""} value="${direction}">${direction}</option>`;
-            });
-            htmlstring += `</select>`;
+            htmlstring += getSelectHtml("direction", node.nodeName, directions, node.patternConfig?.direction, "patina-node__direction");
+
             // htmlstring += `<input type="number" name="frequency" id="${node.nodeName}" value="${node.patternConfig?.frequency}">`;
-        } else if (node.type === "layers") {
+        }
+
+        if (node.type === "layers") {
             let modes = ["overlay", "distort", "subtract", "multiply", "burn", "add"];
-            htmlstring += `<label for="${node.nodeName}">mode:</label><!--
-                        --><select name="combineMode" id="${node.nodeName}">`;
-            modes.forEach((mode) => {
-                htmlstring += `<option ${mode === node.combineMode?.name ? "selected" : ""} value="${mode}">${mode}</option>`;
-            });
-            htmlstring += `</select>`;
+            htmlstring += getSelectHtml("combineMode", node.nodeName, modes, node.combineMode?.name, "patina-node__combineMode");
         }
 
         if (!!node.filter) {
@@ -61,6 +58,7 @@ export function htmlTree (node, branchForks, linkedNodeList, patterns, nodePurpo
             htmlstring += `<button class="patina-node__button-filter">+ filters</button>\n`;
         }
 
+        // output all new properties so we remember to include them somehow
         Object.keys(node).forEach((key) => {
             let skipInfos = [...branchForks, "patternName", "filter", "nodeName", "type", "combineMode", "patternConfig", "direction"];
             if (skipInfos.includes(key)) return;
@@ -68,8 +66,8 @@ export function htmlTree (node, branchForks, linkedNodeList, patterns, nodePurpo
             htmlstring += `<p class="patina-node__${key}">${key}: ${node[key].name || node[key]}</p>`;
         });
 
-        htmlstring += '</div>\n';
-        if (nodePurpose) { htmlstring += `<p class="patina-node__purpose">${nodePurpose}</p>`; }
+        htmlstring += `</div>
+            <p class="patina-node__purpose">${nodePurpose}</p>`;
 
         return htmlstring;
     };
@@ -78,17 +76,24 @@ export function htmlTree (node, branchForks, linkedNodeList, patterns, nodePurpo
     let parentHtml = (node, nodePurpose) => {
         const subTree = htmlTree(node, branchForks, linkedNodeList, patterns, nodePurpose);
         return `
-      <div class="parent">
-        ${subTree}
-      </div>
-    `;
+            <div class="parent">
+                ${subTree}
+            </div>
+        `;
     };
 
     let childHtml = (node) => {
         return `<div class="child">\n${patinaNodeHtml(node)}\n</div>\n`;
     };
 
-    if (node.type === "layers" || node.type === "colors" || node.type === "reuseImage") {
+    if (["layers", "colors", "reuseImage"].includes(node.type)) {
+        /*
+        *   <.subtree>
+        *       <.parent />
+        *       <.parent />
+        *       <.child />
+        *   </.subtree>
+        */
         let htmlstring = `<div class="subtree ${node.type}">\n`;
 
         branchForks.forEach((property) => {
