@@ -1,5 +1,6 @@
 :root {
     --gap-width: 1rem;
+    --line-height: 1.5rem;
     --view-background-color: transparent;
 
     --stroke-width: .5rem;
@@ -36,7 +37,8 @@ body {
         "parent parent parent parent parent parent"
         "child child child child child child"
     ;
-    gap: calc(2 * var(--gap-width)) 0;
+    gap: calc(calc(2 * var(--gap-width)) + var(--line-height)) 0;
+    /* vertical gap between parent and child */
 
     background-color: transparent;
 }
@@ -79,7 +81,7 @@ body {
         height: calc(var(--gap-width) - var(--half-stroke-width));
         border: 1px solid var(--stroke-color);
         position: absolute;
-        bottom: calc(-1 * calc(var(--gap-width) + var(--half-stroke-width)));
+        bottom: calc(calc(-1 * calc(var(--gap-width) + var(--half-stroke-width))) - var(--line-height));
         background-color: transparent;
 
         /* right part of the bracket .parent + .parent:after */
@@ -106,7 +108,7 @@ body {
             height: var(--gap-width);
             border-left: var(--stroke-width) solid var(--stroke-color);
             position: absolute;
-            bottom: calc(-1 * var(--gap-width));
+            bottom: calc(calc(-1 * var(--gap-width)) - var(--line-height));
             left: calc(50% - var(--half-stroke-width));
         }
     }
@@ -129,25 +131,39 @@ body {
     border-radius: 0;
 }
 
+/* i want to replace this with a button to edit the reused image */
+.subtree.reuseImage>.parent:before {
+    display: block;
+    content: "";
+    height: var(--gap-width);
+    border-left: var(--stroke-width) solid var(--stroke-color);
+    position: absolute;
+    bottom: calc(calc(-1 * var(--gap-width)) - var(--line-height));
+    left: calc(50% - var(--half-stroke-width));
+}
+
 .patina-node {
     box-sizing: border-box;
     width: 200px;
     min-height: 200px;
-    padding: .5rem;
+    /* padding: .5rem; */
 
     background: black;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.33);
     background-size: contain;
 
     position: relative;
+    overflow: hidden;
 
     label {
-        display: inline-block;
+        display: none;
+        /* inline-block; */
         width: 30%;
     }
 
     select {
-        width: 70%;
+        width: calc(100% - 1rem);
+        margin-top: .5rem;
     }
 
     input {
@@ -167,13 +183,23 @@ body {
 select.patina-node__type {
     font-weight: bold;
     width: 100%;
+    background: var(--stroke-color);
+    border: none;
+    color: white;
+    padding: 0 1rem;
+    margin-top: 0;
 }
 
 p.patina-node__purpose {
     position: absolute;
-    bottom: 0rem;
-    left: 0;
+    top: 100%;
+    left: 15%;
+    right: 15%;
     padding: 0 .5rem;
+    margin: 0;
+    line-height: var(--line-height);
+    color: white;
+    background: var(--stroke-color);
 }
 
 
@@ -222,6 +248,21 @@ p.patina-node__purpose {
     position: absolute;
     top: 50px;
     left: -200px;
+}
+
+.button-open-new-tab {
+    position: absolute;
+    top: 140px;
+    left: -200px;
+}
+
+
+.patina-node__button-filter {
+    position: absolute;
+    right: -80%;
+    width: 100%;
+    top: 5rem;
+    text-align: left;
 }
 
 .filter-dialog {

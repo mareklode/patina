@@ -43,6 +43,8 @@
             </textarea>
             <button class="js-jsonpatina-to-textarea button-jsonpatina-to-textarea">jsonpatina-to-textarea</button>
             <button class="js-draw-jsonpatina button-draw-jsonpatina">draw-jsonpatina</button>
+            <button onclick="window.open('showSteps_textarea.html', 'showSteps_textarea').focus();"
+                class="js-open-new-tab button-open-new-tab">open-new-tab</button>
         </div>
 
 
@@ -176,8 +178,6 @@
                 }
                 htmlstring += `'>`;
 
-                if (nodePurpose) { htmlstring += `<p class="patina-node__purpose">${nodePurpose}</p>`; }
-
                 let types = ["select_Type", "reuseImage", "createPattern", "layers", "colors"];
                 htmlstring += `<select name="type" id="${node.nodeName}" class="patina-node__type">`;
                 types.forEach((type) => {
@@ -227,6 +227,8 @@
                 });
 
                 htmlstring += '</div>\n';
+                if (nodePurpose) { htmlstring += `<p class="patina-node__purpose">${nodePurpose}</p>`; }
+
                 return htmlstring;
             }
 
@@ -277,13 +279,19 @@
             }
         }
 
+        const getPatinaTextFromDatastructure = () => {
+            return JSON.stringify(
+                {
+                    width: 250,
+                    ...reconstructJson(linkedNodeList["root"], ["nodeName"])
+                }
+                , undefined, 4
+            );
+        }
         const patinaToTextarea = () => {
             let textarea = document.querySelector('.jsonpatina-textarea');
-            let jsonpatina = {
-                width: 250,
-                ...reconstructJson(linkedNodeList["root"], ["nodeName"])
-            }
-            textarea.value = JSON.stringify(jsonpatina, undefined, 4);
+            let jsonpatina = getPatinaTextFromDatastructure();
+            textarea.value = jsonpatina;
         }
 
         let drawJsonPatina = async () => {
@@ -331,6 +339,7 @@
         function setupButtonEvents () {
             const textareaButton = document.querySelector('.js-jsonpatina-to-textarea');
             const drawButton = document.querySelector('.js-draw-jsonpatina');
+            const openNewTab = document.querySelector('.js-open-new-tab');
 
             if (textareaButton) {
                 textareaButton.addEventListener('click', handleTextareaButtonClick);
@@ -338,6 +347,10 @@
 
             if (drawButton) {
                 drawButton.addEventListener('click', handleDrawButtonClick);
+            }
+
+            if (openNewTab) {
+                openNewTab.addEventListener('click', handleOpenNewTabClick);
             }
         }
 
@@ -376,6 +389,10 @@
         function handleDrawButtonClick () {
             textareaToDataStructure();
             drawJsonPatina();
+        }
+
+        function handleOpenNewTabClick () {
+            localStorage.setItem("patina", getPatinaTextFromDatastructure());
         }
 
         /**
