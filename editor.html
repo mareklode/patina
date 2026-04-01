@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <base href="">
+
+    <title>Show Steps | Patina | mareklode</title>
+
+    <link rel="stylesheet" type="text/css" href="css/normalize.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/editor.css">
+
+</head>
+
+<body class="body">
+
+    <header class="header">
+        <div class="header__logo">
+            Patina
+        </div>
+    </header>
+
+    <nav class="navigation" data-module-name="patina" data-module-data="template_navigation">
+        <a class="navigation__link" href="index.html">Home</a>
+        <a class="navigation__link" href="howto.html">HowTo</a>
+        <a class="navigation__link" href="createPattern.html">createPattern</a>
+        <a class="navigation__link" href="filter.html">filter</a>
+        <span class="navigation__nowrap">
+            <a class="navigation__link" href="reusableImages.html">reusableImages</a>
+            <a class="navigation__link" href="examples.html">examples</a>
+            <a class="navigation__link" href="test.html">test</a>
+        </span>
+    </nav>
+
+    <main>
+
+        <button class="js-open-new-tab button-open-new-tab">Open JSON Tab</button>
+
+        <div class="jsonpatina-container">
+            <textarea class="jsonpatina-textarea jsonpatina-textarea--hidden" spellcheck="false" autocorrect="off"
+                autocapitalize="off">
+                {"patina": { "type": "select_Type" }}
+            </textarea>
+            <!-- button class="js-close-textarea button-close-textarea">close-textarea</button -->
+            <button class="js-draw-jsonpatina button-draw-jsonpatina">draw-jsonpatina</button>
+            <button class="js-close-textarea button-close-textarea">close-textarea</button>
+        </div>
+
+
+        <div class="tree">
+
+            <div class="subtree">
+                <div class="parent">
+                    <div class="patina-node">x</div>
+                </div>
+                <div class="parent">
+                    <div class="patina-node">x</div>
+                </div>
+                <div class="child">
+                    <div class="patina-node">x</div>
+                </div>
+            </div><!-- .subtree -->
+
+        </div><!-- .tree -->
+
+        <dialog class="js-filter-dialog filter-dialog" closedby="any">
+            <form action="#" method="dialog">
+            </form>
+        </dialog>
+    </main>
+
+    <script type="module">
+        import { reconstructJson, subtreeHtml } from './scripts/editor/htmlTreeBuilder.js';
+        import filterDialogManager from './scripts/editor/filterDialogManager.js';
+        import { createMessenger } from './scripts/editor/tabMessenger.js';
+
+        // JSON patina textarea
+
+        const jsonpatinaTextarea = (() => {
+            const $textarea = document.querySelector('.jsonpatina-textarea');
+            return {
+                getContent () { return $textarea?.value || ''; },
+                setContent (content) { if ($textarea) { $textarea.value = content; } },
+                markError () { $textarea?.classList.add('error'); },
+                clearError () { $textarea?.classList.remove('error'); },
+            };
+        })();
+
+        // Jsonpatina tab communication
+
+        const messenger = createMessenger('json-channel');
+
+        messenger.setResponseHandler((data) => {
+            textareaToDataStructure(data);
+            patinaToTextarea();
+            drawJsonPatina();
+        });
+
+        document.querySelector('.js-open-new-tab').addEventListener('click', () => {
+            const payload = getPatinaTextFromDatastructure();
+            messenger.openTabWithPayload('editor_texttab.html', payload);
+        });
+
+        // load data
+
+        let filters = [];
+        (async () => {
+            const { default: filterFunction } = await import('./scripts/modules/mel_filter.js');
+            Object.getOwnPropertyNames(filterFunction.prototype).map((filterName) => {
+                if (!filterName.startsWith("_")) { filters.push(filterName); }
+            });
+        })();
+
+        let patterns = [];
+        (async () => {
+            const { default: patternFunction } = await import('./scripts/modules/mel_createPattern.js');
+            Object.getOwnPropertyNames(patternFunction.prototype).map((patternName) => {
+                if (!patternName.startsWith("_")) { patterns.push(patternName); }
+            });
+        })();
+
+        // handles for dom nodes
+        const $tree = document.querySelector('.tree');
+
+
+
+        // these properties of a patina-node contain other nodes, resulting in a tree
+        let branchForks = ["layerBottom", "layerTop", "colorRed", "colorGreen", "colorBlue", "colorAlpha", "reuseId"];
+
+        // helper functions
+
+        const checkData = new Promise((resolve) => {
+            let wait = setInterval(function () {
+                if (filters.length && patterns.length) {
+                    clearInterval(wait);
+                    resolve(true);
+                }
+            }, 100);
+        });
+
+        let createNodeName = () => {
+            return Date.now().toString().slice(7) + Math.random().toString(36).substring(2, 8);
+        }
+
+        // deconstruct the json tree into a list of linked nodes
+        // linkedNodeList is main representation of patina data used througout the editor
+        let linkedNodeList = {};
+        let constructLinkedNodeList = (node, nodeName = false) => {
+            let nodeType = node.type || "flat";
+            nodeName = nodeName || createNodeName();
+
+            let nodeDefinition = { ...node, nodeName: nodeName };
+            if (nodeType === "flat") {
+                // flat nodes just have an integer for a color value
+                nodeDefinition = { ...nodeDefinition, type: "createPattern", patternConfig: { name: "flat", color: node } };
+            }
+
+            // for color-channels and layers: go deeper
+            branchForks.forEach((property) => {
+                if (property !== "reuseId" && node[property]) {
+                    nodeDefinition[property] = constructLinkedNodeList(node[property], node.reuseId);
+                }
+            })
+
+            linkedNodeList[nodeName] = { ...nodeDefinition };
+            return nodeName;
+        }
+
+        const textareaToDataStructure = (jsonData) => {
+            try {
+                let jsonpatina;
+
+                if (jsonData) {
+                    // If data is provided (from child tab or elsewhere), parse it if it's a string
+                    jsonpatina = typeof jsonData === 'string' ? JSON.parse(jsonData) : jsonData;
+                } else {
+                    // Otherwise, read from the textarea
+                    jsonpatina = JSON.parse(jsonpatinaTextarea.getContent());
+                }
+
+                jsonpatinaTextarea.clearError();
+
+                jsonpatina.reusableImages = jsonpatina.reusableImages || {};
+
+                Object.keys(jsonpatina.reusableImages).forEach((reusableImage) => {
+                    constructLinkedNodeList(jsonpatina.reusableImages[reusableImage], reusableImage);
+                });
+
+                constructLinkedNodeList(jsonpatina.patina, "root");
+            } catch (error) {
+                jsonpatinaTextarea.markError();
+                console.log(error);
+            }
+        }
+
+        const getPatinaTextFromDatastructure = () => {
+            return JSON.stringify(
+                {
+                    width: 250,
+                    ...reconstructJson(linkedNodeList["root"], branchForks, linkedNodeList, ["nodeName"])
+                }
+                , undefined, 4
+            );
+        }
+        const patinaToTextarea = () => {
+            let jsonpatina = getPatinaTextFromDatastructure();
+            jsonpatinaTextarea.setContent(jsonpatina);
+            messenger.sendToTab(jsonpatina);
+        }
+
+        let drawJsonPatina = async () => {
+            if (!Object.keys(linkedNodeList).length || !linkedNodeList["root"]) {
+                console.error("no linked node list");
+                return;
+            }
+
+            // wait for the patterns and filters
+            await checkData;
+
+            let htmlstring = subtreeHtml(linkedNodeList["root"], branchForks, linkedNodeList, patterns, "root");
+            $tree.innerHTML = htmlstring;
+
+            // trigger events for the newly created patina nodes
+            if (typeof mel !== 'undefined') {
+                mel.jsTriggers();
+            }
+        }
+
+        // Set up all event listeners
+
+        // close textarea Button
+        document.querySelector('.js-close-textarea')?.addEventListener('click', () => {
+            document.querySelector('.js-open-new-tab').focus();
+        });
+
+        // drawButton
+        document.querySelector('.js-draw-jsonpatina')?.addEventListener('click', () => {
+            textareaToDataStructure();
+            drawJsonPatina();
+        });
+
+        // openNewTab =
+        document.querySelector('.js-open-new-tab')?.addEventListener('click', () => localStorage.setItem("patina", getPatinaTextFromDatastructure()));
+
+        /**
+         * Setup tree-related events using event delegation
+         */
+
+        if ($tree) {
+            $tree.addEventListener('input', handleTreeInput);
+            $tree.addEventListener('click', handleTreeClick);
+        } else {
+            console.error("Tree container not found");
+        }
+
+        /**
+         * Handle input events on input and select elements within the tree
+         */
+        function handleTreeInput (event) {
+            const inputElement = event.target.closest('input');
+            const selectElement = event.target.closest('select');
+
+            if (inputElement || selectElement) {
+                selectInput(event);
+            }
+        }
+
+        /**
+         * Handle click events within the tree
+         */
+        function handleTreeClick (event) {
+            const filterButton = event.target.closest('.patina-node__button-filter');
+
+            if (filterButton) {
+                clickButtonFilters(event);
+            }
+        }
+
+        /**
+         * Handle focus out events in filter dialog
+         */
+        const clickButtonFilters = async (event) => {
+            let buttonElement = event.target;
+            buttonElement.classList.add("active");
+
+            const patinaNodeId = buttonElement.closest(".patina-node").id;
+            const node = linkedNodeList[patinaNodeId];
+
+            await filterDialogManager.show(node, filters);
+
+            buttonElement.classList.remove("active");
+            patinaToTextarea();
+            drawJsonPatina();
+        }
+
+        const selectInput = (event) => {
+            let selectType = event.target.getAttribute("name");
+            console.log("selectInput event on:", event.target, "type:", selectType);
+            let nodeId = event.target.closest(".patina-node").id;
+            if (selectType === "type") {
+                let type = event.target.value;
+                switch (type) {
+                    case "layers":
+                        let layerTop = createNodeName();
+                        let layerBottom = createNodeName();
+                        linkedNodeList[nodeId] = {
+                            type: type,
+                            layerBottom: layerBottom,
+                            layerTop: layerTop,
+                            nodeName: nodeId
+                        };
+                        linkedNodeList[layerBottom] = { type: "select_Type", nodeName: layerBottom }
+                        linkedNodeList[layerTop] = { type: "select_Type", nodeName: layerTop }
+                        break;
+                    case "colors":
+                        let colorRed = createNodeName();
+                        let colorGreen = createNodeName();
+                        let colorBlue = createNodeName();
+                        let colorAlpha = createNodeName();
+                        linkedNodeList[nodeId] = {
+                            type: type,
+                            colorRed: colorRed,
+                            colorGreen: colorGreen,
+                            colorBlue: colorBlue,
+                            colorAlpha: colorAlpha,
+                            nodeName: nodeId
+                        };
+                        linkedNodeList[colorRed] = { type: "select_Type", nodeName: colorRed };
+                        linkedNodeList[colorGreen] = { type: "select_Type", nodeName: colorGreen };
+                        linkedNodeList[colorBlue] = { type: "select_Type", nodeName: colorBlue };
+                        linkedNodeList[colorAlpha] = { type: "select_Type", nodeName: colorAlpha };
+                        break;
+                    case "createPattern":
+                        linkedNodeList[nodeId] = {
+                            type: type,
+                            nodeName: nodeId,
+                            patternConfig: { name: "flat", frequency: 10 }
+                        };
+                        break;
+                    case "reuseImage":
+                        // ToDo: create a new reuseImage
+                        break;
+                }
+            } else if (selectType === "patternConfig" || selectType === "combineMode") {
+                linkedNodeList[nodeId][selectType] = { ...linkedNodeList[nodeId][selectType], name: event.target.value };
+            } else { // direction || frequency
+                linkedNodeList[nodeId].patternConfig[selectType] = event.target.value;
+            }
+
+            drawJsonPatina();
+            patinaToTextarea();
+
+        }; // selectInput()
+
+        // init
+        (async () => {
+            const { footerExample, emptyExample, oneReusableImage, colorsExample, reusableImagesExample } = await import('./scripts/patinaExamples.js');
+            const templates = await import('./scripts/modules/mel_pageTemplates.js');
+            //jsonpatinaTextarea.setContent(JSON.stringify(reusableImagesExample, undefined, 4));
+            jsonpatinaTextarea.setContent(templates.default.header);
+
+            textareaToDataStructure();
+            drawJsonPatina();
+        })();
+
+    </script>
+
+    <!-- esbuild modules/mel_patina.js --bundle > bundle.js -->
+    <script type="module" src="scripts/main.js"></script>
+
+</body>
+
+</html>

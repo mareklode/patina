@@ -13,14 +13,72 @@ function filter (image, filterDefinition, width, height) {
 
 filter.prototype = {
 
+
+    rotate: function (sourceImage, filterDefinition, width, height) {
+        let angle = filterDefinition.angle || filterDefinition.value || 0,
+            targetImage = [];
+
+        for (let y = 0; y < height; y++) {
+            for (let x = 0; x < width; x++) {
+                let newX = Math.round((x - width / 2) * Math.cos(angle) - (y - height / 2) * Math.sin(angle) + width / 2);
+                let newY = Math.round((x - width / 2) * Math.sin(angle) + (y - height / 2) * Math.cos(angle) + height / 2);
+                if (newX >= 0 && newX < width && newY >= 0 && newY < height) {
+                    targetImage[y * width + x] = sourceImage[newY * width + newX];
+                } else {
+                    targetImage[y * width + x] = 0; // or some default value
+                }
+            }
+        }
+
+        return targetImage;
+    }, // rotate()
+
+    flip: function (sourceImage, filterDefinition, width, height) {
+        const alignment = filterDefinition.alignment || filterDefinition.value || "vertical";
+        let targetImage = [];
+        if (alignment === "vertical") {
+            for (let y = 0; y < height; y++) {
+                for (let x = 0; x < width; x++) {
+                    targetImage[y * width + x] = sourceImage[(height - 1 - y) * width + x];
+                }
+            }
+            return targetImage;
+        } else if (alignment === "horizontal") {
+             for (let y = 0; y < height; y++) {
+                for (let x = 0; x < width; x++) {
+                    targetImage[y * width + x] = sourceImage[y * width + (width - 1 - x)];
+                }
+            }
+            return targetImage;
+        } else {
+            console.error("flip: alignment \"", alignment, "\" is not supported. Use \"vertical\" or \"horizontal\".");
+            return sourceImage;
+        }
+    }, // flip()
+
+    mirrorHorizontal: function (sourceImage, filterDefinition, width, height) {
+        let targetImage = [];
+        for (let y = 0; y < height; y++) {
+            for (let x = 0; x < width; x++) {
+                let factor = Math.floor(x * 2);
+                if (factor >= width) {
+                    targetImage[y * width + x] = sourceImage[(y + 2) * width - factor];
+                } else {
+                    targetImage[y * width + x] = sourceImage[y * width + factor];
+                }
+            }
+        }
+        return targetImage;
+    }, // mirrorHorizontal()
+
     blur: function (sourceImage, filterDefinition, width, height) {
-        // copied from http://blog.ivank.net/fastest-gaussian-blur.html 
+        // copied from http://blog.ivank.net/fastest-gaussian-blur.html
 
         let sigma = filterDefinition.radius || filterDefinition.value || 3, // standard deviation
             n = 3, // number of boxes
             targetImage = [];
 
-        let wIdeal = Math.sqrt((12 * sigma * sigma / n) + 1);  // Ideal averaging filter width 
+        let wIdeal = Math.sqrt((12 * sigma * sigma / n) + 1);  // Ideal averaging filter width
         let wl = Math.floor(wIdeal); if (wl % 2 == 0) wl--;
         let wu = wl + 2;
 
@@ -65,6 +123,7 @@ filter.prototype = {
         return targetImage;
     }, // blur()
 
+    // for color channels, why does this sometimes produce lines? or dots?
     alpha: function (image, filterDefinition) {
         let opacity = filterDefinition?.opacity || 1;
         /*
@@ -78,7 +137,6 @@ filter.prototype = {
                 return value;
             }
         });
-
     },
 
     // the brightness function keeps black and white and manipulates the color-curve between them
@@ -87,11 +145,11 @@ filter.prototype = {
         let brightness = filterDefinition.brightness || 0;
 
         if (brightness < 0) {
-            // for brightness =-2 : https://www.wolframalpha.com/ <-- Plot[x^0.25, {x, 0, 1}] 
+            // for brightness =-2 : https://www.wolframalpha.com/ <-- Plot[x^0.25, {x, 0, 1}]
             brightness = (-1 / (brightness - 1));
         } else {
-            // for brightness = 0 : https://www.wolframalpha.com/ <-- Plot[x^1, {x, 0, 1}] 
-            // for brightness = 2 : https://www.wolframalpha.com/ <-- Plot[x^3, {x, 0, 1}] 
+            // for brightness = 0 : https://www.wolframalpha.com/ <-- Plot[x^1, {x, 0, 1}]
+            // for brightness = 2 : https://www.wolframalpha.com/ <-- Plot[x^3, {x, 0, 1}]
             brightness += 1;
         }
         return image.map(function (value) {
@@ -99,6 +157,24 @@ filter.prototype = {
         });
 
     }, // brightness()
+
+
+    //   y
+    //    \                /
+    //     \              /
+    //      \            /
+    //       \          /
+    //        \        /
+    //         \      /
+    //          \    /
+    //           \  /
+    //            \/        x
+    // just for black and white (0-1) for now, ToDo: color version (0-255)
+    ramp: function (image, filterDefinition) {
+        return image.map(function (value) {
+            return Math.abs((value * -2) + 1);
+        });
+    }, // ramp()
 
     brightness_new: function (image, filterDefinition) {
         let brightness = filterDefinition.value || 0;
@@ -138,7 +214,7 @@ filter.prototype = {
         return image.map(function (value) {
             return -value + 1;
         });
-    }, // invert() 
+    }, // invert()
 
     // maximize the color range of the array to 0..1
     push: function (image) {

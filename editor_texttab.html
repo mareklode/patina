@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Patina Textarea</title>
+  <style>
+    :root {
+      --font-size: calc(1vw + 1vh);
+    }
+
+    * {
+      font-size: var(--font-size);
+    }
+
+    button {
+      font-size: 2vw;
+      padding: 0.5vw;
+      border: none;
+      margin: .5vw;
+    }
+
+    body {
+      font-family: sans-serif;
+      padding: 1vw;
+      margin: 0;
+      background-color: mediumaquamarine;
+    }
+
+    h2 {
+      float: right;
+      margin: 0;
+    }
+
+    textarea {
+      width: 100%;
+      height: 90vh;
+      border: none;
+      background-color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>Patina Textarea</h2>
+  <div>
+    <button id="sendButton">Update Tree</button>
+    <button id="decreaseFont">-</button>
+    <button id="increaseFont">+</button>
+  </div>
+  <textarea id="output" placeholder="Waiting for data..."></textarea>
+  <p>Trigger sendButton with Ctrl+Return</p>
+
+  <script>
+    // Font size control
+    let currentFontSize = localStorage.getItem('fontSizeVW') ? parseFloat(localStorage.getItem('fontSizeVW')) : 2;
+    const root = document.documentElement;
+    root.style.setProperty('--font-size', currentFontSize + 'vw');
+
+    const decreaseButton = document.querySelector('#decreaseFont');
+    const increaseButton = document.querySelector('#increaseFont');
+
+    decreaseButton.onclick = () => {
+      currentFontSize = Math.max(0.5, currentFontSize - 0.1);
+      root.style.setProperty('--font-size', currentFontSize + 'vw');
+      localStorage.setItem('fontSizeVW', currentFontSize);
+    };
+
+    increaseButton.onclick = () => {
+      currentFontSize = Math.min(5, currentFontSize + 0.1);
+      root.style.setProperty('--font-size', currentFontSize + 'vw');
+      localStorage.setItem('fontSizeVW', currentFontSize);
+    };
+
+    // Tab communication
+    class TabReceiver {
+      constructor(channelName) {
+        this.channel = new BroadcastChannel(channelName);
+        this.textarea = document.getElementById('output');
+
+        const params = new URLSearchParams(window.location.search);
+        this.requestId = params.get('requestId');
+
+        this.channel.onmessage = (event) => {
+          const msg = event.data;
+          if (msg.type === 'DATA') {
+            this.textarea.value = typeof msg.payload === 'string' ? msg.payload : JSON.stringify(msg.payload, null, 2);
+          }
+        };
+
+        // Only send READY on first load (when requestId is in URL)
+        if (this.requestId) {
+          this.channel.postMessage({
+            type: 'READY',
+            requestId: this.requestId
+          });
+        }
+      }
+
+      sendResponse () {
+        this.channel.postMessage({
+          type: 'RESPONSE',
+          data: this.textarea.value
+        });
+      }
+    }
+
+    const receiver = new TabReceiver('json-channel');
+
+    // Add button to send data back to parent
+    const sendButton = document.querySelector('#sendButton');
+    sendButton.onclick = () => receiver.sendResponse();
+
+    // Trigger sendButton with Ctrl+Return
+    const textarea = document.querySelector('#output');
+    textarea.addEventListener('keydown', (event) => {
+      if (event.ctrlKey && event.key === 'Enter') {
+        event.preventDefault();
+        receiver.sendResponse();
+      }
+    });
+  </script>
+
+</body>
+
+</html>

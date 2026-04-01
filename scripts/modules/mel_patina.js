@@ -6,7 +6,17 @@ import combineLayers from './mel_combineLayers.js';
 // import createPattern from './mel_createPattern.js';
 // import filter from './mel_filter.js';
 // todo: dynamisch 1/2
-import templates from './mel_pageTemplates.js';
+import templates from './mel_pageTemplates.json' with { type: 'json' };
+import goldenerBackground from '../patterns/goldenerBackgroundFuerBody.json' with { type: 'json' };
+import headerBackgroundHolz from '../patterns/headerBackgroundHolz.json' with { type: 'json' };
+import holzMitRand from '../patterns/holzMitRand.json' with { type: 'json' };
+
+templates.goldenerBackground = goldenerBackground;
+templates.headerBackgroundHolz = headerBackgroundHolz;
+templates.holzMitRand = holzMitRand;
+
+console.log(goldenerBackground);
+
 
 function patina (domElement, parameters) {
     let self = this;
@@ -126,15 +136,17 @@ patina.prototype = {
     }, // createPatina()
 
     _completeParameters: function (parameters, domElement) {
-        parameters = this._jsonParse(parameters);
+        if (typeof (parameters) === 'string') {
+            parameters = this._jsonParse(parameters);
+        }
 
         parameters.reusableImages = parameters.reusableImages || {};
 
         /*
         // I don't want the pixelRatio, it makes it more complicated.
         // let the browser do its thing and save users with hi-res displays some computing time
-        
-        let pixelRatio = window.devicePixelRatio; 
+
+        let pixelRatio = window.devicePixelRatio;
         // pixelRatio = 2.8125;
         const output = document.querySelectorAll('.output');
         if (output.length) output[0].textContent = pixelRatio + "px";
@@ -239,11 +251,11 @@ patina.prototype = {
                 });
 
                 if (typeof layer.filter === 'object' && !Array.isArray(layer.filter) && layer.filter !== null) {
-                    console.warn("filter is object (showSteps)");
+                    console.warn("filter is object (editor)");
                 }
             }
 
-            // for the nodes with IDs in showSteps and reusableImages 
+            // for the nodes with IDs in editor and reusableImages
             if (layer.nodeName && this.resultingImageHasData(resultingImage)) { // why is this array empty, sometimes?!?
                 this._paintCanvasToADifferentDiv(resultingImage, width, height, layer.nodeName);
             }
@@ -287,7 +299,7 @@ patina.prototype = {
         }
     }, // _paintCanvas()
 
-    // for reusable images and the nodes in showSteps
+    // for reusable images and the nodes in editor
     _paintCanvasToADifferentDiv: async function (patinaData, width, height, domElementID) {
         domElementID = domElementID || 'thisIDDoesNotExist';
         let domElement = document.getElementById(domElementID);

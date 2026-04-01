@@ -1,0 +1,144 @@
+{
+    "patina": {
+        "type": "colors",
+        "colorRed": {
+            "type": "layers",
+            "layerBottom": {
+                "type": "layers",
+                "layerBottom": {
+                    "type": "createPattern",
+                    "patternConfig": {
+                        "name": "wave",
+                        "frequency": "3",
+                        "direction": "horizontal"
+                    }
+                },
+                "layerTop": {
+                    "type": "createPattern",
+                    "patternConfig": {
+                        "name": "slope",
+                        "direction": "to top"
+                    },
+                    "filter": [
+                        {
+                            "name": "contrast_new",
+                            "value": 5
+                        }
+                    ]
+                },
+                "combineMode": {
+                    "name": "distort",
+                    "radius": 2000
+                },
+                "filter": [
+                    {
+                        "name": "ramp"
+                    }
+                ]
+            },
+            "layerTop": {
+                "type": "createPattern",
+                "patternConfig": {
+                    "name": "noise_plasma",
+                    "frequency": "1"
+                },
+                "filter": [
+                    {
+                        "name": "blur",
+                        "radius": 12
+                    }
+                ]
+            },
+            "combineMode": {
+                "name": "distort",
+                "radius": 3000
+            },
+            "filter": [
+                {
+                    "name": "contrast_new",
+                    "value": 8
+                },
+                {
+                    "name": "brightness_new",
+                    "value": -0.66
+                }
+            ]
+        },
+        "colorGreen": {
+            "type": "createPattern",
+            "patternConfig": {
+                "name": "flat",
+                "frequency": "50"
+            }
+        },
+        "colorBlue": {
+            "type": "createPattern",
+            "patternConfig": {
+                "name": "flat",
+                "frequency": "40"
+            }
+        },
+        "colorAlpha": {
+            "type": "layers",
+            "layerBottom": {
+                "type": "createPattern",
+                "patternConfig": {
+                    "name": "border",
+                    "frequency": 10
+                },
+                "filter": [
+                   {
+                        "name": "brightness_new",
+                        "value": -1.125
+                    },
+                    {
+                        "name": "contrast_new",
+                        "value": 2
+                    }
+                ]
+            },
+            "layerTop": {
+                "type": "layers",
+                "layerBottom": {
+                    "type": "createPattern",
+                    "patternConfig": {
+                        "name": "noise_plasma",
+                        "frequency": "1"
+                    }
+                },
+                "layerTop": {
+                    "type": "createPattern",
+                    "patternConfig": {
+                        "name": "noise_plasma",
+                        "frequency": "2"
+                    },
+                    "filter": [
+                        {
+                            "name": "ramp",
+                            "value": 0
+                        },
+                        {
+                            "name": "ramp",
+                            "value": 0
+                        },
+                        {
+                            "name": "ramp",
+                            "value": 0
+                        },
+                        {
+                            "name": "contrast_new",
+                            "value": 2
+                        }
+                    ]
+                },
+                "combineMode": {
+                    "name": "multiply"
+                }
+            },
+            "combineMode": {
+                "name": "burn"
+            }
+        }
+    },
+    "reusableImages": {}
+}

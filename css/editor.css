@@ -154,6 +154,7 @@ body {
 
     position: relative;
     overflow: hidden;
+    border-radius: 3px;
 
     label {
         display: none;
@@ -188,6 +189,8 @@ select.patina-node__type {
     color: white;
     padding: 0 1rem;
     margin-top: 0;
+    position: relative;
+    bottom: 1px;
 }
 
 p.patina-node__purpose {
@@ -214,7 +217,7 @@ p.patina-node__purpose {
     z-index: 1;
 
     transition: transform .2s ease-out;
-    transform: translate(87%, 75%) scale(.75);
+    transform: translate(calc(100% - 30px), calc(100% - 30px)) scale(.5);
     transform-origin: top left;
 }
 
@@ -232,10 +235,10 @@ p.patina-node__purpose {
     }
 }
 
-.button-jsonpatina-to-textarea {
+.button-close-textarea {
     position: absolute;
-    top: 90px;
-    left: -200px;
+    top: 50px;
+    right: 50px;
 }
 
 .button-textarea-to-jsonpatina {
@@ -246,16 +249,16 @@ p.patina-node__purpose {
 
 .button-draw-jsonpatina {
     position: absolute;
-    top: 50px;
-    left: -200px;
+    top: 100px;
+    right: 50px;
 }
 
 .button-open-new-tab {
-    position: absolute;
-    top: 140px;
-    left: -200px;
+    position: fixed;
+    right: 0px;
+    bottom: 60px;
+    z-index: 1;
 }
-
 
 .patina-node__button-filter {
     position: absolute;

@@ -1,0 +1,63 @@
+{
+  "patina": {
+    "type": "layers",
+    "layerBottom": {
+      "type": "createPattern",
+      "patternConfig": {
+        "name": "border",
+        "frequency": 10
+      },
+      "filter": [
+        {
+          "name": "invert",
+          "value": 0
+        },
+        {
+          "name": "contrast_new",
+          "value": 2
+        }
+      ]
+    },
+    "layerTop": {
+      "type": "layers",
+      "layerBottom": {
+        "type": "createPattern",
+        "patternConfig": {
+          "name": "noise_plasma",
+          "frequency": "1"
+        }
+      },
+      "layerTop": {
+        "type": "createPattern",
+        "patternConfig": {
+          "name": "noise_plasma",
+          "frequency": "8"
+        },
+        "filter": [
+          {
+            "name": "ramp",
+            "value": 0
+          },
+          {
+            "name": "ramp",
+            "value": 0
+          },
+          {
+            "name": "ramp",
+            "value": 0
+          },
+          {
+            "name": "brightness_new",
+            "value": -0.5
+          }
+        ]
+      },
+      "combineMode": {
+        "name": "burn"
+      }
+    },
+    "combineMode": {
+      "name": "add"
+    }
+  }
+}

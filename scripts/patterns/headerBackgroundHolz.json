@@ -1,0 +1,58 @@
+{
+  "width": 256,
+  "height": 256,
+  "patina": {
+    "type": "layers",
+    "layerBottom": {
+        "type": "layers",
+        "layerBottom": {
+            "type": "createPattern",
+            "patternConfig": {
+                "name": "wave",
+                "frequency": "4",
+                "direction": "horizontal"
+            }
+        },
+        "layerTop": {
+            "type": "createPattern",
+            "patternConfig": {
+                "name": "slope",
+                "direction": "to top"
+            },
+            "filter": [
+                {
+                    "name": "contrast_new",
+                    "value": 8
+                }
+            ]
+        },
+        "combineMode": {
+            "name": "distort",
+            "radius": 1500
+        },
+        "filter": [
+            {
+                "name": "ramp"
+            }
+        ]
+    },
+    "layerTop": {
+        "type": "createPattern",
+        "patternConfig": {
+            "name": "noise_plasma",
+            "frequency": "3"
+        },
+        "filter": [
+            {
+                "name": "blur",
+                "radius": 5
+            }
+        ]
+    },
+    "combineMode": {
+        "name": "distort",
+        "radius": 500
+    }
+  },
+  "reusableImages": {}
+}
