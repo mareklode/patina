@@ -3,7 +3,7 @@
  * Accepts a node object and allows editing its filters in place
  */
 
-const filterDialogManager = (() => {
+const filterDialog = (() => {
     const $filterDialog = document.querySelector('.js-filter-dialog');
     let currentNode = null;
     let availableFilters = [];
@@ -95,6 +95,7 @@ const filterDialogManager = (() => {
      * @returns {Promise} Resolves when dialog is closed
      */
     const show = (node, filters) => {
+        // is "show" the best name for this? it handles both showing and updating the dialog form
         return new Promise((resolve) => {
             if (!$filterDialog) {
                 console.error('Filter dialog element not found');
@@ -103,19 +104,16 @@ const filterDialogManager = (() => {
             }
 
             currentNode = node;
-            availableFilters = filters || [];
+            availableFilters = filters;
 
             updateDialogForm(node);
             attachFilterEventListeners();
 
-            // Close if already open, then show fresh
-            if ($filterDialog.open) {
-                $filterDialog.close();
-            }
             $filterDialog.showModal();
 
             const closeHandler = () => {
                 $filterDialog.removeEventListener('close', closeHandler);
+                $filterDialog.close();
                 currentNode = null;
                 resolve();
             };
@@ -127,4 +125,4 @@ const filterDialogManager = (() => {
     return { show };
 })();
 
-export default filterDialogManager;
+export default filterDialog;

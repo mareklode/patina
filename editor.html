@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width">
     <base href="">
 
-    <title>Show Steps | Patina | mareklode</title>
+    <title>Editor | Patina | mareklode</title>
 
     <link rel="stylesheet" type="text/css" href="css/normalize.min.css">
     <link rel="stylesheet" href="css/main.css">
@@ -72,8 +72,9 @@
     </main>
 
     <script type="module">
-        import { reconstructJson, subtreeHtml } from './scripts/editor/htmlTreeBuilder.js';
-        import filterDialogManager from './scripts/editor/filterDialogManager.js';
+        import { htmlTree } from './scripts/editor/htmlTree.js';
+        import { getJsonFromLinkedNodeList } from './scripts/editor/utils.js';
+        import filterDialog from './scripts/editor/filterDialog.js';
         import { createMessenger } from './scripts/editor/tabMessenger.js';
 
         // JSON patina textarea
@@ -123,8 +124,9 @@
 
         // handles for dom nodes
         const $tree = document.querySelector('.tree');
-
-
+        if (!$tree) {
+            console.error("Tree container not found");
+        }
 
         // these properties of a patina-node contain other nodes, resulting in a tree
         let branchForks = ["layerBottom", "layerTop", "colorRed", "colorGreen", "colorBlue", "colorAlpha", "reuseId"];
@@ -199,7 +201,7 @@
             return JSON.stringify(
                 {
                     width: 250,
-                    ...reconstructJson(linkedNodeList["root"], branchForks, linkedNodeList, ["nodeName"])
+                    ...getJsonFromLinkedNodeList(linkedNodeList["root"], branchForks, linkedNodeList, ["nodeName"])
                 }
                 , undefined, 4
             );
@@ -219,7 +221,7 @@
             // wait for the patterns and filters
             await checkData;
 
-            let htmlstring = subtreeHtml(linkedNodeList["root"], branchForks, linkedNodeList, patterns, "root");
+            let htmlstring = htmlTree(linkedNodeList["root"], branchForks, linkedNodeList, patterns, "root");
             $tree.innerHTML = htmlstring;
 
             // trigger events for the newly created patina nodes
@@ -244,43 +246,8 @@
         // openNewTab =
         document.querySelector('.js-open-new-tab')?.addEventListener('click', () => localStorage.setItem("patina", getPatinaTextFromDatastructure()));
 
-        /**
-         * Setup tree-related events using event delegation
-         */
+        // tree events
 
-        if ($tree) {
-            $tree.addEventListener('input', handleTreeInput);
-            $tree.addEventListener('click', handleTreeClick);
-        } else {
-            console.error("Tree container not found");
-        }
-
-        /**
-         * Handle input events on input and select elements within the tree
-         */
-        function handleTreeInput (event) {
-            const inputElement = event.target.closest('input');
-            const selectElement = event.target.closest('select');
-
-            if (inputElement || selectElement) {
-                selectInput(event);
-            }
-        }
-
-        /**
-         * Handle click events within the tree
-         */
-        function handleTreeClick (event) {
-            const filterButton = event.target.closest('.patina-node__button-filter');
-
-            if (filterButton) {
-                clickButtonFilters(event);
-            }
-        }
-
-        /**
-         * Handle focus out events in filter dialog
-         */
         const clickButtonFilters = async (event) => {
             let buttonElement = event.target;
             buttonElement.classList.add("active");
@@ -288,11 +255,24 @@
             const patinaNodeId = buttonElement.closest(".patina-node").id;
             const node = linkedNodeList[patinaNodeId];
 
-            await filterDialogManager.show(node, filters);
+            await filterDialog.show(node, filters);
 
             buttonElement.classList.remove("active");
             patinaToTextarea();
             drawJsonPatina();
+        }
+
+        const switchButtonHandler = (event) => {
+            const patinaNodeId = event.target.getAttribute("data-node-name");
+            const node = linkedNodeList[patinaNodeId];
+
+            if (node.type === "layers") { // should only be possible for layers, but just in case
+                const layerBottom = node.layerBottom;
+                node.layerBottom = node.layerTop;
+                node.layerTop = layerBottom;
+                patinaToTextarea();
+                drawJsonPatina();
+            }
         }
 
         const selectInput = (event) => {
@@ -354,12 +334,38 @@
 
         }; // selectInput()
 
+        $tree.addEventListener('input', handleTreeInput);
+        $tree.addEventListener('click', handleTreeClick);
+
+        function handleTreeInput (event) {
+            const inputElement = event.target.closest('input');
+            const selectElement = event.target.closest('select');
+
+            if (inputElement || selectElement) {
+                selectInput(event);
+            }
+        }
+
+        function handleTreeClick (event) {
+            const filterButton = event.target.closest('.patina-node__button-filter');
+            const switchButton = event.target.closest('.patina-node__button-switch');
+
+            if (filterButton) {
+                clickButtonFilters(event);
+            }
+
+            if (switchButton) {
+                switchButtonHandler(event);
+            }
+        }
+
         // init
+
         (async () => {
-            const { footerExample, emptyExample, oneReusableImage, colorsExample, reusableImagesExample } = await import('./scripts/patinaExamples.js');
+            const { footerExample, emptyExample, oneReusableImage, colorsExample, reusableImagesExample, flames } = await import('./scripts/patinaExamples.js');
             const templates = await import('./scripts/modules/mel_pageTemplates.js');
-            //jsonpatinaTextarea.setContent(JSON.stringify(reusableImagesExample, undefined, 4));
-            jsonpatinaTextarea.setContent(templates.default.header);
+            jsonpatinaTextarea.setContent(JSON.stringify(flames, undefined, 4));
+            // jsonpatinaTextarea.setContent(templates.default.header);
 
             textareaToDataStructure();
             drawJsonPatina();

@@ -1,41 +1,24 @@
 /**
  * HTML Tree Builder Module
  * Handles rendering patina node trees to HTML
- */
+*/
 
-// we need this here and also in the editor. maybe we can move it to a utils file later, but for now let's keep it here to avoid circular dependencies with the filter dialog manager.
-export function reconstructJson (root, branchForks, linkedNodeList, deleteProperty = []) {
-  let reusableImages = {};
+import { getJsonFromLinkedNodeList } from "./utils.js";
 
-  let reconstructJsonSubtree = (node) => {
-    let nodeObject = { ...node };
+// this function builds the html for the "root" node and then recursively for its children
+export function htmlTree (node, branchForks, linkedNodeList, patterns, nodePurpose = false) {
 
-    deleteProperty.forEach((property) => {
-      delete nodeObject[property];
-    });
-
-    branchForks.forEach((property) => {
-      if (node[property]) {
-        if (linkedNodeList[node.reuseId]) {
-          reusableImages[node.reuseId] = reconstructJsonSubtree(linkedNodeList[node.reuseId]);
-        } else {
-          nodeObject[property] = reconstructJsonSubtree(linkedNodeList[node[property]]);
-        }
-      }
-    });
-
-    return { ...nodeObject };
-  };
-
-  let jsonTree = reconstructJsonSubtree(root);
-  return { patina: jsonTree, reusableImages: reusableImages };
-}
-
-export function subtreeHtml (node, branchForks, linkedNodeList, patterns, nodePurpose = false) {
   let patinaNodeHtml = (node) => {
-    let htmlstring = `<div id="${node.nodeName}" class='patina-node`;
+    let htmlstring = "";
+
+    if (node.type === "layers") {
+      htmlstring += `<button class="patina-node__button-switch" data-node-name="${node.nodeName}">switch</button>\n`;
+    }
+
+    // too many IDs
+    htmlstring += `<div id="${node.nodeName}" class='patina-node`;
     if (node.nodeName === "root") {
-      htmlstring += ` js-module' data-module-name='patina' data-module-data='${JSON.stringify(reconstructJson(node, branchForks, linkedNodeList))}`;
+      htmlstring += ` js-module' data-module-name='patina' data-module-data='${JSON.stringify(getJsonFromLinkedNodeList(node, branchForks, linkedNodeList))}`;
     }
     htmlstring += `'>`;
 
@@ -91,10 +74,14 @@ export function subtreeHtml (node, branchForks, linkedNodeList, patterns, nodePu
     return htmlstring;
   };
 
+  // here the recursion happens
   let parentHtml = (node, nodePurpose) => {
-    let htmlstring = '<div class="parent">\n';
-    htmlstring += subtreeHtml(node, branchForks, linkedNodeList, patterns, nodePurpose);
-    return htmlstring + '</div>\n';
+    const subTree = htmlTree(node, branchForks, linkedNodeList, patterns, nodePurpose);
+    return `
+      <div class="parent">
+        ${subTree}
+      </div>
+    `;
   };
 
   let childHtml = (node) => {

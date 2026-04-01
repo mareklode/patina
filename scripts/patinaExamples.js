@@ -216,3 +216,52 @@ export const colorsExample = {
     },
     "reusableImages": []
 }
+
+export const flames = {
+    "patina": {
+        "type": "layers",
+        "layerBottom": {
+            "type": "layers",
+            "layerBottom": {
+                "type": "createPattern",
+                "patternConfig": {
+                    "name": "slope",
+                    "frequency": 10
+                },
+                "filter": [
+                    {
+                        "name": "contrast_new",
+                        "value": 1.5
+                    }
+                ]
+            },
+            "layerTop": {
+                "type": "createPattern",
+                "patternConfig": {
+                    "name": "wave",
+                    "frequency": 6
+                }
+            },
+            "combineMode": {
+                "name": "burn"
+            }
+        },
+        "layerTop": {
+            "type": "createPattern",
+            "patternConfig": {
+                "name": "noise_plasma",
+                "frequency": 1
+            },
+            "filter": [
+                {
+                    "name": "blur",
+                    "value": 5
+                }
+            ]
+        },
+        "combineMode": {
+            "name": "distort",
+            "radius": 500
+        }
+    }
+};

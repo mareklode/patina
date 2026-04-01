@@ -15,7 +15,7 @@ filter.prototype = {
 
 
     rotate: function (sourceImage, filterDefinition, width, height) {
-        let angle = filterDefinition.angle || filterDefinition.value || 0,
+        let angle = (filterDefinition.angle || filterDefinition.value || 0) * (Math.PI / -180), // convert to radians and invert for correct direction
             targetImage = [];
 
         for (let y = 0; y < height; y++) {
@@ -29,7 +29,6 @@ filter.prototype = {
                 }
             }
         }
-
         return targetImage;
     }, // rotate()
 
@@ -44,7 +43,7 @@ filter.prototype = {
             }
             return targetImage;
         } else if (alignment === "horizontal") {
-             for (let y = 0; y < height; y++) {
+            for (let y = 0; y < height; y++) {
                 for (let x = 0; x < width; x++) {
                     targetImage[y * width + x] = sourceImage[y * width + (width - 1 - x)];
                 }

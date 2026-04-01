@@ -181,6 +181,12 @@ body {
     }
 }
 
+.patina-node__button-switch {
+    position: absolute;
+    top: -53px;
+    transform: translateX(-50%);
+}
+
 select.patina-node__type {
     font-weight: bold;
     width: 100%;
@@ -269,12 +275,8 @@ p.patina-node__purpose {
 }
 
 .filter-dialog {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    max-width: 80%;
     text-align: left;
+    border: none;
 
     .close-button {
         position: absolute;
