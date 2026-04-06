@@ -18,9 +18,12 @@ const filterDialog = (() => {
      */
     const updateDialogForm = (node) => {
         console.log('Showing filter dialog for node:', node);
+        let name = node.patternConfig?.name || node.combineMode?.name;
+        if (name) { name = ` : ${name}`; } else { name = ''; }
+
         let dialogHtml = `
             <h2>Filter Editor</h2>
-            <p>${node.type} : ${node.patternConfig?.name || node.combineMode?.name}</p>
+            <p>${node.type}${name}</p>
             <form method="dialog">
                 <button type="button" class="close-button js-filter-close-btn">Apply</button>
         `;
