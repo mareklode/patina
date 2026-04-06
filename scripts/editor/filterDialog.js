@@ -7,8 +7,6 @@ const filterDialog = (() => {
     const $filterDialog = document.querySelector('.js-filter-dialog');
     let currentNode = null;
     let availableFilters = [];
-    let addFilterButton = null;
-    let filterSelect = null;
 
     if (!$filterDialog) {
         console.warn('js-filter-dialog element not found');
@@ -19,20 +17,66 @@ const filterDialog = (() => {
      * @param {Object} node - The patina node object with potential filters
      */
     const updateDialogForm = (node) => {
-        let dialogHtml = `<form method="dialog"><button type="button" class="close-button" id="filter-close-btn">X</button>`;
+        console.log('Showing filter dialog for node:', node);
+        let dialogHtml = `
+            <h2>Filter Editor</h2>
+            <p>${node.type} : ${node.patternConfig?.name || node.combineMode?.name}</p>
+            <form method="dialog">
+                <button type="button" class="close-button js-filter-close-btn">Apply</button>
+        `;
 
         node.filter?.forEach((filter, index) => {
-            dialogHtml += `<label for="filter-${index}">${filter.name}</label><input type="text" id="filter-${index}" class="filter-input" data-filter-index="${index}" data-filter-name="${filter.name}" value="${filter.value}" /><br>`;
+            dialogHtml += `
+                <div class="filter-row" data-filter-index="${index}">
+                    <label for="filter-${index}">${filter.name}</label>
+                    <input type="text" id="filter-${index}" class="filter-input" data-filter-index="${index}" data-filter-name="${filter.name}" value="${filter.value}" />
+                    <button type="button" class="filter-btn-up" data-filter-index="${index}" title="Move up">↑</button>
+                    <button type="button" class="filter-btn-down" data-filter-index="${index}" title="Move down">↓</button>
+                    <button type="button" class="filter-btn-delete" data-filter-index="${index}" title="Delete filter">✕</button>
+                </div>`;
         });
 
-        dialogHtml += `<select id="add-select-filter"><option>select:</option>`;
+        dialogHtml += `<select class="js-add-select-filter"><option>Add Filter:</option>`;
         availableFilters.forEach((filter) => {
             dialogHtml += `<option>${filter}</option>`;
         });
 
-        dialogHtml += '</select><button type="button" id="add-filter-btn">Add</button></form>';
+        dialogHtml += `
+                </select>
+            </form>
+            <p class="very-small">${node.nodeName}</p>
+        `;
 
         $filterDialog.innerHTML = dialogHtml;
+
+        // Attach event listeners after updating the DOM
+        const closeBtn = $filterDialog.querySelector('.js-filter-close-btn');
+        closeBtn.addEventListener('click', () => $filterDialog.close());
+
+        const filterInputs = $filterDialog.querySelectorAll('.filter-input');
+        filterInputs.forEach(input => {
+            input.addEventListener('focusout', handleFilterInputChange);
+        });
+
+        const deleteButtons = $filterDialog.querySelectorAll('.filter-btn-delete');
+        deleteButtons.forEach(btn => {
+            btn.addEventListener('click', handleDeleteFilter);
+        });
+
+        const upButtons = $filterDialog.querySelectorAll('.filter-btn-up');
+        upButtons.forEach(btn => {
+            btn.addEventListener('click', handleMoveFilterUp);
+        });
+
+        const downButtons = $filterDialog.querySelectorAll('.filter-btn-down');
+        downButtons.forEach(btn => {
+            btn.addEventListener('click', handleMoveFilterDown);
+        });
+
+        const addFilter = $filterDialog.querySelector(".js-add-select-filter");
+        addFilter.addEventListener('change', (event) => {
+            handleAddFilter(event);
+        });
     };
 
     /**
@@ -51,41 +95,68 @@ const filterDialog = (() => {
     };
 
     /**
+     * Handle deleting a filter
+     */
+    const handleDeleteFilter = (event) => {
+        event.preventDefault();
+        if (!currentNode) return;
+
+        const filterIndex = parseInt(event.target.getAttribute('data-filter-index'));
+
+        if (currentNode.filter && currentNode.filter[filterIndex] !== undefined) {
+            currentNode.filter.splice(filterIndex, 1);
+            updateDialogForm(currentNode);
+        }
+    };
+
+    /**
+     * Handle moving a filter up in the list
+     */
+    const handleMoveFilterUp = (event) => {
+        event.preventDefault();
+        if (!currentNode) return;
+
+        const filterIndex = parseInt(event.target.getAttribute('data-filter-index'));
+
+        if (currentNode.filter && filterIndex > 0) {
+            // Swap with previous filter
+            [currentNode.filter[filterIndex - 1], currentNode.filter[filterIndex]] =
+                [currentNode.filter[filterIndex], currentNode.filter[filterIndex - 1]];
+            updateDialogForm(currentNode);
+        }
+    };
+
+    /**
+     * Handle moving a filter down in the list
+     */
+    const handleMoveFilterDown = (event) => {
+        event.preventDefault();
+        if (!currentNode) return;
+
+        const filterIndex = parseInt(event.target.getAttribute('data-filter-index'));
+
+        if (currentNode.filter && filterIndex < currentNode.filter.length - 1) {
+            // Swap with next filter
+            [currentNode.filter[filterIndex], currentNode.filter[filterIndex + 1]] =
+                [currentNode.filter[filterIndex + 1], currentNode.filter[filterIndex]];
+            updateDialogForm(currentNode);
+        }
+    };
+
+    /**
      * Handle adding a new filter
      */
     const handleAddFilter = (event) => {
         event.preventDefault();
         if (!currentNode) return;
 
-        const filterName = $filterDialog.querySelector("#add-select-filter").value;
+        const filterName = $filterDialog.querySelector(".js-add-select-filter").value;
         if (!filterName || filterName === "select:") return;
 
         currentNode.filter = currentNode.filter || [];
         currentNode.filter.push({ name: filterName, value: 0 });
 
         updateDialogForm(currentNode);
-        attachFilterEventListeners();
-    };
-
-    /**
-     * Attach event listeners to form elements
-     */
-    const attachFilterEventListeners = () => {
-        const closeBtn = $filterDialog.querySelector('#filter-close-btn');
-        const addBtn = $filterDialog.querySelector('#add-filter-btn');
-
-        if (closeBtn) {
-            closeBtn.addEventListener('click', () => $filterDialog.close());
-        }
-
-        if (addBtn) {
-            addBtn.addEventListener('click', handleAddFilter);
-        }
-
-        const filterInputs = $filterDialog.querySelectorAll('.filter-input');
-        filterInputs.forEach(input => {
-            input.addEventListener('focusout', handleFilterInputChange);
-        });
     };
 
     /**
@@ -107,7 +178,6 @@ const filterDialog = (() => {
             availableFilters = filters;
 
             updateDialogForm(node);
-            attachFilterEventListeners();
 
             $filterDialog.showModal();
 
