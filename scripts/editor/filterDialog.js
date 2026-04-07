@@ -17,6 +17,10 @@ const filterDialog = (() => {
      * @param {Object} node - The patina node object with potential filters
      */
     const updateDialogForm = (node) => {
+        const nodeId = node.nodeName;
+        const correspondingNode = document.querySelector(`.patina-node[data-node-id="${nodeId}"]`);
+        console.log('correspondingNode for filter dialog:', correspondingNode);
+        correspondingNode.classList.add('highlighted');
         console.log('Showing filter dialog for node:', node);
         let name = node.patternConfig?.name || node.combineMode?.name;
         if (name) { name = ` : ${name}`; } else { name = ''; }
@@ -39,7 +43,7 @@ const filterDialog = (() => {
                 </div>`;
         });
 
-        dialogHtml += `<select class="js-add-select-filter"><option>Add Filter:</option>`;
+        dialogHtml += `<select class="js-add-select-filter add-select-filter"><option>Add Filter:</option>`;
         availableFilters.forEach((filter) => {
             dialogHtml += `<option>${filter}</option>`;
         });
@@ -182,11 +186,13 @@ const filterDialog = (() => {
 
             updateDialogForm(node);
 
+            document.body.classList.add('dialog-open');
             $filterDialog.showModal();
 
             const closeHandler = () => {
                 $filterDialog.removeEventListener('close', closeHandler);
                 $filterDialog.close();
+                document.body.classList.remove('dialog-open');
                 currentNode = null;
                 resolve();
             };

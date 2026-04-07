@@ -176,8 +176,10 @@ body {
         background-color: rgba(255, 255, 255, .67);
     }
 
+    /*
+
     button.active {
-        background-color: green;
+        background-color: rgb(216, 215, 137);
         right: 0;
         bottom: .5rem;
         width: 95%;
@@ -185,6 +187,7 @@ body {
         padding: .5rem;
 
     }
+        */
 }
 
 .patina-node__button-switch {
@@ -300,6 +303,8 @@ p.patina-node__purpose {
 .filter-dialog {
     text-align: left;
     border: none;
+    background-color: rgb(216, 215, 137);
+    border-radius: 3px;
 
     .close-button {
         position: absolute;
@@ -315,9 +320,23 @@ p.patina-node__purpose {
         margin: .5rem 0;
     }
 
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .filter-row {
+        background-color: white;
+        padding: .5rem;
+    }
+
     label {
         width: 10rem;
         display: inline-block;
+    }
+
+    .add-select-filter {
+        margin: .5rem auto 0 auto;
     }
 
     p.very-small {
@@ -327,5 +346,27 @@ p.patina-node__purpose {
 }
 
 .filter-dialog::backdrop {
-    background: hsl(201 50% 40% /.5);
+    background: rgb(0 0 0 /.25);
+}
+
+body.dialog-open .patina-node {
+    opacity: .25;
+
+    &.highlighted {
+        opacity: 1;
+
+        .patina-node__type {
+            background-color: rgb(216, 215, 137);
+            color: black;
+        }
+
+        .patina-node__button-filter {
+            background-color: rgb(216, 215, 137);
+            right: 0;
+            bottom: .5rem;
+            width: 95%;
+            border: none;
+            padding: .5rem;
+        }
+    }
 }
