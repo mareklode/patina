@@ -193,7 +193,7 @@
                 constructLinkedNodeList(jsonpatina.patina, "root");
             } catch (error) {
                 jsonpatinaTextarea.markError();
-                console.log(error);
+                console.error(error);
             }
         }
 
@@ -277,7 +277,6 @@
 
         const selectInput = (event) => {
             let selectType = event.target.getAttribute("name");
-            console.log("selectInput event on:", event.target, "type:", selectType);
             let nodeId = event.target.closest(".patina-node").id;
             if (selectType === "type") {
                 let type = event.target.value;

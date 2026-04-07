@@ -296,7 +296,6 @@ createPattern.parameterMetadata = {
         description: 'Solid single color',
         parameters: {
             color: { type: 'number', min: 0, max: 256, default: 128, description: 'Color value (0-256)' },
-            frequency: { type: 'number', min: 0, max: 256, default: 128, optional: true, description: 'Alternative color param' }
         }
     },
     border: {
@@ -308,10 +307,10 @@ createPattern.parameterMetadata = {
         name: 'Wave',
         description: 'Wave patterns',
         parameters: {
+            direction: { type: 'select', values: ['concentric', 'horizontal', 'rectangles', 'diagonalUp', 'diagonalDown', 'vertical'], default: 'vertical', description: 'Wave direction' },
             frequency: { type: 'number', min: 1, max: 50, default: 5, description: 'Waves per width' },
             offsetX: { type: 'number', default: null, nullable: true, description: 'Horizontal offset (center if null)' },
             offsetY: { type: 'number', default: null, nullable: true, description: 'Vertical offset (center if null)' },
-            direction: { type: 'select', values: ['concentric', 'horizontal', 'rectangles', 'diagonalUp', 'diagonalDown', 'vertical'], default: 'vertical', description: 'Wave direction' }
         }
     },
     slope: {
@@ -353,8 +352,8 @@ createPattern.parameterMetadata = {
         name: 'Random Walker',
         description: 'Organic pattern from random steps',
         parameters: {
+            steps: { type: 'number', min: 1, max: 10, default: 1, description: 'Multiplier for number of steps (times pixel count)' },
             impact: { type: 'number', min: 1, max: 20, default: 5, description: 'Intensity of effect' },
-            steps: { type: 'number', min: 1, max: 10, default: 1, description: 'Multiplier for number of steps (times pixel count)' }
         }
     },
     rays: {
@@ -362,7 +361,6 @@ createPattern.parameterMetadata = {
         description: 'Radial rays from center',
         parameters: {
             count: { type: 'number', min: 1, max: 100, default: 16, description: 'Number of rays' },
-            frequency: { type: 'number', min: 1, max: 100, default: 16, optional: true, description: 'Alternative to count' },
             offsetX: { type: 'number', default: 0, description: 'Horizontal center offset' },
             offsetY: { type: 'number', default: 0, description: 'Vertical center offset' },
             sharpen: { type: 'number', min: 0, max: 50, default: 10, description: 'Ray sharpness (0=binary, higher=softer)' },
@@ -380,41 +378,39 @@ createPattern.generateParameterForm = function (patternName, patternConfig = {})
         return '';
     }
 
-    let html = `<fieldset class="pattern-params" data-pattern="${patternName}">
-        <!-- <legend>${metadata.name}</legend>
-        <p class="pattern-description">${metadata.description}</p> -->`;
+    let html = ""; /* 
+    `<!-- fieldset class="pattern-parameters" data-pattern="${patternName}">
+        <legend>${metadata.name}</legend>
+        <p class="pattern-description">${metadata.description}</p> -->`; */
 
 
     Object.entries(metadata.parameters).forEach(([paramKey, paramDef]) => {
-        console.log(metadata.parameters[paramKey], patternConfig[paramKey]);
         const id = `param_${patternName}_${paramKey}`;
         const required = !paramDef.optional && !paramDef.nullable ? 'required' : '';
         const label = `<label for="${id}">${paramDef.description || paramKey}</label>`;
 
         if (paramDef.type === 'select') {
-            html += `<div class="form-group">
-                ${label}
-                <select id="${id}" name="${paramKey}" data-param="${paramKey}" ${required}>
-                    ${paramDef.values.map(v => {
+            html += `
+            ${label}
+            <select id="${id}" name="${paramKey}" data-param="${paramKey}" ${required}>
+            ${paramDef.values.map(v => {
                 const defaultValue = patternConfig[paramKey] || v;
                 return `<option value="${v}" ${v === defaultValue ? 'selected' : ''}>${v}</option>`;
             }).join('')}
-                </select>
-            </div>`;
+            </select>
+            `;
         } else if (paramDef.type === 'number') {
             const step = paramDef.step || 1;
             const min = paramDef.min !== undefined ? `min="${paramDef.min}"` : '';
             const max = paramDef.max !== undefined ? `max="${paramDef.max}"` : '';
             const value = patternConfig[paramKey] || paramDef.default;
-            html += `<div class="form-group">
-                ${label}
-                <input id="${id}" type="number" name="${paramKey}" data-param="${paramKey}" value="${value}" step="${step}" ${min} ${max} ${required} />
-            </div>`;
+            html += `${label}
+                <input id="${id}" type="number" name="${paramKey}" data-param="${paramKey}" value="${value}" step="${step}" ${min} ${max} ${required} />`;
         }
     });
 
-    html += `</fieldset>`;
     return html;
+    html += `</fieldset>`;
 };
 
 // ============ FORM DATA COLLECTOR ============

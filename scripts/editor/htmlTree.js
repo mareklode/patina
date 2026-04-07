@@ -5,6 +5,7 @@
 
 import { getJsonFromLinkedNodeList } from "./utils.js";
 import createPattern from "../modules/mel_createPattern.js";
+import { combineLayersMetadata } from "../modules/mel_combineLayers.js"
 
 const getSelectHtml = (name, nodeName, options, selectedValue, className = "") => {
     let html = `<label for="${nodeName}">name:</label><!--
@@ -46,37 +47,20 @@ export function htmlTree (node, branchForks, linkedNodeList, patterns, nodePurpo
             let patternName = node.patternConfig?.name || node.patternName;
             htmlstring += getSelectHtml("patternConfig", node.nodeName, patterns, patternName);
 
-
-            htmlstring += `<div class="patina-node__patternConfig">`;
-
-            console.log(createPattern.parameterMetadata[patternName]);
-            htmlstring += createPattern.generateParameterForm(patternName, node.patternConfig);
-            //console.log(createPattern.getParametersFromForm('border', formElement));
-
-            /*
-            Object.keys(node.patternConfig).forEach(key => {
-                const value = node.patternConfig[key];
-                if (!["name", "direction"].includes(key)) {
-                    htmlstring += `<p>${key}: 
-                            <input type="number" name="${key}" id="${node.nodeName}" value="${value}">
-                        </p>`;
-                }
-                if (key === "direction") {
-                    const directions = ["vertical", "horizontal", "concentric"];
-                    htmlstring += getSelectHtml("direction", node.nodeName, directions, node.patternConfig?.direction, "patina-node__direction");
-                }
-            });
-            */
-
-            htmlstring += `</div>`;
-
-            // console.log(node.patternConfig)
-            // htmlstring += `<input type="number" name="frequency" id="${node.nodeName}" value="${node.patternConfig?.frequency}">`;
+            const parameterForm = createPattern.generateParameterForm(patternName, node.patternConfig);
+            if (parameterForm) {
+                htmlstring += `
+                    <div class="patina-node__patternConfig">
+                        ${createPattern.generateParameterForm(patternName, node.patternConfig)}
+                    </div>`;
+            }
         }
 
         if (node.type === "layers") {
-            let modes = ["overlay", "distort", "subtract", "multiply", "burn", "add"];
+            let modes = Object.keys(combineLayersMetadata); //["overlay", "distort", "subtract", "multiply", "burn", "add"];
             htmlstring += getSelectHtml("combineMode", node.nodeName, modes, node.combineMode?.name, "patina-node__combineMode");
+
+            console.log("Add input element for : ", node.combineMode?.name, Object.keys(combineLayersMetadata[node.combineMode?.name].parameters));
         }
 
         if (!!node.filter) {

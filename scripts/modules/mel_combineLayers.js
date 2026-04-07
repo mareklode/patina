@@ -102,4 +102,33 @@ function combineLayers (layerBottom, layerTop, width, combineMode) {
     return resultingImage;
 } // combineLayers()
 
+// ============ PARAMETER METADATA ============
+// Describes what parameters each combine function requires
+export const combineLayersMetadata = {
+    overlay: {},
+    distort: {
+        name: 'Distort',
+        description: 'tbd',
+        parameters: {
+            radius: { type: 'number', min: 0, max: 256, default: 32, description: 'distortion' },
+        }
+    },
+    subtract: {},
+    multiply: {},
+    burn: {
+        name: 'Burn',
+        description: 'tbd',
+        parameters: {
+            value: { type: 'number', default: 1, description: 'we dont need no water' },
+        }
+    },
+    add: {
+        name: 'Add',
+        description: 'tbd',
+        parameters: {
+            opacity: { type: 'number', min: 0, max: 256, default: 1, description: 'opa' }
+        }
+    },
+};
+
 export default combineLayers;

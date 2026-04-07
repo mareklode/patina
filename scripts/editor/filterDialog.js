@@ -19,9 +19,7 @@ const filterDialog = (() => {
     const updateDialogForm = (node) => {
         const nodeId = node.nodeName;
         const correspondingNode = document.querySelector(`.patina-node[data-node-id="${nodeId}"]`);
-        console.log('correspondingNode for filter dialog:', correspondingNode);
         correspondingNode.classList.add('highlighted');
-        console.log('Showing filter dialog for node:', node);
         let name = node.patternConfig?.name || node.combineMode?.name;
         if (name) { name = ` : ${name}`; } else { name = ''; }
 
