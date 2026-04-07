@@ -4,6 +4,7 @@
 */
 
 import { getJsonFromLinkedNodeList } from "./utils.js";
+import createPattern from "../modules/mel_createPattern.js";
 
 const getSelectHtml = (name, nodeName, options, selectedValue, className = "") => {
     let html = `<label for="${nodeName}">name:</label><!--
@@ -19,7 +20,6 @@ const getSelectHtml = (name, nodeName, options, selectedValue, className = "") =
 
 // this function builds the html for the "root" node and then recursively for its children
 export function htmlTree (node, branchForks, linkedNodeList, patterns, nodePurpose = false) {
-
     let patinaNodeHtml = (node) => {
         let htmlstring = "";
 
@@ -28,7 +28,7 @@ export function htmlTree (node, branchForks, linkedNodeList, patterns, nodePurpo
         }
 
         // too many IDs
-        htmlstring += `<div id="${node.nodeName}" class='patina-node`;
+        htmlstring += `<div id="${node.nodeName}" data-node-id="${node.nodeName}" class='patina-node`;
         if (node.nodeName === "root") {
             htmlstring += ` js-module' data-module-name='patina' data-module-data='${JSON.stringify(getJsonFromLinkedNodeList(node, branchForks, linkedNodeList))}`;
         }
@@ -37,11 +37,23 @@ export function htmlTree (node, branchForks, linkedNodeList, patterns, nodePurpo
         let types = ["select_Type", "reuseImage", "createPattern", "layers", "colors"];
         htmlstring += getSelectHtml("type", node.nodeName, types, node.type, "patina-node__type");
 
+        /*
+        const pattern = createPattern.getAvailablePatterns();
+        console.log(pattern);
+        */
+
         if (node.type === "createPattern") {
             let patternName = node.patternConfig?.name || node.patternName;
             htmlstring += getSelectHtml("patternConfig", node.nodeName, patterns, patternName);
 
+
             htmlstring += `<div class="patina-node__patternConfig">`;
+
+            console.log(createPattern.parameterMetadata[patternName]);
+            htmlstring += createPattern.generateParameterForm(patternName, node.patternConfig);
+            //console.log(createPattern.getParametersFromForm('border', formElement));
+
+            /*
             Object.keys(node.patternConfig).forEach(key => {
                 const value = node.patternConfig[key];
                 if (!["name", "direction"].includes(key)) {
@@ -54,6 +66,8 @@ export function htmlTree (node, branchForks, linkedNodeList, patterns, nodePurpo
                     htmlstring += getSelectHtml("direction", node.nodeName, directions, node.patternConfig?.direction, "patina-node__direction");
                 }
             });
+            */
+
             htmlstring += `</div>`;
 
             // console.log(node.patternConfig)

@@ -288,4 +288,168 @@ createPattern.prototype = {
 
 }; // createPattern.prototype
 
+// ============ PARAMETER METADATA ============
+// Describes what parameters each pattern function requires
+createPattern.parameterMetadata = {
+    flat: {
+        name: 'Flat Color',
+        description: 'Solid single color',
+        parameters: {
+            color: { type: 'number', min: 0, max: 256, default: 128, description: 'Color value (0-256)' },
+            frequency: { type: 'number', min: 0, max: 256, default: 128, optional: true, description: 'Alternative color param' }
+        }
+    },
+    border: {
+        name: 'Border',
+        description: 'Border effect from edges',
+        parameters: {}
+    },
+    wave: {
+        name: 'Wave',
+        description: 'Wave patterns',
+        parameters: {
+            frequency: { type: 'number', min: 1, max: 50, default: 5, description: 'Waves per width' },
+            offsetX: { type: 'number', default: null, nullable: true, description: 'Horizontal offset (center if null)' },
+            offsetY: { type: 'number', default: null, nullable: true, description: 'Vertical offset (center if null)' },
+            direction: { type: 'select', values: ['concentric', 'horizontal', 'rectangles', 'diagonalUp', 'diagonalDown', 'vertical'], default: 'vertical', description: 'Wave direction' }
+        }
+    },
+    slope: {
+        name: 'Slope / Gradient',
+        description: 'Linear color gradient',
+        parameters: {
+            direction: { type: 'select', values: ['to top', 'to right', 'to left', 'to bottom', 'horizontal', 'vertical'], default: 'to bottom', description: 'Gradient direction' },
+            colorBegin: { type: 'number', min: 0, max: 256, default: 256, description: 'Starting color (0-256)' },
+            colorEnd: { type: 'number', min: 0, max: 256, default: 0, description: 'Ending color (0-256)' }
+        }
+    },
+    labyrinth: {
+        name: 'Labyrinth',
+        description: 'Random maze pattern',
+        parameters: {
+            spacing: { type: 'number', min: 1, max: 50, default: 4, description: 'Point spacing in pixels' }
+        }
+    },
+    noise_white: {
+        name: 'White Noise',
+        description: 'Random noise',
+        parameters: {}
+    },
+    noise_1D: {
+        name: 'Noise 1D',
+        description: 'One-dimensional noise pattern',
+        parameters: {
+            direction: { type: 'select', values: ['horizontal', 'vertical'], default: 'vertical', description: 'Noise direction' }
+        }
+    },
+    noise_plasma: {
+        name: 'Plasma / Perlin Noise',
+        description: 'Natural-looking noise (requires mel_noise.js)',
+        parameters: {
+            frequency: { type: 'number', min: 1, max: 10, step: 1, default: 1, description: 'Noise frequency' }
+        }
+    },
+    random_walker: {
+        name: 'Random Walker',
+        description: 'Organic pattern from random steps',
+        parameters: {
+            impact: { type: 'number', min: 1, max: 20, default: 5, description: 'Intensity of effect' },
+            steps: { type: 'number', min: 1, max: 10, default: 1, description: 'Multiplier for number of steps (times pixel count)' }
+        }
+    },
+    rays: {
+        name: 'Rays',
+        description: 'Radial rays from center',
+        parameters: {
+            count: { type: 'number', min: 1, max: 100, default: 16, description: 'Number of rays' },
+            frequency: { type: 'number', min: 1, max: 100, default: 16, optional: true, description: 'Alternative to count' },
+            offsetX: { type: 'number', default: 0, description: 'Horizontal center offset' },
+            offsetY: { type: 'number', default: 0, description: 'Vertical center offset' },
+            sharpen: { type: 'number', min: 0, max: 50, default: 10, description: 'Ray sharpness (0=binary, higher=softer)' },
+            rotation: { type: 'number', min: 0, max: 360, default: 0, description: 'Rotation in degrees' }
+        }
+    }
+};
+
+// ============ FORM GENERATOR ============
+// Dynamically generates HTML form inputs based on parameter metadata
+createPattern.generateParameterForm = function (patternName, patternConfig = {}) {
+    const metadata = createPattern.parameterMetadata[patternName];
+    if (!metadata) {
+        console.warn(`No metadata found for pattern: ${patternName}`);
+        return '';
+    }
+
+    let html = `<fieldset class="pattern-params" data-pattern="${patternName}">
+        <!-- <legend>${metadata.name}</legend>
+        <p class="pattern-description">${metadata.description}</p> -->`;
+
+
+    Object.entries(metadata.parameters).forEach(([paramKey, paramDef]) => {
+        console.log(metadata.parameters[paramKey], patternConfig[paramKey]);
+        const id = `param_${patternName}_${paramKey}`;
+        const required = !paramDef.optional && !paramDef.nullable ? 'required' : '';
+        const label = `<label for="${id}">${paramDef.description || paramKey}</label>`;
+
+        if (paramDef.type === 'select') {
+            html += `<div class="form-group">
+                ${label}
+                <select id="${id}" name="${paramKey}" data-param="${paramKey}" ${required}>
+                    ${paramDef.values.map(v => {
+                const defaultValue = patternConfig[paramKey] || v;
+                return `<option value="${v}" ${v === defaultValue ? 'selected' : ''}>${v}</option>`;
+            }).join('')}
+                </select>
+            </div>`;
+        } else if (paramDef.type === 'number') {
+            const step = paramDef.step || 1;
+            const min = paramDef.min !== undefined ? `min="${paramDef.min}"` : '';
+            const max = paramDef.max !== undefined ? `max="${paramDef.max}"` : '';
+            const value = patternConfig[paramKey] || paramDef.default;
+            html += `<div class="form-group">
+                ${label}
+                <input id="${id}" type="number" name="${paramKey}" data-param="${paramKey}" value="${value}" step="${step}" ${min} ${max} ${required} />
+            </div>`;
+        }
+    });
+
+    html += `</fieldset>`;
+    return html;
+};
+
+// ============ FORM DATA COLLECTOR ============
+// Extracts user input from form and builds layerDefinition config
+createPattern.getParametersFromForm = function (patternName, formElement) {
+    const config = { name: patternName };
+    const inputs = formElement.querySelectorAll('[data-param]');
+
+    inputs.forEach(input => {
+        const paramKey = input.getAttribute('data-param');
+        const paramDef = createPattern.parameterMetadata[patternName].parameters[paramKey];
+
+        let value = input.value;
+
+        // Type conversion
+        if (paramDef.type === 'number') {
+            value = value === '' ? paramDef.default : parseFloat(value);
+        }
+
+        // Skip if value is default or empty
+        if (value !== '' && value !== paramDef.default) {
+            config[paramKey] = value;
+        }
+    });
+
+    return config;
+};
+
+// ============ PATTERN SELECTOR ============
+// Returns array of available patterns with metadata
+createPattern.getAvailablePatterns = function () {
+    return Object.keys(createPattern.parameterMetadata).map(name => ({
+        name,
+        ...createPattern.parameterMetadata[name]
+    }));
+};
+
 export default createPattern;
