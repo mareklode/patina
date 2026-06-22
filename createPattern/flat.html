@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
@@ -8,8 +9,10 @@
 
     <meta property="og:title" content="flat | createPattern | Patina | mareklode" />
     <meta property="og:image" content="http://mareklode.de/bilder/page/v3/v3_rost4.png" />
-    <meta property="og:description" content="Patina: procedually generated background images in JavaScript. createPattern : flat" />
-    <meta name="description" content="Patina: procedually generated background images in JavaScript. createPattern : flat">
+    <meta property="og:description"
+        content="Patina: procedually generated background images in JavaScript. createPattern : flat" />
+    <meta name="description"
+        content="Patina: procedually generated background images in JavaScript. createPattern : flat">
     <meta name="theme-color" content="#28330a">
 
     <link rel="stylesheet" type="text/css" href="css/normalize.min.css">
@@ -19,29 +22,18 @@
 
 <body class="body">
 
-    <header class="header js-module" 
-        data-module-name="patina" 
-        data-module-data="template_header">
-        <div class="header__before js-module"
-            data-module-name="patina" 
-            data-module-data='template_header_logo_before'>
+    <header class="header js-module" data-module-name="patina" data-module-data="template_header">
+        <div class="header__before js-module" data-module-name="patina" data-module-data='template_header_logo_before'>
         </div>
-        <div class="header__after js-module"
-            data-module-name="patina" 
-            data-module-data='template_header_logo_after'>
+        <div class="header__after js-module" data-module-name="patina" data-module-data='template_header_logo_after'>
         </div>
-        <a href="." 
-            class="header__logo js-module" 
-            data-module-name="patina" 
-            data-module-data="template_header_logo_image" 
-            title="Homepage">
-            <img src="images/page/header__logo--PatinaFont-rough_@2x.png" class="header__logo__image" alt="Patina" />
+        <a href="." class="header__logo js-module" data-module-name="patina"
+            data-module-data="template_header_logo_image" title="Homepage">
+            <img src="images/page/04_handgezeichnet.png" class="header__logo__image" alt="Patina" />
         </a>
     </header>
 
-    <nav class="navigation js-module" 
-         data-module-name="patina" 
-         data-module-data="template_navigation">
+    <nav class="navigation js-module" data-module-name="patina" data-module-data="template_navigation">
         <a class="navigation__link" href=".">Home</a>
         <a class="navigation__link" href="howto.html">HowTo</a>
         <a class="navigation__link" href="createPattern.html">createPattern</a>
@@ -53,12 +45,14 @@
         </span>
     </nav>
 
-    <main class="body__block">    
-    
+    <main class="body__block">
+
         <h1>createPattern : flat</h1>
-        
-        <p class="copy">This 'Pattern' assigns the same value to all the pixels in this pattern. It can be used as a color channel, for example. The footer has 3 flat color channels that combine to green, the pattern is only in the alpha channel. This pattern is not random, the same parameter creates the exact same image.</p>
-        
+
+        <p class="copy">This 'Pattern' assigns the same value to all the pixels in this pattern. It can be used as a
+            color channel, for example. The footer has 3 flat color channels that combine to green, the pattern is only
+            in the alpha channel. This pattern is not random, the same parameter creates the exact same image.</p>
+
         <h2>Basic Example</h2>
 
         <pre class="code">"patina" : {
@@ -67,28 +61,26 @@
 }</pre>
 
         <div class="pattern">
-            <div class="js-module pattern__thumbnail pattern__thumbnail--256"
-                data-module-name="patina"
+            <div class="js-module pattern__thumbnail pattern__thumbnail--256" data-module-name="patina"
                 data-module-data='{
                     "patina": {
                         "type"          : "createPattern",
                         "patternName"   : "flat"
                     }
-                }'
-            ></div>
+                }'></div>
         </div><!-- .pattern -->
 
-    <h2>Playground</h2>
+        <h2>Playground</h2>
 
-    <p class="copy">Here you can test this pattern. Change the values inside the textarea or rewrite it completely, then hit "apply".</p>
+        <p class="copy">Here you can test this pattern. Change the values inside the textarea or rewrite it completely,
+            then hit "apply".</p>
 
-    <div class="pattern js-module" data-module-name="playground">
-        <div id="js_patina_fromTextarea" 
-            class="pattern__thumbnail pattern__thumbnail--256"
-        ></div
-        ><button id="js_patina_CallToAction" class="button button__applyPatinaTextarea">&UpperLeftArrow;<br>apply</button>
-    
-        <textarea id="js_patina_textarea" rows="13" class="code" style="margin-top: 0;">
+        <div class="pattern js-module" data-module-name="playground">
+            <div id="js_patina_fromTextarea" class="pattern__thumbnail pattern__thumbnail--256"></div><button
+                id="js_patina_CallToAction"
+                class="button button__applyPatinaTextarea">&UpperLeftArrow;<br>apply</button>
+
+            <textarea id="js_patina_textarea" rows="13" class="code" style="margin-top: 0;">
 {
     "patina"    : {
         "type"      : "createPattern",
@@ -99,14 +91,12 @@
     }
 }
         </textarea>
-    </div><!-- .pattern -->
+        </div><!-- .pattern -->
 
     </main><!-- .body__block -->
 
-    <footer class="footer js-module" 
-            data-module-name="patina" 
-            data-module-data="template_footer">
-        &copy; 2025 <a href="https://mareklode.de">Marek Lode</a> &nbsp; | &nbsp; 
+    <footer class="footer js-module" data-module-name="patina" data-module-data="template_footer">
+        &copy; 2025 <a href="https://mareklode.de">Marek Lode</a> &nbsp; | &nbsp;
         <a href="https://github.com/mareklode/patina">
             <img class="footer__githublogo" src="images/page/GitHub-Mark-32px.png" alt="GitHub Logo" />
             This Project on GitHub
@@ -114,7 +104,8 @@
     </footer>
 
     <!-- this is the starting point for all the javascript regarding patina -->
-<script type="module" src="scripts/main.js"></script>
+    <script type="module" src="scripts/main.js"></script>
 
 </body>
+
 </html>

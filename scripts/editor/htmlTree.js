@@ -50,8 +50,11 @@ export function htmlTree (node, branchForks, linkedNodeList, patterns, nodePurpo
             const parameterForm = createPattern.generateParameterForm(patternName, node.patternConfig);
             if (parameterForm) {
                 htmlstring += `
-                    <div class="patina-node__patternConfig">
-                        ${createPattern.generateParameterForm(patternName, node.patternConfig)}
+                    <div class="patina-node__patternConfig hidden">
+                        <button class="patina-node__patternConfig__toggle">+</button>
+                        <div class="patina-node__patternConfig__inputs">
+                            ${createPattern.generateParameterForm(patternName, node.patternConfig)}\
+                        </div>
                     </div>`;
             }
         }
@@ -60,7 +63,9 @@ export function htmlTree (node, branchForks, linkedNodeList, patterns, nodePurpo
             let modes = Object.keys(combineLayersMetadata); //["overlay", "distort", "subtract", "multiply", "burn", "add"];
             htmlstring += getSelectHtml("combineMode", node.nodeName, modes, node.combineMode?.name, "patina-node__combineMode");
 
-            console.log("Add input element for : ", node.combineMode?.name, Object.keys(combineLayersMetadata[node.combineMode?.name].parameters));
+            if (combineLayersMetadata[node.combineMode?.name].parameters) {
+                console.log("Add input element for : ", node.combineMode?.name, Object.keys(combineLayersMetadata[node.combineMode?.name].parameters));
+            }
         }
 
         if (!!node.filter) {

@@ -6,7 +6,7 @@ const templates = {
         "reusableImages"    : {
             "marekkeram_256": {
                 "type"          : "preloadImage",
-                "url"           : "/patina/images/page/header__logo--PatinaFont-rough_white.png",
+                "url"           : "/mareklode/patina/images/page/04_handgezeichnet.png",
                 "colors" : 1
             }
         },

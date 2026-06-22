@@ -10,7 +10,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
 */
 
 .header {
-  height: 128px;
+  height: 160px;
   background-color: var(--header-background-color);
   background-position: center;
   background-size: cover;
@@ -52,17 +52,18 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: black;
+  color: white;
   padding: 0;
   font-size: 400%;
   font-weight: bold;
   text-shadow: 0 0 1px black;
+  text-shadow: -2px 5px 2px black;
   text-decoration: none;
   background-repeat: no-repeat;
   background-position: center bottom;
 
   background-size: 100% 100%;
-  mix-blend-mode: difference;
+  mix-blend-mode: hard-light;
 
   &:hover,
   &:focus,
@@ -77,34 +78,38 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
 }
 
 .header__logo__image {
-  width: 350px;
+  /* 17% of 600px = 102px */
+  max-height: 160px;
+
   max-width: 80vw;
   font-size: 5rem;
   line-height: 96px;
 
-  mix-blend-mode: plus-lighter;
+  mix-blend-mode: color-dodge;
 
   .pagemode_homepage & {
     font-size: 10vw;
     line-height: 12vw;
 
     @media screen and (min-width: 600px) {
-      width: calc(10 * var(--unitX));
+      max-height: min(330px, 17vw);
     }
   }
 }
 
 .header__claim {
-  /* .fontText; */
   position: absolute;
-  bottom: 12%;
+  bottom: 10%;
   right: 12%;
   margin: 0;
 
   font-weight: bold;
   text-shadow: 0 0 10px lightgray;
 
-  @media screen and (max-width: 599px) {
+}
+
+@media screen and (max-width: 599px) {
+  .header__claim {
     display: none;
   }
 }
@@ -141,7 +146,7 @@ http://www.patorjk.com/software/taag/#p=display&c=bash&f=Header
   }
 
   @media screen and (min-width: 600px) {
-    font-size: 150%;
+    font-size: 125%;
     padding: 15px 2vw;
   }
 }

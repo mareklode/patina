@@ -308,7 +308,7 @@ createPattern.parameterMetadata = {
         description: 'Wave patterns',
         parameters: {
             direction: { type: 'select', values: ['concentric', 'horizontal', 'rectangles', 'diagonalUp', 'diagonalDown', 'vertical'], default: 'vertical', description: 'Wave direction' },
-            frequency: { type: 'number', min: 1, max: 50, default: 5, description: 'Waves per width' },
+            frequency: { type: 'number', min: 1, max: 50000, default: 5, description: 'Waves per width' },
             offsetX: { type: 'number', default: null, nullable: true, description: 'Horizontal offset (center if null)' },
             offsetY: { type: 'number', default: null, nullable: true, description: 'Vertical offset (center if null)' },
         }

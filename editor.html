@@ -347,10 +347,16 @@
 
         function handleTreeClick (event) {
             const filterButton = event.target.closest('.patina-node__button-filter');
+            const patternConfigToggle = event.target.closest('.patina-node__patternConfig__toggle');
             const switchButton = event.target.closest('.patina-node__button-switch');
+
 
             if (filterButton) {
                 clickButtonFilters(event);
+            }
+
+            if (patternConfigToggle) {
+                patternConfigToggle.parentElement.classList.toggle("hidden");
             }
 
             if (switchButton) {

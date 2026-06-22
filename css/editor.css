@@ -213,12 +213,26 @@ select.patina-node__type {
     width: 85%;
     border-radius: 3px;
     position: absolute;
-    left: 0;
     margin-top: .5rem;
 
+    left: 0;
+    transition: left linear .25s;
+
+    &.hidden {
+        left: -75%;
+    }
+}
+
+.patina-node__patternConfig__toggle {
+    position: absolute;
+    top: 0;
+    right: -10%;
+}
+
+.patina-node__patternConfig__inputs {
     max-height: 115px;
     padding: .5rem;
-    overflow: scroll;
+    overflow: auto;
 
     select,
     input {

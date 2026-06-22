@@ -1,51 +1,72 @@
 {
     "header_logo_image": {
-        "reusableImages"    : {
+        "reusableImages": {
             "marekkeram_256": {
-                "type"          : "preloadImage",
-                "url"           : "/patina/images/page/header__logo--PatinaFont-rough_white.png",
-                "colors" : 1
+                "type": "preloadImage",
+                "url": "/mareklode/patina/images/page/04_handgezeichnet.png",
+                "colors": 1
             }
         },
         "width": 512,
         "patina": {
-            "type"  : "colors",
-            "colorRed"   : 128,
-            "colorGreen" : 64,
-            "colorBlue"  : 32,
-            "colorAlpha" : {
-                "type"          : "layers",
-                "layerTop"      : {
-                    "type"          : "reuseImage",
-                    "reuseId"       : "marekkeram_256",
-                    "filter"        : [
-                        { "name": "blur", "radius": 4.5 },
-                        { "name": "contrast", "x": 0.1125, "m": 1.125 }
+            "type": "colors",
+            "colorRed": 128,
+            "colorGreen": 64,
+            "colorBlue": 32,
+            "colorAlpha": {
+                "type": "layers",
+                "layerTop": {
+                    "type": "reuseImage",
+                    "reuseId": "marekkeram_256",
+                    "filter": [
+                        {
+                            "name": "blur",
+                            "radius": 4.5
+                        },
+                        {
+                            "name": "contrast",
+                            "x": 0.1125,
+                            "m": 1.125
+                        }
                     ]
                 },
-                "layerBottom"   : {
-                    "type"          : "layers",
-                    "layerTop"      : {
-                        "type"          : "createPattern",
-                        "patternConfig" : {
-                            "name"   : "noise_plasma",
-                            "frequency"     : 10
+                "layerBottom": {
+                    "type": "layers",
+                    "layerTop": {
+                        "type": "createPattern",
+                        "patternConfig": {
+                            "name": "noise_plasma",
+                            "frequency": 10
                         },
                         "filter": [
-                            { "name": "contrast", "x": 0.456, "m": 3 }
+                            {
+                                "name": "contrast",
+                                "x": 0.456,
+                                "m": 3
+                            }
                         ]
                     },
-                    "layerBottom"   : {
-                        "type"          : "createPattern",
-                        "patternName"   : "border",
+                    "layerBottom": {
+                        "type": "createPattern",
+                        "patternName": "border",
                         "filter": [
-                            {"name": "invert"},
-                            { "name": "contrast", "x": 0.85, "m": 6 }
+                            {
+                                "name": "invert"
+                            },
+                            {
+                                "name": "contrast",
+                                "x": 0.85,
+                                "m": 6
+                            }
                         ]
                     }
                 },
-                "filter"        : [
-                    { "name": "contrast", "x": 0.875, "m": 3 }
+                "filter": [
+                    {
+                        "name": "contrast",
+                        "x": 0.875,
+                        "m": 3
+                    }
                 ]
             }
         }
@@ -229,7 +250,6 @@
             "colorGreen": 0,
             "colorBlue": 0,
             "colorAlpha": {
-
                 "type": "layers",
                 "layerTop": {
                     "type": "layers",
