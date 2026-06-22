@@ -192,8 +192,10 @@ body {
 
 .patina-node__button-switch {
     position: absolute;
-    top: -53px;
+    top: -43px;
     transform: translateX(-50%);
+    padding-bottom: 5px;
+    line-height: 1rem;
 }
 
 select.patina-node__type {

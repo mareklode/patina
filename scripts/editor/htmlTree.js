@@ -25,7 +25,7 @@ export function htmlTree (node, branchForks, linkedNodeList, patterns, nodePurpo
         let htmlstring = "";
 
         if (node.type === "layers") {
-            htmlstring += `<button class="patina-node__button-switch" data-node-name="${node.nodeName}">switch</button>\n`;
+            htmlstring += `<button class="patina-node__button-switch" data-node-name="${node.nodeName}" title="switch nodes">↔</button>\n`;
         }
 
         // too many IDs

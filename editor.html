@@ -367,7 +367,7 @@
         // init
 
         (async () => {
-            const { footerExample, emptyExample, oneReusableImage, colorsExample, reusableImagesExample, flames } = await import('./scripts/patinaExamples.js');
+            const { footerExample, emptyExample, oneReusableImage, colorsExample, reusableImagesExample, flames } = await import('./scripts/patterns/editor_patinaExamples.js');
             const templates = await import('./scripts/modules/mel_pageTemplates.js');
             jsonpatinaTextarea.setContent(JSON.stringify(flames, undefined, 4));
             // jsonpatinaTextarea.setContent(templates.default.header);
