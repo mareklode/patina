@@ -4,8 +4,8 @@
 */
 
 import { getJsonFromLinkedNodeList } from "./utils.js";
-import createPattern from "../modules/mel_createPattern.js";
-import { combineLayersMetadata } from "../modules/mel_combineLayers.js"
+import createPattern from "../createPattern.js";
+import { combineLayersMetadata } from "../combineLayers.js"
 
 const getSelectHtml = (name, nodeName, options, selectedValue, className = "") => {
     let html = `<label for="${nodeName}">name:</label><!--

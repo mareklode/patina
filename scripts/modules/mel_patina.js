@@ -1,22 +1,13 @@
 'use strict';
 
-import canvas from './mel_canvas.js';
-import combineLayers from './mel_combineLayers.js';
+import canvas from '../patina/canvas.js';
+import combineLayers from '../patina/combineLayers.js';
 
-// import createPattern from './mel_createPattern.js';
-// import filter from './mel_filter.js';
+// import createPattern from './createPattern.js';
+// import filter from './filter.js';
 // todo: dynamisch 1/2
-import templates from './mel_pageTemplates.json' with { type: 'json' };
-import goldenerBackground from '../patterns/goldenerBackgroundFuerBody.json' with { type: 'json' };
-import headerBackgroundHolz from '../patterns/headerBackgroundHolz.json' with { type: 'json' };
-import holzMitRand from '../patterns/holzMitRand.json' with { type: 'json' };
 
-templates.goldenerBackground = goldenerBackground;
-templates.headerBackgroundHolz = headerBackgroundHolz;
-templates.holzMitRand = holzMitRand;
-
-console.log(goldenerBackground);
-
+import templates from '../patina/patterns/pageTemplates.json' with { type: 'json' };
 
 function patina (domElement, parameters) {
     let self = this;
@@ -26,8 +17,9 @@ function patina (domElement, parameters) {
 
         if (parameters.startsWith('template_')) {
             // todo: dynamisch 2/2
-            // let {default: templates} = await import('./mel_pageTemplates.js');
-            parameters = templates[parameters.substring(9)];
+            // let {default: templates} = await import('./pageTemplates.js');
+            
+             parameters = templates[parameters.substring(9)];
 
             if (!parameters) { return }
         }
@@ -213,7 +205,7 @@ patina.prototype = {
 
         if (layer?.type === "createPattern") {
 
-            const { default: createPattern } = await import('./mel_createPattern.js');
+            const { default: createPattern } = await import('../patina/createPattern.js');
 
             /*
             window.consoleVerbose &&
@@ -233,7 +225,7 @@ patina.prototype = {
 
         if (resultingImage) {
             if (layer.filter) {
-                const { default: filter } = await import('./mel_filter.js');
+                const { default: filter } = await import('../patina/filter.js');
 
                 layer.filter.forEach(element => {
                     // todo: check wether this is done sequentially or are there chances for race conditions

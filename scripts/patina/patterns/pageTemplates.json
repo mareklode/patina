@@ -1,4 +1,169 @@
 {
+    "goldenerBackground": {
+        "width": 128,
+        "height": 128,
+        "patina": {
+            "type": "layers",
+            "combineMode": {
+                "name": "burn",
+                "value": 1.5
+            },
+            "layerBottom": {
+                "type": "layers",
+                "combineMode": {
+                    "name": "overlay",
+                    "opacity": 0.33
+                },
+                "layerTop": {
+                    "type": "colors",
+                    "colorRed": {
+                        "type": "reuseImage",
+                        "reuseId": "randomWalker",
+                        "filter": [
+                            {
+                                "name": "brightness_new",
+                                "value": 0.1
+                            }
+                        ]
+                    },
+                    "colorGreen": {
+                        "type": "reuseImage",
+                        "reuseId": "randomWalker",
+                        "filter": [
+                            {
+                                "name": "brightness_new",
+                                "value": -0.1
+                            }
+                        ]
+                    },
+                    "colorBlue": {
+                        "type": "reuseImage",
+                        "reuseId": "randomWalker",
+                        "filter": [
+                            {
+                                "name": "brightness_new",
+                                "value": -0.5
+                            }
+                        ]
+                    },
+                    "colorAlpha": {
+                        "type": "createPattern",
+                        "patternConfig": {
+                            "name": "flat",
+                            "color": "255"
+                        }
+                    }
+                },
+                "layerBottom": {
+                    "type": "createPattern",
+                    "patternConfig": {
+                        "name": "noise_plasma",
+                        "frequency": "1"
+                    },
+                    "filter": [
+                        {
+                            "name": "ramp"
+                        },
+                        {
+                            "name": "ramp"
+                        },
+                        {
+                            "name": "mirrorHorizontal"
+                        }
+                    ]
+                }
+            },
+            "layerTop": {
+                "type": "createPattern",
+                "patternConfig": {
+                    "name": "noise_plasma",
+                    "frequency": "1",
+                    "direction": "vertical"
+                },
+                "filter": [
+                    {
+                        "name": "mirrorHorizontal"
+                    },
+                    {
+                        "name": "contrast_new",
+                        "value": 0
+                    }
+                ]
+            }
+        },
+        "reusableImages": {
+            "randomWalker": {
+                "type": "createPattern",
+                "patternConfig": {
+                    "name": "random_walker",
+                    "steps": 3
+                },
+                "filter": [
+                    {
+                        "name": "mirrorHorizontal"
+                    }
+                ]
+            }
+        }
+    },
+    "headerBackgroundHolz":     {
+        "width": 256,
+        "height": 256,
+        "patina": {
+            "type": "layers",
+            "layerBottom": {
+                "type": "layers",
+                "layerBottom": {
+                    "type": "createPattern",
+                    "patternConfig": {
+                        "name": "wave",
+                        "frequency": "4",
+                        "direction": "horizontal"
+                    }
+                },
+                "layerTop": {
+                    "type": "createPattern",
+                    "patternConfig": {
+                        "name": "slope",
+                        "direction": "to top"
+                    },
+                    "filter": [
+                        {
+                            "name": "contrast_new",
+                            "value": 8
+                        }
+                    ]
+                },
+                "combineMode": {
+                    "name": "distort",
+                    "radius": 1500
+                },
+                "filter": [
+                    {
+                        "name": "ramp"
+                    }
+                ]
+            },
+            "layerTop": {
+                "type": "createPattern",
+                "patternConfig": {
+                    "name": "noise_plasma",
+                    "frequency": "3"
+                },
+                "filter": [
+                    {
+                        "name": "blur",
+                        "radius": 5
+                    }
+                ]
+            },
+            "combineMode": {
+                "name": "distort",
+                "radius": 500
+            }
+        },
+        "reusableImages": {}
+    },
     "header_logo_image": {
         "reusableImages": {
             "marekkeram_256": {
@@ -241,6 +406,150 @@
                 }
             }
         }
+    },
+    "holzMitRand": {
+        "patina": {
+            "type": "colors",
+            "colorRed": {
+                "type": "layers",
+                "layerBottom": {
+                    "type": "layers",
+                    "layerBottom": {
+                        "type": "createPattern",
+                        "patternConfig": {
+                            "name": "wave",
+                            "frequency": "3",
+                            "direction": "horizontal"
+                        }
+                    },
+                    "layerTop": {
+                        "type": "createPattern",
+                        "patternConfig": {
+                            "name": "slope",
+                            "direction": "to top"
+                        },
+                        "filter": [
+                            {
+                                "name": "contrast_new",
+                                "value": 5
+                            }
+                        ]
+                    },
+                    "combineMode": {
+                        "name": "distort",
+                        "radius": 2000
+                    },
+                    "filter": [
+                        {
+                            "name": "ramp"
+                        }
+                    ]
+                },
+                "layerTop": {
+                    "type": "createPattern",
+                    "patternConfig": {
+                        "name": "noise_plasma",
+                        "frequency": "1"
+                    },
+                    "filter": [
+                        {
+                            "name": "blur",
+                            "radius": 12
+                        }
+                    ]
+                },
+                "combineMode": {
+                    "name": "distort",
+                    "radius": 3000
+                },
+                "filter": [
+                    {
+                        "name": "contrast_new",
+                        "value": 8
+                    },
+                    {
+                        "name": "brightness_new",
+                        "value": -0.66
+                    }
+                ]
+            },
+            "colorGreen": {
+                "type": "createPattern",
+                "patternConfig": {
+                    "name": "flat",
+                    "frequency": "50"
+                }
+            },
+            "colorBlue": {
+                "type": "createPattern",
+                "patternConfig": {
+                    "name": "flat",
+                    "frequency": "40"
+                }
+            },
+            "colorAlpha": {
+                "type": "layers",
+                "layerBottom": {
+                    "type": "createPattern",
+                    "patternConfig": {
+                        "name": "border",
+                        "frequency": 10
+                    },
+                    "filter": [
+                    {
+                            "name": "brightness_new",
+                            "value": -1.125
+                        },
+                        {
+                            "name": "contrast_new",
+                            "value": 2
+                        }
+                    ]
+                },
+                "layerTop": {
+                    "type": "layers",
+                    "layerBottom": {
+                        "type": "createPattern",
+                        "patternConfig": {
+                            "name": "noise_plasma",
+                            "frequency": "1"
+                        }
+                    },
+                    "layerTop": {
+                        "type": "createPattern",
+                        "patternConfig": {
+                            "name": "noise_plasma",
+                            "frequency": "2"
+                        },
+                        "filter": [
+                            {
+                                "name": "ramp",
+                                "value": 0
+                            },
+                            {
+                                "name": "ramp",
+                                "value": 0
+                            },
+                            {
+                                "name": "ramp",
+                                "value": 0
+                            },
+                            {
+                                "name": "contrast_new",
+                                "value": 2
+                            }
+                        ]
+                    },
+                    "combineMode": {
+                        "name": "multiply"
+                    }
+                },
+                "combineMode": {
+                    "name": "burn"
+                }
+            }
+        },
+        "reusableImages": {}
     },
     "navigation": {
         "width": 250,

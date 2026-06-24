@@ -72,10 +72,10 @@
     </main>
 
     <script type="module">
-        import { htmlTree } from './scripts/editor/htmlTree.js';
-        import { getJsonFromLinkedNodeList } from './scripts/editor/utils.js';
-        import filterDialog from './scripts/editor/filterDialog.js';
-        import { createMessenger } from './scripts/editor/tabMessenger.js';
+        import { htmlTree } from './scripts/patina/editor/htmlTree.js';
+        import { getJsonFromLinkedNodeList } from './scripts/patina/editor/utils.js';
+        import filterDialog from './scripts/patina/editor/filterDialog.js';
+        import { createMessenger } from './scripts/patina/editor/tabMessenger.js';
 
         // JSON patina textarea
 
@@ -108,7 +108,7 @@
 
         let filters = [];
         (async () => {
-            const { default: filterFunction } = await import('./scripts/modules/mel_filter.js');
+            const { default: filterFunction } = await import('./scripts/patina/filter.js');
             Object.getOwnPropertyNames(filterFunction.prototype).map((filterName) => {
                 if (!filterName.startsWith("_")) { filters.push(filterName); }
             });
@@ -116,7 +116,7 @@
 
         let patterns = [];
         (async () => {
-            const { default: patternFunction } = await import('./scripts/modules/mel_createPattern.js');
+            const { default: patternFunction } = await import('./scripts/patina/createPattern.js');
             Object.getOwnPropertyNames(patternFunction.prototype).map((patternName) => {
                 if (!patternName.startsWith("_")) { patterns.push(patternName); }
             });
@@ -367,8 +367,8 @@
         // init
 
         (async () => {
-            const { footerExample, emptyExample, oneReusableImage, colorsExample, reusableImagesExample, flames } = await import('./scripts/patterns/editor_patinaExamples.js');
-            const templates = await import('./scripts/modules/mel_pageTemplates.js');
+            const { footerExample, emptyExample, oneReusableImage, colorsExample, reusableImagesExample, flames } = await import('./scripts/patina/patterns/editor_patinaExamples.js');
+            const templates = await import('./scripts/patina/patterns/pageTemplates.js');
             jsonpatinaTextarea.setContent(JSON.stringify(flames, undefined, 4));
             // jsonpatinaTextarea.setContent(templates.default.header);
 

@@ -1,4 +1,4 @@
-import noise from './mel_noise.js';
+import noise from './noise.js';
 
 // http://codeblog.cz/vanilla/inside.html#set-element-html
 // https://github.com/daneden/animate.css
