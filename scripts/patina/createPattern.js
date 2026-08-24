@@ -378,8 +378,8 @@ createPattern.generateParameterForm = function (patternName, patternConfig = {})
         return '';
     }
 
-    let html = ""; /* 
-    `<!-- fieldset class="pattern-parameters" data-pattern="${patternName}">
+    let html = ""; 
+    /* `<!-- fieldset class="pattern-parameters" data-pattern="${patternName}">
         <legend>${metadata.name}</legend>
         <p class="pattern-description">${metadata.description}</p> -->`; */
 
@@ -410,7 +410,7 @@ createPattern.generateParameterForm = function (patternName, patternConfig = {})
     });
 
     return html;
-    html += `</fieldset>`;
+    // html += `</fieldset>`;
 };
 
 // ============ FORM DATA COLLECTOR ============

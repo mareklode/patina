@@ -168,7 +168,7 @@
         "reusableImages": {
             "marekkeram_256": {
                 "type": "preloadImage",
-                "url": "/mareklode/patina/images/page/04_handgezeichnet.png",
+                "url": "https://mareklode.de/patina/images/page/04_handgezeichnet.png",
                 "colors": 1
             }
         },

@@ -3,10 +3,6 @@
 import canvas from '../patina/canvas.js';
 import combineLayers from '../patina/combineLayers.js';
 
-// import createPattern from './createPattern.js';
-// import filter from './filter.js';
-// todo: dynamisch 1/2
-
 import templates from '../patina/patterns/pageTemplates.json' with { type: 'json' };
 
 function patina (domElement, parameters) {
@@ -24,13 +20,13 @@ function patina (domElement, parameters) {
             if (!parameters) { return }
         }
 
-        self._parameters = self._completeParameters(parameters, domElement);
+        self._parameters = self._completeParameters(domElement, parameters);
         self.reusableImages = {};
 
         window.consoleVerbose &&
             console.log('###### - Patina - ######', self._parameters);
 
-        self.createPatina(self._parameters, domElement);
+        self.createPatina(domElement, self._parameters);
     } else {
         console.log("domElement not found");
     }
@@ -89,7 +85,7 @@ patina.prototype = {
         return !!resultingImage.length || !!resultingImage.colorRed;
     },
 
-    createPatina: async function (parameters, domElement) {
+    createPatina: async function (domElement, parameters) {
         Object.keys(parameters.reusableImages).forEach(async (nodeName) => {
             if (!this.reusableImages[nodeName]) {
                 let imageDefinition = { ...parameters.reusableImages[nodeName], nodeName: nodeName };
@@ -122,12 +118,12 @@ patina.prototype = {
         ).then((patinaData) => {
             if (this.resultingImageHasData(patinaData)) { // why is this empty sometimes?
                 let myCanvas = this._createCanvas(patinaData, parameters.width, parameters.height);
-                this._paintCanvas(myCanvas, domElement);
+                this._paintCanvas(domElement, myCanvas);
             }
         });
     }, // createPatina()
 
-    _completeParameters: function (parameters, domElement) {
+    _completeParameters: function (domElement, parameters) {
         if (typeof (parameters) === 'string') {
             parameters = this._jsonParse(parameters);
         }
@@ -283,11 +279,11 @@ patina.prototype = {
         return myCanvas;
     }, // _createCanvas()
 
-    _paintCanvas: function (myCanvas, element) {
-        if (element) {
+    _paintCanvas: function (domElement, myCanvas) {
+        if (domElement) {
             window.mel.printTime("patina: paintCanvas");
-            element.style.backgroundImage = 'url(' + myCanvas.el.toDataURL('image/png') + ')';
-            element.classList.add('patina-is-applied')
+            domElement.style.backgroundImage = 'url(' + myCanvas.el.toDataURL('image/png') + ')';
+            domElement.classList.add('patina-is-applied')
         }
     }, // _paintCanvas()
 
@@ -297,7 +293,7 @@ patina.prototype = {
         let domElement = document.getElementById(domElementID);
         if (domElement) {
             let myCanvas = await this._createCanvas(patinaData, width, height);
-            this._paintCanvas(myCanvas, domElement);
+            this._paintCanvas(domElement, myCanvas);
         } else {
             let intermediateSteps = document.querySelector('.intermediateSteps') || document.createElement('div');
             let stepCounter = 0;
@@ -316,7 +312,7 @@ patina.prototype = {
 
             let domElement = document.getElementById('stepCounter' + stepCounter);
             let myCanvas = await this._createCanvas(patinaData, width, height);
-            this._paintCanvas(myCanvas, domElement);
+            this._paintCanvas(domElement, myCanvas);
         }
     }, // _paintCanvasToADifferentDiv()
 
