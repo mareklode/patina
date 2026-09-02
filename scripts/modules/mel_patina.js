@@ -9,8 +9,8 @@ function patina (domElement, parameters) {
     let self = this;
 
     if (domElement && domElement.getBoundingClientRect().width && domElement.getBoundingClientRect().height) {
-        mel.printTime(`patina ${domElement.id}`);
-
+        window.mel?.printTime(`patina ${domElement.id}`);
+        
         if (parameters.startsWith('template_')) {
             // todo: dynamisch 2/2
             // let {default: templates} = await import('./pageTemplates.js');
@@ -154,7 +154,7 @@ patina.prototype = {
     // main loop (recursive) that is walking through the patina-tree
     _processPatinaNode: async function (layer, width, height) {
         let resultingImage = false;
-        mel.printTime("patina: processPatinaNode");
+        window.mel?.printTime("patina: processPatinaNode");
 
         if (typeof layer === "number") {
             let color = layer / 256;
@@ -164,6 +164,7 @@ patina.prototype = {
         if (Array.isArray(layer)) {
             return layer;
         }
+
         if (layer?.type === "colors") {
             resultingImage = {};
             resultingImage.colorRed = await this._processPatinaNode(layer.colorRed, width, height);
@@ -177,15 +178,13 @@ patina.prototype = {
                 await this._processPatinaNode(layer.layerTop, width, height),
                 width,
                 layer.combineMode
-                    );
-                    }
+            );
+        }
 
         await this._waitMilliseconds(50); // So the Page stays responsive while calculating patinas
 
         if (layer?.type === "createPattern") {
-
             const { default: createPattern } = await import('../patina/createPattern.js');
-
             resultingImage = await createPattern(layer, width, height);
 
         } else if (layer?.type === "reuseImage") {

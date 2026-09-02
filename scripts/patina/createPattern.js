@@ -18,7 +18,7 @@ async function createPattern (layerDefinition, width, height) {
     let patternName = layerDefinition?.patternName || layerDefinition?.patternConfig?.name;
 
     if (patternName in createPattern.prototype) {
-        mel.printTime(`createPattern: ${patternName}`);
+        window.mel?.printTime(`createPattern: ${patternName}`);
         // Warten, falls die Methode asynchron ist
         await waitMilliseconds(50); // So the Page stays responsive while calculating patinas
 
