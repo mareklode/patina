@@ -28,14 +28,15 @@ mel.jsTriggers = () => {
         const moduleData = domElement.getAttribute('data-module-data');
 
         (function (domElement, moduleName, moduleData) { // to eliminate the race condition
-            import(modulesPath + moduleName + '.js?v=' + cacheBusterVersion)
+            let filePath = modulesPath + moduleName + '.js?v=' + cacheBusterVersion;
+            import(filePath)
                 .then((module) => {
                     new module.default(domElement, moduleData);
 
                     domElement.classList.remove('js-module');
                     domElement.classList.add('js-module-processed');
                 })
-                .catch(err => console.error(moduleName, ' does not exist? ', domElement));
+                .catch(err => console.error(filePath, ' does not exist? ', domElement, err));
         })(domElement, moduleName, moduleData);
     })
 }

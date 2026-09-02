@@ -124,40 +124,31 @@ patina.prototype = {
     }, // createPatina()
 
     _completeParameters: function (domElement, parameters) {
+
+        const jsonParse = (pixelPaintingInstructions) => {
+            let parsed;
+            try {
+                parsed = JSON.parse(pixelPaintingInstructions);
+            }
+            catch (e) {
+                console.error("Error in pixelPaintingInstructions:", pixelPaintingInstructions, e);
+            }
+            finally {
+                return parsed || {};
+            }
+        };
+        
         if (typeof (parameters) === 'string') {
-            parameters = this._jsonParse(parameters);
+            parameters = jsonParse(parameters);
         }
 
         parameters.reusableImages = parameters.reusableImages || {};
-
-        /*
-        // I don't want the pixelRatio, it makes it more complicated.
-        // let the browser do its thing and save users with hi-res displays some computing time
-
-        let pixelRatio = window.devicePixelRatio;
-        // pixelRatio = 2.8125;
-        const output = document.querySelectorAll('.output');
-        if (output.length) output[0].textContent = pixelRatio + "px";
-        */
-
         parameters.width = parameters.width || domElement.clientWidth;
         parameters.height = parameters.height || domElement.clientHeight;
 
         return parameters;
     }, // _completeParameters()
 
-    _jsonParse: function (pixelPaintingInstructions) {
-        let parsed;
-        try {
-            parsed = JSON.parse(pixelPaintingInstructions);
-        }
-        catch (e) {
-            console.error("Error in pixelPaintingInstructions:", pixelPaintingInstructions, e);
-        }
-        finally {
-            return parsed || {};
-        }
-    }, // _jsonParse()
 
     waitMilliseconds: function (delay) {
         return new Promise(resolve => {
@@ -194,8 +185,8 @@ patina.prototype = {
                 await this._processPatinaNode(layer.layerTop, width, height),
                 width,
                 layer.combineMode
-            );
-        }
+                    );
+                    }
 
         await this.waitMilliseconds(50); // So the Page stays responsive while calculating patinas
 
