@@ -33,7 +33,77 @@ function patina (domElement, parameters) {
 } // patina()
 
 patina.prototype = {
-    preloadImage: function (reusableImage, width, height, reusableImages) {
+    // public lifecycle entry point
+    createPatina: async function (domElement, parameters) {
+        Object.keys(parameters.reusableImages).forEach(async (nodeName) => {
+            if (!this.reusableImages[nodeName]) {
+                let imageDefinition = { ...parameters.reusableImages[nodeName], nodeName: nodeName };
+
+                // image is a file that has to be loaded asynchronously
+                if (imageDefinition.type === "_preloadImage") {
+                    this._preloadImage(
+                        imageDefinition,
+                        parameters.width,
+                        parameters.height,
+                        this.reusableImages
+                    );
+                    return;
+                }
+                // else, create a patina-branch, that can be used multiple times
+                this.reusableImages[nodeName] = new Promise((resolve) => {
+                    resolve(this._processPatinaNode(
+                        imageDefinition,
+                        parameters.width,
+                        parameters.height
+                    ));
+                });
+            }
+        });
+
+        await this._processPatinaNode(
+            parameters.patina,
+            parameters.width,
+            parameters.height
+        ).then((patinaData) => {
+            if (this.resultingImageHasData(patinaData)) { // why is this empty sometimes?
+                canvas.createAndPaint(patinaData, parameters.width, parameters.height, domElement);
+            }
+        });
+    }, // createPatina()
+
+    // check
+    resultingImageHasData: function (resultingImage) {
+        return !!resultingImage.length || !!resultingImage.colorRed;
+    },
+
+    // normalizes inputs before processing
+    _completeParameters: function (domElement, parameters) {
+
+        const jsonParse = (pixelPaintingInstructions) => {
+            let parsed;
+            try {
+                parsed = JSON.parse(pixelPaintingInstructions);
+            }
+            catch (e) {
+                console.error("Error in pixelPaintingInstructions:", pixelPaintingInstructions, e);
+            }
+            finally {
+                return parsed || {};
+            }
+        };
+        
+        if (typeof (parameters) === 'string') {
+            parameters = jsonParse(parameters);
+        }
+
+        parameters.reusableImages = parameters.reusableImages || {};
+        parameters.width = parameters.width || domElement.clientWidth;
+        parameters.height = parameters.height || domElement.clientHeight;
+
+        return parameters;
+    }, // _completeParameters()
+
+    _preloadImage: function (reusableImage, width, height, reusableImages) {
         reusableImages[reusableImage.nodeName] = new Promise((resolve) => {
             // fetch image from URL and convert it to an Array
             let myCanvas = new canvas(width, height);
@@ -79,88 +149,11 @@ patina.prototype = {
 
             this.imageObj.src = reusableImage.url;
         });
-    }, // preloadImage()
+    }, // _preloadImage()
 
-    resultingImageHasData: function (resultingImage) {
-        return !!resultingImage.length || !!resultingImage.colorRed;
-    },
-
-    createPatina: async function (domElement, parameters) {
-        Object.keys(parameters.reusableImages).forEach(async (nodeName) => {
-            if (!this.reusableImages[nodeName]) {
-                let imageDefinition = { ...parameters.reusableImages[nodeName], nodeName: nodeName };
-
-                // image is a file that has to be loaded asynchronously
-                if (imageDefinition.type === "preloadImage") {
-                    this.preloadImage(
-                        imageDefinition,
-                        parameters.width,
-                        parameters.height,
-                        this.reusableImages
-                    );
-                    return;
-                }
-                // else, create a patina-branch, that can be used multiple times
-                this.reusableImages[nodeName] = new Promise((resolve) => {
-                    resolve(this._processPatinaNode(
-                        imageDefinition,
-                        parameters.width,
-                        parameters.height
-                    ));
-                });
-            }
-        });
-
-        await this._processPatinaNode(
-            parameters.patina,
-            parameters.width,
-            parameters.height
-        ).then((patinaData) => {
-            if (this.resultingImageHasData(patinaData)) { // why is this empty sometimes?
-                canvas.createAndPaint(patinaData, parameters.width, parameters.height, domElement);
-            }
-        });
-    }, // createPatina()
-
-    _completeParameters: function (domElement, parameters) {
-
-        const jsonParse = (pixelPaintingInstructions) => {
-            let parsed;
-            try {
-                parsed = JSON.parse(pixelPaintingInstructions);
-            }
-            catch (e) {
-                console.error("Error in pixelPaintingInstructions:", pixelPaintingInstructions, e);
-            }
-            finally {
-                return parsed || {};
-            }
-        };
-        
-        if (typeof (parameters) === 'string') {
-            parameters = jsonParse(parameters);
-        }
-
-        parameters.reusableImages = parameters.reusableImages || {};
-        parameters.width = parameters.width || domElement.clientWidth;
-        parameters.height = parameters.height || domElement.clientHeight;
-
-        return parameters;
-    }, // _completeParameters()
-
-
-    waitMilliseconds: function (delay) {
-        return new Promise(resolve => {
-            setTimeout(() => {
-                resolve();
-            }, delay);
-        });
-    },
-
+    // main loop (recursive) that is walking through the patina-tree
     _processPatinaNode: async function (layer, width, height) {
         let resultingImage = false;
-
-        // console.log("processPaninaNode", layer);
         mel.printTime("patina: processPatinaNode");
 
         if (typeof layer === "number") {
@@ -187,16 +180,11 @@ patina.prototype = {
                     );
                     }
 
-        await this.waitMilliseconds(50); // So the Page stays responsive while calculating patinas
+        await this._waitMilliseconds(50); // So the Page stays responsive while calculating patinas
 
         if (layer?.type === "createPattern") {
 
             const { default: createPattern } = await import('../patina/createPattern.js');
-
-            /*
-            window.consoleVerbose &&
-                console.log(createPattern);
-            */
 
             resultingImage = await createPattern(layer, width, height);
 
@@ -245,7 +233,17 @@ patina.prototype = {
         }
     }, // _processPatinaNode()
 
-    // canvas creation and painting moved to `canvas.createFromPatina` and `myCanvas.paintTo`
+    _createEmptyImage: async function (width, height) {
+        return Array.from({ length: width * height }, () => 0);
+    },
+
+    _waitMilliseconds: function (delay) {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve();
+            }, delay);
+        });
+    },
 
     // for reusable images and the nodes in editor
     _paintCanvasToADifferentDiv: async function (patinaData, width, height, domElementID) {
@@ -273,10 +271,6 @@ patina.prototype = {
             canvas.createAndPaint(patinaData, width, height, domElement);
         }
     }, // _paintCanvasToADifferentDiv()
-
-    _createEmptyImage: async function (width, height) {
-        return Array.from({ length: width * height }, () => 0);
-    }
 
 } // patina.prototype
 
