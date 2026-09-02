@@ -117,8 +117,7 @@ patina.prototype = {
             parameters.height
         ).then((patinaData) => {
             if (this.resultingImageHasData(patinaData)) { // why is this empty sometimes?
-                let myCanvas = this._createCanvas(patinaData, parameters.width, parameters.height);
-                this._paintCanvas(domElement, myCanvas);
+                canvas.createAndPaint(patinaData, parameters.width, parameters.height, domElement);
             }
         });
     }, // createPatina()
@@ -246,45 +245,14 @@ patina.prototype = {
         }
     }, // _processPatinaNode()
 
-    _createCanvas: function (patinaData, width, height) {
-        let myCanvas = new canvas(width, height);
-
-        if (Array.isArray(patinaData)) {
-            // ToDo: the pixelPaintingInstructions should specify how the Array is transformed to an 4-channel-image
-            for (let i = 0, len = width * height; i < len; i++) {
-                let colorAlpha = Math.floor(patinaData[i] * 256);
-                myCanvas.el.img.data[i * 4] = 255;      // r
-                myCanvas.el.img.data[i * 4 + 1] = 255;    // g
-                myCanvas.el.img.data[i * 4 + 2] = 255;    // b
-                myCanvas.el.img.data[i * 4 + 3] = colorAlpha;  // a
-            }
-        } else {
-            for (let i = 0, len = width * height; i < len; i++) {
-                myCanvas.el.img.data[i * 4] = Math.floor(patinaData.colorRed[i] * 256);
-                myCanvas.el.img.data[i * 4 + 1] = Math.floor(patinaData.colorGreen[i] * 256);
-                myCanvas.el.img.data[i * 4 + 2] = Math.floor(patinaData.colorBlue[i] * 256);
-                myCanvas.el.img.data[i * 4 + 3] = Math.floor(patinaData.colorAlpha[i] * 256);
-            }
-        }
-        myCanvas.el.context.putImageData(myCanvas.el.img, 0, 0);
-        return myCanvas;
-    }, // _createCanvas()
-
-    _paintCanvas: function (domElement, myCanvas) {
-        if (domElement) {
-            window.mel.printTime("patina: paintCanvas");
-            domElement.style.backgroundImage = 'url(' + myCanvas.el.toDataURL('image/png') + ')';
-            domElement.classList.add('patina-is-applied')
-        }
-    }, // _paintCanvas()
+    // canvas creation and painting moved to `canvas.createFromPatina` and `myCanvas.paintTo`
 
     // for reusable images and the nodes in editor
     _paintCanvasToADifferentDiv: async function (patinaData, width, height, domElementID) {
         domElementID = domElementID || 'thisIDDoesNotExist';
         let domElement = document.getElementById(domElementID);
         if (domElement) {
-            let myCanvas = await this._createCanvas(patinaData, width, height);
-            this._paintCanvas(domElement, myCanvas);
+            canvas.createAndPaint(patinaData, width, height, domElement);
         } else {
             let intermediateSteps = document.querySelector('.intermediateSteps') || document.createElement('div');
             let stepCounter = 0;
@@ -302,8 +270,7 @@ patina.prototype = {
             intermediateSteps.insertAdjacentHTML('beforeend', '<div class=stepCounter id=stepCounter' + stepCounter + '></div>');
 
             let domElement = document.getElementById('stepCounter' + stepCounter);
-            let myCanvas = await this._createCanvas(patinaData, width, height);
-            this._paintCanvas(domElement, myCanvas);
+            canvas.createAndPaint(patinaData, width, height, domElement);
         }
     }, // _paintCanvasToADifferentDiv()
 

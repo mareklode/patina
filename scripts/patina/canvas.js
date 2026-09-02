@@ -59,6 +59,43 @@ class canvas {
         let position = (y * this.el.width + x) * 4;
         this.el.img.data[position + 3] = this.el.img.data[position + 3] * a;
     }
+
+    static createFromPatina (patinaData, width, height) {
+        let myCanvas = new canvas(width, height);
+
+        if (Array.isArray(patinaData)) {
+            for (let i = 0, len = width * height; i < len; i++) {
+                let colorAlpha = Math.floor(patinaData[i] * 256);
+                myCanvas.el.img.data[i * 4] = 255;
+                myCanvas.el.img.data[i * 4 + 1] = 255;
+                myCanvas.el.img.data[i * 4 + 2] = 255;
+                myCanvas.el.img.data[i * 4 + 3] = colorAlpha;
+            }
+        } else {
+            for (let i = 0, len = width * height; i < len; i++) {
+                myCanvas.el.img.data[i * 4] = Math.floor(patinaData.colorRed[i] * 256);
+                myCanvas.el.img.data[i * 4 + 1] = Math.floor(patinaData.colorGreen[i] * 256);
+                myCanvas.el.img.data[i * 4 + 2] = Math.floor(patinaData.colorBlue[i] * 256);
+                myCanvas.el.img.data[i * 4 + 3] = Math.floor(patinaData.colorAlpha[i] * 256);
+            }
+        }
+        myCanvas.el.context.putImageData(myCanvas.el.img, 0, 0);
+        return myCanvas;
+    }
+
+    paintTo (domElement) {
+        if (domElement) {
+            if (window.mel && typeof window.mel.printTime === 'function') window.mel.printTime("patina: paintCanvas");
+            domElement.style.backgroundImage = 'url(' + this.el.toDataURL('image/png') + ')';
+            domElement.classList.add('patina-is-applied');
+        }
+    }
+
+    static createAndPaint (patinaData, width, height, domElement) {
+        const myCanvas = canvas.createFromPatina(patinaData, width, height);
+        if (domElement) myCanvas.paintTo(domElement);
+        return myCanvas;
+    }
 }
 
 export default canvas;
