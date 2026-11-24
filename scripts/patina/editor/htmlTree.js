@@ -63,7 +63,7 @@ export function htmlTree (node, branchForks, linkedNodeList, patterns, nodePurpo
             let modes = Object.keys(combineLayersMetadata); //["overlay", "distort", "subtract", "multiply", "burn", "add"];
             htmlstring += getSelectHtml("combineMode", node.nodeName, modes, node.combineMode?.name, "patina-node__combineMode");
 
-            if (combineLayersMetadata[node.combineMode?.name].parameters) {
+            if (combineLayersMetadata[node.combineMode?.name]?.parameters) {
                 console.log("Add input element for : ", node.combineMode?.name, Object.keys(combineLayersMetadata[node.combineMode?.name].parameters));
             }
         }
